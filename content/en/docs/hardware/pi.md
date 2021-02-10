@@ -1,6 +1,9 @@
 ---
 title: "Raspberry PI 3"
 date: 2021-02-01
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
 ---
 
 ## Installation

@@ -1,6 +1,9 @@
 ---
 title: "Pi Cluster Form Factor"
 date: 2017-01-05
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
 ---
 
 In this chapter we will discuss a number of opportunities to build small

@@ -3,13 +3,28 @@ title: "SSH"
 linkTitle: "Introduction"
 ---
 
-![](images/learning.png) **Learning Objectives**
 
-* This is a very important sections of the book, studdy it carefully.
-* learn how to use SSH keys
+
+
+{{% pageinfo %}}
+ **Learning Objectives**
+
+For distributed computing understanding SSH is an important goal. It allows you to securely log in to 
+your nodes on the cluster.
+
+* This is a very important topic, studdy it carefully.
+* Learn how to use SSH keys
 * Learn how to use ssh-add and ssh-keycahin so you only have to type 
   in your password once
 * Understand that each computer needs its own ssh key
+
+**Topics Covered**
+
+{{< table_of_contents >}}
+
+{{% /pageinfo %}}
+
+
 
 ---
 

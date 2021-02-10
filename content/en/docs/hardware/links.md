@@ -1,6 +1,9 @@
 ---
 title: "Pi Clusters on the Internet"
 date: 2017-01-05
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
 ---
 
 There is a large number of projects related to creating Pi clusters on

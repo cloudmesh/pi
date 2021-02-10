@@ -1,6 +1,9 @@
 ---
 title: "Raspberry PI Board"
 date: 2017-01-05
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
 ---
 
 [Raspberry PI's](https://www.raspberrypi.org/) are a convenient cheap

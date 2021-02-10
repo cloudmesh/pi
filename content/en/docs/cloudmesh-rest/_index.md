@@ -9,13 +9,24 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< fa graduation-cap 2x >}} Effort 15 minutes
-
 {{% pageinfo %}}
 
-On this page, we will deploy a Pipeline Anova SVM onto our openapi server, and subsequently train the model 
-with data and make predictions from said data. All code needed for this is provided in the [cloudmesh-openapi](https://github.com/cloudmesh/cloudmesh-openapi) repository. The code is largely based on this [sklearn example](https://scikit-learn.org/stable/auto_examples/feature_selection/plot_feature_selection_pipeline.html). 
+**Learning Objective**
 
+We will learn to create a REST service automatically from pyton functions with the 
+help of cloudmesh-openapi. We use as example a Pipeline Anova SVM from which we generate 
+an  openapi server, and subsequently train the model 
+with data and make predictions from said data. All code needed for 
+this is provided in the [cloudmesh-openapi](https://github.com/cloudmesh/cloudmesh-openapi) 
+repository. The code is largely based on this [sklearn example](https://scikit-learn.org/stable/auto_examples/feature_selection/plot_feature_selection_pipeline.html). 
+This includes
+
+* Training ML models with stateless requests
+* Generating RESTful APIs using `cms openapi` for existing python code 
+* Deploying openapi definitions onto a localserver
+* Interacting with newly created openapi services
+
+**Topics Covered**
 
 {{< table_of_contents >}}
 
@@ -24,25 +35,15 @@ with data and make predictions from said data. All code needed for this is provi
 
 
 
-## 1. Overview
-
-### 1.1 Prerequisite
+## 1. Prerequisite
 
 It is also assumed that the user has installed and has familiarity with the following:
+
 * Install cloudmesh-openapi using the developer install as documented [here](https://github.com/cloudmesh/cloudmesh-openapi)
 * Python 3.8.x
 * Linux Command line
 * Working in a python environment
 
-
-### 1.3 List of Topics Covered
-
-In this module, we focus on the following:
-
-* Training ML models with stateless requests
-* Generating RESTful APIs using `cms openapi` for existing python code 
-* Deploying openapi definitions onto a localserver
-* Interacting with newly created openapi services
 
 ## 2. The Python Code
 
