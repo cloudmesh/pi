@@ -1,5 +1,6 @@
-baseURL = "/"
-title = "Goldydocs"
+baseURL = "https://cloudmesh.github.io/pi/"
+title = "Cloudmesh Cluster Pi Planet"
+# publishDir = "docs"
 
 enableRobotsTXT = true
 
@@ -47,31 +48,18 @@ anchor = "smart"
 [services]
 [services.googleAnalytics]
 # Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
-id = "UA-00000000-0"
+# id = "UA-00000000-0"
 
 # Language configuration
 
 [languages]
 [languages.en]
-title = "Goldydocs"
+title = "Cloudmesh Cluster Pi Planet"
 description = "A Docsy example site"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
-[languages.no]
-title = "Goldydocs"
-description = "Docsy er operativsystem for skyen"
-languageName ="Norsk"
-contentDir = "content/no"
-time_format_default = "02.01.2006"
-time_format_blog = "02.01.2006"
 
-[languages.fa]
-title = "اسناد گلدی"
-description = "یک نمونه برای پوسته داکسی"
-languageName ="فارسی"
-contentDir = "content/fa"
-time_format_default = "2006.01.02"
 time_format_blog = "2006.01.02"
 
 [markup]
@@ -91,8 +79,8 @@ time_format_blog = "2006.01.02"
 section = ["HTML", "print"]
 
 [params]
-copyright = "The Docsy Authors"
-privacy_policy = "https://policies.google.com/privacy"
+copyright = "The Cloudmesh Projects, Gregor von Laszewski"
+# privacy_policy = "https://policies.google.com/privacy"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]
@@ -111,20 +99,26 @@ archived_version = false
 # current doc set.
 version = "0.0"
 
-# A link to latest version of the docs. Used in the "version-banner" partial to
+# A link to latest version of the docs. Used in the
+# "version-banner" partial to
 # point people to the main doc site.
-url_latest_version = "https://example.com"
+url_latest_version = "https://github.com/cloudmesh/pi/"
 
-# Repository configuration (URLs for in-page links to opening issues and suggesting changes)
-github_repo = "https://github.com/google/docsy-example"
-# An optional link to a related project repo. For example, the sibling repository where your product code lives.
-github_project_repo = "https://github.com/google/docsy"
+# Repository configuration (URLs for in-page links to
+# opening issues and suggesting changes)
+github_repo = "https://github.com/cloudmesh/pi/"
 
-# Specify a value here if your content directory is not in your repo's root directory
-# github_subdir = ""
+# An optional link to a related project repo. For example, the
+# sibling repository where your product code lives.
+github_project_repo = "https://github.com/cloudmesh/pi/"
+github_branch = "main"
+
+# Specify a value here if your content directory is not in your
+# repo's root directory
+#github_subdir = ""
 
 # Google Custom Search Engine ID. Remove or comment out to disable search.
-gcs_engine_id = "011737558837375720776:fsdu1nryfng"
+# gcs_engine_id = "011737558837375720776:fsdu1nryfng"
 
 # Enable Algolia DocSearch
 algolia_docsearch = false
@@ -153,7 +147,7 @@ footer_about_disable = false
 # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
 # add "hide_feedback: true" to the page's front matter.
 [params.ui.feedback]
-enable = true
+enable = false
 # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
 yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
 no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
@@ -167,34 +161,29 @@ enable = false
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
 [[params.links.user]]
-	name = "User mailing list"
-	url = "https://example.org/mail"
+	name = "Gregor von Laszewski"
+	url = "https://laszewski.github.io"
 	icon = "fa fa-envelope"
-        desc = "Discussion and help from your fellow users"
-[[params.links.user]]
-	name ="Twitter"
-	url = "https://example.org/twitter"
-	icon = "fab fa-twitter"
-        desc = "Follow us on Twitter to get the latest news!"
-[[params.links.user]]
-	name = "Stack Overflow"
-	url = "https://example.org/stack"
-	icon = "fab fa-stack-overflow"
-        desc = "Practical questions and curated answers"
+        desc = "Project Lead"
 # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
 [[params.links.developer]]
-	name = "GitHub"
-	url = "https://github.com/google/docsy"
+	name = "Cloudmesh GitHub"
+	url = "https://github.com/cloudmesh"
 	icon = "fab fa-github"
         desc = "Development takes place here!"
 [[params.links.developer]]
-	name = "Slack"
-	url = "https://example.org/slack"
+	name = "Web Site GitHub"
+	url = "https://github.com/cloudmesh/pi"
+	icon = "fab fa-github"
+        desc = "The Web site development takes place here!"
+[[params.links.developer]]
+	name = "Cloudmesh Community Slack "
+	url = "https://cloudmesh-community.slack.com"
 	icon = "fab fa-slack"
-        desc = "Chat with other project developers"
+        desc = "Chat with other cloudmesh community developers"
 [[params.links.developer]]
 	name = "Developer mailing list"
-	url = "https://example.org/mail"
+	url = "https://groups.google.com/g/piplanet"
 	icon = "fa fa-envelope"
         desc = "Discuss development issues around the project"
 
