@@ -1,7 +1,31 @@
 ---
 title: "ZSH"
 linkTitle: "ZSH"
+description: >
+    Introduction to using zsh.
+
 ---
+
+
+{{% pageinfo %}}
+
+**Learning Objectives**
+
+* Get to know about zsh
+* Use it if you must. It is default on macOS, but not the PI
+  
+You may use zsh on the PI, but we find it better to just use a 
+default shell such as bash. The reaon we have included it is that
+it became default on macOS and many are accessing the Pis from the 
+Mac.
+
+**Topics covered**
+
+{{% table_of_contents %}}
+
+{{% /pageinfo %}}
+
+## Introduction
 
 Z shell (zsh) is an alternative to bash. It is used as an interactive
 shell or command interpreter. Zsh has been chosen by apple as a
@@ -65,13 +89,13 @@ If you like to change the theme you can find a large number at
 
 * <https://github.com/ohmyzsh/ohmyzsh/wiki/Themes>
 
-## Other operating systems
+## Using zsh on your operating systems
 
 For other operationg systems see
 
 * <https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH>
 
-## zsh on Windows 10
+### zsh on Windows 10
 
 To install zsh on Windows 10, please look at
 

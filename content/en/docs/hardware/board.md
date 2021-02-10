@@ -1,10 +1,24 @@
 ---
 title: "Raspberry PI Board"
 date: 2017-01-05
+description: >
+  Information about the Raspberry Pi boards
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
 ---
+
+{{% pageinfo %}}
+**Learning Objectives**
+
+* Overview of the Pi boards to create Pi clusters.
+* Decide which board to get
+
+**Topics covered**
+
+{{% table_of_contents %}}
+
+{{% /pageinfo %}}
 
 [Raspberry PI's](https://www.raspberrypi.org/) are a convenient cheap
 compute platform that allow us to explore create cloud clusters
@@ -16,6 +30,33 @@ and expensive cloud environments. In addition Raspberry Pis can be used
 as a simple Linux terminal to log into other machines.
 
 We will give a small introduction to the platform next.
+
+## Raspberry PI 3 B+
+
+We plan to purchase a number of them so we can conduct performance
+experiments and leverage the faster hardware. The newest Raspberry PI 3 B+ is shown in @fig:pi3.
+
+![Raspberry PI 3 B+](images/pi3bplus.jpg)
+
+{#fig:pi3bplus}
+http://localhost:1313/pi/docs/hardware/board/images/pi3bplus.jpg
+
+The board has the following properties:
+
+* Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC @ 1.4GHz
+* 1GB LPDDR2 SDRAM
+* 2.4GHz and 5GHz IEEE 802.11.b/g/n/ac wireless LAN
+* Bluetooth 4.2, BLE
+* Gigabit Ethernet over USB 2.0 (maximum throughput 300 Mbps)
+* Extended 40-pin GPIO header
+* Full-size HDMI
+* 4 USB 2.0 ports
+* CSI camera port for connecting a Raspberry Pi camera
+* DSI display port for connecting a Raspberry Pi touchscreen display
+* 4-pole stereo output and composite video port
+* Micro SD port for loading your operating system and storing data
+* 5V/2.5A DC power input
+* Power-over-Ethernet (PoE) support (requires separate PoE HAT)
 
 ## Raspberry PI 3 B
 
@@ -37,30 +78,6 @@ The board has the following properties:
 * DSI display port for connecting a Raspberry Pi touchscreen display
 * Micro SD port for loading your operating system and storing data
 * Switched Micro USB power source up to 2.5A
-
-## Raspberry PI 3 B+
-
-We plan to purchase a number of them so we can conduct performance
-experiments and leverage the faster hardware. The newest Raspberry PI 3 B+ is shown in @fig:pi3.
-
-![Raspberry PI 3 B+](images/pi3bplus.jpg){#fig:pi3bplus}
-
-The board has the following properties:
-
-* Broadcom BCM2837B0, Cortex-A53 (ARMv8) 64-bit SoC @ 1.4GHz
-* 1GB LPDDR2 SDRAM
-* 2.4GHz and 5GHz IEEE 802.11.b/g/n/ac wireless LAN
-* Bluetooth 4.2, BLE
-* Gigabit Ethernet over USB 2.0 (maximum throughput 300 Mbps)
-* Extended 40-pin GPIO header
-* Full-size HDMI
-* 4 USB 2.0 ports
-* CSI camera port for connecting a Raspberry Pi camera
-* DSI display port for connecting a Raspberry Pi touchscreen display
-* 4-pole stereo output and composite video port
-* Micro SD port for loading your operating system and storing data
-* 5V/2.5A DC power input
-* Power-over-Ethernet (PoE) support (requires separate PoE HAT)
 
 
 ## Raspberry PI Zero

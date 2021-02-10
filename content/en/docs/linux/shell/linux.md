@@ -1,18 +1,27 @@
 ---
 title: "Linux Shell"
 linkTitle: "Linux Shell"
+description: > 
+    Basic Linux commands in the shell.
 ---
 
-![](images/learning.png) **Learning Objectives**
+{{% pageinfo %}}
+**Learning Objectives**
 
-* Be able to know the basic commands to work in a [Linux]{.index} terminal.
+* Be able to know the basic commands to work in a Linux terminal.
 * Get familiar with Linux Commands
 
+**Topics covered**
+
+{{% table_of_contents %}}
+
+{{% /pageinfo %}}
+
 ---
 
-In this chapter we introduce you to a number of useful shell commands. You may ask:
+We introduce you to a number of useful shell commands. You may ask:
  
-"Why is he so keen on telling me all about shells as I do have a beautiful GUI?"
+> "Why is he so keen on telling me all about shells as I do have a beautiful GUI?"
 
 You will soon learn that A GUI may not be that suitable if you like to
 manage 10, 100, 1000, 10000, ... virtual machines. A commandline
@@ -44,20 +53,18 @@ came up with a google query. This is not an endorsement for the material
 we point to, but could be a worth while read for someone that has no
 experience in Shell programming:
 
-<http://linuxcommand.org/lc3_learning_the_shell.php>
+* <http://linuxcommand.org/lc3_learning_the_shell.php>
 
 Certainly you are welcome to use other resources that may suite you
 best. We will however summarize in table form a number of useful
 commands that you may als find even as a RefCard.
 
-<http://www.cheat-sheets.org/#Linux>
+* <http://www.cheat-sheets.org/#Linux>
 
 We provide in the next table a number of useful commands that you want
 to explore. For more information simply type man and the name of the
 command. If you find a useful command that is missing, please add it
 with a Git pull request.
-
-.<div class="smalltable">
 
 | Command    | Description   |
 | --------------------------------- | --------------------------------- |
@@ -117,7 +124,7 @@ with a Git pull request.
 | chmod ug+rw *filename*            | change file modes or Access Control Lists. In this example user and group are changed to read and write |
 | chown                             | change file owner and group                                  |
 | history                           | a build-in command to list the past commands                     |
-| sudo                              |  execute a command as another user   |
+| sudo                              | execute a command as another user   |
 | su                                | substitute user identity                       |
 | uname                             | print the operating system name   |
 | set -o emacs                      | tells the shell to use Emacs commands.                         |
@@ -125,8 +132,8 @@ with a Git pull request.
 | chown *username* *file*           | changes the ownership of the file |
 | chgrp *group* *file*              | changes the group of a file       |
 | fgrep *text* *filename*           | searches the text in the given     file                              |
-| grep -R *text* .                 | recursively searches for xyz in    all files                         |
-| find . -name *.py                | find all files with `.py` at the   end                               |
+| grep -R *text* .                  | recursively searches for xyz in    all files                         |
+| find . -name *.py                 | find all files with `.py` at the   end                               |
 | ps                                | list the running processes        |
 | kill -9 1234                      | kill the process with the id 1234 |
 | at                                | que commands for later execution                    |
@@ -160,8 +167,7 @@ with a Git pull request.
 | sed | stream editor used to perform basic text transformations |
 | xargs | program that can be used to build and execute commands from STDIN |
 | cat *some_file.json* \| python -m json.tool | quick and easy JSON validator |
-
-</div>
+| -------------------------------------------------  | |
 
 ## The command man
 
@@ -234,8 +240,6 @@ To execute command 1 in the background use
 These shortcuts will come in handy. Note that many overlap with emacs
 short cuts.
 
-.<div class="smalltable">
-
 |  Keys       | Description |
 |  ---------- | -------------------------------------------------------- |
 |  Up Arrow   | Show the previous command |
@@ -250,7 +254,6 @@ short cuts.
 |  Ctrl + y   | Paste from the special clipboard |
 |  Ctrl + d   | Logout of current session, similar to exit |
 
-</div>
 
 ## bashrc, bash_profile or zprofile
 
@@ -280,18 +283,18 @@ they can easily adapted to fulfill simple activities to be executed in
 repeated fashion by developers.
 
 An example of how to use Makefiles for docker is provided at
-<http://jmkhael.io/makefiles-for-your-dockerfiles/>.
+* <http://jmkhael.io/makefiles-for-your-dockerfiles/>.
 
 An example on how to use Makefiles for LaTeX is provided at
-<https://github.com/cloudmesh/book/blob/master/Makefile>.
+* <https://github.com/cloudmesh/book/blob/master/Makefile>.
 
 Makefiles include a number of rules that are defined by a target name.
 Let us define a target called hello that prints out the string "Hello
 World".
 
 ```
-    hello:
-        @echo "Hello World"
+hello:
+    @echo "Hello World"
 ```
 
 Important to remember is that the commands after a target are not
@@ -303,8 +306,8 @@ the best features of targets is that they can depend on other targets.
 Thus, iw we define
 
 ```
-    hallo: hello
-        @echo "Hallo World"
+hallo: hello
+    @echo "Hallo World"
 ```
 
 our makefile will first execute hello and than all commands in hallo. As
@@ -313,10 +316,10 @@ you can see this can be very useful for defining simple dependencies.
 In addition we can define variables in a makefile such as
 
 ```
-    HELLO="Hello World"
+HELLO="Hello World"
 
-    hello:
-        @echo $(HELLO)
+hello:
+    @echo $(HELLO)
 ```
 
 and can use them in our text with \$ invocations.
@@ -328,8 +331,10 @@ Makefile, saving potentially a lot of time. However, for our work here
 we just use the most elementary makefiles.
 
 For more information we recommend you to find out about it on the
-internet. A convenient reference card sis available
-at <http://www.cs.jhu.edu/~joanne/unixRC.pdf>.
+internet. A convenient reference card is available
+at 
+
+* <http://www.cs.jhu.edu/~joanne/unixRC.pdf>.
 
 ## chmod
 
