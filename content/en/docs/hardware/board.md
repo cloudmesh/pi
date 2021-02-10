@@ -31,10 +31,42 @@ as a simple Linux terminal to log into other machines.
 
 We will give a small introduction to the platform next.
 
+## Raspberry PI 4B
+
+![](images/pi4.png)
+
+The board has the following properties [^pi4spec]:
+
+* Broadcom BCM2711, Quad core Cortex-A72 (ARM v8) 64-bit SoC @ 1.5GHz
+* 2GB, 4GB or 8GB LPDDR4-3200 SDRAM (depending on model)
+* 2.4 GHz and 5.0 GHz IEEE 802.11ac wireless, Bluetooth 5.0, BLE
+* Gigabit Ethernet
+* 2 USB 3.0 ports; 2 USB 2.0 ports.
+* Raspberry Pi standard 40 pin GPIO header 
+  (fully backwards compatible with previous boards)
+* 2 × micro-HDMI ports (up to 4kp60 supported)
+* 2-lane MIPI DSI display port
+* 2-lane MIPI CSI camera port
+* 4-pole stereo audio and composite video port
+* H.265 (4kp60 decode), H264 (1080p60 decode, 1080p30 encode)
+* OpenGL ES 3.0 graphics
+* Micro-SD card slot for loading operating system and data storage
+* 5V DC via USB-C connector (minimum 3A*)
+* 5V DC via GPIO header (minimum 3A*)
+* Power over Ethernet (PoE) enabled (requires separate PoE HAT)
+* Operating temperature: 0 – 50 degrees C ambient
+
+Important for the cluster is the following comment:
+
+* A good quality 2.5A power supply can be used if 
+  downstream USB peripherals consume less than 500mA in 
+  total.
+
 ## Raspberry PI 3 B+
 
 We plan to purchase a number of them so we can conduct performance
-experiments and leverage the faster hardware. The newest Raspberry PI 3 B+ is shown in @fig:pi3.
+experiments and leverage the faster hardware. The newest Raspberry 
+PI 3 B+ is shown in @fig:pi3.
 
 ![Raspberry PI 3 B+](images/pi3bplus.jpg)
 
@@ -83,12 +115,12 @@ The board has the following properties:
 ## Raspberry PI Zero
 
 In addition to the PI 3's another interesting platform is the PI Zero,
-which is a very low cost system that can serve as IoT board. However
+which is a very low-cost system that can serve as IoT board. However,
 it is also powerful enough to run more sophisticated applications on
 it. The newest Raspberry PI Zero is shown in @fig:pizero.
 
 
-![Raspbery Pi Zero [(source)](https://www.raspberrypi.org/products/raspberry-pi-zero/)](images/Raspberry-Pi-Zero-462x322.jpg){#fig:pizero}
+![Raspbery Pi Zero [(source)](https://www.raspberrypi.org/products/raspberry-pi-zero/)](images/pizero.jpg){#fig:pizero}
 
 The board has the following properties:
 
@@ -103,13 +135,15 @@ The board has the following properties:
 
 ## Pin Layout
 
-The PI 3B, 3B+ and Zero come with a number of pins that can be used to
+The PI 4B, 3B+, 3B, and Zero come with a number of pins that can be used to
 attach sensors. It is convenient to have the pinout available for your
-project. Hence we provide a pinout layout in @fig:pi-layout. Other
-Pis will have a differnt pinout and you will have to locate them on
+project. Hence, we provide a pinout layout in @fig:pi-layout. Other
+Pis will have a different pinout and you will have to locate them on
 the internet.
 
-![Pinout](images/rasp3.jpg){#fig:pi-layout}
+![Pinout](images/rasp3.jpg)
+
+{#fig:pi-layout}
 
 
 ## Resources
@@ -118,4 +152,5 @@ Detailed information about it are available at
 
 * <https://www.raspberrypi.org/documentation/hardware/raspberrypi/README.md>
 
-
+[^pi4spec]: Raspberry Pi 4 Model B specifications, 
+            https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/
