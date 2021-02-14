@@ -2,7 +2,7 @@
 title: "Pi Cluster Form Factor"
 date: 2017-01-05
 resources:
-- src: "images/**.{png,jpg}"
+- src: "**.{png,jpg}"
   title: "Image #:counter"
 ---
 
@@ -56,7 +56,7 @@ According to the Web Site it supports the following features:
 -   Controller Pi can be rebooted without interrupting power to Pi Zeros
     (network recovers on boot).
 
-![Figure: Clusterhat for PI Zero's](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/ClusterHAT-v2-supplied-sm.jpg)
+![Figure: Clusterhat for PI Zero's](ClusterHAT-v2-supplied-sm.jpg)
 
 Although this setup seems rather appealing, the issue is with obtaining
 Pi Zeros for the regional price of $5. Typically users can only by one
@@ -79,7 +79,7 @@ cluster projects cooling is not adequately addressed. Hence we like to
 provide an example that discusses in detail how to add a fan and what
 the fan has for an impact on the temperature.
 
-![Closed case for 5 Pi's with case](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/IMG16_6273_sweb.jpg){width="50%"}
+![Closed case for 5 Pi's with case](IMG16_6273_sweb.jpg){width="50%"}
 
 * <http://climbers.net/sbc/add-fan-raspberry-pi/>
 * <http://climbers.net/sbc/diy-raspberry-pi-3-cluster/>
@@ -113,7 +113,7 @@ A set of instructions on building an is available at
 
 * <https://projects.raspberrypi.org/en/projects/build-an-octapi>
 
-![Octapi](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/octapi-system.png)
+![Octapi](octapi-system.png)
 
 
 ## Bitscope Case (40 Pi's)
@@ -125,9 +125,9 @@ put together and sharing the same power supply. The blades are shown
 in the next Figure. The rack to place 10 of them is shown in the
 Figure after that.
 
-![Figure: BitScope blade for 4 Pi's.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/04.jpg)
+![Figure: BitScope blade for 4 Pi's.](04.jpg)
 
-![Figure: 40 Pi Blade rack.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/br40a.png)
+![Figure: 40 Pi Blade rack.](br40a.png)
 
 The cost of the blade rack is $ 795.45 + $60.00 shipping + import tax.
 This may originally sound expensive when compared to a single case,
@@ -146,13 +146,13 @@ cluster. The cost for such a module is about $15K.
 
 The next Figure shows the module.
 
-![BitScope 144 cluster module.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/cluster-module.png){width="50%"}
+![BitScope 144 cluster module.](cluster-module.png){width="50%"}
 
 The next figure shows how multiple modules can be placed into a
 single rack.
 
 
-![Rack placement of multiple BitScope 144 cluster modules.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/rack-overview.png){width="50%"}
+![Rack placement of multiple BitScope 144 cluster modules.](rack-overview.png){width="50%"}
 
 Additional information about this form factor can be found at the
 following links:
@@ -169,7 +169,7 @@ following links:
 Oracle has displayed at Oracle World 2019 a 1060 node Raspberry Pi Cluster.
 
 
-![Oracle 1060 Pi Cluster [source](https://imgur.com/gallery/wx1hZ5D)](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/oracle-pi-1060.jpg)
+![Oracle 1060 Pi Cluster [source](https://imgur.com/gallery/wx1hZ5D)](oracle-pi-1060.jpg)
 
 More images are available at this
 (link)[https://imgur.com/gallery/wx1hZ5D]. the supercomputer features
@@ -264,10 +264,10 @@ TODO: replace the images with one that has white background
 
 | Figure | Description |
 | ---- | ---- |
-| ![Figure 1](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/heat-sync-top.jpg) |  First, aluminum and copper heat syncs need to be attached to each Pi. The two aluminum heat syncs are attached to the Broadcom chip and the SMSC Ethernet controller located on the top of the Pi. The blades of the heat syncs are parallel to the longer side of the Pi as shown in black aluminum fanned heat syncs are attached to the top of the pi as shown. |
-| ![Figure 2](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/heat-sync-bottom.jpg) |  Flat copper heat sync is attached to the bottom of the pi as shown. |
-| ![Figure 3](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi-cluster-no-wires.jpg) |  After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown.   |
-| ![Figure 4](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/complete-pi-cluster.jpg) |  Each node of the cluster is then attached to the switch using an Ethernet cables and to the power supply using a USB cables. The fully wired cluster is shown.  |
+| ![Figure 1](heat-sync-top.jpg) |  First, aluminum and copper heat syncs need to be attached to each Pi. The two aluminum heat syncs are attached to the Broadcom chip and the SMSC Ethernet controller located on the top of the Pi. The blades of the heat syncs are parallel to the longer side of the Pi as shown in black aluminum fanned heat syncs are attached to the top of the pi as shown. |
+| ![Figure 2](heat-sync-bottom.jpg) |  Flat copper heat sync is attached to the bottom of the pi as shown. |
+| ![Figure 3](pi-cluster-no-wires.jpg) |  After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown.   |
+| ![Figure 4](complete-pi-cluster.jpg) |  Each node of the cluster is then attached to the switch using an Ethernet cables and to the power supply using a USB cables. The fully wired cluster is shown.  |
 
 
 

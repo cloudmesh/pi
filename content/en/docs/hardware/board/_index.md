@@ -34,7 +34,7 @@ We will give a small introduction to the platform next.
 
 ## Raspberry PI 4B
 
-![](images/pi4.png)
+![](pi4.png)
 
 Figure 1: Pi 4B board
 
@@ -71,7 +71,7 @@ We plan to purchase a number of them so we can conduct performance
 experiments and leverage the faster hardware. The newest Raspberry 
 PI 3 B+ is shown in Figure 2.
 
-![Raspberry PI 3 B+](images/pi3bplus.jpg)
+![Raspberry PI 3 B+](pi3bplus.jpg)
 
 Figure 2: Raspberry PI 3B+ board
 
@@ -98,7 +98,7 @@ Till February 2018 the Raspberry PI 3 B was the newest model. Within
 this class we have access to about 100 of them. The Raspberry PI 3 B is shown in 
 Figure 3.
 
-![Raspberry PI 3B](images/pi-3.jpg)
+![Raspberry PI 3B](pi-3.jpg)
 
 Figure 3: Raspberry PI 3 B board
 
@@ -125,7 +125,7 @@ it is also powerful enough to run more sophisticated applications on
 it. The newest Raspberry PI Zero is shown in Figure 4.
 
 
-![](images/pizero.jpg)
+![](pizero.jpg)
 
 Figure 4: Raspbery Pi Zero [^pizero]
 
@@ -148,7 +148,7 @@ project. Hence, we provide a pinout layout in Figure 5. Other
 Pis will have a different pinout and you will have to locate them on
 the internet.
 
-![Pinout](images/rasp3.jpg)
+![Pinout](rasp3.jpg)
 
 Figure 5. Pi pinout
 
