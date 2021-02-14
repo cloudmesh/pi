@@ -1,10 +1,11 @@
 ---
 title: "Raspberry PI Board"
 date: 2017-01-05
+weight: 10
 description: >
   Information about the Raspberry Pi boards
 resources:
-- src: "**.{png,jpg}"
+- src: "images/*.{png,jpg}"
   title: "Image #:counter"
 ---
 
@@ -33,7 +34,9 @@ We will give a small introduction to the platform next.
 
 ## Raspberry PI 4B
 
-![](images/pi4.png)
+![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi4.png)
+
+Figure 1: Pi 4B board
 
 The board has the following properties [^pi4spec]:
 
@@ -66,12 +69,11 @@ Important for the cluster is the following comment:
 
 We plan to purchase a number of them so we can conduct performance
 experiments and leverage the faster hardware. The newest Raspberry 
-PI 3 B+ is shown in @fig:pi3.
+PI 3 B+ is shown in Figure 2.
 
-![Raspberry PI 3 B+](images/pi3bplus.jpg)
+![Raspberry PI 3 B+](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi3bplus.jpg)
 
-{#fig:pi3bplus}
-http://localhost:1313/pi/docs/hardware/board/images/pi3bplus.jpg
+Figure 2: Raspberry PI 3B+ board
 
 The board has the following properties:
 
@@ -93,9 +95,12 @@ The board has the following properties:
 ## Raspberry PI 3 B
 
 Till February 2018 the Raspberry PI 3 B was the newest model. Within
-this class we have access to about 100 of them. The Raspberry PI 3 B is shown in @fig:pi3
+this class we have access to about 100 of them. The Raspberry PI 3 B is shown in 
+Figure 3.
 
-![Raspberry PI 3B](images/pi-3.jpg){#fig:pi3}
+![Raspberry PI 3B](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi-3.jpg)
+
+Figure 3: Raspberry PI 3 B board
 
 The board has the following properties:
 
@@ -117,10 +122,12 @@ The board has the following properties:
 In addition to the PI 3's another interesting platform is the PI Zero,
 which is a very low-cost system that can serve as IoT board. However,
 it is also powerful enough to run more sophisticated applications on
-it. The newest Raspberry PI Zero is shown in @fig:pizero.
+it. The newest Raspberry PI Zero is shown in Figure 4.
 
 
-![Raspbery Pi Zero [(source)](https://www.raspberrypi.org/products/raspberry-pi-zero/)](images/pizero.jpg){#fig:pizero}
+![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pizero.jpg)
+
+Figure 4: Raspbery Pi Zero [^pizero]
 
 The board has the following properties:
 
@@ -137,14 +144,20 @@ The board has the following properties:
 
 The PI 4B, 3B+, 3B, and Zero come with a number of pins that can be used to
 attach sensors. It is convenient to have the pinout available for your
-project. Hence, we provide a pinout layout in @fig:pi-layout. Other
+project. Hence, we provide a pinout layout in Figure 5. Other
 Pis will have a different pinout and you will have to locate them on
 the internet.
 
-![Pinout](images/rasp3.jpg)
+![Pinout](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/rasp3.jpg)
 
-{#fig:pi-layout}
+Figure 5. Pi pinout
 
+## Mounting diagram
+
+In case you need to drill wholes in cases or plexiglas for mounting, the 
+following mounting diagram is very useful:
+
+* [Mounting Diagram in PDF](https://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/11/Raspberry-Pi-Mounting-Hole-Template.pdf
 
 ## Resources
 
@@ -153,4 +166,7 @@ Detailed information about it are available at
 * <https://www.raspberrypi.org/documentation/hardware/raspberrypi/README.md>
 
 [^pi4spec]: Raspberry Pi 4 Model B specifications, 
-            https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/
+            https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications
+
+[^pizero]: Raspberry Pi Zero, https://www.raspberrypi.org/products/raspberry-pi-zero
+

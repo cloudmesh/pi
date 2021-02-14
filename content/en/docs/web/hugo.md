@@ -67,3 +67,32 @@ the oster tha just focusses on the documentation
 * Omega: <https://themes.gohugo.io/omega-hugo-theme/>
   
   <img src="https://d33wubrfki0l68.cloudfront.net/fcf8b8fc0cd7241d92058ae1eb2ad673d6d4ee9b/9db27/omega-hugo-theme/screenshot-omega-hugo-theme_huc726808b0fa2e5c225e312aef2dbf5cb_842370_1500x1000_fill_catmullrom_top_2.png" width="50%">
+
+
+## COnverting Hugo to ePub
+
+The following git repo contains documentation on how to convert hugo Web 
+sites to epub
+
+* <https://github.com/weitblick/epub>
+
+An article in german is available at 
+
+* <https://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/11/Raspberry-Pi-Mounting-Hole-Template.pd>f
+
+The following script stes this up for you automatically:
+
+```bash
+git clone https://github.com/weitblick/epub.git
+cd epub
+cd exampleSite
+mkdir themes
+cd themes
+git clone https://github.com/weitblick/epub.git
+cd epub 
+rm -rf .git
+rm -rf exampleSite   # remove the example site in the theme
+cd ../..
+hugo
+bash ./deploy.sh
+```
