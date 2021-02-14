@@ -6,19 +6,16 @@ resources:
   title: "Image #:counter"
 ---
 
+
+{{% pageinfo %}}
 In this chapter we will discuss a number of opportunities to build small
 scale compute and cloud cluster resources using Raspberry Pi's.
 
-This includes the following:
+{{< table_of_contents >}}
 
-* [NAS server with one Raspberry Pi 3](#nas-1-pi)
-* [Cluster using 1 Raspberry Pi as master and 4 Raspberry Zeros as
-  workers](#clusterhat-4-zero-1-pi)
-* [Case With Cooling for 5 Pi)](#Cluster-Case-With-Cooling-5-Pi)
-* [Build an Octapi](#s-octapi)
-* [Cluster with 40 Raspberry Pi's](#bitscope-case-40-pi)
-* [Cluster with 144 Raspberry Pi's](#bitscope-cluster-144-pi)
-* [Build Your Own 5 Node Pi Cluster](#build-your-own-5-node-pi-cluster)
+{{% /pageinfo %}}
+
+
 
 ## NAS (1 Pi)
 
@@ -59,7 +56,7 @@ According to the Web Site it supports the following features:
 -   Controller Pi can be rebooted without interrupting power to Pi Zeros
     (network recovers on boot).
 
-![Figure: Clusterhat for PI Zero's](images/ClusterHAT-v2-supplied-sm.jpg)
+![Figure: Clusterhat for PI Zero's](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/ClusterHAT-v2-supplied-sm.jpg)
 
 Although this setup seems rather appealing, the issue is with obtaining
 Pi Zeros for the regional price of $5. Typically users can only by one
@@ -82,7 +79,7 @@ cluster projects cooling is not adequately addressed. Hence we like to
 provide an example that discusses in detail how to add a fan and what
 the fan has for an impact on the temperature.
 
-![Closed case for 5 Pi's with case](images/IMG16_6273_sweb.jpg){width="50%"}
+![Closed case for 5 Pi's with case](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/IMG16_6273_sweb.jpg){width="50%"}
 
 * <http://climbers.net/sbc/add-fan-raspberry-pi/>
 * <http://climbers.net/sbc/diy-raspberry-pi-3-cluster/>
@@ -119,7 +116,7 @@ A set of instructions on building an is available at
 
 * <https://projects.raspberrypi.org/en/projects/build-an-octapi>
 
-![Octapi](images/octapi-system.png)
+![Octapi](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/octapi-system.png)
 
 
 ## Bitscope Case (40 Pi's)
@@ -131,9 +128,9 @@ put together and sharing the same power supply. The blades are shown
 in the next Figure. The rack to place 10 of them is shown in the
 Figure after that.
 
-![Figure: BitScope blade for 4 Pi's.](images/04.jpg)
+![Figure: BitScope blade for 4 Pi's.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/04.jpg)
 
-![Figure: 40 Pi Blade rack.](images/br40a.png)
+![Figure: 40 Pi Blade rack.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/br40a.png)
 
 The cost of the blade rack is $ 795.45 + $60.00 shipping + import tax.
 This may originally sound expensive when compared to a single case,
@@ -152,14 +149,13 @@ cluster. The cost for such a module is about $15K.
 
 The next Figure shows the module.
 
-![BitScope 144 cluster module.](images/cluster-module.png){width="50%"}
+![BitScope 144 cluster module.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/cluster-module.png){width="50%"}
 
 The next figure shows how multiple modules can be placed into a
 single rack.
 
 
-![Rack placement of multiple BitScope 144 cluster
-modules.](images/rack-overview.png){width="50%"}
+![Rack placement of multiple BitScope 144 cluster modules.](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/rack-overview.png){width="50%"}
 
 Additional information about this form factor can be found at the
 following links:
@@ -176,7 +172,7 @@ following links:
 Oracle has displayed at Oracle World 2019 a 1060 node Raspberry Pi Cluster.
 
 
-![Oracle 1060 Pi Cluster [source](https://imgur.com/gallery/wx1hZ5D)](images/oracle-pi-1060.jpg)
+![Oracle 1060 Pi Cluster [source](https://imgur.com/gallery/wx1hZ5D)](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/oracle-pi-1060.jpg)
 
 More images are available at this
 (link)[https://imgur.com/gallery/wx1hZ5D]. the supercomputer features
@@ -267,7 +263,6 @@ github.
 
 ### Assembling the Pi Cluster :o2:
 
-![No](images/no.png)
 
 TODO: replace the images with one that has white background
 
@@ -275,17 +270,16 @@ TODO: replace the images with one that has white background
 
 | Figure | Description |
 | ---- | ---- |
-| ![Figure 1](images/heat-sync-top.jpg) |  First, aluminum and copper heat syncs need to be attached to each Pi. The two aluminum heat syncs are attached to the Broadcom chip and the SMSC Ethernet controller located on the top of the Pi. The blades of the heat syncs are parallel to the longer side of the Pi as shown in black aluminum fanned heat syncs are attached to the top of the pi as shown. |
-| ![Figure 2](images/heat-sync-bottom.jpg) |  Flat copper heat sync is attached to the bottom of the pi as shown. |
-| ![Figure 3](images/pi-cluster-no-wires.jpg) |  After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown.   |
-| ![Figure 4](images/complete-pi-cluster.jpg) |  Each node of the cluster is then attached to the switch using an Ethernet cables and to the power supply using a USB cables. The fully wired cluster is shown.  |
+| ![Figure 1](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/heat-sync-top.jpg) |  First, aluminum and copper heat syncs need to be attached to each Pi. The two aluminum heat syncs are attached to the Broadcom chip and the SMSC Ethernet controller located on the top of the Pi. The blades of the heat syncs are parallel to the longer side of the Pi as shown in black aluminum fanned heat syncs are attached to the top of the pi as shown. |
+| ![Figure 2](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/heat-sync-bottom.jpg) |  Flat copper heat sync is attached to the bottom of the pi as shown. |
+| ![Figure 3](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi-cluster-no-wires.jpg) |  After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown.   |
+| ![Figure 4](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/complete-pi-cluster.jpg) |  Each node of the cluster is then attached to the switch using an Ethernet cables and to the power supply using a USB cables. The fully wired cluster is shown.  |
 
 </div>
 
 
-### Virtual Raspberry Cluster :o2:
+### Virtual Raspberry Cluster
 
-![No](images/no.png)
 
 It should also be possible to create a virtual raspberry PI cluster
 while for example using virtual box. This requires two steps. First the
@@ -303,7 +297,7 @@ well as tear them down.
 Next you will need to make sure you can communicate from the Pi's to each
 other. This is naturally the same as on a real cluster
 
-> ![Warning](images/warning.png) *TODO: provide a section*
+> ![Warning](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/warning.png) *TODO: provide a section*
 
 This can be chosen as part of your project, but you need to develop a
 cloudmesh command for managing the cluster. This includes starting and
