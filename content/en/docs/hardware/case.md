@@ -2,7 +2,7 @@
 title: "Pi Cluster Form Factor"
 date: 2017-01-05
 resources:
-- src: "**.{png,jpg}"
+- src: "images/**.{png,jpg}"
   title: "Image #:counter"
 ---
 

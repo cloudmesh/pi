@@ -2,7 +2,7 @@
 title: "Pi Clusters on the Internet"
 date: 2017-01-05
 resources:
-- src: "**.{png,jpg}"
+- src: "images/**.{png,jpg}"
   title: "Image #:counter"
 ---
 
