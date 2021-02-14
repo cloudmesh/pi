@@ -2,6 +2,8 @@
 title: "Cases: Pi Cluster Cases"
 linkTitle: "Cases"
 date: 2017-01-05
+description: >
+  A collection of PI cluster cases.
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
@@ -9,7 +11,7 @@ resources:
 
 
 {{% pageinfo %}}
-In this chapter we will discuss a number of opportunities to build small
+We list a number of different  builds from  small to larger 
 scale compute and cloud cluster resources using Raspberry Pi's.
 
 {{< table_of_contents >}}
@@ -231,7 +233,7 @@ github.
 [p-64gb]: https://www.wdc.com/products/wdlabs/wd-pidrive-foundation-edition.html\#WD3750LMCW
 [p-heat]: https://www.amazon.com/Easycargo-Raspberry-Heatsink-Aluminum-conductive/dp/B07217N5LS/ref=sr\_1\_3?s=industrial\&ie=UTF8\&qid=1513700498\&sr=1-3\&keywords=raspberry+pi+3
 [p-hex]: https://www.amazon.com/20mm-Hexagonal-Threaded-Spacer-Support/dp/B00FH8AB8Q/ref=sr\_1\_9?s=industrial\&ie=UTF8\&qid=1513700337\&sr=1-9\&keywords=hex+spacers+m2+20mm
-[p-pi]: https://www.amazon.com/Raspberry-Pi-RASPBERRYPI3-MODB-1GB-Model-Motherboard/dp/B01CD5VC92
+[p-pi]: https://www.canakit.com/raspberry-pi-4-8gb.html
 [p-drive]: http://wdlabs.wd.com/products/wd-pidrive-berryboot-edition/
 [p-usbc]: https://www.amazon.com/AUKEY-Adapter-MacBook-Chromebook-Pixelbook/dp/B072JLRSZ2?th=1
 
@@ -246,7 +248,7 @@ github.
 | $8.59 | Short USB Cable, OKRAY 10 Pack Colorful Micro USB 2.0 Charging Data Sync Cable Cord for Samsung, Android Phone and Tablet, Nexus, HTC, Nokia, LG, Sony, Many Digital Cameras-0.66ft (7.87 Inch) | [link][p-cam] |
 | $7.69 | 50 Pcs M2 x 20mm + 5mm Hex Hexagonal Threaded Spacer Support | [link][p-hex] |
 | $7.99 | Easycargo 15 pcs Raspberry Pi Heatsink Aluminum + Copper + 3M 8810 thermal conductive adhesive tape for cooling cooler Raspberry Pi 3, Pi 2, Pi Model B+ | [link][p-heat] |
-| $34.49 | Raspberry Pi 3 Model B Motherboard (you need at least 3 of them) | [link][p-pi] |
+| $34.49 | Raspberry Pi 4 Model B Motherboard 8 GB (you need at least 3 of them, at least 4GB) | [link][p-pi] |
 | $59.99  <sup>2</sup> | 1TB drive | [link][p-drive] |
 | $15.19 | 64GB flash | [link][p-64gb] |
 | $6.99 | HDMI Cable, Rankie 2-Pack 6FT Latest Standard HDMI 2.0 HDTV Cable - Supports Ethernet, 3D, 4K and Audio Return (Black) - R1108 | [link][p-hdmi] |
@@ -257,10 +259,7 @@ github.
 <sup>2</sup> item was not available
 
 
-### Assembling the Pi Cluster :o2:
-
-
-TODO: replace the images with one that has white background
+### Assembling the Pi Cluster 
 
 
 | Figure | Description |
@@ -275,12 +274,14 @@ TODO: replace the images with one that has white background
 ### Virtual Raspberry Cluster
 
 
-It should also be possible to create a virtual raspberry PI cluster
+It is possible to create a virtual raspberry PI cluster
 while for example using virtual box. This requires two steps. First the
-deployment of a virtualized Raspberry PI. The following information may
-be useful for this
+deployment of a virtualized Raspberry PI. There are many resources on the 
+internet that describe how to do that. Some of them are
 
+* <https://raspberrytips.com/run-raspberry-in-virtual-machine/>
 * <http://dbakevlar.com/2015/08/emulating-a-raspberry-pi-on-virtualbox/>
+
 
 The next step includes the deployment of multiple VMs emulating
 Raspberry's. Naturally each should have its own name so you can
@@ -291,16 +292,9 @@ well as tear them down.
 Next you will need to make sure you can communicate from the Pi's to each
 other. This is naturally the same as on a real cluster
 
- 
-*TODO: provide a section*
-
-This can be chosen as part of your project, but you need to develop a
-cloudmesh command for managing the cluster. This includes starting and
-stopping as well as check-pointing the cluster from a cloudmesh command.
-Furthermore you need to benchmark it and identify how to do this and
-contrast this to other clusters that you may start or have access to.
-Please get in contact with Gregor. This project is reserved for online
-students, as residential students will have access to real Raspberry PI
-hardware.
-
-Please note that this project may have to use QEMU.
+> **Note:** We recently set up such a cluster and found it was extremely slow on an older 
+> MacBook Pro with 16GB memory. Thus make sure you have up to date hardware and lots of 
+> memory. For this reason we recommend doing a hradware version.
+> Also remember that some software does require a lot of memory to be allocated 
+> to the VM. Make sure that you plan ahead before you start the virtualization route. 
+> It will be frustrating to work on a real slow virtual cluster.

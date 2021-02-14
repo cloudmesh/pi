@@ -1,12 +1,21 @@
 
 ---
-title: "Links"
-linkTitle: "Links"
-draft: true
+title: "Kubernetes"
+linkTitle: "Kubernetes"
+description: >
+  Links related to running Kubernetes on a Pi cluster.
 ---
 
 {{% pageinfo %}}
-TBD
+
+**Learning Objectives**
+
+* Get informed what others do
+
+**Topics covered**
+
+{{% table_of_contents %}}
+
 {{% /pageinfo %}}
 
 TBD
@@ -110,6 +119,8 @@ Requires fee, if you read several articles (I have not read them)
 
 
 ## Services
+
+### Azure SQL Edge
 
 * [Building a Raspberry Pi cluster to run Azure SQL Edge on Kubernetes, DBA From The Cold](https://dbafromthecold.com/2020/11/30/building-a-raspberry-pi-cluster-to-run-azure-sql-edge-on-kubernetes/)
 
