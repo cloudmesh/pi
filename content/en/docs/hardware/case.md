@@ -92,18 +92,15 @@ fan as obvious from experiment No. 2.
 
 Table: Temperature comparison of fan impact
 
-<div class="smalltable">
+No.   Case   Fan   Direction   RPM      Idle    100% Load   Performance
+----- ------ ----- ----------- -------- ------- ----------- -------------
+1     no     no    -           -        41.0C   75.5C       OK (barely)
+2     yes    no    -           -        45.0C   82.5C       throttles
+3     yes    5V    in          unknown   37.9C   74.5C       OK (barely)
+4     yes    7V    in          800      35.6C   69.5C       OK
+5     yes    12V   in          1400     32.5C   61.1C       OK
+6     yes    7V    out         800      34.5C   66.4C       OK
 
-  No.   Case   Fan   Direction   RPM      Idle    100% Load   Performance
-  ----- ------ ----- ----------- -------- ------- ----------- -------------
-  1     no     no    -           -        41.0C   75.5C       OK (barely)
-  2     yes    no    -           -        45.0C   82.5C       throttles
-  3     yes    5V    in          unknown   37.9C   74.5C       OK (barely)
-  4     yes    7V    in          800      35.6C   69.5C       OK
-  5     yes    12V   in          1400     32.5C   61.1C       OK
-  6     yes    7V    out         800      34.5C   66.4C       OK
-
-</div>
 
 Interesting is also the design of the case that uses snaps instead of
 screws to affix the walls to each other. The case layout can be found at:
@@ -237,7 +234,6 @@ github.
 [p-drive]: http://wdlabs.wd.com/products/wd-pidrive-berryboot-edition/
 [p-usbc]: https://www.amazon.com/AUKEY-Adapter-MacBook-Chromebook-Pixelbook/dp/B072JLRSZ2?th=1
 
-.<div name="T:parts" class="smalltable">
 
 
 | Price | Description | URL |
@@ -259,14 +255,12 @@ github.
 <sup>1</sup> items were replaced with similar
 <sup>2</sup> item was not available
 
-</div>
 
 ### Assembling the Pi Cluster :o2:
 
 
 TODO: replace the images with one that has white background
 
-<div class="smalltable">
 
 | Figure | Description |
 | ---- | ---- |
@@ -275,7 +269,6 @@ TODO: replace the images with one that has white background
 | ![Figure 3](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi-cluster-no-wires.jpg) |  After attaching the heat syncs, threaded hexagonal spacer supports are used to connect the Pis together. A fully-assembled 5-node Pi cluster is shown.   |
 | ![Figure 4](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/complete-pi-cluster.jpg) |  Each node of the cluster is then attached to the switch using an Ethernet cables and to the power supply using a USB cables. The fully wired cluster is shown.  |
 
-</div>
 
 
 ### Virtual Raspberry Cluster
@@ -297,7 +290,8 @@ well as tear them down.
 Next you will need to make sure you can communicate from the Pi's to each
 other. This is naturally the same as on a real cluster
 
-> ![Warning](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/warning.png) *TODO: provide a section*
+ 
+*TODO: provide a section*
 
 This can be chosen as part of your project, but you need to develop a
 cloudmesh command for managing the cluster. This includes starting and

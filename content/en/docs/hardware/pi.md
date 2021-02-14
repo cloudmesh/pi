@@ -21,7 +21,7 @@ it in the proper format.
 
 3.  Name the sd card and format it as MS-DOS (FAT). Then click erase.
 
-    ![image](![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/diskutil.png){width="50%"}
+    ![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/diskutil.png)
 
 4.  If it does not erase the first time, try again. It sometimes takes
     multiple tries to work.
@@ -46,7 +46,7 @@ pre-packaged with many useful programming tools, and is easy to use.
 
 5.  Power up your raspberry and you will see a menu like this
 
-![Noobs](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/noobs.jpg){width="50%"}
+![Noobs](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/noobs.jpg)
 
 1.  Select Raspbian and click `Install (i)`
 
@@ -67,7 +67,7 @@ software.
 3.  Open etcher and flash the uncompressed jessie image onto the sd
     card.
 
-![Etcher](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/etcher.png){width="50%"}
+![Etcher](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/etcher.png)
 
 1.  Eject your sd card and insert it into your raspberry pi.
 
