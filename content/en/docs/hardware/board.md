@@ -34,7 +34,7 @@ We will give a small introduction to the platform next.
 
 ## Raspberry PI 4B
 
-![](images/pi4.png)
+![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi4.png)
 
 Figure 1: Pi 4B board
 
