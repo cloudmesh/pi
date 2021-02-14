@@ -69,7 +69,7 @@ the oster tha just focusses on the documentation
   <img src="https://d33wubrfki0l68.cloudfront.net/fcf8b8fc0cd7241d92058ae1eb2ad673d6d4ee9b/9db27/omega-hugo-theme/screenshot-omega-hugo-theme_huc726808b0fa2e5c225e312aef2dbf5cb_842370_1500x1000_fill_catmullrom_top_2.png" width="50%">
 
 
-## COnverting Hugo to ePub
+## Converting Hugo to ePub
 
 The following git repo contains documentation on how to convert hugo Web 
 sites to epub

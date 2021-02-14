@@ -1,7 +1,30 @@
 ---
 title: "SSH on Windows"
 linkTitle: "Windows"
+description: >
+  Using SSH on Windows.
 ---
+
+
+
+{{% pageinfo %}}
+ **Learning Objectives**
+
+For distributed computing understanding SSH is an important goal. It allows you to securely log in to 
+your nodes on the cluster.
+
+* This is a very important topic, study it carefully.
+* Learn how to use SSH keys
+* Learn how to use ssh-add and ssh-keycahin so you only have to type 
+  in your password once
+* Understand that each computer needs its own ssh key
+* Note that you also need to read our Introduction to SSH section
+
+**Topics Covered**
+
+{{< table_of_contents >}}
+
+{{% /pageinfo %}}
 
 For this class we recommend that you use a virtual machine via virtual
 box and use the Linux ssh instructions. The information here is just

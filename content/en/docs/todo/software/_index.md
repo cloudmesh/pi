@@ -1,8 +1,10 @@
 ---
-title: "Raspberry PI 3"
+title: "Software 1"
+linkTitle: "Software 1"
 date: 2021-02-01
+draft: true
 resources:
-- src: "images/**.{png,jpg}"
+- src: "**.{png,jpg}"
   title: "Image #:counter"
 ---
 

@@ -1,6 +1,8 @@
 ---
-title: "SSH"
+title: "Introduction to SSH"
 linkTitle: "Introduction"
+description: >
+   A brief introduction to SSH.
 ---
 
 

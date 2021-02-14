@@ -1,5 +1,6 @@
 ---
-title: "Pi Cluster Form Factor"
+title: "Cases: Pi Cluster Cases"
+linkTitle: "Cases"
 date: 2017-01-05
 resources:
 - src: "**.{png,jpg}"
@@ -79,7 +80,7 @@ cluster projects cooling is not adequately addressed. Hence we like to
 provide an example that discusses in detail how to add a fan and what
 the fan has for an impact on the temperature.
 
-![Closed case for 5 Pi's with case](IMG16_6273_sweb.jpg){width="50%"}
+![Closed case for 5 Pi's with case](IMG16_6273_sweb.jpg)
 
 * <http://climbers.net/sbc/add-fan-raspberry-pi/>
 * <http://climbers.net/sbc/diy-raspberry-pi-3-cluster/>
@@ -125,9 +126,9 @@ put together and sharing the same power supply. The blades are shown
 in the next Figure. The rack to place 10 of them is shown in the
 Figure after that.
 
-![Figure: BitScope blade for 4 Pi's.](04.jpg)
+![Figure: BitScope blade for 4 Pi's.](bitscope-04.jpg)
 
-![Figure: 40 Pi Blade rack.](br40a.png)
+![Figure: 40 Pi Blade rack.](bitscope-br40a.png)
 
 The cost of the blade rack is $ 795.45 + $60.00 shipping + import tax.
 This may originally sound expensive when compared to a single case,
@@ -146,13 +147,13 @@ cluster. The cost for such a module is about $15K.
 
 The next Figure shows the module.
 
-![BitScope 144 cluster module.](cluster-module.png){width="50%"}
+![BitScope 144 cluster module.](cluster-module.png)
 
 The next figure shows how multiple modules can be placed into a
 single rack.
 
 
-![Rack placement of multiple BitScope 144 cluster modules.](rack-overview.png){width="50%"}
+![Rack placement of multiple BitScope 144 cluster modules.](rack-overview.png)
 
 Additional information about this form factor can be found at the
 following links:

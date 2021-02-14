@@ -1,6 +1,6 @@
 
 ---
-title: "Links"
+title: "Link Collection abut PI Clusters and Parts"
 linkTitle: "Links"
 weight: 20
 menu:
@@ -111,10 +111,7 @@ menu:
 * [Workshop to create a sensor application over a WiFi Mesh network, binnes, GitHub](https://github.com/binnes/WiFiMeshRaspberryPi),
 * [DIY: How to Create a Home Mesh WiFi using Raspberry Pi | iotTrends.tech](https://www.iottrends.tech/blog/diy-how-to-create-a-home-mesh-wifi-using-raspberry-pi/)
 
-## To be added
-
-Add-on Hardware
---------------
+## Add-on Hardware
 
 * [power switches](https://www.amazon.com/dp/B01DE57SD4/ref=psdc_6396124011_t2_B075WZJL6N)
 
