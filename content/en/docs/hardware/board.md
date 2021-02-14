@@ -34,7 +34,7 @@ We will give a small introduction to the platform next.
 
 ## Raspberry PI 4B
 
-![](https://github.com/cloudmesh/pi/raw/main/content/en/docs/hardware/images/pi4.png)
+![](images/pi4.png)
 
 Figure 1: Pi 4B board
 
@@ -157,7 +157,7 @@ Figure 5. Pi pinout
 In case you need to drill wholes in cases or plexiglas for mounting, the 
 following mounting diagram is very useful:
 
-* [Mounting Diagram in PDF](https://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/11/Raspberry-Pi-Mounting-Hole-Template.pdf
+* [Mounting Diagram in PDF](https://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/11/Raspberry-Pi-Mounting-Hole-Template.pdf)
 
 ## Resources
 
