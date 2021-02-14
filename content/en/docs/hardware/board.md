@@ -5,7 +5,7 @@ weight: 10
 description: >
   Information about the Raspberry Pi boards
 resources:
-- src: "images/*.{png,jpg}"
+- src: "images/**.{png,jpg}"
   title: "Image #:counter"
 ---
 
