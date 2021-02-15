@@ -167,7 +167,7 @@
   vendor: "Amazon"
   description: "HONJIE M2.5 x 11mm"
   url: "https://www.amazon.com/gp/product/B0824G9YGN/ref=ppx_yo_dt_b_asin_title_o03_s00?ie=UTF8&psc=1"
-  comment: ""
+  comment: "2 of them stacked are needed between two Pis"
   included: 50
   price: 7.56
   other: ""
