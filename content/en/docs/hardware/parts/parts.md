@@ -23,7 +23,7 @@ This section will have the list of tools and parts that we recommend you get to 
 
 To add parts please visit the yaml file and add them at
 
-* <>
+* <https://github.com/cloudmesh/pi/blob/main/parts/README-parts-list.yml>
 
 <!-- parts list is generted with bin/parts.py do creat your own parts list first-->
 
@@ -56,6 +56,7 @@ To add parts please visit the yaml file and add them at
 | 22 | Amazon   | [Case 8 layers](https://www.amazon.com/GeeekPi-Raspberry-Cluster-Stackable-4-Layers/dp/B085XSPV7G/ref=sr_1_6?dchild=1&keywords=raspberry%2Bpi%2Bcluster%2Bcase%2Bwith%2Bvan&qid=1608317526&sr=8-6&th=1)                                                                                                                                                                                                                                                                                                                       |          1 |   64.99 | not recommend due to to not able to use the faster SD Cards, works well for PI3B+. For PI4 and 64GB card the voltage of the SDCard needs to be increased, but that means its slower                                                                                                                                                     | ![](https://images-na.ssl-images-amazon.com/images/I/61m-TB3%2BdpL._AC_UL115_.jpg)                                               |
 
 <!--PARTS-->
+
 
 
 
