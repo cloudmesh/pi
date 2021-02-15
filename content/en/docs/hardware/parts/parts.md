@@ -22,9 +22,9 @@ We list a number of different parts we found useful to build PI clusters.
 
 This section will have the list of tools and parts that we recommend you get to assemble a PI cluster
 
-To add parts please visit the yaml file and add them at
+To add parts please visit the yaml file and add them to the 
+[parts list](https://github.com/cloudmesh/pi/blob/main/parts/README-parts-list.yml)
 
-* <https://github.com/cloudmesh/pi/blob/main/parts/README-parts-list.yml>
 
 Prices are in dollar as found at the time on online retailers.
 
@@ -59,6 +59,7 @@ Prices are in dollar as found at the time on online retailers.
 | 22 | Amazon   | [Case 8 layers](https://www.amazon.com/GeeekPi-Raspberry-Cluster-Stackable-4-Layers/dp/B085XSPV7G/ref=sr_1_6?dchild=1&keywords=raspberry%2Bpi%2Bcluster%2Bcase%2Bwith%2Bvan&qid=1608317526&sr=8-6&th=1)                                                                                                                                                                                                                                                                                                                       |          1 |   64.99 | not recommend due to to not able to use the faster SD Cards, works well for PI3B+. For PI4 and 64GB card the voltage of the SDCard needs to be increased, but that means its slower                                                                                                                                                     | ![](https://images-na.ssl-images-amazon.com/images/I/61m-TB3%2BdpL._AC_UL115_.jpg)                                               |
 
 <!--PARTS-->
+
 
 
 

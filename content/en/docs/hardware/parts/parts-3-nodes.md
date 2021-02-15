@@ -26,7 +26,12 @@ This section will have the list of tools and parts that we recommend you get to 
 > need a different power supply or buy a second one of these. See our 8 node 
 > cluster list for an alternative.
 
+To add parts please visit the yaml file and add them to the 
+[parts list](https://github.com/cloudmesh/pi/blob/main/parts/README-parts-3.yml)
+
 Prices are in dollar as found at the time on online retailers.
+
+https://github.com/cloudmesh/pi/blob/main/parts/README-parts-list.yml
 
 <!-- parts list is generted with bin/parts.py do creat your own parts list first-->
 
@@ -47,6 +52,7 @@ Prices are in dollar as found at the time on online retailers.
 | 10 |          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |            |         |         | 354.03   |                           |                                                                                    |
 
 <!--PARTS-->
+
 
 
 

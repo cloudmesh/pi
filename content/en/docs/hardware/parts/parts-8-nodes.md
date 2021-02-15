@@ -24,6 +24,9 @@ This section will have the list of tools and parts that we recommend you get to 
 
 Prices are in dollar as found at the time on online retailers.
 
+To add parts please visit the yaml file and add them to the 
+[parts list](https://github.com/cloudmesh/pi/blob/main/parts/README-parts-3.yml)
+
 <!-- parts list is generted with bin/parts.py do creat your own parts list first-->
 
 <!--PARTS-->
@@ -44,6 +47,7 @@ Prices are in dollar as found at the time on online retailers.
 | 11 |          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |            |         |         | 907.63   |                                                                                                                                                                                                                                                                                                                                         |                                                                                    |
 
 <!--PARTS-->
+
 
 
 
