@@ -5,7 +5,22 @@ linkTitle: "SDCard Burner"
 weight: 20
 description: >
   Create easily preconfigured SDCards to make cluster setups easier.
----# Cloudmesh Pi Burner for SD Cards
+---
+
+
+{{% pageinfo %}}
+
+**Learning Objectives**
+
+* Find an easier way to burn multiple SD Cards for clusters with preconfiguration included.
+
+**Contributing**
+
+* To edit this page please use this [link](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md)
+* The code is located on [GitHub](https://github.com/cloudmesh/cloudmesh-pi-burn)
+
+{{% /pageinfo %}}
+
 
 **WARNING:** *This program is designed for a **Raspberry Pi**. Instructions 
 to use **Linux** are included in the FAQ. We are working on support for **macOS 
