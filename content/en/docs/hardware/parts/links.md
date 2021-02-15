@@ -4,7 +4,7 @@ title: "Link Collection abut PI Clusters and Parts"
 linkTitle: "See Also"
 description: >
   CLusters found on the Internet.
-weight: 20
+weight: 70
 ---
 
 > **Note**: In future this list will be integrated in our yaml file managed list.
