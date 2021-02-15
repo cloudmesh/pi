@@ -2,6 +2,7 @@
 ---
 title: "Cloudmesh Pi Burner"
 linkTitle: "SDCard Burner"
+github_url: "https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md"
 weight: 20
 description: >
   Create easily preconfigured SDCards to make cluster setups easier.
