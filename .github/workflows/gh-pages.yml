@@ -35,6 +35,7 @@ jobs:
 
       - run: sudo npm install -D postcss
       - run: npm ci
+      - run: make
       - run: hugo --minify
 
       - name: Deploy
