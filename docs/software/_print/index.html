@@ -117,7 +117,7 @@ and Windows 10</strong>. If you want to help us port to any of these OSes, pleas
 contact <a href=mailto:laszewski@gmail.com>laszewski@gmail.com</a></em></p><p><a href=https://travis-ci.com/github/cloudmesh/cloudmesh-pi-burn><img src="https://travis-ci.com/cloudmesh/cloudmesh-pi-burn.svg?branch=main" alt=image></a>
 <a href=https://pypi.org/project/cloudmesh-pi-burn><img src=https://img.shields.io/pypi/pyversions/cloudmesh-pi-burn.svg alt=image></a>
 <a href=https://pypi.org/project/cloudmesh-pi-burn/><img src=https://img.shields.io/pypi/v/cloudmesh-pi-burn.svg alt=image></a>
-<a href=https://opensource.org/licenses/Apache-2.0><img src=https://img.shields.io/badge/License-Apache%202.0-blue.svg alt=License></a></p><ul><li><a href=#cloudmesh-pi-burner-for-sd-cards>Cloudmesh Pi Burner for SD Cards</a><ul><li><a href=#introduction>Introduction</a></li><li><a href=#nomenclature>Nomenclature</a></li><li><a href=#quickstart-for-bridged-wifi>Quickstart for Bridged WiFi</a><ul><li><a href=#requirements>Requirements</a></li><li><a href=#manager-pi>Manager Pi</a></li><li><a href=#burning-multiple-sd-cards-with-a-single-burner>Burning Multiple SD Cards with a Single Burner</a></li><li><a href=#connecting-pis-to-the-internet-via-bridge>Connecting Pis to the Internet via Bridge</a></li></ul></li><li><a href=#set-up-of-the-ssh-keys-and-ssh-tunnel>Set up of the SSH keys and SSH tunnel</a></li><li><a href=#manual-pages>Manual Pages</a><ul><li><a href=#manual-page-for-the-burn-command>Manual Page for the <code>burn</code> command</a></li><li><a href=#manual-page-for-the-bridge-command>Manual Page for the <code>bridge</code> command</a></li><li><a href=#manual-page-for-the-host-command>Manual Page for the <code>host</code> command</a></li><li><a href=#manual-page-for-the-pi-command>Manual Page for the <code>pi</code> command</a></li></ul></li><li><a href=#faq-and-hints>FAQ and Hints</a><ul><li><a href=#can-i-use-the-leds-on-the-pi-motherboard>Can I use the LEDs on the PI Motherboard?</a></li><li><a href=#how-can-i-use-pycharm-to-edit-files-or-access-files-in-general-from-my-laptop-on-the-pi>How can I use pycharm, to edit files or access files in general from my Laptop on the PI?</a></li><li><a href=#how-can-i-enhance-the-get-script>How can I enhance the <code>get</code> script?</a></li><li><a href=#can-i-use-a-mesh-network-for-the-setup>Can I use a Mesh Network for the setup?</a></li><li><a href=#can-i-use-cms-burn-on-linux>Can I use cms burn on Linux?</a></li><li><a href=#what-is-the-status-of-the-implementation>What is the status of the implementation?</a></li><li><a href=#what-packages-do-i-need-to-run-the-info-command-on-macos>What packages do I need to run the info command on macOS</a></li><li><a href=#are-there-any-unit-tests>Are there any unit tests?</a></li><li><a href=#using-pi-imager-to-setup-a-manager-pi-with-headless-access>Using Pi Imager to setup a Manager Pi with headless access</a></li><li><a href=#single-card-burning>Single Card Burning</a></li><li><a href=#how-to-update-firmware>How to update firmware?</a></li><li><a href=#how-to-burn-a-cluster-using-linux>How to burn a cluster using Linux</a></li></ul></li></ul></li></ul><h2 id=introduction>Introduction</h2><p><code>cms burn</code> is a program to burn many SD cards for the preparation of
+<a href=https://opensource.org/licenses/Apache-2.0><img src=https://img.shields.io/badge/License-Apache%202.0-blue.svg alt=License></a></p><ul><li><a href=#cloudmesh-pi-burner-for-sd-cards>Cloudmesh Pi Burner for SD Cards</a><ul><li><a href=#introduction>Introduction</a></li><li><a href=#nomenclature>Nomenclature</a></li><li><a href=#quickstart-for-bridged-wifi>Quickstart for Bridged WiFi</a><ul><li><a href=#requirements>Requirements</a></li><li><a href=#manager-pi>Manager Pi</a></li><li><a href=#burning-multiple-sd-cards-with-a-single-burner>Burning Multiple SD Cards with a Single Burner</a></li><li><a href=#connecting-pis-to-the-internet-via-bridge>Connecting Pis to the Internet via Bridge</a></li></ul></li><li><a href=#set-up-of-the-ssh-keys-and-ssh-tunnel>Set up of the SSH keys and SSH tunnel</a></li><li><a href=#manual-pages>Manual Pages</a><ul><li><a href=#manual-page-for-the-burn-command>Manual Page for the <code>burn</code> command</a></li><li><a href=#manual-page-for-the-bridge-command>Manual Page for the <code>bridge</code> command</a></li><li><a href=#manual-page-for-the-host-command>Manual Page for the <code>host</code> command</a></li><li><a href=#manual-page-for-the-pi-command>Manual Page for the <code>pi</code> command</a></li></ul></li><li><a href=#faq-and-hints>FAQ and Hints</a><ul><li><a href=#can-i-use-the-leds-on-the-pi-motherboard>Can I use the LEDs on the PI Motherboard?</a></li><li><a href=#how-can-i-use-pycharm-to-edit-files-or-access-files-in-general-from-my-laptop-on-the-pi>How can I use pycharm, to edit files or access files in general from my Laptop on the PI?</a></li><li><a href=#how-can-i-enhance-the-get-script>How can I enhance the <code>get</code> script?</a></li><li><a href=#can-i-use-a-mesh-network-for-the-setup>Can I use a Mesh Network for the setup?</a></li><li><a href=#can-i-use-cms-burn-on-linux>Can I use cms burn on Linux?</a></li><li><a href=#what-packages-do-i-need-to-run-the-info-command-on-macos>What packages do I need to run the info command on macOS</a></li><li><a href=#are-there-any-unit-tests>Are there any unit tests?</a></li><li><a href=#using-pi-imager-to-setup-a-manager-pi-with-headless-access>Using Pi Imager to setup a Manager Pi with headless access</a></li><li><a href=#single-card-burning>Single Card Burning</a></li><li><a href=#how-to-update-firmware>How to update firmware?</a></li><li><a href=#how-to-burn-a-cluster-using-linux>How to burn a cluster using Linux</a></li></ul></li><li><a href=#alternatives>Alternatives</a><ul><li><a href=#what-is-the-status-of-the-implementation>What is the status of the implementation?</a></li></ul></li></ul></li></ul><h2 id=introduction>Introduction</h2><p><code>cms burn</code> is a program to burn many SD cards for the preparation of
 building clusters with Raspberry Pi&rsquo;s. It allows users to create
 readily bootable SD cards that have the network configured and contain a
 public ssh key from your machine that you used to configure the
@@ -298,6 +298,8 @@ to workers</p><pre><code>you@yourlaptop:~ $ ssh red001
               [--wifipassword=PSK]
               [--format]
               [--tag=TAG]
+              [--inventory=INVENTORY]
+              [--name=NAME]
   burn sdcard [TAG...] [--device=DEVICE] [--dryrun]
   burn set [--hostname=HOSTNAME]
            [--ip=IP]
@@ -312,7 +314,7 @@ Options:
   --version              Show version.
   --image=IMAGE          The image filename,
                          e.g. 2019-09-26-raspbian-buster.img
-  --device=DEVICE        The device, e.g. /dev/mmcblk0
+  --device=DEVICE        The device, e.g. /dev/sdX
   --hostname=HOSTNAME    The hostname
   --ip=IP                The IP address
   --key=KEY              The name of the SSH key file
@@ -327,6 +329,12 @@ Files:
     Location where the images will be stored for reuse
 
 Description:
+    cms burn create --inventory=INVENTORY --device=DEVICE --name=NAME
+
+        Will refer to a specified cloudmesh inventory file (see cms help inventory).
+        Will search the configurations for NAME inside of INVENTORY and will burn
+        to DEVICE. Supports parameter expansion.
+
     cms burn create --passwd=PASSWD
 
          if the passwd flag is added the default password is
