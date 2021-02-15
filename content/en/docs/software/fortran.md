@@ -1,6 +1,5 @@
 ---
 title: "Fortan"
-date: 2017-01-05
 description: >
   In case you like to experiment with FORTRAN, you can install and use it.
 ---

@@ -1,7 +1,6 @@
 ---
 title: "Parts"
 linkTitle: "Parts"
-date: 2021-02-14
 description: >
   A collection of parts to build Pi Clusters.
 resources:

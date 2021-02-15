@@ -1,6 +1,5 @@
 ---
 title: "Motherboard LED"
-date: 2017-01-05
 description: >
   In some cases it it useful to visually display information about the state 
   or programs on your cluster. The LEDs on the board can be used for that.

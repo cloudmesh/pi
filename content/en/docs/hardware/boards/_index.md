@@ -1,7 +1,6 @@
 ---
 title: "Boards: Raspberry PI"
 linkTitle: "Board"
-date: 2017-01-05
 weight: 10
 description: >
   Information about the Raspberry Pi boards

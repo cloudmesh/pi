@@ -1,6 +1,5 @@
 ---
 title: "Run at Boot"
-date: 2017-01-05
 description: >
   To run programs at boot time you have several options. learn about them here.
 ---

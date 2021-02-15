@@ -1,7 +1,6 @@
 ---
 title: "Pi Clusters on the Internet"
 linkTitle: "Builds"
-date: 2017-01-05
 description: >
   Pi CLuster builds found on the Internet
 resources:

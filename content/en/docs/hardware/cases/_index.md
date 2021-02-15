@@ -1,7 +1,6 @@
 ---
 title: "Cases: Pi Cluster Cases"
 linkTitle: "Cases"
-date: 2017-01-05
 description: >
   A collection of PI cluster cases.
 resources:
