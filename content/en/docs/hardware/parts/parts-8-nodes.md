@@ -1,6 +1,28 @@
+---
+title: "Parts for a 8 node cluster"
+linkTitle: "8 Nodes"
+weight: 30
+date: 2021-02-14
+description: >
+  A collection of parts to build Pi Clusters with 3 nodes.
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
+---
+
+
+{{% pageinfo %}}
+We list tu build a 8 node cluster with PI4 8GB
+
+{{< table_of_contents >}}
+
+{{% /pageinfo %}}
+
 # Parts
 
 This section will have the list of tools and parts that we recommend you get to assemble a PI cluster
+
+Prices are in dollar as found at the time on online retailers.
 
 <!-- parts list is generted with bin/parts.py do creat your own parts list first-->
 
@@ -22,6 +44,7 @@ This section will have the list of tools and parts that we recommend you get to 
 | 11 |          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |            |         |         | 907.63   |                                                                                                                                                                                                                                                                                                                                         |                                                                                    |
 
 <!--PARTS-->
+
 
 
 
