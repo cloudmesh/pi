@@ -1,11 +1,13 @@
 
 ---
 title: "Link Collection abut PI Clusters and Parts"
-linkTitle: "Links"
+linkTitle: "See Also"
 description: >
   CLusters found on the Internet.
 weight: 20
 ---
+
+> **Note**: In future this list will be integrated in our yaml file managed list.
 
 * While posting links in this page we are not endorsing any producs or software. Alternative links for similar products 
   and software may exists. If you like to have them listed here, please let us know.
