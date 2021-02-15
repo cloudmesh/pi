@@ -99,7 +99,7 @@
 
 - name: "Big USB Charger"
   vendor: "Amazon"
-  description: "USB Charging Station"
+  description: "60 Ports USB Charging Station"
   url: "https://www.amazon.com/G-daimler-Charging-Intelligent-Protection-organizer/dp/B077VGZBVS/ref=sr_1_2?dchild=1&keywords=60+port+usb+charger&qid=1608319889&s=electronics&sr=1-2"
   comment: ""
   included: 1
@@ -141,11 +141,33 @@
   image: "https://m.media-amazon.com/images/I/51fGtzImuwL._AC_SS260_.jpg"
   category: Power cable
 
+- name: Power cable with switch USB C
+  vendor: "Amazon"
+  description: "4 Pack Cable with switch"
+  url: "https://www.amazon.com/MazerPi-Raspberry-Switch-Indicator-Supply/dp/B08B1FZWR3/ref=sr_1_1?dchild=1&keywords=Power+switches+usbc+pi&qid=1612866954&s=electronics&sr=1-1"
+  comment: "these are from USB-C to USB-C to go to a USB charger you stil need a cable or converter to USB-A"
+  included: 4
+  price: 12
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61IBhgTQvOL._AC_UL115_.jpg"
+  category: Power cable
+
+- name: "Individual power switches"
+  vendor: "Amazon"
+  description: "Individual power switches"
+  url: "https://www.amazon.com/dp/B01DE57SD4/ref=psdc_6396124011_t2_B075WZJL6N"
+  comment: "Please be casefull using them as they may lead to damage to PI power supplies in case of power spickes."
+  included: 6
+  price: 19.99
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61796i7twOL._AC_UL115_.jpg"
+  category: Power
+
 - name: "50 Pcs M2 X 20mm + 5mm Hex Hexagonal Threaded Spacer"
   vendor: "Amazon"
   description: "50 Pcs M2 X 20mm + 5mm Hex Hexagonal Threaded Spacer"
   url: "https://www.amazon.com/20mm-Hexagonal-Threaded-Spacer-Support/dp/B00FH8AB8Q/ref=sr_1_1?dchild=1&keywords=50pcs+m2+x+20mm+%2B+5mm+hex+hexagonal+threaded&qid=1613164621&s=instant-video&sr=1-1"
-  comment: "fit very good, a bit thin"
+  comment: "fit very good, a bit thin. This is the cheapest solution"
   included: 50
   price: 11.49
   other: ""
@@ -240,6 +262,17 @@
   image: "https://images-na.ssl-images-amazon.com/images/I/81T3AgBahML._AC_UL115_.jpg"
   category: Fan Cable
 
+- name: "GeekPi Case, 4 Pis"
+  vendor: "Amazon"
+  description: "Case 8 layers"
+  url: "https://www.amazon.com/GeeekPi-Raspberry-Cluster-Stackable-4-Layers/dp/B083FDHPBH/ref=sr_1_2?dchild=1&keywords=pi+cluster+case&qid=1612717954&sr=8-2"
+  comment: "see commend in the 8 layer case"
+  included: 1
+  price: 40
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61jNSS7sMuL._AC_UL160_SR160,160_.jpg"
+  category: Case
+
 - name: Geekpi Case for 8
   vendor: "Amazon"
   description: "Case 8 layers"
@@ -249,5 +282,83 @@
   price: 64.99
   other: ""
   image: "https://images-na.ssl-images-amazon.com/images/I/61m-TB3%2BdpL._AC_UL115_.jpg"
+  category: Case
+
+- name: "GeekPi Case, 12 Pis"
+  vendor: "Amazon"
+  description: "Case 8 layers"
+  url: "https://www.amazon.com/GeeekPi-Raspberry-Cluster-Stackable-12-Layers/dp/B08FH3V6GV/ref=sr_1_17?dchild=1&keywords=pi+cluster+case&qid=1612718343&sr=8-17"
+  comment: "see comment in 8 layer case"
+  included: 1
+  price: 90
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61qsgLvszbL._AC_UL160_SR160,160_.jpg"
+  category: Case
+
+- name: "Stackable Case, 4 Pis"
+  vendor: "Amazon"
+  description: "Case 8 layers"
+  url: "https://www.amazon.com/Acrylic-Raspberry-heatsink-Instruction-dogbone/dp/B07F1J4TLC/ref=sr_1_41?dchild=1&keywords=pi+cluster+case&qid=1612717746&sr=8-41"
+  comment: "Heat Sinks and fans included "
+  included: 1
+  price: 12
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/81LhO90+kxL._AC_UL160_SR160,160_.jpg"
+  category: Case
+
+- name: "Cloudlet Case, 7 Pis"
+  vendor: "Amazon"
+  description: "Cloudlet Case, 7 Pi"
+  url: "https://www.amazon.com/Cloudlet-CASE-Raspberry-Computers-Compatible/dp/B0844YSJWB/ref=sr_1_3?dchild=1&keywords=pi+cluster+case&qid=1612718209&sr=8-3"
+  comment: ""
+  included: 1
+  price: 70
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/71JxsqiMWLL._AC_UL160_SR160,160_.jpg"
+  category: Case
+
+- name: "Utronics 1U Rack mount, 4 Pis"
+  vendor: "Amazon"
+  description: "Utronics 1U Rack mount, 4 Pi's"
+  url: "https://www.amazon.com/UCTRONICS-Raspberry-Rackmount-Supports-Models/dp/B08F9X528J/ref=sr_1_7?dchild=1&keywords=pi+cluster+rack&qid=1612718479&sr=8-7"
+  comment: ""
+  included: 1
+  price: 40
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/51x8S1vT+FL._AC_UL160_SR160,160_.jpg"
+  category: Case
+
+
+- name: "Utronics 1U Rack mount with HDMI redirection, 4 Pis"
+  vendor: "Amazon"
+  description: "Utronics 1U Rack mount with HDMI redirection, 4 Pi's"
+  url: "https://www.amazon.com/UCTRONICS-Raspberry-Rackmount-Supports-Models/dp/B08KDQHZZ3/ref=sr_1_7?dchild=1&keywords=pi%2Bcluster%2Brack&qid=1612718479&sr=8-7&th=1"
+  comment: ""
+  included: 1
+  price: 60
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61au2QyXMjL._AC_UL115_.jpg"
+  category: Case
+
+- name: "UCTRONICS 19 inch 3U Rack Mount"
+  vendor: "Amazon"
+  description: "UCTRONICS 19 inch 3U Rack Mount"
+  url: "https://www.amazon.com/dp/B08N65J43C/ref=sspa_dk_detail_1?psc=1&pd_rd_i=B08N65J43C&pd_rd_w=0AfyT&pf_rd_p=b34bfa80-68f6-4e86-a996-32f7afe08deb&pd_rd_wg=wxnHW&pf_rd_r=YBZTNA3Q0GBZVAP5NN3S&pd_rd_r=e82b50c3-3f3b-463e-9f82-73562b8fca93&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUFGQlcxVzU0QzY2R0MmZW5jcnlwdGVkSWQ9QTA5NTQxMzhRS0NHTVExQ05WWFgmZW5jcnlwdGVkQWRJZD1BMDk5MTU1MjE5Q1Q1MkgyMTNPTEwmd2lkZ2V0TmFtZT1zcF9kZXRhaWwmYWN0aW9uPWNsaWNrUmVkaXJlY3QmZG9Ob3RMb2dDbGljaz10cnVl"
+  comment: "Comes only 8 trays that costs $100 and will have an open gap if you do not buy an extra 4 trays for $25. The frame can hold 12 trays"
+  included: 1
+  price: 125
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61h8BPAGjsL._AC_UL100_SR100,100_.jpg"
+  category: Case
+
+- name: "MyElectronics 3U Rackmount, 12 Pis"
+  vendor: "Amazon"
+  description: "MyElectronics 3U Rackmount, 12 Pi's"
+  url: "https://www.amazon.com/MyElectronics-Raspberry-Mount-Units-Models/dp/B08Q8MTGHS/ref=sr_1_40?dchild=1&keywords=pi+rack&qid=1612718915&sr=8-40"
+  comment: "see also UTRONICS"
+  included: 1
+  price: 139
+  other: ""
+  image: "https://images-na.ssl-images-amazon.com/images/I/61h8BPAGjsL._AC_UL160_SR160,160_.jpg"
   category: Case
 
