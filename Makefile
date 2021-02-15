@@ -18,5 +18,5 @@ parts:
 burner:
 	cd content/en/docs/software/burner;  wget https://raw.githubusercontent.com/cloudmesh/cloudmesh-pi-burn/main/README.md
 	cd content/en/docs/software/burner; tail -n +2 README.md > README-noheader.md 2>&1
-	cd content/en/docs/software/burner; cat meta.md-include README-noheader.md > burner.md 2>&1
+	cd content/en/docs/software/burner; cat meta.md-include README-noheader.md > _index.md 2>&1
 	cd content/en/docs/software/burner; rm -f README.md README-noheader.md
