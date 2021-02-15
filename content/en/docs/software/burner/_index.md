@@ -175,22 +175,22 @@ We can verify our image's downloaded with the following.
 (ENV3) pi@managerpi:~ $ cms burn image ls
 ```
 
-> > **Note.** For our cluster we use light, but if you like 
-> > to use other versions please see this note.
-> > We can use the following command to list the current
-> > Raspberry Pi OS versions (full and lite)
-> >
-> > ```
-> > (ENV3) pi@managerpi:~ $ cms burn image versions --refresh
-> > ```
-> >
-> > This will list the Tags and Types of each available OS. We can then
-> > modify the `image get` command for versions we are interested in. For
-> > example,
-> >
-> > ```
-> > (ENV3) pi@managerpi:~ $ cms burn image get full-2020-05-28
-> > ```
+> **Note.** For our cluster we use light, but if you like 
+> to use other versions please see this note.
+> We can use the following command to list the current
+> Raspberry Pi OS versions (full and lite)
+>
+> ```
+> (ENV3) pi@managerpi:~ $ cms burn image versions --refresh
+> ```
+>
+> This will list the Tags and Types of each available OS. We can then
+> modify the `image get` command for versions we are interested in. For
+> example,
+>
+> ```
+> (ENV3) pi@managerpi:~ $ cms burn image get full-2020-05-28
+> ```
 
 
 **Step 4**. Setup SD Card Writer
@@ -409,10 +409,6 @@ program. Later we add it to the main manager setup script.
 
 ```
 (ENV3) pi@managerpi:~ $ yes y | sudo apt install autossh
-```
-
-
-```
 (ENV3) pi@managerpi:~ $ cms host tunnel create red00[1-3]
 ```
 
@@ -729,27 +725,6 @@ Examples: ( \ is not shown)
 <!--MANUAL-BURN-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Manual Page for the `bridge` command
 
 Note to execute the command on the commandline you have to type in
@@ -782,20 +757,6 @@ Description:
 
 ```
 <!--MANUAL-BRIDGE-->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ### Manual Page for the `host` command
@@ -920,19 +881,6 @@ Description:
 <!--MANUAL-HOST-->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Manual Page for the `pi` command
 
 Note to execute the command on the commandline you have to type in
@@ -1010,19 +958,6 @@ Description:
 
 ```
 <!--MANUAL-PI-->
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1132,43 +1067,6 @@ cms burn unmount
 
 Take the SDCard into the PI and set it up there. as documented.
 
-### What is the status of the implementation?
-
-| Feature         | PI    | Ubuntu | Mac   | Windows |
-| --------------- | ----- | ------ | ----- | ------- |
-| image versions  |    +  |    +   |    +  |         |
-| image ls        |    +  |    +   |    +  |         |
-| image delete    |    +  |    +   |    +  |         |
-| image get       |    +  |    +   |    +  |         |
-| info            |    +  |    +   |    +  |         |
-| network         |    +  |    +   |       |         |
-| backup          |    +  |    +   |    -  |         |
-| copy            |    +  |    +   |    -  |         |
-| shrink install  |    +  |    +   |       |         |
-| shrink          |    +  |    +   |       |         |
-| sdcard          |    +  |    +   |    +  |         |
-| mount           |    +  |    +   |    +  |         |
-| unmount         |    +  |    +   |    +  |         |
-| enable ssh      |    +  |    +   |    +  |         |
-| wifi            |    +  |    +   |    +  |         |
-| set             |    +  |    +   | TODO1 |         |
-| create          |  TODO |  TODO  | TODO  |         |
-| check           |    +  |    +   |    +  |         |
-| format          |    +  |    +   |    +  |         |
-| firmware        | a  +  | NA     |  NA   | NA      |
-
-* for macOS, only the image commands have unit tests
-* firmware does not have a unit test
-  
-
-empty = not yet implemented
-* + = verified throug unit test either by ANthony or Gregor
-* - broken
-
-* TODO1 = todo for boot fs, rootfs not supported
-
-* 2 = change and add --ssd so its uniform
-1 = get needs to use the image versions refresh cache
 
 ### What packages do I need to run the info command on macOS
 
@@ -1396,9 +1294,9 @@ not required using this method.
 
 #### Prerequisites
 
-- We recommend Python 3.8.2 Python or newer.
-- We recommend pip version 21.0.0 or newer
-- You have a private and public ssh key named ~/.ssh/id_rsa and ~/.
+* We recommend Python 3.8.2 Python or newer.
+* We recommend pip version 21.0.0 or newer
+* You have a private and public ssh key named ~/.ssh/id_rsa and ~/.
   ssh/id_rsa.pub
 
 #### Install Cloudmesh
@@ -1435,7 +1333,7 @@ you@yourlaptop:~ $ cms burn info
 
 **Step 2.** Burn the manager pi.
 
-**!! WARNING VERIFY THE DEVICE IS CORRECT. REFER TO CMS BURN !!**
+> **!! WARNING VERIFY THE DEVICE IS CORRECT. REFER TO CMS BURN !!**
 
 ```
 you@yourlaptop:~ $ cms burn create --hostname=managerpi --tag=latest-full--device=/dev/sdX --ssid=your_wifi --wifipassword=your_password
@@ -1450,7 +1348,7 @@ cms burn image get latest-lite
 
 **Step 2.** Burn the workers
 
-**!! WARNING VERIFY THE DEVICE IS CORRECT. REFER TO CMS BURN !!**
+> **!! WARNING VERIFY THE DEVICE IS CORRECT. REFER TO CMS BURN !!**
 
 ```
 cms burn create --hostname=red00[1-4] --ip=10.1.1.[2-5] --device=/dev/sdX --tag=latest-lite
@@ -1483,3 +1381,57 @@ See section [Connecting Pis to the Internet via Bridge](#connecting-pis-to-the-i
 See section [Set up of the SSH keys and SSH tunnel](#set-up-of-the-ssh-keys-and-ssh-tunnel)
 
 **Step 6.** Enjoy your Pi cluster :)
+
+## Alternatives
+
+There are several alternatives to make the setup easier:
+
+* Using Ansible after you have created the SDCards via PIImager. THis however 
+  requires still the discovery of the hosts on the network and additional steps.
+* PiBakery can burn cards while allowing startup scripts and naming hosts. 
+  Although the GUI is nice it is also a limiting factor as each card shoudl have 
+  a different hostname
+* Using DHCP to get ip addresses automatically. THis is a solution we also used but
+  do not present here
+* PXE or network booting whch allsows you to boot from the network. For larger PI 
+  clusters this requires multiple Servers so that the network is not everwhelmed. 
+  Starting the cluster takes much longer.
+
+
+### What is the status of the implementation?
+
+| Feature         | PI    | Ubuntu | Mac   | Windows |
+| --------------- | ----- | ------ | ----- | ------- |
+| image versions  |    +  |    +   |    +  |         |
+| image ls        |    +  |    +   |    +  |         |
+| image delete    |    +  |    +   |    +  |         |
+| image get       |    +  |    +   |    +  |         |
+| info            |    +  |    +   |    +  |         |
+| network         |    +  |    +   |       |         |
+| backup          |    +  |    +   |    -  |         |
+| copy            |    +  |    +   |    -  |         |
+| shrink install  |    +  |    +   |       |         |
+| shrink          |    +  |    +   |       |         |
+| sdcard          |    +  |    +   |    +  |         |
+| mount           |    +  |    +   |    +  |         |
+| unmount         |    +  |    +   |    +  |         |
+| enable ssh      |    +  |    +   |    +  |         |
+| wifi            |    +  |    +   |    +  |         |
+| set             |    +  |    +   | TODO1 |         |
+| create          |  TODO |  TODO  | TODO  |         |
+| check           |    +  |    +   |    +  |         |
+| format          |    +  |    +   |    +  |         |
+| firmware        | a  +  | NA     |  NA   | NA      |
+
+* for macOS, only the image commands have unit tests
+* firmware does not have a unit test
+  
+
+empty = not yet implemented
+* + = verified throug unit test either by ANthony or Gregor
+* - broken
+
+* TODO1 = todo for boot fs, rootfs not supported
+
+* 2 = change and add --ssd so its uniform
+1 = get needs to use the image versions refresh cache
