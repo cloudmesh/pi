@@ -54,6 +54,14 @@ For this reason the following hugo themes may be useful:
 
   <img src="https://d33wubrfki0l68.cloudfront.net/f8a2f2ef6addf153348db8048452d5e440f755f2/49de6/compose/screenshot-compose_hu99489f9807af7702310939313b1648eb_168621_1500x1000_fill_catmullrom_top_2.png" width="50%">
 
+## Learn
+
+* Learn: <https://themes.gohugo.io/hugo-theme-learn/>
+
+  <img src="https://d33wubrfki0l68.cloudfront.net/29c18b199a741ffb1b79880e6acb2b4a526732b9/b0fcc/hugo-theme-learn/screenshot-hugo-theme-learn_hufe2da8fc83ad30ec674fecf911d5e6d9_284162_1500x1000_fill_catmullrom_top_2.png" width="50%">
+
+  * pro colapsible menu menu, next button on pages
+
 
 ## Dynamic Web Site (non documentation focused)
 
