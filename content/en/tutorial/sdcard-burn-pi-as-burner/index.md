@@ -47,16 +47,6 @@ is plugged into your manager PI that we configure initially with Pi Imager.
 {{% /pageinfo %}}
 
 
-
-{{% pageinfo %}}
-
-**Learning Objectives**
-
-**Topics COvered**
-
-{{
-{{% /pageinfo %}}
-
 ## Introduction
 
 Over time we have seen many efforts to create Clusters using Pi's as a
@@ -78,25 +68,23 @@ Despite the much improved Pi imager and the availability of Pi bakery, the
 process is still involved. So we started asking:
 
 > Is it possible to develop a tool that is specifically targeted to burn 
-> SDCards in a cluster one at a time so we can just  plug 
+> SDCards for the PIs in a cluster one at a time, so we can just  plug 
 > the cards in, and with minimal effort start the cluster that simply works?
 
 You are in luck, we have spent some time to develop such a tool. No more
 spending hours upon hours to replicate the steps, learn complex DevOps
-tutorial, but instead get a cluster set up easily with just a few commands.
+tutorials, but instead get a cluster set up easily with just a few commands.
 
 For this, we developed `cms burn` which is a program that you can execute
 either on a "manager" Pi (or in a Linux or macOS computers) to burn cards for
 your cluster. 
 
 We have set up on GitHub a comprehensive package that can be installed  easily
-we hope that it is useful to you.
-
-All of this is discussed in detail at 
-<https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md>
-
-To showcase to you that this tool is useful we demonstrate from our quickstart 
-how easy it is to use it.
+we hope that it is useful to you. All of this is discussed in detail at the
+[cloudmesh-pi-burn README](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md).
+There you can also find detailed instructions on how to use a Mac or Linux
+computer to burn directly from them. To showcase to you how easy it is to use
+we demonstrate here the setup of a cluster with five nodes.
 
 ## Requirements
 
@@ -108,21 +96,27 @@ how easy it is to use it.
 * Monitor, Mouse, Keyboard (for desktop access on Pi)
 * 1 (or more) SD Card Burner(s) (USB)
 
-We will be creating the following setup using **5 Raspberry Pis** 
-(you need a minimum of 2, but our method works also for larger 
-numbers of PIs). Consequentially, you will also need 5 SD cards for each of the 5 Pis.
+For a list of possible part choices, please see:
 
-You will also went a network switch (managed or unmanaged) with 5 ethernet cables (one fo reach Pi).
+* [Parts Choices](/pi/docs/hardware/parts/)
 
-Figure 1 below describes our network configuration. We have 5 Raspberry Pi 4s: 1
-manager and 4 workers. We use WiFi access to the manager PI to allow for you to
-set it up anywhere in your house or dorm (other configurations are discussed
-on our home page).
+## The Goal
 
-We use a network switch (unmanaged in our case), where the manager and workers can
-communicate locally, but we will configure the manager to provide
-internet access to devices on the network switch via a "network
-bridge".
+We will be creating the following setup using **5 Raspberry Pis** (you need a
+minimum of 2, but our method works also for larger numbers of PIs).
+Consequentially, you will also need 5 SD cards for each of the 5 Pis.
+You will also want a network switch (managed or unmanaged) with 5 ethernet
+cables (one fo reach Pi).
+
+Figure 1 shows our network configuration. From the five Raspberry Pi 4sc one is
+dedicated as a manager and four as workers. We use WiFi between the manager
+PI to allow for you to set it up anywhere in your house or dorm (other
+configurations are discussed in the 
+[README](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md)).
+
+We use an unmanaged network switch, where the manager and workers can
+communicate locally with each other, and the the manager provide
+internet access to the workers via a bridge that we configure for you.
 
 ![](https://github.com/cloudmesh/cloudmesh-pi-burn/raw/main/images/network-bridge.png)
 
@@ -132,11 +126,11 @@ Figure 1: Pi Cluster setup with bridge network
 
 ### Step 1. Burning and Configuring the Manager
 
-Choose one SD card to be the manager (yellow card in Figure 1). Using your laptop, download the [Raspberry Pi Imager]
-(https://www.raspberrypi.org/software/) for your respective operating system. We will use the Pi Imager to burn our 
+Choose one SD card for the manager (yellow card in Figure 1). Using your
+laptop, download the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) 
+RaspberryOS desktop version. THis is the recommended version for PIs at this time.
+We use Pi Imager to burn our
 manager. Note this is the only time we will need to use PI Imager.
-
-You should select the recommended Raspberry Pi OS. (Raspberry PI OS Full (32-bit) with recommended software and applications).
 
 <center>
 <img src="imager-with-options.png" width="50%" />
@@ -144,13 +138,14 @@ You should select the recommended Raspberry Pi OS. (Raspberry PI OS Full (32-bit
 Figure 2. Pi Imager
 </center>
 
-Write to your SD card. Once the process is complete and verified, insert into your manager
-Pi. Connect your manager to the peripherals (keyboard, mouse, monitor).
+Write to your SD card. Once the process is complete and verified, insert the SD Card into your manager
+Pi. Connect your manager to the peripherals (keyboard, mouse, monitor, power). Switch on the power.
 
 > Note you may also use a headless setup. See [here](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) for more information on headless setups.
 
-Walk through the initial setup process of the Pi and configure the settings in accordance with your situation. 
-We have provided images that depict this process next:
+Walk through the initial setup process of the Pi and configure the settings in
+accordance with your situation. We have provided screenshots in Figures 3 - 8
+that depict this process.
 
 <center>
 <img src="setup1.png" width="50%" />
