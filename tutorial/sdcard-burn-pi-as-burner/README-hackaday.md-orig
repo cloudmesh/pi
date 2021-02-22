@@ -155,6 +155,19 @@ Figure 7. The setup prompt will ask you if you wish to update the software. You 
 Figure 8. Setup is now complete.
 </center>
 
+We should also change the hostname of this raspberrypi. For this tutorial, we will use `managerpi`.
+
+<center>
+<img src="images/hostname1.png" width="50%" />
+
+Figure 9. Navigate to Raspberry Pi Configuration
+</center>
+
+<center>
+<img src="images/hostname2.png" width="50%" />
+
+Figure 10. Changing the hostname
+</center>
 
 
 ### Step 2. Installing Cloudmesh
