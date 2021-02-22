@@ -201,9 +201,20 @@ this for you.
 Figure 8. Setup is now complete.
 </center>
 
+### Step 2. Create an SSH key
 
+As we will be using keys to authenticate with the workers, you need to create
+one  in a terminal with
 
-### Step 2. Installing Cloudmesh
+```bash
+pi@managerpi:~ $ ssh-keygen
+```
+
+It will ask you for a location, choose the default. It will also ask you for a
+passphrase. Please use a strong one and do not make it the same as the password
+for your manager PI.
+
+### Step 3. Installing Cloudmesh
 
 Now let us install cloudmesh burn, which allows us to burn preconfigured SD
 Cards for clusters easily. Open a new terminal window and run the following
@@ -223,7 +234,7 @@ You will want to reboot your Pi after this.
 pi@managerpi:~ $ sudo reboot
 ```
 
-### Step 3. Creating our Cluster Inventory
+### Step 4. Creating our Cluster Inventory
 
 To manage information about our cluster, we will use a Cloudmesh Inventory.
 This will allow you to easily track and manage the configuration of your
@@ -252,7 +263,7 @@ if it looks like:
 ```
 
 
-### Step 4. Burning the SD Cards
+### Step 5. Burning the SD Cards
 
 We can now begin burning.
 
@@ -308,7 +319,7 @@ managerpi.
 (ENV3) pi@managerpi:~ $ sudo reboot
 ```
 
-### Step 5. Verifying the Workers
+### Step 6. Verifying the Workers
 
 Once your workers are booted, you can verify the connection with the following
 simple command. This command will return the temperature of the Pis.
