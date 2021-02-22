@@ -71,7 +71,9 @@ process is still involved. So we started asking:
 > SDCards for the PIs in a cluster one at a time, so we can just  plug 
 > the cards in, and with minimal effort start the cluster that simply works?
 
-You are in luck, we have spent some time to develop such a tool. No more
+You are in luck, we have spent some time to develop such a tool and presnt it at 
+as part of [PiPlanet](https://piplanet.org)[^piplanet] 
+. No more
 spending hours upon hours to replicate the steps, learn complex DevOps
 tutorials, but instead get a cluster set up easily with just a few commands.
 
@@ -81,7 +83,7 @@ your cluster.
 
 We have set up on GitHub a comprehensive package that can be installed  easily
 we hope that it is useful to you. All of this is discussed in detail at the
-[cloudmesh-pi-burn README](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md).
+[cloudmesh-pi-burn README](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md)[^README].
 There you can also find detailed instructions on how to use a Mac or Linux
 computer to burn directly from them. To showcase to you how easy it is to use
 we demonstrate here the setup of a cluster with five nodes.
@@ -98,7 +100,7 @@ we demonstrate here the setup of a cluster with five nodes.
 
 For a list of possible part choices, please see:
 
-* [Parts Choices](/pi/docs/hardware/parts/)
+* [Parts Choices](/pi/docs/hardware/parts/)[^parts]
 
 ## The Goal
 
@@ -325,7 +327,16 @@ pi temp worker00[1-4]
 
 ## Using the Pis
 
-As we use public keys on the Master 
+As we use ssh keys to authenticate between maanager and workers, you can 
+directly log into the workers from the manager.
+
+More details are provided in our web pages at
+
+* [README](https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md)
+* [piplanet.org](https://piplanet.org)
+
+Other cloudmesh components are discussed in the [cloudmesh manual](<https://cloudmesh.github.io/cloudmesh-manual/>)[^cloudmesh-manual].
+
 
 ## Acknowledgement
 
@@ -343,6 +354,10 @@ Akshay Kowshik.
 
 ## Refernces
 
+[^cloudmesh-manual]: Cloudmesh Manual, <https://cloudmesh.github.io/cloudmesh-manual/>
+[^piplanet]: PiPlanet Web Site, <https://piplanet.org>
+[^parts]: Parts for building clusters, <https://cloudmesh.github.io/pi/docs/hardware/parts/>
+[^README]: Cloudmesh pi burn README, <https://github.com/cloudmesh/cloudmesh-pi-burn/blob/main/README.md>
 
 
 
