@@ -94,7 +94,7 @@ we demonstrate here the setup of a cluster with five nodes.
 * 5 Ethernet Cables
 * Wifi Access
 * Monitor, Mouse, Keyboard (for desktop access on Pi)
-* 1 (or more) SD Card Burner(s) (USB)
+* 1 SD Card Burner(s) (we recommend one that supprts USB 3.0 speeds)
 
 For a list of possible part choices, please see:
 
@@ -150,7 +150,7 @@ that depict this process.
 <center>
 <img src="setup1.png" width="50%" />
 
-Figure 3. Welcome Page for the Raspberry Pi
+Figure 3. After successfull boot the Pi will display the Welcome Page.
 </center>
 
 
@@ -158,7 +158,8 @@ Figure 3. Welcome Page for the Raspberry Pi
 <center>
 <img src="setup2.png" width="50%" />
 
-Figure 4. Set country, language, and timezone. Additionally, we recommend you enable "Use US Keyboard".
+Figure 4. Set country, language, and timezone. Additionally, you must use the
+proper keyboard layout. For the US enable "Use US Keyboard".
 </center>
 
 
@@ -167,7 +168,7 @@ Figure 4. Set country, language, and timezone. Additionally, we recommend you en
 <center>
 <img src="setup3.png" width="50%" />
 
-Figure 5. Set your password to a strong password.
+Figure 5. Set your password and use a strong password.
 </center>
 
 
@@ -176,7 +177,7 @@ Figure 5. Set your password to a strong password.
 <center>
 <img src="setup4.png" width="50%" />
 
-Figure 6. Choose your Wifi network.
+Figure 6. Choose your Wifi network and configure it while adding the password.
 </center>
 
 
@@ -185,7 +186,9 @@ Figure 6. Choose your Wifi network.
 <center>
 <img src="setup5.png" width="50%" />
 
-Figure 7. The setup prompt will ask you if you wish to update the software. You may do so, or you may skip, as our installation script that we will run will do this for you.
+Figure 7. The setup prompt will ask you if you wish to update the software. You
+may do so, or you may skip, as our installation script that we will run will do
+this for you.
 
 </center>
 
@@ -201,14 +204,15 @@ Figure 8. Setup is now complete.
 
 Now let us install cloudmesh burn, which allows us to burn preconfigured SD
 Cards for clusters easily. Open a new terminal window and run the following
-command. This will install cloudmesh and upgrade your system if needed.
+command. To make the instalation and needed updates to your PI simple, we have
+provided a one line install script that you can run via curl:
 
 ```
 pi@managerpi:~ $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
 
-This will set up a python venv on your computer manager Pi. This may take 5-7
-minutes as it will update your Pi and install all requirements.
+This will set up a python venv on your computer manager Pi. It may take 5-7
+minutes as it will also update your Pi and install all other requirements.
 
 You will want to reboot your Pi after this.
 
@@ -218,22 +222,21 @@ pi@managerpi:~ $ sudo reboot
 
 ### Step 3. Creating our Cluster Inventory
 
-To manage information about our cluster, we will use a Cloudmesh Inventory
-file, which comes installed with cloudmesh. This will allow you to easily track
-and manage the configuration of your workers.
-
-Let us create an inventory for our cluster as follows:
+To manage information about our cluster, we will use a Cloudmesh Inventory.
+This will allow you to easily track and manage the configuration of your
+cluster nodes.  Let us create an inventory for our cluster as follows:
 
 ```
 (ENV3) pi@managerpi:~ $ cms inventory create --hostnames="managerpi,worker00[1-4]" --ip="10.1.1.[1-5]"  --inventory=cluster.yaml latest-lite
 ```
 
-We can list the information in our inventory as follows. Confirm all is as
-expected:
+You can inspect the infentory with the list command as shown next. Double check
+if it looks like:
+
 
 ```
 (ENV3) pi@managerpi:~ $ cms inventory list --inventory=cluster.yaml
-inventory list --inventory=cluster.yaml
+
 +-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
 | host      | name      | type | tag         | cluster | label | service | services | ip       | dns | project | owners | comment | description | keyfile           | status   |
 +-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
@@ -245,13 +248,14 @@ inventory list --inventory=cluster.yaml
 +-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
 ```
 
-We can now begin burning.
 
 ### Step 4. Burning SD Cards
 
-You can now plug in your SD Card writer into the `managerpi`. Ensure you have
-also inserted an SD card into your writer. *Warning* this SD Card will be
-formatted, thus all content will be deleted.
+We can now begin burning.
+
+You can now plug in your SD Card reader/writer into the `managerpi`. Ensure you
+have also inserted an SD card into your reader/writer. *Warning* this SD Card
+will be formatted, thus all content will be deleted and lost.
 
 Verify your device is detected with the following command:
 
@@ -273,7 +277,7 @@ Verify your device is detected with the following command:
 
 From `cms burn info`, we see our device is `/dev/sdb`. Note this may be
 different on your Pi. If your device is not showing up, ensure you have an SD
-Card inserted, and try unplugging and plugging the SD Card writer.
+Card inserted, and try unplugging and plugging the SD Card reader/writer.
 
 We can now begin burning our cluster. The following command will download the
 necessary Raspberry Pi OS images, configure `manager` as a Wifi bridge to
@@ -287,7 +291,8 @@ Manager hostname is the same as this system's hostname. Is this intended? (Y/n) 
 Do you wish to configure this system as a WiFi bridge? A restart is required after this command terminates (Y/n) Y
 
 ```
-> Some output of cms burn has been omitted for simplicity. Note that image extraction may take more than a minute.
+> Some output of cms burn has been omitted for simplicity. Note that image 
+> extraction may take more than a minute.
 
 As each SD Card is burned, `cms burn` will prompt you to insert a new SD Card
 to be burned.
@@ -317,6 +322,10 @@ pi temp worker00[1-4]
 | worker004 | 36.498 |  36   | 2021-02-22 00:06:48.843956 |
 +-----------+--------+-------+----------------------------+
 ```
+
+## Using the Pis
+
+As we use public keys on the Master 
 
 ## Acknowledgement
 
