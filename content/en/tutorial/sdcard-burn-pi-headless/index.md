@@ -1,9 +1,9 @@
 ---
 date: 2021-02-23
-title: "Easy Raspberry PI Cluster Setup with Cloudmesh SDCard Burner without Desktop"
-linkTitle: "Burn many SD Cards with a Pi for clusters without a desktop manager"
+title: "Easy Raspberry PI Cluster Setup with Cloudmesh from MacOS"
+linkTitle: "Burn many PI SD Cards from MacOS"
 description: >
-  Set up many SD Cards that are preconfigured to create PI clusters without a desktop manager.
+  Set up many SD Cards directly from MacS that are preconfigured to create PI clusters.
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com), [laszewski.github.io](https://laszewski.github.io)), 
   Richard Otten, 
   Anthony Orlowski
