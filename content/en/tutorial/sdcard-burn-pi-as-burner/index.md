@@ -299,7 +299,7 @@ provide internet access to workers and burn the SD Cards. Note you will need
 to cycle SD cards after each burn.
 
 ```
-(ENV3) pi@managerpi:~ $ cms burn create --inventory=cluster.yaml --device=/dev/sdb --name=managerpi,worker00[1-5]
+(ENV3) pi@managerpi:~ $ cms burn create --inventory=cluster.yaml --device=/dev/sdb --name=managerpi,worker00[1-4]
 
 Manager hostname is the same as this system's hostname. Is this intended? (Y/n) Y
 Do you wish to configure this system as a WiFi bridge? A restart is required after this command terminates (Y/n) Y
