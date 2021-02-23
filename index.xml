@@ -1,6 +1,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloudmesh Cluster Pi Planet – Cloudmesh Pi Cluster</title><link>https://cloudmesh.github.io/pi/</link><description>Recent content in Cloudmesh Pi Cluster on Cloudmesh Cluster Pi Planet</description><generator>Hugo -- gohugo.io</generator><atom:link href="https://cloudmesh.github.io/pi/index.xml" rel="self" type="application/rss+xml"/><item><title>Blog: Cloudmesh burn on hackaday</title><link>https://cloudmesh.github.io/pi/blog/1/01/01/cloudmesh-burn-on-hackaday/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://cloudmesh.github.io/pi/blog/1/01/01/cloudmesh-burn-on-hackaday/</guid><description>
+&lt;img src="https://cloudmesh.github.io/pi/blog/1/01/01/cloudmesh-burn-on-hackaday/featured-hackaday_hu69939d2cb0db61f2549edce7f34434f1_1644591_640x0_resize_catmullrom_2.png" width="640" height="475"/>
+&lt;div class="card rounded p-2 td-post-card mb-4 mt-4" style="max-width: 610px">
+&lt;img class="card-img-top" src="https://cloudmesh.github.io/pi/pi/blog/1/01/01/cloudmesh-burn-on-hackaday/featured-hackaday_hu69939d2cb0db61f2549edce7f34434f1_1644591_600x300_fill_catmullrom_smart1_2.png" width="600" height="300">
+&lt;div class="card-body px-0 pt-2 pb-0">
+&lt;p class="card-text">
+The Web Page.
+&lt;small class="text-muted">&lt;br/>Photo: Gregor von Laszewski / CC-BY-CA&lt;/small>&lt;/p>
+&lt;/div>
+&lt;/div>
 &lt;h2 id="project-posted-on-hackadayio">Project Posted on hackaday.io&lt;/h2>
-&lt;p>We have posted the &lt;code>cms pi burn&lt;/code> project on hackaday.io. The post is avilable at&lt;/p>
+&lt;p>We have posted the &lt;code>cms pi burn&lt;/code> project on hackaday.io. The post is avilable
+at&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters">https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters&lt;/a>&lt;/li>
 &lt;/ul></description></item><item><title>Blog: Cloudmesh Burn Release 4.3.11</title><link>https://cloudmesh.github.io/pi/blog/2021/02/09/cloudmesh-burn-release-4.3.11/</link><pubDate>Tue, 09 Feb 2021 00:00:00 +0000</pubDate><guid>https://cloudmesh.github.io/pi/blog/2021/02/09/cloudmesh-burn-release-4.3.11/</guid><description>
