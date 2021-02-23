@@ -89,7 +89,7 @@ different on your Pi. If your device is not showing up, ensure you have an SD
 Card inserted, and try unplugging and plugging the SD Card reader/writer.</p><p>We can now begin burning our cluster. The following command will download the
 necessary Raspberry Pi OS images, configure <code>manager</code> as a Wifi bridge to
 provide internet access to workers and burn the SD Cards. Note you will need
-to cycle SD cards after each burn.</p><pre><code>(ENV3) pi@managerpi:~ $ cms burn create --inventory=cluster.yaml --device=/dev/sdb --name=managerpi,worker00[1-5]
+to cycle SD cards after each burn.</p><pre><code>(ENV3) pi@managerpi:~ $ cms burn create --inventory=cluster.yaml --device=/dev/sdb --name=managerpi,worker00[1-4]
 
 Manager hostname is the same as this system's hostname. Is this intended? (Y/n) Y
 Do you wish to configure this system as a WiFi bridge? A restart is required after this command terminates (Y/n) Y
