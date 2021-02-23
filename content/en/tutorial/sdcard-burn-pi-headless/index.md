@@ -1,5 +1,5 @@
 ---
-date: 2021-02-07
+date: 2021-02-23
 title: "Easy Raspberry PI Cluster Setup with Cloudmesh SDCard Burner without Desktop"
 linkTitle: "Burn many SD Cards with a Pi for clusters without a desktop manager"
 description: >
@@ -8,7 +8,6 @@ author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com),
   Richard Otten, 
   Anthony Orlowski
   Adam ...
-draft: True
 categories:
 - tutorial
 tags:
@@ -34,7 +33,7 @@ resources:
 
 {{% pageinfo %}}
 
-In this tutorial, we explain how to easily set up a cluster of Pis
+In this tutorial, we explain how to easily set up a cluster of Pis on a Mac
 while burning preconfigured SD Cards. We assume you use an SD Card reader/writer that
 is plugged into your manager PI that we configure initially with Pi Imager.
 
@@ -42,6 +41,7 @@ is plugged into your manager PI that we configure initially with Pi Imager.
 
 * Learn how to use cloudmesh burn to create many SD Cards for a cluster
 * Test the cluster after burning
+* Focus on the setup for a Mac
   
 **Topics covered**
 
@@ -100,6 +100,7 @@ we demonstrate here the setup of a cluster with five nodes.
 * Wifi Access
 * Monitor, Mouse, Keyboard (for desktop access on Pi)
 * 1 SD Card Burner(s) (we recommend one that supports USB 3.0 speeds)
+* XCode and brew installed on the Mac
 
 For a list of possible part choices, please see:
 
@@ -127,235 +128,97 @@ internet access to the workers via a bridge that we configure for you.
 
 Figure 1: Pi Cluster setup with bridge network
 
-## 4. Steps
+## 4. Set up the Cloudmesh burn program on your Mac
 
-### Step 1. Burning and Configuring the Manager
-
-REPLACE THESE STEPS WITH cloudmesh commands ... make sure to set up ENV3
-
-regor von Laszewski @Adam Ratzman lets use slack to work on headless update workflow.
-this can actually also be used as replacement for what @Richard Otten has done with imager
-a) create and activate ENV3
-b) install clloudmehs-installer
-c) cloudmesh-installer get pi
-d) burn master
-   cms burn cluster --hostname=masterpi --ssid=SSID -y
-e) insert mastr, boot
-f) login master, repeat process on master
-than use inventory to burn
-9:40 PM
-please provide instructions on what works for you
-
-
-Choose one SD card for the manager (yellow card in Figure 1). Using your
-laptop, download the [Raspberry Pi Imager](https://www.raspberrypi.org/software/) 
-RaspberryOS desktop version. This is the recommended version for PIs at this time.
-We use Pi Imager to burn our
-manager. Note this is the only time we will need to use PI Imager.
-
-<center>
-<img src="imager-with-options.png" width="50%" />
-
-Figure 2. Pi Imager 
-</center>
-
-Write to your SD card. Once the process is complete and verified, insert the SD Card into your manager
-Pi. Connect your manager to the peripherals (keyboard, mouse, monitor, power). Switch on the power.
-
-> Note you may also use a headless setup. See [here](https://www.raspberrypi.org/documentation/configuration/wireless/headless.md) for more information on headless setups.
-
-Next, we walk through the initial setup process of the Pi and configure the settings in
-accordance with your situation. We have provided screenshots in Figures 3 - 8
-that depicts this process.
-
-<center>
-<img src="setup1.png" width="50%" />
-
-Figure 3. After successfully booting the Pi will display the Welcome Page.
-</center>
-
-
-
-<center>
-<img src="setup2.png" width="50%" />
-
-Figure 4. Set country, language, and timezone. Additionally, you must use the
-proper keyboard layout. For the US enable "Use US Keyboard".
-</center>
-
-
-
-
-<center>
-<img src="setup3.png" width="50%" />
-
-Figure 5. Set your password and use a strong password.
-</center>
-
-
-
-
-<center>
-<img src="setup4.png" width="50%" />
-
-Figure 6. Choose your Wifi network and configure it while adding the password.
-</center>
-
-
-
-
-<center>
-<img src="setup5.png" width="50%" />
-
-Figure 7. The setup prompt will ask you if you wish to update the software. You
-may do so, or you may skip, as the installation script that we will run will do
-this for you.
-
-</center>
-
-<center>
-<img src="setup6.png" width="50%" />
-
-Figure 8. Setup is now complete.
-</center>
-
-### Step 2. Create an SSH key
-
-As we will be using keys to authenticate with the workers, you need to create
-one  in a terminal with
+On your Mac do the following. First set up a Python `venv`:
 
 ```bash
-pi@managerpi:~ $ ssh-keygen
-```
+user@mac $ python3 -m venv ~/CMS
+user@mac $ source ~/CMS/bin/activate
+````
 
-It will ask you for a location, choose the default. It will also ask you for a
-passphrase. Please use a strong one and do not make it the same as the password
-for your manager PI.
-
-### Step 3. Installing Cloudmesh
-
-Now let us install cloudmesh burn, which allows us to burn preconfigured SD
-Cards for clusters easily. Open a new terminal window and run the following
-command. To make the installation and needed updates to your PI simple, we have
-provided a one-line install script that you can run via curl:
-
-```
-pi@managerpi:~ $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
-```
-
-This will set up a python venv on your computer manager Pi. It may take 5-7
-minutes as it will also update your Pi and install all other requirements.
-
-You will want to reboot your Pi after this.
-
-```
-pi@managerpi:~ $ sudo reboot
-```
-
-### Step 4. Creating our Cluster Inventory
-
-To manage information about our cluster, we will use a Cloudmesh Inventory.
-This will allow you to easily track and manage the configuration of your
-cluster nodes.  Let us create an inventory for our cluster as follows:
-
-```
-(ENV3) pi@managerpi:~ $ cms inventory create --hostnames="managerpi,worker00[1-4]" --ip="10.1.1.[1-5]"  --inventory=cluster.yaml latest-lite
-```
-
-You can inspect the inventory with the list command as shown next. Double-check
-if it looks like:
-
-
-```
-(ENV3) pi@managerpi:~ $ cms inventory list --inventory=cluster.yaml
-
-+-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
-| host      | name      | type | tag         | cluster | label | service | services | ip       | dns | project | owners | comment | description | keyfile           | status   |
-+-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
-| managerpi | managerpi |      | latest-lite | cluster |       | manager |          | 10.1.1.1 |     |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker001 | worker001 |      | latest-lite | cluster |       | worker  |          | 10.1.1.2 |     |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker002 | worker002 |      | latest-lite | cluster |       | worker  |          | 10.1.1.3 |     |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker003 | worker003 |      | latest-lite | cluster |       | worker  |          | 10.1.1.4 |     |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker004 | worker004 |      | latest-lite | cluster |       | worker  |          | 10.1.1.5 |     |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-+-----------+-----------+------+-------------+---------+-------+---------+----------+----------+-----+---------+--------+---------+-------------+-------------------+----------+
-```
-
-
-### Step 5. Burning the SD Cards
-
-We can now begin burning.
-
-You can now plug in your SD Card reader/writer into the `managerpi`. Ensure you
-have also inserted an SD card into your reader/writer. *Warning* this SD Card
-will be formatted, thus all content will be deleted and lost.
-
-Verify your device is detected with the following command:
+Next, install the cloudmesh cluster generation tools and start the burn process
 
 ```bash
-(ENV3) pi@managerpi:~ $ cms burn info
+user@mac $ pip install cloudmesh-pi-cluster
+user@mac $ cms help
+user@mac $ cms burn info 
+user@mac $ cms burn cluster --device=/dev/disk2 --hostname=red,red01,red02 --ssid=myssid -y -g
+````
 
-# ----------------------------------------------------------------------
-# SD Cards Found
-# ----------------------------------------------------------------------
+Fill out the passwords and plug in the cards as requested. 
 
-+----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
-| Path     | Info                   | Formatted   | Size             | Plugged-in   | Readable   | Empty   | Access   | Removable   | Writeable   |
-|----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------|
-| /dev/sdb | Generic STORAGE DEVICE | True        | 64.1 GB/59.7 GiB | True         | True       | False   | True     | True        | True        |
-+----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
+## 5. Start your Cluster and Configure it
+
+After the burn is completed, plug them in your PIs and switch them on. On you
+Mac execute the ssh command to log into your manager we called red. Worker nodes
+have a number in them.
+
+
+
+```bash
+ssh pi@red.local  
 ```
 
-> Note we omit some information from `cms burn info` for simplicity
+This will take a while as the file system on the SD Cards need to be installed and 
+configurations such as country, ssh, and wifi need to be activated.
 
-From `cms burn info`, we see our device is `/dev/sdb`. Note this may be
-different on your Pi. If your device is not showing up, ensure you have an SD
-Card inserted, and try unplugging and plugging the SD Card reader/writer.
+Once you are in the manager install cloudmesh cluster software also in it (we
+could have done this automatically, but decided to leave that part of the
+process up to you in case you to give you maximum flexibility).
 
-We can now begin burning our cluster. The following command will download the
-necessary Raspberry Pi OS images, configure `manager` as a Wifi bridge to
-provide internet access to workers and burn the SD Cards. Note you will need
-to cycle SD cards after each burn.
-
-```
-(ENV3) pi@managerpi:~ $ cms burn create --inventory=cluster.yaml --device=/dev/sdb --name=managerpi,worker00[1-4]
-
-Manager hostname is the same as this system's hostname. Is this intended? (Y/n) Y
-Do you wish to configure this system as a WiFi bridge? A restart is required after this command terminates (Y/n) Y
-
-```
-> Some output of cms burn has been omitted for simplicity. Note that image 
-> extraction may take more than a minute.
-
-As each SD Card is burned, `cms burn` will prompt you to insert a new SD Card
-to be burned.
-
-
-After all the cards are burned, plug them into your worker Pis and boot. Reboot the
-managerpi.
-
-```
-(ENV3) pi@managerpi:~ $ sudo reboot
+```bash
+pi@red:~ $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
 
-### Step 6. Verifying the Workers
-
-Once your workers are booted, you can verify the connection with the following
-simple command. This command will return the temperature of the Pis.
+.. after lots of log messages, you will see ...
 
 ```
-(ENV3) pi@managerpi:~ $ cms pi temp worker00[1-4]
-pi temp worker00[1-4]
-+-----------+--------+-------+----------------------------+
-| host      |    cpu |   gpu | date                       |
-|-----------+--------+-------+----------------------------|
-| worker001 | 36.511 |  36.5 | 2021-02-22 00:06:48.873427 |
-| worker002 | 36.998 |  37   | 2021-02-22 00:06:48.813539 |
-| worker003 | 36.998 |  37   | 2021-02-22 00:06:48.843944 |
-| worker004 | 36.498 |  36   | 2021-02-22 00:06:48.843956 |
-+-----------+--------+-------+----------------------------+
+#################################################
+# Install Completed                             #
+#################################################
+Time to update and upgarde: 339 s
+Time to install the venv:   22 s
+Time to install cloudmesh:  185 s
+Time for total install:     546 s
+Time to install: 546 s
+#################################################
+Please activate with
+    source ~/ENV3/bin/activate
+    
 ```
 
-## 5. Using the Pis
+Now just reboot with 
+
+```bash
+pi@red:~ $ sudo reboot
+```
+
+## 6. Use your Cluster
+
+On your Mac  say again 
+
+```
+user@mac $ ssh pi@red.local
+```
+
+Once you are logged in in your manager named red.local on the network execute a
+command to see if things work. Use our temperature monitor to get the
+temperature from all PIs. This will allow you to see if they are all working.
+
+```bash
+(ENV3) pi@red:~ $ cms pi temp red01,red02
+
+pi temp red01,red02
++--------+--------+-------+----------------------------+
+| host   |    cpu |   gpu | date                       |
+|--------+--------+-------+----------------------------|
+| red01  | 45.277 |  45.2 | 2021-02-23 22:13:11.788430 |
+| red02  | 42.842 |  42.8 | 2021-02-23 22:13:11.941566 |
++--------+--------+-------+----------------------------+
+```
+
+## 7. More Information
 
 As we use ssh keys to authenticate between manager and workers, you can 
 directly log into the workers from the manager.

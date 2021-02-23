@@ -20,6 +20,13 @@ resources:
   title: "Image #:counter"
 ---
 
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/cloudmesh/cloudmesh-pi-burn" data-icon="octicon-star" aria-label="Star cloudmesh/cloudmesh-pi-burn on GitHub">Star</a>
+
+
 {{< imgproc many Fill "600x300" >}}
 {{< /imgproc >}}
 
