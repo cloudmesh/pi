@@ -21,7 +21,7 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc many Fill "600x300" >}}
+{{< imgproc macpi Fill "600x300" >}}
 {{< /imgproc >}}
 
 <!--
