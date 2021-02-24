@@ -133,17 +133,17 @@ Figure 1: Pi Cluster setup with bridge network
 On your Mac do the following. First set up a Python `venv`:
 
 ```bash
-user@mac $ python3 -m venv ~/CMS
-user@mac $ source ~/CMS/bin/activate
+user@mac $ python3 -m venv ~/ENV3
+user@mac $ source ~/ENV3/bin/activate
 ````
 
 Next, install the cloudmesh cluster generation tools and start the burn process
 
 ```bash
-user@mac $ pip install cloudmesh-pi-cluster
-user@mac $ cms help
-user@mac $ cms burn info 
-user@mac $ cms burn cluster --device=/dev/disk2 --hostname=red,red01,red02 --ssid=myssid -y -g
+(ENV3) user@mac $ pip install cloudmesh-pi-cluster
+(ENV3) user@mac $ cms help
+(ENV3) user@mac $ cms burn info 
+(ENV3) user@mac $ cms burn cluster --device=/dev/disk2 --hostname=red,red01,red02 --ssid=myssid -y -g
 ````
 
 Fill out the passwords and plug in the cards as requested. 
@@ -157,7 +157,7 @@ have a number in them.
 
 
 ```bash
-ssh pi@red.local  
+(ENV3) user@mac $ ssh pi@red.local  
 ```
 
 This will take a while as the file system on the SD Cards need to be installed and 
@@ -215,6 +215,53 @@ pi temp red01,red02
 |--------+--------+-------+----------------------------|
 | red01  | 45.277 |  45.2 | 2021-02-23 22:13:11.788430 |
 | red02  | 42.842 |  42.8 | 2021-02-23 22:13:11.941566 |
++--------+--------+-------+----------------------------+
+```
+
+## 8. Accessing the workers from the Mac
+
+To makes it even more convenient, we want to access the workers directly form the 
+Mac. For this reason we have designed a tunnel command that makes teh setu real easy.
+You call it on teh manager node as follows
+
+```bash
+(ENV3) pi@red:~ $ cms host setup red00[1-2] user@mac.local 
+```
+
+THis will print out a file that that you need to opy theinto  to your
+`~/.ssh/config` file on your Mac. We will soon have a command that will add
+them for you without using an editor.
+
+# ----------------------------------------------------------------------
+# copy to ~/.ssh/config on remote host (i.e laptop)
+# ----------------------------------------------------------------------
+
+Host red
+     HostName red.local
+     User pi
+
+Host red001
+     HostName red.local
+     User pi
+     Port 8001
+
+Host red002
+     HostName red.local
+     User pi
+     Port 8002
+
+Now you are all set to access the workers on your Mac. Try it out with 
+the temperature program
+
+```bash
+(ENV3) user@mac:~ $ cms pi temp red,red00[1-2]              
+
++--------+--------+-------+----------------------------+
+| host   |    cpu |   gpu | date                       |
+|--------+--------+-------+----------------------------|
+| red    | 50.147 |  50.1 | 2021-02-18 21:10:05.942494 |
+| red001 | 51.608 |  51.6 | 2021-02-18 21:10:06.153189 |
+| red002 | 45.764 |  45.7 | 2021-02-18 21:10:06.163067 |
 +--------+--------+-------+----------------------------+
 ```
 
