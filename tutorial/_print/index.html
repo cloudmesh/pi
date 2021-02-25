@@ -74,10 +74,10 @@ pi temp red01,red02
 <span style=color:#000;font-weight:700>|</span> red01  <span style=color:#000;font-weight:700>|</span> 45.277 <span style=color:#000;font-weight:700>|</span>  45.2 <span style=color:#000;font-weight:700>|</span> 2021-02-23 22:13:11.788430 <span style=color:#000;font-weight:700>|</span>
 <span style=color:#000;font-weight:700>|</span> red02  <span style=color:#000;font-weight:700>|</span> 42.842 <span style=color:#000;font-weight:700>|</span>  42.8 <span style=color:#000;font-weight:700>|</span> 2021-02-23 22:13:11.941566 <span style=color:#000;font-weight:700>|</span>
 +--------+--------+-------+----------------------------+
-</code></pre></div><h2 id=8-accessing-the-workers-from-the-mac>8. Accessing the workers from the Mac</h2><p>To makes it even more convenient, we want to access the workers directly form the
-Mac. For this reason we have designed a tunnel command that makes teh setu real easy.
-You call it on teh manager node as follows</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> pi@red:~ $ cms host setup red00<span style=color:#ce5c00;font-weight:700>[</span>1-2<span style=color:#ce5c00;font-weight:700>]</span> user@mac.local 
-</code></pre></div><p>THis will print out a file that that you need to opy theinto to your
+</code></pre></div><h2 id=8-accessing-the-workers-from-the-mac>8. Accessing the workers from the Mac</h2><p>To makes it even more convenient, we want to access the workers directly from the
+Mac. For this reason, we have designed a tunnel command that makes the setup real easy.
+You call it on the manager node as follows</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> pi@red:~ $ cms host setup red00<span style=color:#ce5c00;font-weight:700>[</span>1-2<span style=color:#ce5c00;font-weight:700>]</span> user@mac.local 
+</code></pre></div><p>This will print out a file that you need to copy it into to your
 <code>~/.ssh/config</code> file on your Mac. We will soon have a command that will add
 them for you without using an editor.</p><pre><code># ----------------------------------------------------------------------
 # copy to ~/.ssh/config on remote host (i.e laptop)
