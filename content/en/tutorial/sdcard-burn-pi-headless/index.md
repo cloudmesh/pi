@@ -281,7 +281,7 @@ More details are provided on our web pages at
 Other cloudmesh components are discussed in the [cloudmesh manual](<https://cloudmesh.github.io/cloudmesh-manual/>)[^cloudmesh-manual].
 
 
-## Acknowledgement
+## Acknowledgment
 
 We would like to thank the following community members for testing the recent
 versions:
