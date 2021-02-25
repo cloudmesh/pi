@@ -232,6 +232,7 @@ THis will print out a file that that you need to opy theinto  to your
 `~/.ssh/config` file on your Mac. We will soon have a command that will add
 them for you without using an editor.
 
+```
 # ----------------------------------------------------------------------
 # copy to ~/.ssh/config on remote host (i.e laptop)
 # ----------------------------------------------------------------------
@@ -249,6 +250,7 @@ Host red002
      HostName red.local
      User pi
      Port 8002
+```
 
 Now you are all set to access the workers on your Mac. Try it out with 
 the temperature program
