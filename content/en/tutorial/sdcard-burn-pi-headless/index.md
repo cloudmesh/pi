@@ -221,15 +221,15 @@ pi temp red01,red02
 
 ## 8. Accessing the workers from the Mac
 
-To makes it even more convenient, we want to access the workers directly form the 
-Mac. For this reason we have designed a tunnel command that makes teh setu real easy.
-You call it on teh manager node as follows
+To makes it even more convenient, we want to access the workers directly from the 
+Mac. For this reason, we have designed a tunnel command that makes the setup real easy.
+You call it on the manager node as follows
 
 ```bash
 (ENV3) pi@red:~ $ cms host setup red00[1-2] user@mac.local 
 ```
 
-THis will print out a file that that you need to opy theinto  to your
+This will print out a file that you need to copy it into  to your
 `~/.ssh/config` file on your Mac. We will soon have a command that will add
 them for you without using an editor.
 
