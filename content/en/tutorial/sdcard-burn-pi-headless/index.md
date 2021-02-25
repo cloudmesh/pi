@@ -101,6 +101,7 @@ we demonstrate here the setup of a cluster with five nodes.
 * Monitor, Mouse, Keyboard (for desktop access on Pi)
 * 1 SD Card Burner(s) (we recommend one that supports USB 3.0 speeds)
 * XCode and brew installed on the Mac
+* Software from Paragon that allows write access to ext4 from MacOS ($40)
 
 For a list of possible part choices, please see:
 
