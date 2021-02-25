@@ -1,8 +1,9 @@
 ---
 date: 2021-02-07
-title: "Example Tutorial"
-linkTitle: "Example"
-description: "This post is an example so you can easily add new content."
+title: "Gradio"
+linkTitle: "Gradie"
+description: >
+  Gradio
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: True
 resources:
@@ -15,6 +16,7 @@ resources:
 {{< imgproc webpage Fill "600x300" >}}
 The Web Page.
 {{< /imgproc >}}
+
 
 
 {{% pageinfo %}}
@@ -30,3 +32,28 @@ Abstract
 {{% table_of_contents %}}
 
 {{% /pageinfo %}}
+
+
+## Install 
+
+```
+pip install gradio
+```
+
+
+## Example
+
+Needs to integrate the workers
+```
+import gradio as gr
+
+def manager(name):
+  return "The manager is " + name + "!"
+
+def workers(name):
+  return "The workers are " + name + "!"
+
+iface = gr.Interface(fn=manager, inputs="text", outputs="text")
+iface.launch()
+```
+
