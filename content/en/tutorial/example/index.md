@@ -12,7 +12,7 @@ resources:
     byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
-{{< imgproc webpage Fill "600x300" >}}
+{{< imgproc image Fill "600x300" >}}
 The Web Page.
 {{< /imgproc >}}
 
