@@ -4,7 +4,6 @@ title: "Port Forwarding Tutorial"
 linkTitle: "Port Forwarding Tutorial"
 description: "Enable cluster-internal service access to external machines"
 author: Anthony Orlowski ([antorlowski@gmail.com](mailto:antorlowski@gmail.com))
-draft: False
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
@@ -13,7 +12,7 @@ resources:
 ---
 
 {{< imgproc image Fill "600x300" >}}
-The Web Page.
+Port Forwarding Tutorial
 {{< /imgproc >}}
 
 
