@@ -3,7 +3,7 @@ date: 2021-02-07
 title: "Github Fork"
 linkTitle: "Github Fork"
 description: "This post is an example so you can easily add new content."
-author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+author: Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: True
 resources:
 - src: "**.{png,jpg}"
@@ -47,7 +47,7 @@ We will first clone a repository using HTTPS, then we will add our SSH remote.
 Finally, we will fork the repository and add the corresponding SSH remote.
 Additionally, we will walk through committing and creating a pull request.
 
-## Prerequisites: Adding an SSH key to your GitHub.
+## Adding an SSH key to your GitHub
 
 Ensure you have an ssh-key on your machine. If you do not, you may do the
 following in linux-like consoles:
@@ -66,7 +66,21 @@ Record the output of the above. That is your public key. Then navigate to your
 Github settings page, go to **SSH and GPG keys**, and add the output of the
 above command as a new SSH key entry.
 
+## Configureing GitHub
+
+
+First we must configure git with our email and  ame. Note these values are very
+significant as otherwise your pull requests may be declined by the repository
+maintainer as you have not completed your GitHub setup.
+
+```bash
+$ git config --global user.email "you@example.com"
+$ git config --global user.name "Your Name"
+```
+
 ## Cloning a Repository
+
+TODO: setup seperate toy education repo to avoit pull requests into our real stuff.
 
 For the purposes of this tutorial, we will clone the repository
 [cloudmesh-pi-cluster](https://github.com/cloudmesh/cloudmesh-pi-cluster).
@@ -170,14 +184,7 @@ $ git checkout -b feature
 ```
 
 From here, we can start making code changes. Once we are satisfied, we may
-commit. However, before doing so, we must configure git with our email and
-name. Note these values are not of much significance as they are local
-configurations.
-
-```bash
-$ git config --global user.email "you@example.com"
-$ git config --global user.name "Your Name"
-```
+commit. 
 
 Now we may commit.
 
