@@ -11,13 +11,8 @@ resources:
     byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
-<<<<<<< HEAD
 {{< imgproc web-port-forward Fill "600x300" >}}
-The Web Page.
-=======
-{{< imgproc image Fill "600x300" >}}
 Port Forwarding Tutorial
->>>>>>> 1f21b4f18afb3d4724a89e59d05a9dc2a2bac7d9
 {{< /imgproc >}}
 
 
