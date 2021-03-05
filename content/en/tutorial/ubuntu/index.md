@@ -110,3 +110,12 @@ the system is to re-image.
 some tool, nt sure if useful
 
 * https://github.com/derailed/k9s
+
+
+## general ubuntu
+
+* enable ssh https://pimylifeup.com/ubuntu-enable-ssh/
+* NTP with chrony https://pimylifeup.com/using-ntp-on-linux-with-chrony/
+* NTP https://pimylifeup.com/timedatectl-command/
+* 2 factor auth for ssh https://pimylifeup.com/setup-2fa-ssh/
+
