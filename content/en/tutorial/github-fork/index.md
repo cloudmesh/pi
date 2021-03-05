@@ -47,6 +47,13 @@ We will first clone a repository using HTTPS, then we will add our SSH remote.
 Finally, we will fork the repository and add the corresponding SSH remote.
 Additionally, we will walk through committing and creating a pull request.
 
+Here is a nice git alias you may find useful when tracking your branches via commandline:
+
+```bash
+$ git config --global alias.graph "log --graph --decorate --color --oneline --all --cherry-mark"
+$ git graph
+```
+
 ## Adding an SSH key to your GitHub
 
 Ensure you have an ssh-key on your machine. If you do not, you may do the
@@ -250,6 +257,8 @@ branches. We also reviewed how to submit Pull Requests for open source
 contribution.
 
 Please leave a comment or reach out to us if you have any questions.
+
+
 
 
 
