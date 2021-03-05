@@ -28,14 +28,19 @@ A collection of potentially useful tutirial links
 
 {{% /pageinfo %}}
 
+## Interesting Links to burn SDCards
 
+interesting article to use a vm to modify the image
+
+* modify image https://opensource.com/article/20/5/disk-image-raspberry-pi
+* NFS https://opensource.com/article/20/5/nfs-raspberry-pi
 
 ## Interesting links for RaspberryOS
 
 * file sync https://pimylifeup.com/raspberry-pi-syncthing/
 * mngodb https://pimylifeup.com/mongodb-raspberry-pi/
 * raspicast https://pimylifeup.com/raspberry-pi-chromecast/
-* internet monitorhttps://pimylifeup.com/raspberry-pi-internet-speed-monitor/
+* internet monitor https://pimylifeup.com/raspberry-pi-internet-speed-monitor/
 * nfs server https://pimylifeup.com/raspberry-pi-nfs/
 * grafana https://pimylifeup.com/raspberry-pi-grafana/
 * doccker https://pimylifeup.com/raspberry-pi-docker/
@@ -44,7 +49,8 @@ A collection of potentially useful tutirial links
 * go https://pimylifeup.com/raspberry-pi-golang/
 * mqtt https://pimylifeup.com/raspberry-pi-mosquitto-mqtt-server/
   
-* control dslr https://pimylifeup.com/raspberry-pi-dslr-camera-control/
+
+## Other toys
 
 * php myadmin https://pimylifeup.com/raspberry-pi-phpmyadmin/
 * webcam https://pimylifeup.com/raspberry-pi-webcam-server/
@@ -61,10 +67,8 @@ A collection of potentially useful tutirial links
 * add blocker https://pimylifeup.com/raspberry-pi-pi-hole/
 * fail to ban https://pimylifeup.com/raspberry-pi-fail2ban/
 
+## Camera
 
-## Interesting Links to burn SDCards
+* control dslr https://pimylifeup.com/raspberry-pi-dslr-camera-control/
 
-interesting article to use a vm to modify the image
 
-* modify image https://opensource.com/article/20/5/disk-image-raspberry-pi
-* NFS https://opensource.com/article/20/5/nfs-raspberry-pi
