@@ -4,7 +4,6 @@ title: "GitHub Command Line Interface"
 linkTitle: "gh CLI"
 description: "A brief turorial on the installation and usage of the GitHub CLI"
 author: Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
-draft: True
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
