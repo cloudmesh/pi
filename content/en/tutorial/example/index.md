@@ -13,13 +13,13 @@ resources:
 ---
 
 {{< imgproc image Fill "600x300" >}}
-The Web Page.
+TODO: Caption for the image
 {{< /imgproc >}}
 
 
 {{% pageinfo %}}
 
-Abstract
+Please describe what this tutorial is about. 
 
 **Learning Objectives**
 
