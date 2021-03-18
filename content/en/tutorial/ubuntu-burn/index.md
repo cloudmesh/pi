@@ -13,7 +13,7 @@ information, add authorized keys, run commands on boot, and other useful tasks t
 powerful tool, it requires knowledge to use it properly and therefore has a high learning curve when it comes to cluster-specific tasks such as using user data and network configurations
 to get a cluster operational.
 
-For this reason, we provide a simple set of commands to to nt only burn SD Cards with ubuntu server but to augment them with  and configuretions for cloud-init
+For this reason, we provide a simple set of commands to not only burn SD Cards with ubuntu server but to augment them with configurations for cloud-init
 to set up a cluster correctly.
 
 ## What we will do
@@ -159,7 +159,7 @@ writer. This will be the manager card. Check your writer's path with the followi
 
 Record the path for the SDCard. In this case, it is `/dev/sdb`
 
-> Note we omit some output of `cms burn info` for clarity
+> Note we omit some output of `cms burn info` for clarity.
 > On MacOS, you may get an `ERROR: We could not find your USB reader in the list of known readers`. This can be ignored. Additionally, `cms burn info` will list the partitions as well. For example, if you see the path `/dev/disk2s1` and `/dev/disk2s2`, then your device is `/dev/disk2`.
 
 We can now start burning the cluster.
