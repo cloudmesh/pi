@@ -3,8 +3,7 @@ date: 2021-02-07
 title: "Example Tutorial"
 linkTitle: "User Management"
 description: "How to manage users on the pi cluster"
-author: Anthony Orlowski ([antorlowski@gmail.com](mailto:antorlowski@gmail.
-com))
+author: Anthony Orlowski ([antorlowski@gmail.com](mailto:antorlowski@gmail.com))
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
