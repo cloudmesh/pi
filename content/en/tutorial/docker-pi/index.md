@@ -4,7 +4,6 @@ title: "Example Tutorial"
 linkTitle: "Example"
 description: "This post is an example so you can easily add new content."
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
-draft: True
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
@@ -41,14 +40,15 @@ applications from your infrastructure so you can deliver software quickly. With 
 
 Hypervisor – As seen in figure 1, there are limitations with hypervisor - Kernel Resource Duplication and Application Portability Issue
 Container – As seen in figure 2, container based virtualization is cost efficient, fast deployment and guaranteed portability.
-![Figure 1]()[^training]
 
-![Figure 2]()[^training]
+![Figure 1](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure1.png)
+
+![Figure 2](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure2.png)
 ## Docker architecture
 
 Docker uses a client-server architecture. The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon can run on the same system or connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets, or a network interface. Another Docker client is Docker Compose, which lets you work with applications consisting of a set of containers.
 
-![Figure3]()[^docker]
+![Figure3](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure3.png)
 ## Docker objects
 
 ### Images
