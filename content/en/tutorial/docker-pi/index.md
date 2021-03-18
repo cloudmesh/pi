@@ -38,8 +38,8 @@ applications from your infrastructure so you can deliver software quickly. With 
 
 ## Hypervisor vs container-based virtualization
 
-Hypervisor – As seen in figure 1, there are limitations with hypervisor - Kernel Resource Duplication and Application Portability Issue
-Container – As seen in figure 2, container based virtualization is cost efficient, fast deployment and guaranteed portability.
+* Hypervisor – As seen in figure 1, there are limitations with hypervisor - Kernel Resource Duplication and Application Portability Issue
+* Container – As seen in figure 2, container based virtualization is cost efficient, fast deployment and guaranteed portability.
 
 ![Figure 1](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure1.png)
 
@@ -53,25 +53,25 @@ Docker uses a client-server architecture. The Docker client talks to the Docker 
 
 ### Images
 
-• Images are read-only templates used to create containers. 
-• Images are created with the docker build command, either by us or by other docker users. 
-• Images are composed of layers of other images. 
-• Images are stored in a Docker registry.
+* Images are read-only templates used to create containers. 
+* Images are created with the docker build command, either by us or by other docker users. 
+* Images are composed of layers of other images. 
+* Images are stored in a Docker registry.
 
 ### Containers
 
 
-• If an image is a class, then a container is an instance of a  class - a runtime object.
-• Containers are lightweight and portable encapsulations of an environment in which to run applications.
-• Containers are created from images. Inside a container, it has all the binaries and dependencies needed to run the application.
+* If an image is a class, then a container is an instance of a  class - a runtime object.
+* Containers are lightweight and portable encapsulations of an environment in which to run applications.
+* Containers are created from images. Inside a container, it has all the binaries and dependencies needed to run the application.
 
 
 ### Registries and Repositories
 
-• A registry is where we store our images.
-• You can host your own registry, or you can use Docker’s public registry which is called DockerHub.
-• Inside a registry, images are stored in repositories.
-• Docker repository is a collection of different docker images  with the same name, that have different tags, each tag  usually represents a different version of the image.
+* A registry is where we store our images.
+* You can host your own registry, or you can use Docker’s public registry which is called DockerHub.
+* Inside a registry, images are stored in repositories.
+* Docker repository is a collection of different docker images  with the same name, that have different tags, each tag  usually represents a different version of the image.
 
 
 ## Two ways to build docker images
