@@ -61,62 +61,62 @@ create one for this tutorial.
 On your Linux/Mac, open a new terminal.
 
 ```bash
-> python3 -m venv ~/CLOUDMESH
+you@yourlaptop $ python3 -m venv ~/CLOUDMESH
 ```
 
 The above will create a new python virtual environment. Activate it with the following.
 
 ```bash
-> source ~/CLOUDMESH/bin/activate
+you@yourlaptop $ source ~/CLOUDMESH/bin/activate
 ```
 
 Verify your `python` and `pip` are correct
 
 ```bash
-> which python
+you@yourlaptop $ which python
 ~/CLOUDMESH/bin/python
 
-> which pip
+you@yourlaptop $ which pip
 ~/CLOUDMESH/bin/pip
 ```
 
 Update `pip`.
 
 ```bash
-> pip install --upgrade pip
+you@yourlaptop $ pip install --upgrade pip
 ```
 
 Install `cloudmesh-installer`
 
 ```bash
-> pip install cloudmesh-installer
+you@yourlaptop $ pip install cloudmesh-installer
 ```
 
 Create a new directory `~/cm` and `cd` into it
 
 ```bash
-> mkdir ~/cm
-> cd ~/cm
+you@yourlaptop $ mkdir ~/cm
+you@yourlaptop $ cd ~/cm
 ```
 
 Install the correct cloudmesh-repos with the following. In the future, we
 will make this a PyPI package.
 
 ```bash
-> cloudmesh-installer get pi
+you@yourlaptop $ cloudmesh-installer get pi
 ```
 
 Because this is pre-release, we must use `origin/ubuntu` in `cloudmesh-pi-burn`.
 
 ```bash
-> cd cloudmesh-pi-burn
-> git checkout ubuntu
+you@yourlaptop $ cd cloudmesh-pi-burn
+you@yourlaptop $ git checkout ubuntu
 ```
 
 Finally, ensure you have an RSA key pair in `~/.ssh`. You can create one as follows. Use the default location in `~/.ssh/id_rsa`
 
 ```bash
-> ssh-keygen
+you@yourlaptop $ ssh-keygen
 ```
 
 ## 4. Writing our cluster configuration
@@ -126,21 +126,21 @@ Cloudmesh has a simple system for managing cluster configs. This system is a "cl
 We can first add a manager with cluster subnet IP `10.1.1.2`
 
 ```bash
-> cms inventory add manager --service=manager --ip=10.1.1.2 --tag=ubuntu-20.10-64-bit
-> cms inventory set manager services to bridge --listvalue
+you@yourlaptop $ cms inventory add manager --service=manager --ip=10.1.1.2 --tag=ubuntu-20.10-64-bit
+you@yourlaptop $ cms inventory set manager services to bridge --listvalue
 ```
 
 We can then add the workers
 
 ```bash
-> cms inventory add "worker00[1-3]" --service=worker --ip="10.1.1.[3-5]" --router=10.1.1.2 --tag=ubuntu-20.10-64-bit
-> cms inventory set "worker00[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
+you@yourlaptop $ cms inventory add "worker00[1-3]" --service=worker --ip="10.1.1.[3-5]" --router=10.1.1.2 --tag=ubuntu-20.10-64-bit
+you@yourlaptop $ cms inventory set "worker00[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
 ```
 
 Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
 
 ```bash
-> cms inventory list
+you@yourlaptop $ cms inventory list
 +-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
 | host      | name | type | tag                 | cluster | label | service | services   | ip       | dns                    | router   | project | owners | comment | description | keyfile           | status   |
 +-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
@@ -156,7 +156,7 @@ Our cluster configuration is now complete. You may run the following to list you
 First, we must install the correct Ubuntu Server image. We can do it as follows:
 
 ```bash
-> cms burn image get ubuntu-20.10-64-bit
+you@yourlaptop $ cms burn image get ubuntu-20.10-64-bit
 ```
 
 This will take a few moments...
@@ -165,7 +165,7 @@ After the image is downloaded, we are ready to burn. Plug in your first SD Card 
 writer. This will be the manager card. Check your writer's path with the following:
 
 ```bash
-> cms burn info
+you@yourlaptop $ cms burn info
 # ----------------------------------------------------------------------
 # SD Cards Found
 # ----------------------------------------------------------------------
@@ -185,7 +185,7 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 We can now start burning the cluster.
 
 ```bash
-> cms burn ubuntu "manager,worker00[1-3]" --device=/dev/sdb --ssid="WIFI_SSID" --wifipassword="PASSWORD" --country="US" -v
+you@yourlaptop $ cms burn ubuntu "manager,worker00[1-3]" --device=/dev/sdb --ssid="WIFI_SSID" --wifipassword="PASSWORD" --country="US" -v
 ```
 
 After each card is burned, `cms burn ubuntu` will prompt you to swap cards to burn the next host.
@@ -200,8 +200,8 @@ First, ensure you have access to your manager by ssh'ing into it. After ssh'ing,
 with a simple ping.
 
 ```bash
-> ssh ubuntu@manager.local
-ubuntu@manager > ping google.com
+you@yourlaptop $ ssh ubuntu@manager.local
+ubuntu@manager $ ping google.com
 ```
 
 > Hint: Use ctrl+c to keyboard interrupt and stop the ping.
@@ -212,7 +212,7 @@ that neither the manager nor workers have internet connection.
 Next, let's verify connection to our workers. You may want to do the following for all hosts, but we only show one for now.
 
 ```bash
-ubuntu@manager > ssh worker001
+ubuntu@manager $ ssh worker001
 ```
 
 You should be able to ssh into the worker with no issues after accepting the fingerprint.
@@ -220,7 +220,7 @@ You should be able to ssh into the worker with no issues after accepting the fin
 Let us now verify internet connection with proper routing through the following:
 
 ```bash
-ubuntu@worker001 > traceroute google.com
+ubuntu@worker001 $ traceroute google.com
 traceroute to google.com (172.217.7.238), 64 hops max
   1   10.1.1.2  0.431ms  0.364ms  0.356ms
   2   10.20.76.1  2.422ms  2.194ms  2.416ms
@@ -232,6 +232,7 @@ traceroute to google.com (172.217.7.238), 64 hops max
   8   96.110.33.202  18.955ms  17.627ms  17.063ms
   9   96.87.9.122  15.804ms  15.120ms  15.679ms
 ```
+
 > Hint: Again, you can use ctrl+c to keyboard interrupt and terminate traceroute.
 
 Note here how the first line of the result of `traceroute` indicates we went through the `manager` at ip `10.1.1.2`
