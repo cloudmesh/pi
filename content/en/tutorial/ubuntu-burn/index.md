@@ -1,6 +1,6 @@
 ---
 date: 2021-02-07
-title: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access (Pre-Release)"
+title: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access"
 linkTitle: "Burning an Ubuntu Cluster"
 description: "A comprehensive tutorial of burning an Ubuntu cluster with internet access"
 author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
@@ -8,15 +8,15 @@ author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail
 
 # Introduction
 
-Cloud-init provides powerful tools for configuring an Ubuntu Server interest. It allows users to configure network
-information, add authorized keys, run commands on boot, and other powerful items. While cloud-init is a very
-powerful tool, it can at times be difficult to understand what to write into the user-data and network-config
-to get a cluster working.
+Cloud-init provides powerful tools for configuring an Ubuntu Server. It allows users to configure network
+information, add authorized keys, run commands on boot, and other useful tasks to set up the operating system. While cloud-init is a very
+powerful tool, it requires knowledge to use it properly and therefore has a high learning curve when it comes to cluster-specific tasks such as using user data and network configurations
+to get a cluster operational.
 
-For this reason, we provide a simple set of commands to burn SD Cards with ubuntu server and configure cloud-init
-correctly.
+For this reason, we provide a simple set of commands to to nt only burn SD Cards with ubuntu server but to augment them with  and configuretions for cloud-init
+to set up a cluster correctly.
 
-# What we will do
+## What we will do
 
 In this tutorial, we will burn a cluster of Raspberry Pis with Ubuntu Server per a user-friendly configuration.
 This cluster will have wifi access from the manager, and the manager will act as a router for the workers (in that all
@@ -24,7 +24,7 @@ internet traffic is routed through the manager). This type of setup is useful fo
 (no access to modem), especially those that are required to register the MAC addresses of their devices. With a cluster
 of 10 or more nodes, this can be quite tedious to do.
 
-# Pre-requisites
+## Pre-requisites
 
 * Computer/Laptop with MacOS or Linux. (Windows not supported yet)
 * `python3 --version` > 3.8
@@ -33,7 +33,7 @@ of 10 or more nodes, this can be quite tedious to do.
 * 4 Ethernet Cables
 * An (un)managed ethernet switch
 
-# Step 1. Installing cloudmesh and Setup
+## Step 1. Installing cloudmesh and Setup
 
 It is always wise to create virtual environments when you do not envision needing a python package consistently. Let us
 create one for this tutorial.
@@ -99,7 +99,7 @@ Finally, ensure you have an RSA key pair in `~/.ssh`. You can create one as foll
 > ssh-keygen
 ```
 
-# Step 2. Writing our cluster configuration
+## Step 2. Writing our cluster configuration
 
 Cloudmesh has a simple system for managing cluster configs. This system is a "cloudmesh inventory".
 
@@ -131,7 +131,7 @@ Our cluster configuration is now complete. You may run the following to list you
 +-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
 ```
 
-# Step 3. Burning the Cluster
+## Step 3. Burning the Cluster
 
 First, we must install the correct Ubuntu Server image. We can do it as follows:
 
@@ -172,7 +172,7 @@ After each card is burned, `cms burn ubuntu` will prompt you to swap cards to bu
 
 After all cards have been burned, we can now plug in our cards into our raspberry pis and boot. We recommend you boot them all at the same time or the manager first.
 
-# Step 4. Burn Verification
+## Step 4. Burn Verification
 
 After you boot, we recommend waiting 2-3 minutes for the cloud-init boot process to complete.
 
