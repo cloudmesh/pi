@@ -1,10 +1,9 @@
 ---
 date: 2021-02-07
-title: "Example Tutorial"
-linkTitle: "Example"
-description: "This post is an example so you can easily add new content."
+title: "Introduction to Docker"
+linkTitle: "Introduction to Docker"
+description: "This post will cover Docker basics and commands"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
-draft: True
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
@@ -39,39 +38,40 @@ applications from your infrastructure so you can deliver software quickly. With 
 
 ## Hypervisor vs container-based virtualization
 
-Hypervisor – As seen in figure 1, there are limitations with hypervisor - Kernel Resource Duplication and Application Portability Issue
-Container – As seen in figure 2, container based virtualization is cost efficient, fast deployment and guaranteed portability.
-![Figure 1]()[^training]
+* Hypervisor – As seen in figure 1, there are limitations with hypervisor - Kernel Resource Duplication and Application Portability Issue
+* Container – As seen in figure 2, container based virtualization is cost efficient, fast deployment and guaranteed portability.
 
-![Figure 2]()[^training]
+![Figure 1](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure1.png)
+
+![Figure 2](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure2.png)
 ## Docker architecture
 
 Docker uses a client-server architecture. The Docker client talks to the Docker daemon, which does the heavy lifting of building, running, and distributing your Docker containers. The Docker client and daemon can run on the same system or connect a Docker client to a remote Docker daemon. The Docker client and daemon communicate using a REST API, over UNIX sockets, or a network interface. Another Docker client is Docker Compose, which lets you work with applications consisting of a set of containers.
 
-![Figure3]()[^docker]
+![Figure3](https://github.com/cloudmesh/pi/blob/main/content/en/tutorial/docker-pi/Figure3.png)
 ## Docker objects
 
 ### Images
 
-• Images are read-only templates used to create containers. 
-• Images are created with the docker build command, either by us or by other docker users. 
-• Images are composed of layers of other images. 
-• Images are stored in a Docker registry.
+* Images are read-only templates used to create containers. 
+* Images are created with the docker build command, either by us or by other docker users. 
+* Images are composed of layers of other images. 
+* Images are stored in a Docker registry.
 
 ### Containers
 
 
-• If an image is a class, then a container is an instance of a  class - a runtime object.
-• Containers are lightweight and portable encapsulations of an environment in which to run applications.
-• Containers are created from images. Inside a container, it has all the binaries and dependencies needed to run the application.
+* If an image is a class, then a container is an instance of a  class - a runtime object.
+* Containers are lightweight and portable encapsulations of an environment in which to run applications.
+* Containers are created from images. Inside a container, it has all the binaries and dependencies needed to run the application.
 
 
 ### Registries and Repositories
 
-• A registry is where we store our images.
-• You can host your own registry, or you can use Docker’s public registry which is called DockerHub.
-• Inside a registry, images are stored in repositories.
-• Docker repository is a collection of different docker images  with the same name, that have different tags, each tag  usually represents a different version of the image.
+* A registry is where we store our images.
+* You can host your own registry, or you can use Docker’s public registry which is called DockerHub.
+* Inside a registry, images are stored in repositories.
+* Docker repository is a collection of different docker images  with the same name, that have different tags, each tag  usually represents a different version of the image.
 
 
 ## Two ways to build docker images
