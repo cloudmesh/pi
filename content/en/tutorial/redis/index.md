@@ -1,11 +1,13 @@
-##Introduction
+## Introduction
+
 Redis is an **[In-Memory Database][]** & key-value store often used for caching. It is known for its exceptionally fast read-write operations (100,000/second) in memory. It can be used as an alternative to [YAMLDB][] in our implementation. 
 
 [In-Memory Database]: "https://medium.com/@denisanikin/what-an-in-memory-database-is-and-how-it-persists-data-efficiently-f43868cff4c1"
 
 [YAMLDB]: "https://github.com/cloudmesh/yamldb"
 
-##Installation
+## Installation
+
 Installation & setup instructions are taken from the [Redis Quickstart][] webpage.
 [Redis QuickStart]: "https://redis.io/topics/quickstart"
 
@@ -22,7 +24,8 @@ After these commands have finished executing, enter the following command to che
 ```
 $ make test
 ```
-##Setup & Testing
+## Setup & Testing
+
 Set up PATH environment variables for the server and command line interface with the following commands:
 
 ```
@@ -42,14 +45,14 @@ $ redis-cli ping
 ```  
 Expect the response ```PONG```
 
-##Brief Examples
+## Brief Examples
 An official introduction to Redis commands is given in Redis's [Introduction to Data Types][] article.
 
 [Introduction to Data Types]: "https://redis.io/topics/data-types-intro"
 
 Try out the following examples in Redis CLI's *interactive mode* by typing in ```redis-cli``` without any commands or arguments. 
 
-**Databases**
+### Databases
 
 Redis databases are referred to using integer indices (Ex. database "0", database "1", etc). By default, a Redis instance contains 16 databases, and is set to database 0 when first accessed by a client. 
 
@@ -63,7 +66,7 @@ This will switch the current database to database 3.
 
 Use the ```FLUSHDB``` to erase all key-value pairs from a database.
 
-**Keys**
+### Keys
 
 Set and get key-value pairs in a Redis database using the ```GET``` and ```SET``` commands. Try the following example: 
 
