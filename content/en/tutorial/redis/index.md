@@ -1,3 +1,33 @@
+---
+date: 2021-02-07
+title: "Broken"
+linkTitle: "Broken A"
+description: "TBD."
+author: Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+draft: True
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
+---
+
+{{< imgproc webpage Fill "600x300" >}}
+{{< /imgproc >}}
+
+
+{{% pageinfo %}}
+
+TBD
+
+**Learning Objectives**
+
+* Learn how to ...
+  
+**Topics covered**
+
+{{% table_of_contents %}}
+
+{{% /pageinfo %}}
+
 ## Introduction
 
 Redis is an **[In-Memory Database][]** & key-value store often used for caching. It is known for its exceptionally fast read-write operations (100,000/second) in memory. It can be used as an alternative to [YAMLDB][] in our implementation. 
