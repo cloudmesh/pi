@@ -1,9 +1,39 @@
+---
+date: 2021-02-07
+title: "Broken"
+linkTitle: "Broken B"
+description: "TBD."
+author: Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+draft: True
+resources:
+- src: "**.{png,jpg}"
+  title: "Image #:counter"
+---
+
+{{< imgproc webpage Fill "600x300" >}}
+{{< /imgproc >}}
+
+
+{{% pageinfo %}}
+
+TBD
+
+**Learning Objectives**
+
+* Learn how to ...
+  
+**Topics covered**
+
+{{% table_of_contents %}}
+
+{{% /pageinfo %}}
+
 ##Introduction
 
 
-##Installation
+## Installation
 
-##Setup a Basic NFS Server
+## Setup a Basic NFS Server
 To begin, install the required packages using the following command:
 
 ```
