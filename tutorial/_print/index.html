@@ -689,8 +689,8 @@ host ssh red,red00[1-2] &quot;sudo adduser wendy --disabled-password --gecos , &
 |        |         | Copying files from `/etc/skel' ...               |
 +--------+---------+--------------------------------------------------+
 </code></pre><h3 id=change-user-password>Change User Password</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo passwd bob
-</code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \' echo -e \&quot;password\\npassword\&quot; \| sudo passwd wendy \'
-host ssh red,red00[1-2] ' echo -e &quot;password\npassword&quot; | sudo passwd wendy '
+</code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \' echo -e '&quot;password123\npassword123&quot;' \| sudo passwd wendy \'
+host ssh red,red00[1-2] ' echo -e &quot;password123\npassword123&quot; | sudo passwd wendy '
 +--------+---------+--------------------------------------------------+
 | host   | success | stdout                                           |
 +--------+---------+--------------------------------------------------+
@@ -701,7 +701,6 @@ host ssh red,red00[1-2] ' echo -e &quot;password\npassword&quot; | sudo passwd w
 | red001 | True    |                                                  |
 | red002 | True    |                                                  |
 +--------+---------+--------------------------------------------------+
-
 </code></pre><p>However, it seems like this may not work on the local machine (red).</p><h3 id=add-user-to-sudoers>Add User to Sudoers</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo adduser bob sudo
 </code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \'sudo adduser wendy sudo \'
 host ssh red,red00[1-2] 'sudo adduser wendy sudo '
