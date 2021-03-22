@@ -81,8 +81,8 @@ pi@red:~ $ sudo passwd bob
 On multiple cluster machines.
 
 ```
-pi@red:~$ cms host ssh red,red00[1-2] \' echo -e \"password\\npassword\" \| sudo passwd wendy \'
-host ssh red,red00[1-2] ' echo -e "password\npassword" | sudo passwd wendy '
+pi@red:~$ cms host ssh red,red00[1-2] \' echo -e '"password123\npassword123"' \| sudo passwd wendy \'
+host ssh red,red00[1-2] ' echo -e "password123\npassword123" | sudo passwd wendy '
 +--------+---------+--------------------------------------------------+
 | host   | success | stdout                                           |
 +--------+---------+--------------------------------------------------+
@@ -93,7 +93,6 @@ host ssh red,red00[1-2] ' echo -e "password\npassword" | sudo passwd wendy '
 | red001 | True    |                                                  |
 | red002 | True    |                                                  |
 +--------+---------+--------------------------------------------------+
-
 ```
 
 However, it seems like this may not work on the local machine (red).
