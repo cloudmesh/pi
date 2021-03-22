@@ -1,6 +1,6 @@
 ---
 date: 2021-02-07
-title: "Cms Commands"
+title: "Command cms"
 linkTitle: "Cms Commands"
 description: "How to ad dnew commands to cloudmesh."
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
