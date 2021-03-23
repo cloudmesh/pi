@@ -225,14 +225,6 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 > Note we omit some output of `cms burn info` for clarity.
 > On MacOS, you may get an `ERROR: We could not find your USB reader in the list of known readers`. This can be ignored. Additionally, `cms burn info` will list the partitions as well. For example, if you see the path `/dev/disk2s1` and `/dev/disk2s2`, then your device is `/dev/disk2`.
 
-We can now start burning the cluster. We start with the manager and enable WiFi on it. We also give it a password
-for keyboard login: "cloudmesh" in this case.
-
-
-```bash
-you@yourlaptop $ cms burn raspberry "manager" --device=/dev/disk2
-```
-
 As with the previous commands it will outodetect the SSID, the locale, and the countru. We recommend not to use the password flags for the wifipassword and sudo, as they will be likely stored in the command history and logs. WHile leaving them off, they will be asked interactively.
 
 ```bash
