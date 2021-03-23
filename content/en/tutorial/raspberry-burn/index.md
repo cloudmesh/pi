@@ -2,7 +2,7 @@
 date: 2021-03-23
 title: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 linkTitle: "Burning an Raspberry OS Cluster"
-description: "A comprehensive tutorial of burning an Raspberry OS cluster with internet access through a single point"
+description: "A comprehensive tutorial of burning an Raspberry OS cluster with internet access"
 author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
 resources:
@@ -14,7 +14,7 @@ resources:
 
 {{% pageinfo %}}
 
-In this tutorial, we explain how to easily set up a cluster of Pis with pre-configured RaspberryOS cards.
+In this tutorial, we explain how to easily set up a preconfigured cluster of Pis using RaspberryOS while only burning SD Cards. The cluster is ready to boot after all cards have been burned. No other configuration is needed.
 
 **Learning Objectives**
 
@@ -29,40 +29,39 @@ In this tutorial, we explain how to easily set up a cluster of Pis with pre-conf
 
 ## 1. Introduction
 
-With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it
-has become clear how to properly configure a Raspberry Pi (running Raspberry OS. Ubuntu [here](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)) on boot. One may manipulate the `cmdline.txt` on the boot partition to run any arbitrary script on boot.
+With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to properly configure a Raspberry Pi (running Raspberry OS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster with a simple network configuration. In addition to using RaspberryOs, we also have another tutorial that showcases how to use [Ubuntu](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)) as operating system. Our tutorials are useful as typically many steps are involved. We circumvent them by simply burning a card for each of the PIs.
 
-Here, we allow users to circumnavigate the reasearch involved in order to properly configure a Raspberry OS Pi on boot.
+For this purpose we developed a speciall command called  `cms burn`, that allows us to easily create such cards. THe features this command supports includes:
 
-In this tutorial, we will demonstrate the usage of `cms`: a set of useful commands for cluster configurations among other things. Some features demonstrated here include the following:
-
-* Set hostname
-* Enable SSH
-* WiFi Configuration
+* Set the hostname
+* Enables SSH
+* Confugures WiFi
 * Locale Settings
-* Skip First-run Wizard
-* Change Password for pi user
-* Add authorized keys for pi user
+* Change Password for the pi user
+* Add authorized keys for the pi user
 * Configure a static IP on the ethernet (eth0) interface along with routing preferences
 * Configure a WiFi "bridge" for a Pi to act as a router to a cluster of Pis
+* Runs the configuration on first boot.
 
-In this tutorial, we will demonstrate the usage of `cms` by creating a cluster of 4 pis (1 manager, 3 workers) where we
-connect the manager to the internet (Wifi) and configure the workers to access the internet through the manager via
+We demonstrate the usage of `cms burn` command by creating a cluster of 4 pis (1 manager, 3 workers) where we
+connect the manager to the internet via Wifi and configure the workers to access the internet through the manager via
 ethernet connection. This might be useful for those with restricted internet access where devices must be registered
 by MAC Address or through browser login.
 
 ## 2. Pre-requisites
 
-* Computer/Laptop with MacOS or Linux. (Windows not supported yet)
+* Computer/Laptop with MacOS or Linux. (Windows is not supported, but could be easily added with your help)
 * `python3 --version` > 3.8
 * WiFi SSID and Password
-* 4 Raspberry Pis and 4 SD Cards with power cables (For the purposes of this tutorial)
+* 4 Raspberry Pis and 4 SD Cards with power cables (For the purposes of this tutorial) A minimum of 2 is needed, one manager and 1 worker)
 * 4 Ethernet Cables (For the purposes of this tutorial)
 * An (un)managed ethernet switch (For the purposes of this tutorial)
 
+For parts lists please see our linsk on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
+
 ## 3. Installing cloudmesh and Setup
 
-It is always wise to create virtual environments when you do not envision needing a python package consistently. Let us
+It is best practice to create virtual environments when you do not envision needing a python package consistently. Let us
 create one for this tutorial.
 
 On your Linux/Mac, open a new terminal.
@@ -77,9 +76,10 @@ The above will create a new python virtual environment. Activate it with the fol
 you@yourlaptop $ source ~/CLOUDMESH/bin/activate
 ```
 
-Verify your `python` and `pip` are correct
+First, we update pip and verify your `python` and `pip` are correct
 
 ```bash
+you@yourlaptop $ pip install --upgrade pip
 you@yourlaptop $ which python
 ~/CLOUDMESH/bin/python
 
@@ -87,13 +87,7 @@ you@yourlaptop $ which pip
 ~/CLOUDMESH/bin/pip
 ```
 
-Update `pip`.
-
-```bash
-you@yourlaptop $ pip install --upgrade pip
-```
-
-Install `cloudmesh-installer`
+Next, we install our convenient `cloudmesh-installer`
 
 ```bash
 you@yourlaptop $ pip install cloudmesh-installer
@@ -123,12 +117,13 @@ We will use this default key to access our cluster after burning
 
 ## 4. Writing our cluster configuration
 
-Cloudmesh has a simple system for managing cluster configs. This system is a "cloudmesh inventory".
-
+Cloudmesh has a simple system for managing cluster configurations as an inventory. 
+We do this management for you, but you can controll it also from the commandline. 
 We can first add a manager with cluster subnet IP `10.1.1.1`. We also add the `bridge` service which is
 recognized by `cms` as the Wifi bridge service connecting devices on eth0 to the internet.
+We also set the timezone and locale here. You may want to change them as you wish.
 
-We also set the timezone and locale here. You may want to change them as you wish
+Here are the commands to use for thsi setup:
 
 ```bash
 you@yourlaptop $ cms inventory add manager --service=manager --ip=10.1.1.1 --tag=latest-lite --timezone="America/Indiana/Indianapolis" --locale="us"
