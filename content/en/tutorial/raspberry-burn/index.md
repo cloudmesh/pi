@@ -59,7 +59,15 @@ by MAC Address or through browser login.
 
 For parts lists please see our linsk on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
 
-## 3. Installing cloudmesh and Setup
+## 3. Notation
+
+IN our tutorial we define the manager hostname to be `red`, while each worker has a number in it `red01`, `red02`, `red03`
+
+The following image shows our cluster configuration:
+
+TODO: add image
+
+## 4. Installing cloudmesh and Setup
 
 It is best practice to create virtual environments when you do not envision needing a python package consistently. Let us
 create one for this tutorial.
@@ -86,6 +94,17 @@ you@yourlaptop $ which python
 you@yourlaptop $ which pip
 ~/CLOUDMESH/bin/pip
 ```
+### 4.1 Install from Pip
+
+TODO: THis may not yet work, but will be after we merge our code to main and relaese
+
+```bash
+you@yourlaptop $ pip install cloudmesh-pi-cluster
+```
+
+### 4.2 Install from Source
+
+If you are a developer that likes to add new features we recommend our source set up 
 
 Next, we install our convenient `cloudmesh-installer`
 
@@ -107,15 +126,17 @@ will make this a PyPI package.
 you@yourlaptop $ cloudmesh-installer get pi
 ```
 
-Finally, ensure you have an RSA key pair in `~/.ssh`. You can create one as follows. Use the default location in `~/.ssh/id_rsa`
+### 4.3 Create an SSH key
+
+It is important that we can easily accesss the manager and worker nodes from the laptop/desktop. Hence we create a keypait in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
 
 ```bash
 you@yourlaptop $ ssh-keygen
 ```
 
-We will use this default key to access our cluster after burning
+Please use a unique and strong passphrase. We will use this default key to access our cluster after burning.
 
-## 4. Writing our cluster configuration
+## 5. Writing our cluster configuration
 
 Cloudmesh has a simple system for managing cluster configurations as an inventory. 
 We do this management for you, but you can controll it also from the commandline. 
@@ -123,20 +144,38 @@ We can first add a manager with cluster subnet IP `10.1.1.1`. We also add the `b
 recognized by `cms` as the Wifi bridge service connecting devices on eth0 to the internet.
 We also set the timezone and locale here. You may want to change them as you wish.
 
-Here are the commands to use for thsi setup:
+### 5.1 Default Cluster Creation
+
+As we want to make the cluster very easy to create we are providing a deafult creation with the following command
 
 ```bash
-you@yourlaptop $ cms inventory add manager --service=manager --ip=10.1.1.1 --tag=latest-lite --timezone="America/Indiana/Indianapolis" --locale="us"
-you@yourlaptop $ cms inventory set manager services to "bridge" --listvalue
+you@yourlaptop $ cms inventory add cluster red,red[01-02]
+```
+
+THis command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or less nodes, the command will make appropriate updates.
+
+
+### 4.2 Custom Cluster Creation
+
+For a custom cluster you can inspect the parameters to the inventory command.  Here are the commands to use for the previous setup while writing them out. YOu can modify the parameters to your liking:
+
+TODO: see if this is correct
+
+```bash
+you@yourlaptop $ cms inventory add red --service=manager --ip=10.1.1.1 --tag=latest-lite --timezone="America/Indiana/Indianapolis" --locale="us"
+you@yourlaptop $ cms inventory set red services to "bridge" --listvalue
 ```
 
 We can then add the workers
 
 ```bash
-you@yourlaptop $ cms inventory add "worker00[1-3]" --service=worker --ip="10.1.1.[2-4]" --router=10.1.1.1 --tag=latest-lite  --timezone="America/Indiana/Indianapolis" --locale="us"
-you@yourlaptop $ cms inventory set "worker00[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
+you@yourlaptop $ cms inventory add "red0[1-3]" --service=worker --ip="10.1.1.[2-4]" --router=10.1.1.1 --tag=latest-lite  --timezone="America/Indiana/Indianapolis" --locale="us"
+you@yourlaptop $ cms inventory set "red0[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
 ```
 > Note we are using Google's DNS here [8.8.8.8, 8.8.4.4]
+
+
+## 4.3 Inspect the Cluster Configuration
 
 Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
 
@@ -186,21 +225,21 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 We can now start burning the cluster. We start with the manager and enable WiFi on it. We also give it a password
 for keyboard login: "cloudmesh" in this case.
 
-```bash
-you@yourlaptop $ cms burn raspberry "manager" --device=/dev/disk2 --ssid="SSID" --wifipassword="WIFI_PASSWORD" --password="cloudmesh" --country="US"
-```
-
-Now we can do the workers.
 
 ```bash
-you@yourlaptop $ cms burn raspberry "worker00[1-3]" --device=/dev/disk2 --password="cloudmesh"
+you@yourlaptop $ cms burn raspberry "manager" --device=/dev/disk2
 ```
+
+As with the previous commands it will outodetect the SSID, the locale, and the countru. We recommend not to use the password flags for the wifipassword and sudo, as they will be likely stored in the command history and logs. WHile leaving them off, they will be asked interactively.
+
+```bash
+you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/disk2
 
 After each card is burned, `cms burn raspberry` will prompt you to swap cards to burn the next host.
 
 After all cards have been burned, we can now plug in all our cards into our raspberry pis and boot. Ensure
-that your workers and manager are connected into the same network switch via ethernet. Ensure this network
-switch does not have internet access in itself. We will use the manager as the sole point of internet access here.
+that your workers and manager are connected into the same network switch via the ethernet cables. Ensure this network
+switch does not have internet access in itself. We will use the manager as the sole point of internet access here. This we do deliberately as to be able to disconnect all nodes from the network via the Master in case this is needed.
 
 ## 6. Burn Verification
 
@@ -210,8 +249,8 @@ First, ensure you have access to your manager by ssh'ing into it. After ssh'ing,
 with a simple ping.
 
 ```bash
-you@yourlaptop $ ssh pi@manager.local
-pi@manager $ ping google.com
+you@yourlaptop $ ssh pi@red.local
+pi@red $ ping google.com
 PING google.com (142.250.64.238) 56(84) bytes of data.
 64 bytes from mia07s57-in-f14.1e100.net (142.250.64.238): icmp_seq=1 ttl=101 time=54.4 ms
 64 bytes from mia07s57-in-f14.1e100.net (142.250.64.238): icmp_seq=2 ttl=101 time=74.6 ms
@@ -226,8 +265,8 @@ Next, let's verify connection to our workers. You may want to do the following f
 
 ```bash
 pi@manager $ exit
-you@yourlaptop $ ssh -J pi@manager.local pi@worker001.local
-pi@worker001 $
+you@yourlaptop $ ssh -J pi@manager.local pi@red01.local
+pi@red01 $
 ```
 
 You should be able to ssh into the worker with no issues after accepting the fingerprint.
@@ -235,9 +274,9 @@ You should be able to ssh into the worker with no issues after accepting the fin
 Let us now verify internet connection with proper routing through the following:
 
 ```bash
-pi@worker001 $ traceroute google.com
+pi@red01 $ traceroute google.com
 traceroute to google.com (216.58.192.174), 30 hops max, 60 byte packets
- 1  manager (10.1.1.1)  0.243 ms  0.295 ms  0.218 ms
+ 1  red (10.1.1.1)  0.243 ms  0.295 ms  0.218 ms
  2  10.20.76.1 (10.20.76.1)  2.754 ms  2.306 ms  2.573 ms
  3  50.230.235.89 (50.230.235.89)  5.207 ms  5.798 ms  5.723 ms
  ...
