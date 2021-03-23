@@ -229,6 +229,7 @@ As with the previous commands it will outodetect the SSID, the locale, and the c
 
 ```bash
 you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/disk2
+```
 
 After each card is burned, `cms burn raspberry` will prompt you to swap cards to burn the next host.
 
