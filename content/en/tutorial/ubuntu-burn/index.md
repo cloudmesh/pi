@@ -141,14 +141,14 @@ Our cluster configuration is now complete. You may run the following to list you
 
 ```bash
 you@yourlaptop $ cms inventory list
-+-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
-| host      | name | type | tag                 | cluster | label | service | services   | ip       | dns                    | router   | project | owners | comment | description | keyfile           | status   |
-+-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
-| manager   |      |      | ubuntu-20.10-64-bit |         |       | manager | ['bridge'] | 10.1.1.2 |                        |          |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker001 |      |      | ubuntu-20.10-64-bit |         |       | worker  |            | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker002 |      |      | ubuntu-20.10-64-bit |         |       | worker  |            | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-| worker003 |      |      | ubuntu-20.10-64-bit |         |       | worker  |            | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |         |        |         |             | ~/.ssh/id_rsa.pub | inactive |
-+-----------+------+------+---------------------+---------+-------+---------+------------+----------+------------------------+----------+---------+--------+---------+-------------+-------------------+----------+
++-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
+| host      | tag                 | cluster | service | services   | ip       | dns                    | router   | locale | timezone | owners | comment | description | keyfile           |
++-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
+| manager   | ubuntu-20.10-64-bit |         | manager | ['bridge'] | 10.1.1.2 |                        |          |        |          |        |         |             | ~/.ssh/id_rsa.pub |
+| worker001 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
+| worker002 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
+| worker003 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
++-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
 ```
 
 ## 5. Burning the Cluster
@@ -233,7 +233,7 @@ traceroute to google.com (172.217.7.238), 64 hops max
   9   96.87.9.122  15.804ms  15.120ms  15.679ms
 ```
 
-> Hint: Again, you can use ctrl+c to keyboard interrupt and terminate traceroute.
+> Hint: If traceroute isn't terminating, you can use ctrl+c to keyboard interrupt and terminate traceroute.
 
 Note here how the first line of the result of `traceroute` indicates we went through the `manager` at ip `10.1.1.2`
 to access the internet. This is expected.
