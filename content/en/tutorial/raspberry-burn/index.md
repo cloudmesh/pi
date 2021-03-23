@@ -197,11 +197,14 @@ First, we must install the correct Raspberry OS image. We use the latest Raspber
 
 ```bash
 you@yourlaptop $ cms burn image get latest-lite
+you@yourlaptop $ cms burn image get latest-full
 ```
+
+The lite image we use for all workers, while the full image is used for the manager (however we could also use lite).
 
 This will take a few moments...
 
-After the image is downloaded, we are ready to burn. Plug in your first SD Card into your card
+After the images are downloaded, we are ready to burn. Plug in your first SD Card into your card
 writer. Check your writer's path with the following:
 
 ```bash
