@@ -734,10 +734,49 @@ may or may not work successfully the second time (though generally I&rsquo;ve fo
 it reasonably useful for testing). Currently, the only way to completely clean
 the system is to re-image.</p><h3 id=k3s>k3s</h3><ul><li>good tutorial: <a href=https://mhausenblas.info/kube-rpi/>https://mhausenblas.info/kube-rpi/</a></li><li><a href=https://medium.com/@amadmalik/installing-kubernetes-on-raspberry-pi-k3s-and-docker-on-ubuntu-20-04-ef51e5e56>https://medium.com/@amadmalik/installing-kubernetes-on-raspberry-pi-k3s-and-docker-on-ubuntu-20-04-ef51e5e56</a></li></ul><h3 id=k3sup-with-static-adresses>k3sup with static adresses</h3><ul><li><p>Important read but we want to use k3s and not k3sup
 <a href=https://medium.com/icetek/building-a-kubernetes-cluster-on-raspberry-pi-running-ubuntu-server-8fc4edb30963>https://medium.com/icetek/building-a-kubernetes-cluster-on-raspberry-pi-running-ubuntu-server-8fc4edb30963</a></p></li><li><p><a href=https://ma.ttias.be/deploying-highly-available-k3s-k3sup/>https://ma.ttias.be/deploying-highly-available-k3s-k3sup/</a></p></li></ul><h3 id=k9s>k9s</h3><p>some tool, nt sure if useful</p><ul><li><a href=https://github.com/derailed/k9s>https://github.com/derailed/k9s</a></li></ul><h2 id=general-ubuntu>general ubuntu</h2><ul><li>enable ssh <a href=https://pimylifeup.com/ubuntu-enable-ssh/>https://pimylifeup.com/ubuntu-enable-ssh/</a></li><li>NTP with chrony <a href=https://pimylifeup.com/using-ntp-on-linux-with-chrony/>https://pimylifeup.com/using-ntp-on-linux-with-chrony/</a></li><li>NTP <a href=https://pimylifeup.com/timedatectl-command/>https://pimylifeup.com/timedatectl-command/</a></li><li>2 factor auth for ssh <a href=https://pimylifeup.com/setup-2fa-ssh/>https://pimylifeup.com/setup-2fa-ssh/</a></li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-8a03792772737c9fcda02ef45a778cc5>12 - Example Tutorial</h1><div class=lead>How to manage users on the pi cluster</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/usermanagement/featured-image_hu31ad1de8477c329f5412ff59acdd044d_22590_600x300_fill_catmullrom_smart1_2.png width=600 height=300><div class="card-body px-0 pt-2 pb-0"><p class=card-text>The Web Page.
-<small class=text-muted><br>Photo: Gregor von Laszewski / CC-BY-CA</small></p></div></div><div class="pageinfo pageinfo-primary"><p>Abstract</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to &mldr;</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><ul><li><a href=#add-user>Add User</a></li><li><a href=#change-user-password>Change User Password</a></li><li><a href=#add-user-to-sudoers>Add User to Sudoers</a></li><li><a href=#test-user>Test User</a></li><li><a href=#delete--user>Delete User</a></li></ul></li></ul></nav></div></div><h3 id=add-user>Add User</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo add user bob
-</code></pre><p>On multiple cluster machines.</p><p>Disabled and gecos are required to prevent
-interactive questions.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \&quot;sudo adduser wendy --disabled-password --gecos ',' \&quot;
-host ssh red,red00[1-2] &quot;sudo adduser wendy --disabled-password --gecos , &quot;
+<small class=text-muted><br>Photo: Gregor von Laszewski / CC-BY-CA</small></p></div></div><div class="pageinfo pageinfo-primary"><p>Abstract</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to &mldr;</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><ul><li><a href=#setup-sshconfig-to-use-proxyjump>Setup ~/.ssh/config to use PROXYJUMP</a></li><li><a href=#add-user>Add User</a></li><li><a href=#change-user-password>Change User Password</a></li><li><a href=#add-user-to-sudoers>Add User to Sudoers</a></li><li><a href=#test-user>Test User</a></li><li><a href=#add-a-key-to-a-users-authorized-keys>Add A Key to A User&rsquo;s Authorized Keys</a></li><li><a href=#delete--user>Delete User</a></li></ul></li></ul></nav></div></div><h3 id=setup-sshconfig-to-use-proxyjump>Setup ~/.ssh/config to use PROXYJUMP</h3><p>This tutorial assumes you have local network access to the target machines.
+If this is not the case, such as in a bridge setup, you can run the
+following command to setup your ~/.ssh/config file to use the bridge to access
+the target machines. Then the rest of this tutorial can be followed as written.</p><p>In this example red.local is the bridge and red00[1-2] are workers
+accessible via the bridge device, and the workers already have your laptop&rsquo;s
+ssh key in authorized_keys.</p><pre><code>you@yourlaptop:~/$ cms host config proxy pi@red.local red00[1-2]
+host config proxy pi@red.local red00[1-2]
+Adding to ~/.ssh/config
+
+##### CLOUDMESH PROXY CONFIG #####
+Host red
+     HostName pi@red.local
+     User pi
+
+Host red001
+     HostName red001
+     User pi
+     ProxyJump pi@red.local
+
+Host red002
+     HostName red002
+     User pi
+     ProxyJump pi@red.local
+
+##### CLOUDMESH PROXY CONFIG #####
+
+</code></pre><p>Let&rsquo;s test</p><pre><code>you@yourlaptop:~/$ ssh red
+pi@red:~/$ exit
+you@yourlaptop:~/$ ssh red001
+pi@red001:~/$ exit
+you@yourlaptop:~/$ ssh red002
+pi@red002:~/$ exit
+</code></pre><h3 id=add-user>Add User</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo add user bob
+</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ cms host adduser localhost,red,red00[1-2] wendy
+host adduser localhost,red,red00[1-2] wendy
+
+Adding user to localhost
+Adding user `wendy' ...
+Adding new group `wendy' (1011) ...
+Adding new user `wendy' (1010) with group `wendy' ...
+Creating home directory `/home/wendy' ...
+Copying files from `/etc/skel' ...
+
 +--------+---------+--------------------------------------------------+
 | host   | success | stdout                                           |
 +--------+---------+--------------------------------------------------+
@@ -754,28 +793,42 @@ host ssh red,red00[1-2] &quot;sudo adduser wendy --disabled-password --gecos , &
 |        |         | Creating home directory `/home/wendy' ...        |
 |        |         | Copying files from `/etc/skel' ...               |
 | red002 | True    | Adding user `wendy' ...                          |
-|        |         | Adding new group `wendy' (1002) ...              |
-|        |         | Adding new user `wendy' (1002) with group        |
+|        |         | Adding new group `wendy' (1001) ...              |
+|        |         | Adding new user `wendy' (1001) with group        |
 |        |         | `wendy' ...                                      |
 |        |         | Creating home directory `/home/wendy' ...        |
 |        |         | Copying files from `/etc/skel' ...               |
 +--------+---------+--------------------------------------------------+
+
 </code></pre><h3 id=change-user-password>Change User Password</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo passwd bob
-</code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \' echo -e '&quot;password123\npassword123&quot;' \| sudo passwd wendy \'
-host ssh red,red00[1-2] ' echo -e &quot;password123\npassword123&quot; | sudo passwd wendy '
-+--------+---------+--------------------------------------------------+
-| host   | success | stdout                                           |
-+--------+---------+--------------------------------------------------+
-| red    | True    | New password: Retype new password: Sorry,        |
-|        |         | passwords do not match.                          |
-|        |         | passwd: Authentication token manipulation error  |
-|        |         | passwd: password unchanged                       |
-| red001 | True    |                                                  |
-| red002 | True    |                                                  |
-+--------+---------+--------------------------------------------------+
+</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ ms host passwd localhost,red,red00[1-2] wendy
+host passwd localhost,red,red00[1-2] wendy
+
+Setting password on localhost, please provide user password
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+0
+
+Setting password on remote hosts, please enter user password
+
+Please enter the user password:
+c+--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
 </code></pre><p>However, it seems like this may not work on the local machine (red).</p><h3 id=add-user-to-sudoers>Add User to Sudoers</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo adduser bob sudo
-</code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \'sudo adduser wendy sudo \'
-host ssh red,red00[1-2] 'sudo adduser wendy sudo '
+</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ cms host addsudo localhost,red,red00[1-2] wendy
+host addsudo localhost,red,red00[1-2] wendy
+
+Adding user to sudo group on localhost
+Adding user `wendy' to group `sudo' ...
+Adding user wendy to group sudo
+Done.
+
 +--------+---------+-----------------------------------------+
 | host   | success | stdout                                  |
 +--------+---------+-----------------------------------------+
@@ -789,8 +842,7 @@ host ssh red,red00[1-2] 'sudo adduser wendy sudo '
 |        |         | Adding user wendy to group sudo         |
 |        |         | Done.                                   |
 +--------+---------+-----------------------------------------+
-
-</code></pre><h3 id=test-user>Test User</h3><pre><code>pi@red:~ $ ssh red001
+</code></pre><h3 id=test-user>Test User</h3><pre><code>you@yourlaptop:~ $ ssh red001
 
 pi@red001:~$ su wendy
 Password: 
@@ -800,15 +852,80 @@ See &quot;man sudo_root&quot; for details.
 wendy@red001:/home/ubuntu$ sudo echo hello
 [sudo] password for wendy: 
 hello
+</code></pre><h3 id=add-a-key-to-a-users-authorized-keys>Add A Key to A User&rsquo;s Authorized Keys</h3><pre><code>you@yourlaptop:~ $ cms host key scatter red,red00[1-2] keys.txt --user=wendy 
+host key scatter red,red00[1-2] keys.txt --user=wendy
+INFO: SCP to ./temp_authorzied_keys_temp
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+INFO: Mkdir /home/wendy/.ssh if not exist
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+INFO: Chown /home/wendy/.ssh to wendy
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+INFO: Chmod /home/wendy/.ssh to 700
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+INFO: Mv temp_authorized_keys_temp to /home/wendy/.ssh/authorized_keys
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+INFO: Chown /home/wendy/.ssh/authorized_keys to wendy
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
+
+</code></pre><p>Let&rsquo;s test logging in as wendy.</p><pre><code>you@yourlaptop:~ $ ssh wendy@red.local
+Linux red 5.10.17-v7l+ #1403 SMP Mon Feb 22 11:33:35 GMT 2021 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+wendy@red:~ $ 
+
 </code></pre><h3 id=delete--user>Delete User</h3><p>On red only.</p><p>-r removes the user&rsquo;s home folder too.</p><pre><code>pi@red:~ $ sudo userdel -r bob
-</code></pre><p>On multiple cluster machines.</p><pre><code>pi@red:~$ cms host ssh red,red00[1-2] \'sudo userdel -r wendy \'
-host ssh red,red00[1-2] 'sudo userdel -r wendy '
-+--------+---------+--------------------------------------------------+
-| host   | success | stdout                                           |
-+--------+---------+--------------------------------------------------+
-| red    | True    | userdel: wendy mail spool (/var/mail/wendy) not  |
-|        |         | found                                            |
-| red001 | True    |                                                  |
-| red002 | True    |                                                  |
-+--------+---------+--------------------------------------------------+
+</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ cms host deluser localhost,red,red00[1-2] wendy
+host deluser localhost,red,red00[1-2] wendy
+
+Deleting user on localhost
+userdel: wendy mail spool (/var/mail/wendy) not found
+
++--------+---------+--------+
+| host   | success | stdout |
++--------+---------+--------+
+| red    | True    |        |
+| red001 | True    |        |
+| red002 | True    |        |
++--------+---------+--------+
 </code></pre></div></main></div></div><footer class="bg-dark py-5 row d-print-none"><div class="container-fluid mx-sm-5"><div class=row><div class="col-6 col-sm-4 text-xs-center order-sm-2"><ul class="list-inline mb-0"><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Gregor von Laszewski" aria-label="Gregor von Laszewski"><a class=text-white target=_blank rel="noopener noreferrer" href=https://laszewski.github.io><i class="fa fa-envelope"></i></a></li></ul></div><div class="col-6 col-sm-4 text-right text-xs-center order-sm-3"><ul class="list-inline mb-0"><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Cloudmesh GitHub" aria-label="Cloudmesh GitHub"><a class=text-white target=_blank rel="noopener noreferrer" href=https://github.com/cloudmesh><i class="fab fa-github"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Web Site GitHub" aria-label="Web Site GitHub"><a class=text-white target=_blank rel="noopener noreferrer" href=https://github.com/cloudmesh/pi><i class="fab fa-github"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Cloudmesh Community Slack" aria-label="Cloudmesh Community Slack"><a class=text-white target=_blank rel="noopener noreferrer" href=https://cloudmesh-community.slack.com><i class="fab fa-slack"></i></a></li><li class="list-inline-item mx-2 h3" data-toggle=tooltip data-placement=top title="Developer mailing list" aria-label="Developer mailing list"><a class=text-white target=_blank rel="noopener noreferrer" href=https://groups.google.com/g/piplanet><i class="fa fa-envelope"></i></a></li></ul></div><div class="col-12 col-sm-4 text-center py-2 order-sm-2"><small class=text-white>&copy; 2021 The Cloudmesh Projects, Gregor von Laszewski All Rights Reserved</small><p class=mt-2><a href=/pi/about/>About Cloudmesh Pi</a></p></div></div></div></footer></div><script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js integrity=sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 crossorigin=anonymous></script><script src=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js integrity=sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy crossorigin=anonymous></script><script src=/pi/js/main.min.ff304e9949717e3408e45c6399bef7e0834e330b2cbb0a5a5ac54227112a59c0.js integrity="sha256-/zBOmUlxfjQI5Fxjmb734INOMwssuwpaWsVCJxEqWcA=" crossorigin=anonymous></script></body></html>
