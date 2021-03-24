@@ -801,7 +801,7 @@ Copying files from `/etc/skel' ...
 +--------+---------+--------------------------------------------------+
 
 </code></pre><h3 id=change-user-password>Change User Password</h3><p>On red only.</p><pre><code>pi@red:~ $ sudo passwd bob
-</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ ms host passwd localhost,red,red00[1-2] wendy
+</code></pre><p>On multiple cluster machines.</p><pre><code>you@yourlaptop:~/$ cms host passwd localhost,red,red00[1-2] wendy
 host passwd localhost,red,red00[1-2] wendy
 
 Setting password on localhost, please provide user password
@@ -852,7 +852,10 @@ See &quot;man sudo_root&quot; for details.
 wendy@red001:/home/ubuntu$ sudo echo hello
 [sudo] password for wendy: 
 hello
-</code></pre><h3 id=add-a-key-to-a-users-authorized-keys>Add A Key to A User&rsquo;s Authorized Keys</h3><pre><code>you@yourlaptop:~ $ cms host key scatter red,red00[1-2] keys.txt --user=wendy 
+</code></pre><h3 id=add-a-key-to-a-users-authorized-keys>Add A Key to A User&rsquo;s Authorized Keys</h3><pre><code>you@yourlaptop:~ $ cms host key gather red keys.txt
+host key gather red keys.txt
+
+you@yourlaptop:~ $ cms host key scatter red,red00[1-2] keys.txt --user=wendy 
 host key scatter red,red00[1-2] keys.txt --user=wendy
 INFO: SCP to ./temp_authorzied_keys_temp
 +--------+---------+--------+
