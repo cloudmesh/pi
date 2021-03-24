@@ -133,7 +133,7 @@ pi@red:~ $ sudo passwd bob
 On multiple cluster machines.
 
 ```
-you@yourlaptop:~/$ ms host passwd localhost,red,red00[1-2] wendy
+you@yourlaptop:~/$ cms host passwd localhost,red,red00[1-2] wendy
 host passwd localhost,red,red00[1-2] wendy
 
 Setting password on localhost, please provide user password
@@ -208,6 +208,9 @@ hello
 ### Add A Key to A User's Authorized Keys
 
 ```
+you@yourlaptop:~ $ cms host key gather red keys.txt
+host key gather red keys.txt
+
 you@yourlaptop:~ $ cms host key scatter red,red00[1-2] keys.txt --user=wendy 
 host key scatter red,red00[1-2] keys.txt --user=wendy
 INFO: SCP to ./temp_authorzied_keys_temp
