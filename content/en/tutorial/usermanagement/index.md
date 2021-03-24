@@ -30,6 +30,47 @@ Abstract
 
 {{% /pageinfo %}}
 
+### Setup ~/.ssh/config to use PROXYJUMP
+
+This tutorial assumes you have local network access to the target machines. 
+If this is not the case, such as in a bridge setup, you can run the 
+following command to setup your ~/.ssh/config file to use the bridge to access 
+the target machines. Then the rest of this tutorial can be followed as written.
+
+In this example red.local is the bridge and red00[1-2] are workers
+accessible via the bridge device, and the workers already have your laptop's 
+ssh key in authorized_keys. 
+
+```
+you@yourlaptop:~/$ cms host config proxy pi@red.local red00[1-2]
+host config proxy pi@red.local red00[1-2]
+Adding to ~/.ssh/config
+
+##### CLOUDMESH PROXY CONFIG #####
+Host red
+     HostName pi@red.local
+     User pi
+
+Host red001
+     HostName red001
+     User pi
+     ProxyJump pi@red.local
+
+Host red002
+     HostName red002
+     User pi
+     ProxyJump pi@red.local
+
+##### CLOUDMESH PROXY CONFIG #####
+
+```
+
+Let's test
+
+```
+
+```
+
 ### Add User
 
 On red only.
