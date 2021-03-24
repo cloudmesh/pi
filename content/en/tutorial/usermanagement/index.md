@@ -68,7 +68,12 @@ Host red002
 Let's test
 
 ```
-
+you@yourlaptop:~/$ ssh red
+pi@red:~/$ exit
+you@yourlaptop:~/$ ssh red001
+pi@red001:~/$ exit
+you@yourlaptop:~/$ ssh red002
+pi@red002:~/$ exit
 ```
 
 ### Add User
