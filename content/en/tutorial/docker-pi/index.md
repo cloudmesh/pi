@@ -136,7 +136,7 @@ Tools to manage, scale, and maintain containerized applications are called orche
 
 ## Reference
 
-[^docker]: Docker website, <https://docs.docker.com/get-started/overview/>
-[^training]: Online Level-up training, <https://www.level-up.one/courses/>
+[docker]: Docker website, <https://docs.docker.com/get-started/overview/>
+[training]: Online Level-up training, <https://www.level-up.one/courses/>
 
 
