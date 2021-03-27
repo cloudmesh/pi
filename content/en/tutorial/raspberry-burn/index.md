@@ -65,7 +65,7 @@ IN our tutorial we define the manager hostname to be `red`, while each worker ha
 
 The following image shows our cluster configuration:
 
-TODO: add image
+{{< imgproc network Fill "600x300" />}}
 
 ## 4. Installing cloudmesh and Setup
 
@@ -94,15 +94,14 @@ First, we update pip and verify your `python` and `pip` are correct
 (ENV3) you@yourlaptop $ which pip
 ~/ENV3/bin/pip
 ```
-### 4.1 Install from Pip
 
-TODO: THis may not yet work, but will be after we merge our code to main and relaese
+### 4.1 Install from Pip (Recommended)
 
 ```bash
 (ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster
 ```
 
-### 4.2 Install from Source
+### 4.2 Install from Source (Developers)
 
 If you are a developer that likes to add new features we recommend our source set up 
 
@@ -179,7 +178,7 @@ After you boot, we recommend waiting 2-3 minutes for boot setup to complete.
 
 ### 6.1 Setting up a Proxy Jump with `cms host`
 
-While we are waiting for the Pis to boot, we can setup a Proxy Jump on our ssh config to make accessing our workers from the manager easy (since our laptop does not have direct access to the workers by nature of the network setup in figure TODO)
+While we are waiting for the Pis to boot, we can setup a Proxy Jump on our ssh config to make accessing our workers from the manager easy (since our laptop does not have direct access to the workers by nature of our network setup)
 
 Use the following command to set this up:
 
@@ -280,6 +279,15 @@ After a reboot, we can verify the success of the script with the following:
 
 ```bash
 (ENV3) pi@red $ cms help
+help
+
+Documented commands (type help <topic>):
+========================================
+EOF     check     default  help       pause     quit   start      test
+admin   clear     diagram  host       pi        set    stop       var
+banner  commands  dryrun   info       provider  shell  stopwatch  version
+bridge  config    echo     inventory  py        sleep  sys
+burn    debug     gui      man        q         ssh    term
 ```
 
 ## Appendix
