@@ -235,7 +235,7 @@ host key create red,red0[1-3]
 |       |         | x7YKZA9RK0A7rTBzrZa70SfG65dSbpqQFxmQYSrgiwVSBokk |
 |       |         | 0vvk5l7NhBDrrrxWYWd9dm/SrDrInjcuDsCsjOVuccx7     |
 |       |         | pi@red01                                         |
-... # Ommitted some output for previty
+... # Ommitted some output for brevity
 +-------+---------+--------------------------------------------------+
 ```
 
