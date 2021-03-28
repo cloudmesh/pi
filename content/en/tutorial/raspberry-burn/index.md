@@ -31,7 +31,7 @@ In this tutorial, we explain how to easily set up a preconfigured cluster of Pis
 
 With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to properly configure a Raspberry Pi (running Raspberry OS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster with a simple network configuration. In addition to using RaspberryOs, we also have another tutorial that showcases how to use [Ubuntu](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)) as operating system. Our tutorials are useful as typically many steps are involved. We circumvent them by simply burning a card for each of the PIs.
 
-For this purpose we developed a speciall command called  `cms burn`, that allows us to easily create such cards. THe features this command supports includes:
+For this purpose we developed a special command called  `cms burn`, that allows us to easily create such cards. The features this command supports includes:
 
 * Set the hostname
 * Enables SSH
@@ -162,7 +162,7 @@ This command will autodetect the SSID, locale, and country of your laptop. We re
 Recall only the manager (red) will have wifi access here.
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/disk2 -f
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/sdb -f
 ```
 > Note the `-f` flag instructs `cms burn` to build a default cloudmesh inventory for the names provided. Here, we can run `cms inventory list --inventory="inventory-red.yaml"` to see the configurations of each hostname.
 
