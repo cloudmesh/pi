@@ -1,8 +1,8 @@
 ---
 date: 2021-03-23
 title: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
-linkTitle: "Burning an Raspberry OS Cluster"
-description: "A comprehensive tutorial of burning an Raspberry OS cluster with internet access"
+linkTitle: "Burning a Raspberry OS Cluster"
+description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
 author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
 resources:
@@ -29,39 +29,45 @@ In this tutorial, we explain how to easily set up a preconfigured cluster of Pis
 
 ## 1. Introduction
 
-With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to properly configure a Raspberry Pi (running Raspberry OS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster with a simple network configuration. In addition to using RaspberryOs, we also have another tutorial that showcases how to use [Ubuntu](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)) as operating system. Our tutorials are useful as typically many steps are involved. We circumvent them by simply burning a card for each of the PIs.
+With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to configure a Raspberry Pi from any operating system while using RaspberryOS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster including a simple network configuration. The system works while executing configurations automatically after the first boot.
 
-For this purpose we developed a special command called  `cms burn`, that allows us to easily create such cards. The features this command supports includes:
+> Note: at this time we have not yet ported our system to Windows, but it is fairly easy to do so. If you like to help, please contact laszewski@gmail.com.
 
-* Set the hostname
-* Enables SSH
-* Confugures WiFi
-* Locale Settings
-* Change Password for the pi user
-* Add authorized keys for the pi user
-* Configure a static IP on the ethernet (eth0) interface along with routing preferences
-* Configure a WiFi "bridge" for a Pi to act as a router to a cluster of Pis
-* Runs the configuration on first boot.
+In addition to using RaspberryOS, we also have another tutorial that showcases how to use [Ubuntu](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)) as the operating system. Our tutorials are useful as typically many steps are involved to set up a cluster. This requires either the replication of time-consuming tasks that can be automated or the knowledge of DevOps frameworks.
 
-We demonstrate the usage of `cms burn` command by creating a cluster of 4 pis (1 manager, 3 workers) where we
+We avoid this by simply burning a card for each of the PIs. No more hours wasted on setting up your initial cluster.
+
+To facilitate this we developed a special command called  `cms burn`, which allows us to create preconfigured cards with the necessary information. The features this command supports include:
+
+* Setting the hostname,
+* Enabling SSH,
+* Configuring WiFi,
+* Setting the locale,
+* Changing the password,
+* Adding authorized keys,
+* Configuring static IPs for wired ethernet along with routing preferences,
+* Configuring a WiFi *bridge* for a manager Pi to act as a router between the worker PIs and the internet, and
+* Automating the configuration on first boot.
+
+We demonstrate the usage of the `cms burn` command by creating a cluster of 4 pis (1 manager, 3 workers) where we
 connect the manager to the internet via Wifi and configure the workers to access the internet through the manager via
-ethernet connection. This might be useful for those with restricted internet access where devices must be registered
+ethernet connection. This is useful for those with restricted internet access where devices must be registered
 by MAC Address or through browser login.
 
 ## 2. Pre-requisites
 
-* Computer/Laptop with MacOS or Linux. (Windows is not supported, but could be easily added with your help)
+* Computer/Laptop with macOS or Linux. (Windows is not supported, but could be easily added with your help. Please contact us if you like to help)
 * `python3 --version` > 3.8
-* WiFi SSID and Password
-* 4 Raspberry Pis and 4 SD Cards with power cables (For the purposes of this tutorial) A minimum of 2 is needed, one manager and 1 worker)
-* 4 Ethernet Cables (For the purposes of this tutorial)
-* An (un)managed ethernet switch (For the purposes of this tutorial)
+* WiFi SSID and password
+* 4 Raspberry Pis and 4 SD Cards with power cables.  (However, you only need a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
+* 4 Ethernet Cables 
+* An unmanaged ethernet switch
 
-For parts lists please see our linsk on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
+For parts for different pi cluster configurations, please see  lists please see our links on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
 
 ## 3. Notation
 
-IN our tutorial we define the manager hostname to be `red`, while each worker has a number in it `red01`, `red02`, `red03`
+In our tutorial we define the manager hostname to be `red`, while each worker has a number in it `red01`, `red02`, `red03`
 
 The following image shows our cluster configuration:
 
@@ -69,8 +75,9 @@ The following image shows our cluster configuration:
 
 ## 4. Installing cloudmesh and Setup
 
-It is best practice to create virtual environments when you do not envision needing a python package consistently. Let us
-create one for this tutorial.
+It is best practice to create virtual environments when you do not envision needing a python package consistently. We also want to 
+place all source code in a common directory called `cm`. 
+Let us set up this create one for this tutorial.
 
 On your Linux/Mac, open a new terminal.
 
@@ -95,39 +102,40 @@ First, we update pip and verify your `python` and `pip` are correct
 ~/ENV3/bin/pip
 ```
 
-### 4.1 Install from Pip (Recommended)
+### 4.1 Install from Pip for Regular Users
 
 ```bash
 (ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster
 ```
 
-### 4.2 Install from Source (Developers)
+### 4.2 Install from Source (for Developers)
 
-If you are a developer that likes to add new features we recommend our source set up 
-
-Next, we install our convenient `cloudmesh-installer`
+If you are a developer that likes to add new features we recommend our source set up. We start after you have created the virtual env with the install of our convenient `cloudmesh-installer` and creating a directory called `cm` in which we download the sources
 
 ```bash
 (ENV3) you@yourlaptop $ pip install cloudmesh-installer
-```
-
-Create a new directory `~/cm` and `cd` into it
-
-```bash
 (ENV3) you@yourlaptop $ mkdir ~/cm
 (ENV3) you@yourlaptop $ cd ~/cm
+(ENV3) you@yourlaptop $ cloudmesh-installer get pi
+(ENV3) you@yourlaptop $ ls
 ```
 
-Install the correct cloudmesh-repos with the following. In the future, we
-will make this a PyPI package.
+This directory will now contain all source code. It will also have the needed installed `cms` command.
+
+### 4.3 Initializing the cms Command
+
+It is very important to initialize the cms command and test if it is properly installed. You do this simply with the command 
 
 ```bash
-(ENV3) you@yourlaptop $ cloudmesh-installer get pi
+(ENV3) you@yourlaptop $ cms help
 ```
+
+You will see a list of subcommands that are part of the cms if your installation succeeded.
+
 
 ### 4.3 Create an SSH key
 
-It is important that we can easily accesss the manager and worker nodes from the laptop/desktop. Hence we create a keypait in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
+It is important that we can easily access the manager and worker nodes from the laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
 
 ```bash
 (ENV3) you@yourlaptop $ ssh-keygen
@@ -157,38 +165,42 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 > Note we omit some output of `cms burn info` for clarity.
 > On MacOS, you may get an `ERROR: We could not find your USB reader in the list of known readers`. This can be ignored. Additionally, `cms burn info` will list the partitions as well. For example, if you see the path `/dev/disk2s1` and `/dev/disk2s2`, then your device is `/dev/disk2`.
 
-This command will autodetect the SSID, locale, and country of your laptop. We recommend not to use the password flags for the wifipassword and sudo, as they will be likely stored in the command history and logs. They will be asked for interactively with during the following command.
-
-Recall only the manager (red) will have wifi access here.
+This command will autodetect the SSID, locale, and country of your laptop. We recommend not to use the password flags for the `wifipassword` and sudo password will be stored in the command history and logs. While not using them as parameters they will be asked for interactively. However,  the wifi setup will only be enabled on the manager (red).
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/sdb -f
 ```
-> Note the `-f` flag instructs `cms burn` to build a default cloudmesh inventory for the names provided. Here, we can run `cms inventory list --inventory="inventory-red.yaml"` to see the configurations of each hostname.
+> Note the `-f` flag instructs `cms burn` to build a default cloudmesh
+> inventory for the names provided. To see the contents of this file you
+> can use the command
+>
+> ```bash
+ > cms inventory list --inventory=inventory-red.yaml
+> ```
 
-After each card is burned, `cms burn raspberry` will prompt you to swap cards to burn the next host.
+After each card is burned, `cms burn raspberry` will prompt you to swap the SD card to burn the next host.
 
-After all cards have been burned, we can now plug in all our cards into our raspberry pis and boot. Ensure
-that your workers and manager are connected into the same network switch via the ethernet cables. Ensure this network
-switch does not have internet access in itself. We will use the manager as the sole point of internet access here. This we do deliberately as to be able to disconnect all nodes from the network via the Master in case this is needed.
+After all the cards have been burned, we can now plug them in our raspberry pis and boot. Ensure
+that your workers and manager are connected to the same network switch via the ethernet cables. Ensure this network
+switch does not have internet access in itself, e.g. do not connect the switch to the internet router. We will use the manager as the sole point of internet access here. This we do deliberately to be able to disconnect all nodes from the network via the Master in case this is needed.
 
 ## 6. Burn Verification and Post-Process Steps
 
-After you boot, we recommend waiting 2-3 minutes for boot setup to complete.
+After you boot, we recommend waiting 2-3 minutes for the boot process to complete.
 
 ### 6.1 Setting up a Proxy Jump with `cms host`
 
-While we are waiting for the Pis to boot, we can setup a Proxy Jump on our ssh config to make accessing our workers from the manager easy (since our laptop does not have direct access to the workers by nature of our network setup)
-
-Use the following command to set this up:
+While we are waiting for the Pis to boot, we can set up proxy jump on our laptop/desktop while adding it to the ssh config file. This will make it easier to access our workers.  Use the following command to set this up:
 
 ```
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-3]"
 ```
 
+It will do the appropriate modifications.
+
 ### 6.2 Verifying Manager and Worker Access
 
-We can use a simple `cms` command to verify connection to our Pis. This command simply reads the temperature of the cpu and gpu of each of the Pis.
+We can use a simple `cms` command to verify connection to our Pis. For this purpose, we use our  build in temperature command that reads the temperature values from each of the Pis.
 
 ```bash
 (ENV3) you@yourlaptop $ cms pi temp "red,red0[1-3]"
@@ -207,9 +219,9 @@ By receiving this information from our devices we have confirmed our access.
 
 ### 6.3 Gather and Scatter Authorized Keys
 
-Each of the nodes only has our laptop's ssh-key in its respective `authorized_keys`. We can use `cms` to gather all keys in our cluster and then distribute them so that each node can ssh into eachother.
+Each of the nodes only has our laptop's ssh-key in its respective `authorized_keys` file. We can use the `cms` command to gather all keys in our cluster and then distribute them so that each node can ssh into each other.
 
-We first create ssh-keys for all the nodes in our cluster. Notice how we are given the public key as a return value.
+We first create ssh-keys for all the nodes in our cluster. 
 
 ```bash
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-3]"
@@ -260,12 +272,21 @@ host key scatter red,red0[1-3] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 ```
 
-All nodes should now have `ssh` access to eachother.
+All nodes should now have `ssh` access to each other.
 
-## Installing `cms` on the Manger Pi
+## Installing `cms` on a Pi
 
-Some cloudmesh commands offered can be very useful on the Pi. You can install `cms` on all Pis in this fashion, but
+Some cloudmesh commands offered can be very useful on the Pis. You can install `cms` on all Pis in this fashion, but
 we will only demonstrate this for the manager pi.
+
+For the production version pleas use 
+
+```bash
+(ENV3) you@yourlaptop $ ssh red
+pi@red $ curl -Ls curl -Ls http://cloudmesh.github.io/get/pi | sh -
+```
+
+However, to get the newest development version please use
 
 ```bash
 (ENV3) you@yourlaptop $ ssh red
@@ -292,31 +313,28 @@ burn    debug     gui      man        q         ssh    term
 
 ## Appendix
 
-TODO: Below needs to be updated/implemented in code
 ## 5. Writing our cluster configuration
 
 Cloudmesh has a simple system for managing cluster configurations as an inventory. 
-We do this management for you, but you can controll it also from the commandline. 
+We do this management for you, but you can control it also from the command line. 
 We can first add a manager with cluster subnet IP `10.1.1.1`. We also add the `bridge` service which is
 recognized by `cms` as the Wifi bridge service connecting devices on eth0 to the internet.
 We also set the timezone and locale here. You may want to change them as you wish.
 
 ### 5.1 Default Cluster Creation
 
-As we want to make the cluster very easy to create we are providing a deafult creation with the following command
+As we want to make the cluster very easy to create we are providing a default creation with the following command
 
 ```bash
 you@yourlaptop $ cms inventory add cluster red,red[01-02]
 ```
 
-THis command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or less nodes, the command will make appropriate updates.
+This command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or fewer nodes, the command will make appropriate updates.
 
 
 ### 4.2 Custom Cluster Creation
 
-For a custom cluster you can inspect the parameters to the inventory command.  Here are the commands to use for the previous setup while writing them out. YOu can modify the parameters to your liking:
-
-TODO: see if this is correct
+For a custom cluster, you can inspect the parameters of the inventory command.  Here are the commands to use for the previous setup while writing them out. You can modify the parameters to your liking:
 
 ```bash
 you@yourlaptop $ cms inventory add red --service=manager --ip=10.1.1.1 --tag=latest-lite --timezone="America/Indiana/Indianapolis" --locale="us"
