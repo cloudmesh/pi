@@ -87,7 +87,7 @@ worker has a number in it `red01`, `red02`, `red03`, `red04`
 
 The following image shows our cluster configuration:
 
-{{< imgproc network Fit "600x300" />}}
+{{< imgproc cluster Fit "600x300" />}}
 
 ## 4. Installing cloudmesh and Setup
 
