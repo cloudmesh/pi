@@ -5,8 +5,7 @@ Wifi
 Access"
 linkTitle: "Burning a Cluster using Cloudmesh Burn GUI"
 description: "A GUI tutorial of burning a cluster with internet access"
-author: Rama Asuri, Richard Otten, Anthony Orlowski,  Gregor von Laszewski (
-[laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+author: Rama Asuri, Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
 resources:
 - src: "**.{png,jpg}"
