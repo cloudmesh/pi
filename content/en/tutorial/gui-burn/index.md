@@ -87,7 +87,7 @@ worker has a number in it `red01`, `red02`, `red03`, `red04`
 
 The following image shows our cluster configuration:
 
-{{< imgproc cluster />}}
+{{< imgproc network Fit "600x300" />}}
 
 ## 4. Installing cloudmesh and Setup
 
@@ -188,13 +188,13 @@ Dryrun:        False
 sudo password: 
 ```
 
-{{< imgproc gui-launch />}}
+{{< imgproc gui-launch Fit "600x300" />}}
 
 Ensure the appropriate device is selected so you do not accidentally burn to 
 the wrong storage device. It is best to only have one attached storage 
 device to prevent mistakes.
 
-{{< imgproc gui-device Fill "600x300" />}}
+{{< imgproc gui-device Fit "600x300" />}}
 
 Next, select the OS that you would like to burn to the SD cards. 
 Selecting the radio button will automatically update the image field for 
@@ -205,13 +205,13 @@ Ubuntu only has one tag per distribution type.
 > If you want to further customize your image selction, you can input any 
 > tag from `cms burn image versions --refresh`.
 
-{{< imgproc gui-os />}}
+{{< imgproc gui-os Fit "600x300" />}}
 
 Next, verify the path to the SSH key that will be written to all hosts 
 authorized_keys file. Verify the SSID (this will be prepopulated with your 
 machines current wifi network if one exists), and enter the wifi password.
 
-{{< imgproc gui-security />}}
+{{< imgproc gui-security Fit "600x300" />}}
 
 We are now ready to burn.
 
@@ -267,26 +267,26 @@ Is the card to be burned for red inserted? (Y/n) y
 
 The `Burn` button will turn grey while the burn is in progress.
 
-{{< imgproc gui-inprogress Fill "600x300" />}}
+{{< imgproc gui-inprogress Fit "600x300" />}}
 
 And the `Burn` button will turn green once the burn has completed. It is 
 best to check the command line output to verify there were no unhandled 
 errors. If an error occurred, you can first try to re-burn before further 
 troubleshooting. 
 
-{{< imgproc gui-done />}}
+{{< imgproc gui-done Fit "600x300" />}}
 
 Continue to burn the workers 1 by 1, remembering to answer the "card 
 inserted?" prompt on the commandline,  until you have completed burning all SD 
 cards.
 
-{{< imgproc gui-complete />}}
+{{< imgproc gui-complete Fit "600x300" />}}
 
 > Note: You can view a network diagram and rack diagram on the respective tabs.
 
-{{< imgproc gui-network />}}
+{{< imgproc gui-network Fit "600x300" />}}
 
-{{< imgproc gui-rack />}}
+{{< imgproc gui-rack Fit "600x300" />}}
 
 Now, plug in the SD cards and boot the cluster.
 
