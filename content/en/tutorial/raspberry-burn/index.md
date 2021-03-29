@@ -67,7 +67,8 @@ For parts for different pi cluster configurations, please see  lists please see 
 
 ## 3. Notation
 
-In our tutorial we define the manager hostname to be `red`, while each worker has a number in it `red01`, `red02`, `red03`
+In our tutorial we define the manager hostname to be `red`, while each 
+worker has a number in it `red01`, `red02`, `red03`, `red04`
 
 The following image shows our cluster configuration:
 
@@ -168,7 +169,7 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 This command will autodetect the SSID, locale, and country of your laptop. We recommend not to use the password flags for the `wifipassword` and sudo password will be stored in the command history and logs. While not using them as parameters they will be asked for interactively. However,  the wifi setup will only be enabled on the manager (red).
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-3]" --device=/dev/sdb -f
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb -f
 ```
 > Note the `-f` flag instructs `cms burn` to build a default cloudmesh
 > inventory for the names provided. To see the contents of this file you
@@ -193,7 +194,7 @@ After you boot, we recommend waiting 2-3 minutes for the boot process to complet
 While we are waiting for the Pis to boot, we can set up proxy jump on our laptop/desktop while adding it to the ssh config file. This will make it easier to access our workers.  Use the following command to set this up:
 
 ```
-(ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-3]"
+(ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
 
 It will do the appropriate modifications.
@@ -216,8 +217,8 @@ pi@red:~ $ exit
 We can use a simple `cms` command to verify connection to our Pis. For this purpose, we use our  build in temperature command that reads the temperature values from each of the Pis.
 
 ```bash
-(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-3]"
-pi temp red,red0[1-3]
+(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+pi temp red,red0[1-4]
 +--------+--------+-------+----------------------------+
 | host   |    cpu |   gpu | date                       |
 |--------+--------+-------+----------------------------|
@@ -225,6 +226,7 @@ pi temp red,red0[1-3]
 | red01  | 37.485 |  37.4 | 2021-03-27 19:52:57.333300 |
 | red02  | 38.946 |  38.9 | 2021-03-27 19:52:57.303389 |
 | red03  | 38.946 |  39.4 | 2021-03-27 19:52:57.440690 |
+| red04  | 38.936 |  39.4 | 2021-03-27 19:52:57.550690 |
 +--------+--------+-------+----------------------------+
 ```
 
@@ -237,8 +239,8 @@ Each of the nodes only has our laptop's ssh-key in its respective `authorized_ke
 We first create ssh-keys for all the nodes in our cluster. 
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key create "red,red0[1-3]"
-host key create red,red0[1-3]
+(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
+host key create red,red0[1-4]
 +-------+---------+--------------------------------------------------+
 | host  | success | stdout                                           |
 +-------+---------+--------------------------------------------------+
@@ -267,14 +269,14 @@ host key create red,red0[1-3]
 We can subsequently gather these keys into a file.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-3]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-34" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-3]" ~/.sssh/cluster_red_keys
-host key scatter red,red0[1-3] /Users/richie/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-3]" ~/.ssh/cluster_red_keys
+host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 | host  | success | stdout |
 +-------+---------+--------+
@@ -282,6 +284,7 @@ host key scatter red,red0[1-3] /Users/richie/.ssh/cluster_red_keys
 | red01 | True    |        |
 | red02 | True    |        |
 | red03 | True    |        |
+| red04 | True    |        |
 +-------+---------+--------+
 ```
 
