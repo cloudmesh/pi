@@ -200,6 +200,19 @@ It will do the appropriate modifications.
 
 ### 6.2 Verifying Manager and Worker Access
 
+First verify that you can reach the manager (red). 
+
+```
+(ENV3) you@yourlaptop $ ssh red
+...
+pi@red:~ $ exit
+```
+
+>Note: If this does not work, it  is likely that the wifi configuration was 
+> incorrect, or there is an RF block on the Pi that could not be removed due 
+> to an unknown locale of the burning machine. 2.4GHz wifi is more likely to 
+> work without explicit country configuration than 5 GHz bands.
+
 We can use a simple `cms` command to verify connection to our Pis. For this purpose, we use our  build in temperature command that reads the temperature values from each of the Pis.
 
 ```bash
