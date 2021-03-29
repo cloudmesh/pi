@@ -12,7 +12,7 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc image Fill "600x300" />}}
+{{< imgproc gui-complete Fill "600x300" />}}
 
 {{% pageinfo %}}
 
@@ -33,8 +33,7 @@ ready to boot after all cards have been burned. No other configuration is needed
 
 ## 1. Introduction
 
-With the release of [Pi Imager 1.6](https://www.raspberrypi.
-org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to configure a 
+With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to configure a 
 Raspberry Pi from any operating system while using RaspberryOS. While 
 pi-imager only uses a limited number of parameters, our system supports 
 both RaspberryOS and Ubunty, and adds network configurations to create a 
@@ -88,7 +87,7 @@ worker has a number in it `red01`, `red02`, `red03`, `red04`
 
 The following image shows our cluster configuration:
 
-{{< imgproc network Fill "600x300" />}}
+{{< imgproc cluster />}}
 
 ## 4. Installing cloudmesh and Setup
 
@@ -189,7 +188,7 @@ Dryrun:        False
 sudo password: 
 ```
 
-{{< imgproc gui-launch Fill "600x300" />}}
+{{< imgproc gui-launch />}}
 
 Ensure the appropriate device is selected so you do not accidentally burn to 
 the wrong storage device. It is best to only have one attached storage 
@@ -206,13 +205,13 @@ Ubuntu only has one tag per distribution type.
 > If you want to further customize your image selction, you can input any 
 > tag from `cms burn image versions --refresh`.
 
-{{< imgproc gui-os Fill "600x300" />}}
+{{< imgproc gui-os />}}
 
 Next, verify the path to the SSH key that will be written to all hosts 
 authorized_keys file. Verify the SSID (this will be prepopulated with your 
 machines current wifi network if one exists), and enter the wifi password.
 
-{{< imgproc gui-security Fill "600x300" />}}
+{{< imgproc gui-security />}}
 
 We are now ready to burn.
 
@@ -275,19 +274,19 @@ best to check the command line output to verify there were no unhandled
 errors. If an error occurred, you can first try to re-burn before further 
 troubleshooting. 
 
-{{< imgproc gui-done Fill "600x300" />}}
+{{< imgproc gui-done />}}
 
 Continue to burn the workers 1 by 1, remembering to answer the "card 
 inserted?" prompt on the commandline,  until you have completed burning all SD 
 cards.
 
-{{< imgproc gui-complete Fill "600x300" />}}
+{{< imgproc gui-complete />}}
 
 > Note: You can view a network diagram and rack diagram on the respective tabs.
 
-{{< imgproc gui-network Fill "600x300" />}}
+{{< imgproc gui-network />}}
 
-{{< imgproc gui-rack Fill "600x300" />}}
+{{< imgproc gui-rack />}}
 
 Now, plug in the SD cards and boot the cluster.
 
