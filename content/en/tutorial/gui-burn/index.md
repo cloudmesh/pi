@@ -1,8 +1,6 @@
 ---
 date: 2021-03-29
-title: "GUI Burning a set of pre-configured SD cards for Raspberry Pis with 
-Wifi 
-Access"
+title: "Burning a set of pre-configured SD cards with a GUI for Raspberry Pis with Wifi Access"
 linkTitle: "Burning a Cluster using Cloudmesh Burn GUI"
 description: "A GUI tutorial of burning a cluster with internet access"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Rama Asuri, Richard Otten, Anthony Orlowski
