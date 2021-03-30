@@ -2,6 +2,7 @@
 date: 2021-02-07
 title: "Installing K3S on Cloudmesh"
 linkTitle: "Installing K3S on Cloudmesh"
+draft: True
 description: "This tutorial explains basics of K3S and provides instructions to Install on Cloudmesh"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: True
