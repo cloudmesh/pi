@@ -1,7 +1,7 @@
 ---
 date: 2021-02-07
 title: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access"
-linkTitle: "Burning an Ubuntu Cluster"
+linkTitle: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access"
 description: "A comprehensive tutorial of burning an Ubuntu cluster with internet access"
 author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
