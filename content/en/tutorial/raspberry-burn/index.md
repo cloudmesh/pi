@@ -1,7 +1,7 @@
 ---
 date: 2021-03-23
 title: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
-linkTitle: "Burning a Raspberry OS Cluster"
+linkTitle: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
 author: Richard Otten, Anthony Orlowski,  Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
