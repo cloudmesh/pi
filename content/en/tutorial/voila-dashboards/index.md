@@ -2,6 +2,7 @@
 date: 2021-02-07
 title: "Interactive GUI using IPYWIDGET and Voila"
 linkTitle: "Interactive GUI using IPYWIDGET and Voila"
+draft: True
 description: "This tutorial shows  how to dynamically control dashboard using a live Jupyter kernel and one or more input controls."
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 
