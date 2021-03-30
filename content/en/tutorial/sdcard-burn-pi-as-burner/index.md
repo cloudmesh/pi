@@ -1,7 +1,7 @@
 ---
 date: 2021-02-07
 title: "Easy Raspberry PI Cluster Setup with Cloudmesh SDCard Burner"
-linkTitle: "Burn many SD Cards with a Pi for clusters"
+linkTitle: "Burn a Cluster on a PI"
 description: >
   Set up many SD Cards that are preconfigured to create PI clusters.
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com), [laszewski.github.io](https://laszewski.github.io)), 
