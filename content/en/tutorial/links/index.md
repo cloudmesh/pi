@@ -1,6 +1,6 @@
 ---
 date: 2021-02-07
-title: "Tutorial Links"
+title: "Tutorials and Links"
 linkTitle: "Links"
 description: "A collection of potentially useful tutorial links."
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
@@ -27,6 +27,16 @@ A collection of potentially useful tutirial links
 {{% table_of_contents %}}
 
 {{% /pageinfo %}}
+
+## Raspberrypi.org
+
+- python https://www.raspberrypi.org/documentation/usage/python/README.md
+- terminal https://www.raspberrypi.org/documentation/usage/terminal/README.md
+- configuration select from https://www.raspberrypi.org/documentation/configuration/
+- remote access https://www.raspberrypi.org/documentation/remote-access/
+- linux select from https://www.raspberrypi.org/documentation/linux/
+- raspbian select from https://www.raspberrypi.org/documentation/raspbian/
+- update https://www.raspberrypi.org/documentation/raspbian/applications/rpi-update.md
 
 ## Interesting Links to burn SDCards
 
