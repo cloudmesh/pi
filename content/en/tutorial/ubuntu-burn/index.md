@@ -245,7 +245,7 @@ host key create red,red0[1-4]
 |       |         | F3iHmrMxmL8oma1RFVgZmjhnKMoXF+t13uZrf2R5/hVO4K6T |
 |       |         | +PENSnjW7OX6aiIT8Ty1ga74FhXr9F5t14cofpN6QwuF2SqM |
 |       |         | CgpVGfRSGMrLI/2pefszU2b5eeICWYePdopkslML+f+n     |
-|       |         | pi@red                                           |
+|       |         | ubuntu@red                                       |
 | red01 | True    | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRN/rGGF+e |
 |       |         | dZ9S2IWX4P26F7T2H+nsbw7CfeJ6df9oX/npYuM9BPDzcEP7 |
 |       |         | +2jNIZtZVehJj5zHiodjAspCxjg+mByQZye1jioa3MBmgO3j |
@@ -254,7 +254,7 @@ host key create red,red0[1-4]
 |       |         | jHERXSnGzFnbqqsZEBvCLWLSbaSq3adWR1bVvDblu11nyitE |
 |       |         | x7YKZA9RK0A7rTBzrZa70SfG65dSbpqQFxmQYSrgiwVSBokk |
 |       |         | 0vvk5l7NhBDrrrxWYWd9dm/SrDrInjcuDsCsjOVuccx7     |
-|       |         | pi@red01                                         |
+|       |         | ubuntu@red01                                     |
 ... # Ommitted some output for brevity
 +-------+---------+--------------------------------------------------+
 ```
@@ -320,39 +320,6 @@ bridge  config    echo     inventory  py        sleep  sys
 burn    debug     gui      man        q         ssh    term
 ```
 
-
-## 5. Writing our cluster configuration
-
-Cloudmesh has a simple system for managing cluster configs. This system is a "cloudmesh inventory".
-
-We can first add a manager with cluster subnet IP `10.1.1.2`
-
-```bash
-you@yourlaptop$ cms inventory add manager --service=manager --ip=10.1.1.2 --tag=ubuntu-20.10-64-bit
-you@yourlaptop$ cms inventory set manager services to bridge --listvalue
-```
-
-We can then add the workers
-
-```bash
-you@yourlaptop$ cms inventory add "worker00[1-3]" --service=worker --ip="10.1.1.[3-5]" --router=10.1.1.2 --tag=ubuntu-20.10-64-bit
-you@yourlaptop$ cms inventory set "worker00[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
-```
-
-Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
-
-```bash
-you@yourlaptop $ cms inventory list
-+-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
-| host      | tag                 | cluster | service | services   | ip       | dns                    | router   | locale | timezone | owners | comment | description | keyfile           |
-+-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
-| manager   | ubuntu-20.10-64-bit |         | manager | ['bridge'] | 10.1.1.2 |                        |          |        |          |        |         |             | ~/.ssh/id_rsa.pub |
-| worker001 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
-| worker002 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
-| worker003 | ubuntu-20.10-64-bit |         | worker  |            | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.2 |        |          |        |         |             | ~/.ssh/id_rsa.pub |
-+-----------+---------------------+---------+---------+------------+----------+------------------------+----------+--------+----------+--------+---------+-------------+-------------------+
-```
-
 ## 7. Appendix
 
 ## 7.1 Writing our cluster configuration
@@ -371,7 +338,7 @@ As a future feature, this behavior will also be implemented into the inventory
 command.
 
 ```bash
-you@yourlaptop $ cms inventory add cluster red,red[01-04]--inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory add cluster "red,red[01-04]" --inventory="inventory-red.yaml"
 ```
 
 This command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or fewer nodes, the command will make appropriate updates.
