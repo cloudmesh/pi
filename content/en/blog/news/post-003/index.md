@@ -8,8 +8,6 @@ description: >-
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
-  params:
-    byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
 {{< imgproc hackaday Fill "600x300" >}}
