@@ -283,7 +283,7 @@ host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 
 All nodes should now have `ssh` access to each other.
 
-## Installing `cms` on a Pi
+### 6.4 Installing `cms` on a Pi
 
 Some cloudmesh commands offered can be very useful on the Pis. You can install `cms` on all Pis in this fashion, but
 we will only demonstrate this for the manager pi.
