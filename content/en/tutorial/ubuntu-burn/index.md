@@ -335,10 +335,10 @@ We also set the timezone and locale here. You may want to change them as you wis
 As we want to make the cluster very easy to create we demonstrated in 
 Section 5 how to create a default cluster directly from the burn command. 
 As a future feature, this behavior will also be implemented into the inventory 
-command.
+command. To make a default inventory named inventory-red.yaml:
 
 ```bash
-you@yourlaptop $ cms inventory add cluster "red,red[01-04]" --inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory add cluster "red,red[01-04]"
 ```
 
 This command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or fewer nodes, the command will make appropriate updates.
@@ -368,15 +368,16 @@ Our cluster configuration is now complete. You may run the following to list you
 
 ```bash
 you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-| host      | tag         | cluster | service | services   | ip       | dns                    | router   | locale | timezone                     | owners | comment | description | keyfile           |
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-| red   | ubuntu-20.10-64-bit|         | manager | ['bridge, wifi'] | 10.1.1.1 |                       |          | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red01 | ubuntu-20.10-64-bit|         | worker  |            | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red02 | ubuntu-20.10-64-bit|         | worker  |            | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red03 | ubuntu-20.10-64-bit|         | worker  |            | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red04 | ubuntu-20.10-64-bit|         | worker  |            | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
++-------+---------------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+| host  | tag                 | cluster | service | services           | ip       | dns                    | router   | locale | timezone                     | owners | comment | description | keyfile           |
++-------+---------------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+| red   | ubuntu-20.10-64-bit |         | manager | ['bridge', 'wifi'] | 10.1.1.1 |                        |          | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red01 | ubuntu-20.10-64-bit |         | worker  |                    | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red02 | ubuntu-20.10-64-bit |         | worker  |                    | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red03 | ubuntu-20.10-64-bit |         | worker  |                    | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red04 | ubuntu-20.10-64-bit |         | worker  |                    | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
++-------+---------------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+
 ```
 
 ### 7.5 Burning a Custom Cluster
