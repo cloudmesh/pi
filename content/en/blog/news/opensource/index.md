@@ -1,19 +1,23 @@
 ---
-date: 2021-03-29
-title: "Featured on opensource.com"
-linkTitle: "Feature on opensource.com"
+date: 2021-02-23
+title: "Cloudmesh burn on opensource"
+linkTitle: "Opensource Post"
 weight: 100
 description: >-
-     Our SD Card Burner is featured on opensource.com
+     The cloudmeh burn tutorial was posted on Opensource.com.
+resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
 ---
 
-{{< imgproc webpage Fill "600x300" >}}
+{{< imgproc opensource Fill "600x300" >}}
+The Web Page.
 {{< /imgproc >}}
 
-## Opensource.com
+## Project Posted on hackaday.io
 
-Or SD Card Burn brogram was featured on opensource.com at
+We have posted the `cms pi burn` project on hackaday.io. The post is avilable
+at
 
-https://opensource.com/article/21/3/raspberry-pi-cluster
+* <https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters>
+
