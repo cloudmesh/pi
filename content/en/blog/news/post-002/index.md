@@ -7,8 +7,6 @@ author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com))
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
-  params:
-    byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
 {{< imgproc sdcard Fill "600x300" >}}
