@@ -411,3 +411,22 @@ you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
 | red04 | ubuntu-20.10-64-bit|         | worker  |            | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
 +-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
 ```
+
+### 7.5 Burning a Custom Cluster
+
+You can now specify your inventory as you burn your cluster or specific 
+machines from the cluster with the burn command. All hosts data found in the 
+inventory will be written to the machines, regardless if they are in the 
+burn command or not.
+
+Burn the whole cluster.
+
+```bash
+(ENV3) you@yourlaptop $ cms burn ubuntu "red,red0[1-4]" --device=/dev/sdb --inventory="inventory-red.yaml"
+```
+
+Burn a specific machine.
+
+```bash
+(ENV3) you@yourlaptop $ cms burn ubuntu "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
+```
