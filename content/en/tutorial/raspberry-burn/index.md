@@ -49,8 +49,9 @@ To facilitate this we developed a special command called  `cms burn`, which allo
 * Configuring a WiFi *bridge* for a manager Pi to act as a router between the worker PIs and the internet, and
 * Automating the configuration on first boot.
 
-We demonstrate the usage of the `cms burn` command by creating a cluster of 4 pis (1 manager, 3 workers) where we
-connect the manager to the internet via Wifi and configure the workers to access the internet through the manager via
+We demonstrate the usage of the `cms burn` command by creating a cluster of 
+5 pis (1 manager, 4 workers) where we connect the manager to the internet 
+via Wifi and configure the workers to access the internet through the manager via
 ethernet connection. This is useful for those with restricted internet access where devices must be registered
 by MAC Address or through browser login.
 
@@ -59,8 +60,9 @@ by MAC Address or through browser login.
 * Computer/Laptop with macOS or Linux. (Windows is not supported, but could be easily added with your help. Please contact us if you like to help)
 * `python3 --version` > 3.8
 * WiFi SSID and password
-* 4 Raspberry Pis and 4 SD Cards with power cables.  (However, you only need a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
-* 4 Ethernet Cables 
+* 5 Raspberry Pis and 5 SD Cards with power cables.  (However, you only need 
+  a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
+* 5 Ethernet Cables 
 * An unmanaged ethernet switch
 
 For parts for different pi cluster configurations, please see  lists please see our links on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
