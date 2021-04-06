@@ -200,7 +200,14 @@ pi@red:~ $ exit
 </code></pre><blockquote><p>Note: If this does not work, it is likely that the wifi configuration was
 incorrect, or there is an RF block on the Pi that could not be removed due
 to an unknown locale of the burning machine. 2.4GHz wifi is more likely to
-work without explicit country configuration than 5 GHz bands.</p></blockquote><p>We can use a simple <code>cms</code> command to verify connection to our Pis. For this purpose, we use our build in temperature command that reads the temperature values from each of the Pis.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms pi temp <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
+work without explicit country configuration than 5 GHz bands.</p></blockquote><p>We can use a simple <code>cms</code> commands to verify connection to our Pis. First we
+reboot the cluster to activate the libraspberrypi-bin tools that were
+installed on the first boot.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host reboot <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> 
+host reboot red,rede0<span style=color:#ce5c00;font-weight:700>[</span>1-4<span style=color:#ce5c00;font-weight:700>]</span>
+INFO: Executing <span style=color:#4e9a06>`</span>sudo reboot<span style=color:#4e9a06>`</span> <span style=color:#204a87;font-weight:700>for</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;red01&#39;</span>, <span style=color:#4e9a06>&#39;red02&#39;</span>, <span style=color:#4e9a06>&#39;red03&#39;</span>, <span style=color:#4e9a06>&#39;red04&#39;</span><span style=color:#ce5c00;font-weight:700>]</span>
+INFO: Executing <span style=color:#4e9a06>`</span>sudo reboot<span style=color:#4e9a06>`</span> <span style=color:#204a87;font-weight:700>for</span> red
+</code></pre></div><p>Wait for the reboot to complete. Then we use our built in temperature command
+that reads the temperature values from each of the Pis.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms pi temp <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
 pi temp red,red0<span style=color:#ce5c00;font-weight:700>[</span>1-4<span style=color:#ce5c00;font-weight:700>]</span>
 +--------+--------+-------+----------------------------+
 <span style=color:#000;font-weight:700>|</span> host   <span style=color:#000;font-weight:700>|</span>    cpu <span style=color:#000;font-weight:700>|</span>   gpu <span style=color:#000;font-weight:700>|</span> date                       <span style=color:#000;font-weight:700>|</span>
