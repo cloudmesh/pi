@@ -1,5 +1,5 @@
 ---
-date: 2021-03-23
+date: 2021-03-31
 title: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 linkTitle: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"

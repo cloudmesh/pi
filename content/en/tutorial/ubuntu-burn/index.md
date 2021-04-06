@@ -1,5 +1,5 @@
 ---
-date: 2021-02-07
+date: 2021-03-30
 title: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access"
 linkTitle: "Burning a set of Ubuntu Server Cards for Raspberry Pis with Internet Access"
 description: "A comprehensive tutorial of burning an Ubuntu cluster with internet access"
