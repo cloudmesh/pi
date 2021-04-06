@@ -21,6 +21,16 @@ resources:
   title: "Image #:counter"
 ---
 
+> NOTE: this tutorial has been superseeded by our newer cluster burning 
+> methods. Please see our new tutorials to:
+>
+>[Burn a Raspberry OS Cluster](https://cloudmesh.github.io/pi/tutorial/raspberry-burn/)
+>
+>[Burn an Ubuntu Cluster](https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/)
+>
+>[Use our GUI to Burn a Cluster](https://cloudmesh.github.io/pi/tutorial/gui-burn/)
+
+
 {{< imgproc macpi Fill "600x300" >}}
 {{< /imgproc >}}
 
