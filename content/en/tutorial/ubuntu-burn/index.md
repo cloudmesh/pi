@@ -207,7 +207,19 @@ pi@red:~ $ exit
 > to an unknown locale of the burning machine. 2.4GHz wifi is more likely to 
 > work without explicit country configuration than 5 GHz bands.
 
-We can use a simple `cms` command to verify connection to our Pis. For this purpose, we use our  build in temperature command that reads the temperature values from each of the Pis.
+We can use a simple `cms` commands to verify connection to our Pis. First we 
+reboot the cluster to activate the libraspberrypi-bin tools that were 
+installed on the first boot. 
+
+```bash
+(ENV3) you@yourlaptop $ cms host reboot "red,red0[1-4]" 
+host reboot red,rede0[1-4]
+INFO: Executing `sudo reboot` for ['red01', 'red02', 'red03', 'red04']
+INFO: Executing `sudo reboot` for red
+```
+
+Wait for the reboot to complete. Then we use our built in temperature command 
+that reads the temperature values from each of the Pis.
 
 ```bash
 (ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
