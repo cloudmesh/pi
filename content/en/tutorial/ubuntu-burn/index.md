@@ -304,7 +304,7 @@ For the production version pleas use
 
 ```bash
 (ENV3) you@yourlaptop $ ssh red
-pi@red $ curl -Ls curl -Ls http://cloudmesh.github.io/get/pi | sh -
+pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
 
 However, to get the newest development version please use
