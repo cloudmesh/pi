@@ -61,8 +61,8 @@ they are not already present, and reboots the machines. This is required to
 enable containers in the kernel.
 
 ```
-you@your-laptop:~$ cms pi k3 add_c_groups red,red0[1-3]
-pi k3 add_c_groups red,red0[1-3]
+you@your-laptop:~$ cms pi k3 enable containers red,red0[1-3]
+pi k3 enable containers red,red0[1-3]
 INFO: Enabling cgroups for ['red', 'red01', 'red02', 'red03']
 +-------+---------+--------+
 | host  | success | stdout |
