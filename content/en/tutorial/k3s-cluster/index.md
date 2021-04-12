@@ -1,5 +1,5 @@
 ---
-date: 2021-04-08
+date: 2021-04-12
 title: "Employ K3S on a Pi Cluster"
 linkTitle: "Employ K3S on a Pi Cluster"
 description: "Easily install your own K3S cluster on Raspberry Pis"
@@ -33,7 +33,7 @@ running Raspberry OS or Ubuntu.
 {{% /pageinfo %}}
 
 
-## Introduction
+## 1. Introduction
 
 K3S provides a lightweight, single binary distribution of Kubernetes with 
 very close feature parity to K8s that is perfect for single board computers 
@@ -41,7 +41,7 @@ like the Raspberry Pi. In this tutorial we will install, verify, and
 unistall K3s on a cluster of Pis that was created using the Cloudmesh burn 
 software.
 
-## Prequisites
+## 2. Prequisites
 
 This tutorial assumes a cluster burned using one of the following methods:
 
@@ -54,7 +54,7 @@ This tutorial assumes a cluster burned using one of the following methods:
 The tutorial supports both Raspberry OS and Ubuntu with no required user 
 input change.
 
-## CMS k3 Commands
+## 3. CMS k3 Commands
 ```
         pi k3 enable containers NAMES
         pi k3 install server NAMES
@@ -74,7 +74,7 @@ input change.
         pi k3 cluster info SERVER
 ```
 
-## Enable Containers
+## 4. Enable Containers
 
 This command adds `'cgroup_enable=cpuset cgroup_memory=1 
 cgroup_enable=memory'` to the end of the arguments in `cmdline.txt` if 
@@ -97,7 +97,7 @@ INFO: Executing `sudo reboot` for ['red01', 'red02', 'red03']
 INFO: Executing `sudo reboot` for red
 ```
 
-## Install K3s on the Entire Cluster
+## 5. Install K3s on the Entire Cluster
 
 This command wil install a K3S cluster with the manager (red) acting as the K3s
 server, and the workers and the manager will be installed as agents of that 
@@ -200,7 +200,7 @@ INFO: Fetching the server token
 ... Some output removed for brevity
 ```
 
-## Verify the K3S Cluster Install
+## 6. Verify the K3S Cluster Install
 
 Let us check that server reports the appropriate nodes as members.
 
@@ -255,8 +255,6 @@ the user knows better than the cms shell commands.
 >commands go are interpreted first by bash and then by python, complex 
 >commands may not work without complex escape sequences.
 
-
-
 ```
 you@your-laptop:~$ cms host ssh red \" sudo kubectl get nodes \"
 host ssh red " sudo kubectl get nodes "
@@ -276,7 +274,7 @@ host ssh red " sudo kubectl get nodes "
 +------+---------+--------------------------------------------------+
 ```
 
-## Adding a new machine to the cluster
+## 7. Adding a new machine to the cluster
 
 We will add a new machine red04 to be an agent of the red hosted cluster.
 
@@ -317,7 +315,7 @@ INFO: Fetching the server token
 +-------+---------+--------------------------------------------------+
 ```
 
-## Uninstall the K3S Cluster
+## 9. Uninstall the K3S Cluster
 
 We can also easily uninstall the K3S cluster.
 
@@ -344,7 +342,7 @@ INFO: Uninstalling server install of K3s on red
 +------+---------+--------------------+
 ```
 
-## Add a New Standalone K3S Server
+## 10. Add a New Standalone K3S Server
 
 Now we will create a new standalone K3s server on red05.
 
@@ -390,19 +388,19 @@ To subsequently add this server as an agent to itself, you will need to run
 you@your-laptop:~$ cms pi k3 install agent red05 red05
 ```
 
-## Uninstall a specific K3S server
+## 11. Uninstall a specific K3S server
 
 ```
 you@your-laptop:~$ cms pi k3 uninstall server red05
 ```
 
-## Uninstall a Specific K3S Agent
+## 12. Uninstall a Specific K3S Agent
 
 ```
 you@your-laptop:~$ cms pi k3 uninstall agent red06
 ```
 
-## Kill all K3S Services and Containers on Hosts 
+## 13. Kill all K3S Services and Containers on Hosts 
 
 This command runs the K3s provided `k3s-kill-all.sh` script that "cleans up containers, K3s directories, and networking components while also removing the iptables chain with all the associated rules. The cluster data will not be deleted."
 
@@ -426,7 +424,7 @@ INFO: Stopping k3s services and containers on red
 +------+---------+--------+
 ```
 
-## Start the K3S Cluster Services
+## 14. Start the K3S Cluster Services
 
 This command starts systemd the services `k3s` for the server and `k3s-agent` 
 for 
@@ -452,7 +450,7 @@ INFO: Starting agent on ['red', 'red01', 'red02', 'red03']
 +-------+---------+--------+
 ```
 
-## Stop the K3S Cluster Services
+## 15. Stop the K3S Cluster Services
 
 This command stops the systemd services `k3s` for the server and `k3s-agent` 
 for 
@@ -478,7 +476,7 @@ INFO: Stopping agent on ['red', 'red01', 'red02', 'red03']
 +-------+---------+--------+
 ```
 
-## Remove a Node from the Cluster
+## 16. Remove a Node from the Cluster
 
 Let us remove red01 from the K3s cluster server red.
 
