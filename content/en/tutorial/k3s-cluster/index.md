@@ -3,7 +3,7 @@ date: 2021-04-12
 title: "Employ K3S on a Pi Cluster"
 linkTitle: "Employ K3S on a Pi Cluster"
 description: "Easily install your own K3S cluster on Raspberry Pis"
-author: Anthony Orlowski, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+author: Anthony Orlowski, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Richard Otten Jr
 draft: True
 resources:
 - src: "**.{png,jpg}"
@@ -72,6 +72,10 @@ input change.
         pi k3 stop cluster NAMES
         pi k3 remove node NAMES SERVER
         pi k3 cluster info SERVER
+        pi k3 dashboard create SERVER
+        pi k3 dashboard connect SERVER
+        pi k3 dashboard disconnect [SERVER]
+        pi k3 dashboard info
 ```
 
 ## 4. Enable Containers
@@ -101,7 +105,7 @@ INFO: Executing `sudo reboot` for red
 
 This command wil install a K3S cluster with the manager (red) acting as the K3s
 server, and the workers and the manager will be installed as agents of that 
-server.
+server. This also installs and configures a Web UI Dashboard.
 
 ```
 you@yourlaptop:~$ cms pi k3 install cluster red,red0[1-3]
@@ -202,6 +206,8 @@ INFO: Fetching the server token
 
 ## 6. Verify the K3S Cluster Install
 
+Wait a moment for k3s to set up initial containers.
+
 Let us check that server reports the appropriate nodes as members.
 
 We can run remote commands with the `cms host ssh` command as well as using 
@@ -274,7 +280,44 @@ host ssh red " sudo kubectl get nodes "
 +------+---------+--------------------------------------------------+
 ```
 
-## 7. Adding a new machine to the cluster
+## 7. Accessing the Dashboard.
+
+We can easily access the Web UI Dashboard for easy management of our cluster.
+
+First, let us connect to the new dashboard created during install.
+
+```
+you@your-laptop:~$ cms pi k3 dashboard connect red
+```
+
+We should get a green "Connection created" message. We can now check on the status of our dashboard and obtain our token to log in. 
+
+```
+you@your-laptop:~$ cms pi k3 dashboard info
+pi k3 dashboard info
+INFO: Finding running dashboards...
++---------------------+-------------+------------+------------------+-------+
+| Server Access Point | Remote Port | Local Port | Dashboard Status | PID   |
++---------------------+-------------+------------+------------------+-------+
+| red                 | 8001        | 8001       | Active           | 99240 |
++---------------------+-------------+------------+------------------+-------+
+INFO: Dashboard Link:
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+INFO: Fetching authentication token...
+# A long token will go here
+```
+
+> Note. If `Dasboard Status` says "Up but not ready", wait at least a minute and try again.
+
+From here, we can simply click the dashboard link provided in the output and login using the provided token.
+
+You can then disconnect from your dashboard with the following:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard disconnect
+```
+
+## 8. Adding a new machine to the cluster
 
 We will add a new machine red04 to be an agent of the red hosted cluster.
 
@@ -315,7 +358,7 @@ INFO: Fetching the server token
 +-------+---------+--------------------------------------------------+
 ```
 
-## 9. Uninstall the K3S Cluster
+## 10. Uninstall the K3S Cluster
 
 We can also easily uninstall the K3S cluster.
 
@@ -342,7 +385,7 @@ INFO: Uninstalling server install of K3s on red
 +------+---------+--------------------+
 ```
 
-## 10. Add a New Standalone K3S Server
+## 11. Add a New Standalone K3S Server
 
 Now we will create a new standalone K3s server on red05.
 
@@ -388,19 +431,19 @@ To subsequently add this server as an agent to itself, you will need to run
 you@your-laptop:~$ cms pi k3 install agent red05 red05
 ```
 
-## 11. Uninstall a specific K3S server
+## 12. Uninstall a specific K3S server
 
 ```
 you@your-laptop:~$ cms pi k3 uninstall server red05
 ```
 
-## 12. Uninstall a Specific K3S Agent
+## 13. Uninstall a Specific K3S Agent
 
 ```
 you@your-laptop:~$ cms pi k3 uninstall agent red06
 ```
 
-## 13. Kill all K3S Services and Containers on Hosts 
+## 14. Kill all K3S Services and Containers on Hosts 
 
 This command runs the K3s provided `k3s-kill-all.sh` script that "cleans up containers, K3s directories, and networking components while also removing the iptables chain with all the associated rules. The cluster data will not be deleted."
 
@@ -424,7 +467,7 @@ INFO: Stopping k3s services and containers on red
 +------+---------+--------+
 ```
 
-## 14. Start the K3S Cluster Services
+## 15. Start the K3S Cluster Services
 
 This command starts systemd the services `k3s` for the server and `k3s-agent` 
 for 
@@ -450,7 +493,7 @@ INFO: Starting agent on ['red', 'red01', 'red02', 'red03']
 +-------+---------+--------+
 ```
 
-## 15. Stop the K3S Cluster Services
+## 16. Stop the K3S Cluster Services
 
 This command stops the systemd services `k3s` for the server and `k3s-agent` 
 for 
@@ -476,7 +519,7 @@ INFO: Stopping agent on ['red', 'red01', 'red02', 'red03']
 +-------+---------+--------+
 ```
 
-## 16. Remove a Node from the Cluster
+## 17. Remove a Node from the Cluster
 
 Let us remove red01 from the K3s cluster server red.
 
