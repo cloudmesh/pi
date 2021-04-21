@@ -76,6 +76,7 @@ input change.
         pi k3 dashboard connect SERVER
         pi k3 dashboard disconnect [SERVER]
         pi k3 dashboard info
+        pi k3 dashboard
 ```
 
 ## 4. Enable Containers
@@ -307,11 +308,17 @@ INFO: Fetching authentication token...
 # A long token will go here
 ```
 
-> Note. If `Dasboard Status` says "Up but not ready", wait at least a minute and try again.
+> Note. If `Dasboard Status` says "Up but not ready", the k3s dashboard is still likely in the process of coming online. Wait a few moments and try the info command again.
 
-From here, we can simply click the dashboard link provided in the output and login using the provided token.
+Take note of the authentication token given. To open the dashboard, you may click on the link provided by the info command or use the following command to automaticallly open in browser.
 
-You can then disconnect from your dashboard with the following:
+```
+you@your-laptop:~$ cms pi k3 dashboard
+pi k3 dashboard
+Opening dashboard...
+```
+
+When ready, you can then disconnect from your dashboard with the following:
 
 ```
 you@your-laptop:~$ cms pi k3 dashboard disconnect
