@@ -8,7 +8,7 @@ description: >-
 
 ## Live Tutorial Specific Information
 
-## 1. Collect private keys to be granted access.
+## 1. Collect public keys to be granted access.
 
 We need to collect your public rsa key to grant you access to the cluster.
 
