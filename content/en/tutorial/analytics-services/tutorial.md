@@ -82,8 +82,15 @@ The training data is a copy of the famous iris data set. You can download it fro
 [iris data](https://drive.google.com/drive/u/0/folders/17LlCE2AtWLJxbDh62AYN0efoNR5wrSDl)
 
 ```bash
-curl -L -o iris.data "https://drive.google.com/uc?export=download&id=1VSAut8Q_jNVC7arSkQp7twzYwHkTJmRk"
+curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 ```
+
+or
+
+x  ```bash
+wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
+```
+
 
 ## 4. Take note of live demo tutorial differences.
 
