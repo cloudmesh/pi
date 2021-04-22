@@ -148,6 +148,8 @@ nano, etc). We will use emacs
 (ENV3) ~/cm/cloudmesh-openapi $ emacs ./tests/Scikitlearn-experimental/sklearn_svm.py
 ```
 
+You may also look at the code [here](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
+
 The class within this file has two main methods to interact with (except for the file upload capability which is added at runtime)
 
 ```
@@ -196,6 +198,8 @@ If Section 2 above was correctly, cms will have generated the corresponding open
 ```
 (ENV3) ~/cm/cloudmesh-openapi $ emacs ./tests/Scikitlearn-experimental/sklearn_svm.yaml
 ```
+
+You may also view the yaml file [here](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
 
 This YAML file has a lot of information to digest. The basic structure is documented [here](https://swagger.io/docs/specification/basic-structure/). However, it is not necessary to understand this information to deploy RESTful APIs. 
 
