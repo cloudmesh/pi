@@ -127,7 +127,9 @@ wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi
 
 ## 4. Take note of live demo tutorial differences.
 
-We will use the common SciKit Learn (Anthony ....) .
+In this tutorial, we will create a REST service based on a simple [SciKit Learn Example](https://scikit-learn.org/stable/auto_examples/feature_selection/plot_feature_selection_pipeline.html).
+
+This example implements a Pipeline Anova SVM for the purposes of data classification.
 
 A
 [Pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)
@@ -137,9 +139,6 @@ estimator. Analysis of variance
 for feature selection. A Support vector machine
 [SVM](https://en.wikipedia.org/wiki/Support_vector_machine) is used as
 the actual learning model on the features.
-
-Use your favorite editor to look at it (whether it be vscode, vim,
-nano, etc). We will use emacs
 
 We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
