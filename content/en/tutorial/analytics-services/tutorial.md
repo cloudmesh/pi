@@ -81,6 +81,10 @@ The training data is a copy of the famous iris data set. You can download it fro
 
 [iris data](https://drive.google.com/drive/u/0/folders/17LlCE2AtWLJxbDh62AYN0efoNR5wrSDl)
 
+```bash
+$ wget https://drive.google.com/file/d/1VSAut8Q_jNVC7arSkQp7twzYwHkTJmRk/view?usp=sharing ???
+```
+
 ## 4. Take note of live demo tutorial differences.
 
 When starting our server we will need to add a `--host=0.0.0.0` option to expose the service to the internet. We will use this command.
