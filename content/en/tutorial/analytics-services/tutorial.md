@@ -8,6 +8,8 @@ description: >-
 
 ## Live Tutorial Specific Information
 
+Meeting location is  https://meet.google.com/qpb-ugoc-oyr
+
 ## 1. Collect public keys to be granted access.
 
 We need to collect your public rsa key to grant you access to the cluster.
@@ -28,6 +30,8 @@ If you do not have an ssh key pair, you can generate one on Mac or Windows with 
 ```
 you@yourlaptop:~$  ssh-keygen
 ```
+
+Please paste and copy your public key content into our chat window.  
 
 ## 2. Assign Pis.
 
