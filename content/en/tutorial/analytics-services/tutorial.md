@@ -174,3 +174,22 @@ laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/train?filename=iri
 
 laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
 ```
+
+
+This will result in 
+
+```
+CLASSIFICATION_REPORT: 
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        12
+           1       1.00      0.92      0.96        13
+           2       0.93      1.00      0.96        13
+
+    accuracy                           0.97        38
+   macro avg       0.98      0.97      0.97        38
+weighted avg       0.98      0.97      0.97        38
+
+$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
+"Classification: ['Iris-setosa']"
+```
