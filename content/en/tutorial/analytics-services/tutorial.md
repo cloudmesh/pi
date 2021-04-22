@@ -142,7 +142,7 @@ the actual learning model on the features.
 
 We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
-Let us take a look at the code on the server.
+Let us take a look at the code on the server. SSH into your assigned pi.
 
 ```
 (ENV3) ~/ $ cd ./cm/cloudmesh-openapi
