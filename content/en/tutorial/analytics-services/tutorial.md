@@ -32,7 +32,9 @@ If you do not have an ssh key pair, you can generate one on Mac or Windows with 
 you@yourlaptop:~$  ssh-keygen
 ```
 
-Please paste and copy your public key content into our chat window.  
+Please paste and copy your public key content into our google doc.
+
+https://docs.google.com/document/d/1Zuv13G2yEvZ5EjDjwxizyaMIf75Rnjky7mDfRd4Ggjo/edit?usp=sharing
 
 ## 2. Assign Pis.
 
