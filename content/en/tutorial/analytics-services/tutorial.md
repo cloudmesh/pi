@@ -10,6 +10,7 @@ description: >-
 
 * Meeting location is  https://meet.google.com/qpb-ugoc-oyr
 * Friday 9am EST
+* [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
 ## 1. Collect public keys to be granted access.
 
@@ -140,7 +141,7 @@ for feature selection. A Support vector machine
 [SVM](https://en.wikipedia.org/wiki/Support_vector_machine) is used as
 the actual learning model on the features.
 
-We will reference the python file [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py(https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
+We will reference the python file [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
 Let us take a look at the code on the server. SSH into your assigned pi and take a look at the code with your favorite editor. We have provided emacs as an option.
 
