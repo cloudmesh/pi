@@ -83,6 +83,8 @@ The training data is a copy of the famous iris data set. You can download it fro
 
 ```bash
 $ wget https://drive.google.com/file/d/1VSAut8Q_jNVC7arSkQp7twzYwHkTJmRk/view?usp=sharing -o iris.data
+
+wget https://googledrive.com/host/17LlCE2AtWLJxbDh62AYN0efoNR5wrSDl -o iris.data
 ```
 
 ## 4. Take note of live demo tutorial differences.
