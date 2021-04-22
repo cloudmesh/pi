@@ -177,5 +177,5 @@ laptop$ curl -X POST "http://$CMSIP/cloudmesh/upload" -H  "accept: text/plain" -
 
 laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/train?filename=iris.data" -H  "accept: text/plain"
 
-claptop$ url -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
+laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
 ```
