@@ -127,6 +127,10 @@ wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi
 
 ## 4. Take note of live demo tutorial differences.
 
+We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
+
+Which will be used to generate the yaml file [sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
+
 When starting our server we will need to add a `--host=0.0.0.0` option to expose the service to the internet. We will use this command.
 
 ```
