@@ -87,7 +87,7 @@ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-open
 
 or
 
-x  ```bash
+```bash
 wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 ```
 
