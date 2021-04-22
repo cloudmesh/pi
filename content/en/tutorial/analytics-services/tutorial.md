@@ -46,25 +46,25 @@ You will be assigned a Pi to access on which to run the demo.
 
 http://XX.XX.XX.XX:8080/cloudmesh/ui
 
-**red01 (WO)** (Anthony)
+**red01 (WO)**
 
 `ssh pi@XX.XX.XX.XX -p 8000`
 
 http://XX.XX.XX.XX:8001/cloudmesh/ui
 
-**red02 (Mark)** (Richie)
+**red02 (Mark)**
 
 `ssh pi@XX.XX.XX.XX -p 8002`
 
 http://XX.XX.XX.XX:8003/cloudmesh/ui
 
-**red03 (Russel)** (Dk)
+**red03 (Russel)**
 
 `ssh pi@XX.XX.XX.XX -p 8004`
 
 http://XX.XX.XX.XX:8005/cloudmesh/ui
 
-**red04 (Gary)** (Gregor)
+**red04 (Gary)**
 
 `ssh pi@XX.XX.XX.XX -p 8006`
 
