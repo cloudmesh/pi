@@ -127,6 +127,20 @@ wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi
 
 ## 4. Take note of live demo tutorial differences.
 
+We will use the common SciKit Learn (Anthony ....) .
+
+A
+[Pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)
+is a *pipeline* of transformations to apply with a final
+estimator. Analysis of variance
+([ANOVA](https://en.wikipedia.org/wiki/Analysis_of_variance)) is used
+for feature selection. A Support vector machine
+[SVM](https://en.wikipedia.org/wiki/Support_vector_machine) is used as
+the actual learning model on the features.
+
+Use your favorite editor to look at it (whether it be vscode, vim,
+nano, etc). We will use emacs
+
 We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
 Which will be used to generate the yaml file [sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
