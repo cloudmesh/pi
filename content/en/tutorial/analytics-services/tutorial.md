@@ -14,7 +14,7 @@ We need to collect your public rsa key to grant you access to the cluster.
 
 On windows:
 ```
-type 
+type C:\Users\username\.ssh\id_rsa.pub
 ```
 
 On Mac or Linux:
