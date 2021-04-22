@@ -8,7 +8,7 @@ description: >-
 
 ## Live Tutorial Specific Information
 
-### 1. Collect private keys to be granted access.
+## 1. Collect private keys to be granted access.
 
 We need to collect your public rsa key to grant you access to the cluster.
 
@@ -29,36 +29,49 @@ If you do not have an ssh key pair, you can generate one on Mac or Windows with 
 you@yourlaptop:~$  ssh-keygen
 ```
 
-### 2. Assign Pis.
+## 2. Assign Pis.
 
 You will be assigned a Pi to access on which to run the demo.
 
-red
+**red**
+
 ssh pi@XX.XX.XX.XX
+
 http://XX.XX.XX.XX:8080/cloudmesh/ui
 
-red01
+**red01**
+
 ssh pi@XX.XX.XX.XX -p 8000
+
 http://XX.XX.XX.XX:8001/cloudmesh/ui
 
-red02
+**red02**
+
 ssh pi@XX.XX.XX.XX -p 8002
 http://XX.XX.XX.XX:8003/cloudmesh/ui
 
-red03
+**red03**
+
 ssh pi@XX.XX.XX.XX -p 8004
+
 http://XX.XX.XX.XX:8005/cloudmesh/ui
 
-red04
-ssh pi@XX.XX.XX.XX -p 8006
-http://68.50.12.18:8007/cloudmesh/ui
+**red04**
 
-red05
+ssh pi@XX.XX.XX.XX -p 8006
+
+http://XX.XX.XX.XX:8007/cloudmesh/ui
+
+**red05**
+
 ssh pi@XX.XX.XX.XX -p 8008
+
 http://XX.XX.XX.XX:8009/cloudmesh/ui
 
-red06
+**red06**
+
 ssh pi@XX.XX.XX.XX -p 8010
+
 http://XX.XX.XX.XX:8011/cloudmesh/ui
 
 ## 3. Download training data.
