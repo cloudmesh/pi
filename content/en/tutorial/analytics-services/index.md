@@ -211,7 +211,7 @@ Using the YAML file from Section 2, we can now start the server.
 
 The server should now be active. Navigate to [http://localhost:8080/cloudmesh/ui](http://localhost:8080/cloudmesh/ui). 
 
-{{< imgproc cloudmesh_ui Fill "600x300" />}}
+{{< imgproc cloudmesh_ui Fill "850x463" />}}
 
 ## 7. Interacting With the Endpoints
 
@@ -222,13 +222,13 @@ API. Let us upload the data set. We are going to use the iris data set in this e
 
 We can now upload the file. Click on Choose File and upload the data set located at `~/cm/cloudmesh-openapi/tests/Scikitlearn-experimental/iris.data`. Simply hit Execute after the file is uploaded. We should then get a `200` return code (telling us that everything went ok).
 
-{{< imgproc upload_endpoint Fill "600x300" />}}
+{{< imgproc upload_endpoint Fill "850x463" />}}
 
 ### 7.2 Training on the Dataset
 
 The server now has our dataset. Let us now navigate to the `/train` endpoint by, again, clicking on it. Similarly, click `Try it out`. The parameter being asked for is the filename. The filename we are interested in is `iris.data`. Then click execute. We should get another `200` return code with a Classification Report in the Response Body.
 
-{{< imgproc train_endpoint Fill "600x300" />}}
+{{< imgproc train_endpoint Fill "850x463" />}}
 
 ### 7.3 Making Predictions
 
@@ -236,7 +236,7 @@ We now have a trained model on the iris data set. Let us now use it to make pred
 
 Navigate to the `/make_prediction` endpoint as we have with other endpoints. Again, let us `Try it out`. We need to provide the name of the model and the params (attribute values). For the model name, our model is aptly called `iris` (based on the name of the data set). 
 
-{{< imgproc make_prediction_endpoint Fill "600x300" />}}
+{{< imgproc make_prediction_endpoint Fill "850x463" />}}
 
 As expected, we have a classification of `Iris-setosa`. 
 
