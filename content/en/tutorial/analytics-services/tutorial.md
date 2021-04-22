@@ -88,31 +88,31 @@ http://XX.XX.XX.XX:8007/cloudmesh/ui
 
 http://XX.XX.XX.XX:8009/cloudmesh/ui
 
-**red06 (Michele) **
+**red06 (Michele)**
 
 `ssh pi@XX.XX.XX.XX -p 8010`
 
 http://XX.XX.XX.XX:8011/cloudmesh/ui
 
-**red07 (Richie) **
+**red07 (Richie)**
 
 `ssh pi@XX.XX.XX.XX -p 8012`
 
 http://XX.XX.XX.XX:8013/cloudmesh/ui
 
-**red08 (DK) **
+**red08 (DK)**
 
 `ssh pi@XX.XX.XX.XX -p 8014`
 
 http://XX.XX.XX.XX:8015/cloudmesh/ui
 
-**red09 (Gregor) **
+**red09 (Gregor)**
 
 `ssh pi@XX.XX.XX.XX -p 8016`
 
 http://XX.XX.XX.XX:8017/cloudmesh/ui
 
-**red10 (Anthony) **
+**red10 (Anthony)**
 
 `ssh pi@XX.XX.XX.XX -p 8018`
 
