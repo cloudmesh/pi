@@ -142,6 +142,13 @@ the actual learning model on the features.
 
 We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
+Let us take a look at the code on the server.
+
+```
+(ENV3) ~/ $ cd ./cm/cloudmesh-openapi
+(ENV3) ~/cm/cloudmesh-openapi $ emacs ./tests/Scikitlearn-experimental/sklearn_svm.py
+```
+
 Which will be used to generate the yaml file [sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
 
 When starting our server we will need to add a `--host=0.0.0.0` option to expose the service to the internet. We will use this command.
