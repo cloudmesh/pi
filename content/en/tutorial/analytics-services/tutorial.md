@@ -163,11 +163,6 @@ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --hos
 
 ## 6. Running from commandline
 
-
-```bash
-
-## 6. Running from commandline
-
 ```bash
 laptop$ export ~/Downloads # or wherever you put iris.data
 
