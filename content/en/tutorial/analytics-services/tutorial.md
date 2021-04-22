@@ -140,16 +140,25 @@ for feature selection. A Support vector machine
 [SVM](https://en.wikipedia.org/wiki/Support_vector_machine) is used as
 the actual learning model on the features.
 
-We will reference the python file [sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
+We will reference the python file [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py(https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
-Let us take a look at the code on the server. SSH into your assigned pi.
+Let us take a look at the code on the server. SSH into your assigned pi and take a look at the code with your favorite editor. We have provided emacs as an option.
 
 ```
 (ENV3) ~/ $ cd ./cm/cloudmesh-openapi
 (ENV3) ~/cm/cloudmesh-openapi $ emacs ./tests/Scikitlearn-experimental/sklearn_svm.py
 ```
 
-Which will be used to generate the yaml file [sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
+Next we will generate the service yaml file, provided here for easy viewing. [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
+
+This is generated on the Pi with the command below.
+
+```
+(ENV3) ~/cm/cloudmesh-openapi $  cms openapi generate PipelineAnovaSVM \
+    --filename=./tests/Scikitlearn-experimental/sklearn_svm.py \
+    --import_class \
+    --enable_upload
+```
 
 When starting our server we will need to add a `--host=0.0.0.0` option to expose the service to the internet. We will use this command.
 
