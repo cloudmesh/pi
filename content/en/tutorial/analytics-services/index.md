@@ -131,7 +131,7 @@ Let's take a look at the python code we would like to make a REST service from. 
 /Users/user/cm/cloudmesh-openapi
 ```
 
-Let us take a look at the PipelineAnova SVM example code.
+Let us take a look at the PipelineAnova SVM example code. The code can also be viewed [here](https://github.com/cloudmesh/cloudmesh-openapi/tree/main/tests/Scikitlearn-experimental)
 
 A
 [Pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)
