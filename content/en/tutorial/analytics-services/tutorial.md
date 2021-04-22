@@ -8,7 +8,8 @@ description: >-
 
 ## Live Tutorial Specific Information
 
-Meeting location is  https://meet.google.com/qpb-ugoc-oyr
+* Meeting location is  https://meet.google.com/qpb-ugoc-oyr
+* Friday 9am EST
 
 ## 1. Collect public keys to be granted access.
 
