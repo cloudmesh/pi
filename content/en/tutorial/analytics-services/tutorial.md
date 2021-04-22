@@ -46,41 +46,67 @@ You will be assigned a Pi to access on which to run the demo.
 
 http://XX.XX.XX.XX:8080/cloudmesh/ui
 
-**red01**
+**red01 (WO)** (Anthony)
 
 `ssh pi@XX.XX.XX.XX -p 8000`
 
 http://XX.XX.XX.XX:8001/cloudmesh/ui
 
-**red02**
+**red02 (Mark)** (Richie)
 
 `ssh pi@XX.XX.XX.XX -p 8002`
 
 http://XX.XX.XX.XX:8003/cloudmesh/ui
 
-**red03**
+**red03 (Russel)** (Dk)
 
 `ssh pi@XX.XX.XX.XX -p 8004`
 
 http://XX.XX.XX.XX:8005/cloudmesh/ui
 
-**red04**
+**red04 (Gary)** (Gregor)
 
 `ssh pi@XX.XX.XX.XX -p 8006`
 
 http://XX.XX.XX.XX:8007/cloudmesh/ui
 
-**red05**
+**red05 (PW)**
 
 `ssh pi@XX.XX.XX.XX -p 8008`
 
 http://XX.XX.XX.XX:8009/cloudmesh/ui
 
-**red06**
+**red06 (Michele) **
 
 `ssh pi@XX.XX.XX.XX -p 8010`
 
 http://XX.XX.XX.XX:8011/cloudmesh/ui
+
+**red07 (Richie) **
+
+`ssh pi@XX.XX.XX.XX -p 8012`
+
+http://XX.XX.XX.XX:8013/cloudmesh/ui
+
+**red08 (DK) **
+
+`ssh pi@XX.XX.XX.XX -p 8014`
+
+http://XX.XX.XX.XX:8015/cloudmesh/ui
+
+**red09 (Gregor) **
+
+`ssh pi@XX.XX.XX.XX -p 8016`
+
+http://XX.XX.XX.XX:8017/cloudmesh/ui
+
+**red10 (Anthony) **
+
+`ssh pi@XX.XX.XX.XX -p 8018`
+
+http://XX.XX.XX.XX:8019/cloudmesh/ui
+
+
 
 ## 3. Download training data.
 
