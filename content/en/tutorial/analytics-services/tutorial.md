@@ -8,11 +8,20 @@ description: >-
 
 ## Live Tutorial Specific Information
 
+(Gregor)
+
 * Meeting location is  https://meet.google.com/qpb-ugoc-oyr
 * Friday 9am EST
+
+WHat the scientist does
+
+(Richie)
+
 * [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.py)
 
 ## 1. Collect public keys to be granted access.
+
+(Gregor, presents, Anthony collect and let us know when we are ready)
 
 We need to collect your public rsa key to grant you access to the cluster.
 
@@ -38,6 +47,8 @@ Please paste and copy your public key content into our google doc.
 https://docs.google.com/document/d/1Zuv13G2yEvZ5EjDjwxizyaMIf75Rnjky7mDfRd4Ggjo/edit?usp=sharing
 
 ## 2. Assign Pis.
+
+(Anthony explains whogets what PI)
 
 You will be assigned a Pi to access on which to run the demo.
 
@@ -111,6 +122,8 @@ http://XX.XX.XX.XX:8019/cloudmesh/ui
 
 ## 3. Download training data.
 
+(Richie)
+
 The training data is a copy of the famous iris data set. You can download it from this link (save as `iris.data`) so we can demonstrate how to upload data, otherwise the data is pre-uploaded.
 
 [iris data](https://drive.google.com/drive/u/0/folders/17LlCE2AtWLJxbDh62AYN0efoNR5wrSDl)
@@ -125,8 +138,19 @@ or
 wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 ```
 
+(Verification if data is ok)
+
+```bash
+pi$ head -3 iris.data
+
+5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3.0,1.4,0.2,Iris-setosa
+4.7,3.2,1.3,0.2,Iris-setosa
+```
 
 ## 4. Take note of live demo tutorial differences.
+
+(Richie)
 
 In this tutorial, we will create a REST service based on a simple [SciKit Learn Example](https://scikit-learn.org/stable/auto_examples/feature_selection/plot_feature_selection_pipeline.html).
 
@@ -169,9 +193,13 @@ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --hos
 
 ## 5. We can now follow the standard tutorial starting from section 3 (post install)
 
+(Anthony)
+
 [openapi tutorial](https://cloudmesh.github.io/pi/tutorial/analytics-services/#3-the-python-code)
 
 ## 6. Running from commandline
+
+(Anthony)
 
 ```bash
 laptop$ export ~/Downloads # or wherever you put iris.data
@@ -202,4 +230,20 @@ weighted avg       0.98      0.97      0.97        38
 
 $ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
 "Classification: ['Iris-setosa']"
+```
+
+7. Server ps command
+
+(Anthony)
+
+```bash
+pi$ .....   CTRL-C
+pi$ cms openapi server ps
+```
+
+8. Killing the server
+
+```bash
+pi$ .....   CTRL-C
+pi$ cms openapi server stop sklearn_svm
 ```
