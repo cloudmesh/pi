@@ -56,8 +56,6 @@ https://docs.google.com/document/d/1Zuv13G2yEvZ5EjDjwxizyaMIf75Rnjky7mDfRd4Ggjo/
 
 You will be assigned a Pi to access on which to run the demo.
 
-**XX.XX.XX.XX is 68.50.12.18**
-
 **red**
 
 `ssh pi@XX.XX.XX.XX`
