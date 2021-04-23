@@ -219,7 +219,7 @@ laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/train?filename=iri
 laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
 ```
 ```
-ADD request based custoemer.py
+ADD request based customer.py
 ```
 
 This will result in 
