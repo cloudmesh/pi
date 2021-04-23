@@ -148,7 +148,7 @@ pi$ head -3 iris.data
 4.7,3.2,1.3,0.2,Iris-setosa
 ```
 
-## 4. Take note of live demo tutorial differences.
+## 4. Live Demo
 
 (Richie)
 
@@ -191,18 +191,18 @@ When starting our server we will need to add a `--host=0.0.0.0` option to expose
 cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
 ```
 
-## 5. We can now follow the standard tutorial starting from section 3 (post install)
+## 5. We can now follow the standard tutorial starting with section 6
 
 (Anthony)
 
-[openapi tutorial](https://cloudmesh.github.io/pi/tutorial/analytics-services/#3-the-python-code)
+[openapi tutorial](https://cloudmesh.github.io/pi/tutorial/analytics-services/#6-starting-the-server)
 
 ## 6. Running from commandline
 
 (Anthony)
 
 ```bash
-laptop$ export ~/Downloads # or wherever you put iris.data
+laptop$ cd ~/Downloads # or wherever you put iris.data
 
 laptop$ export CMSIP=68.50.12.xx:800X
 
