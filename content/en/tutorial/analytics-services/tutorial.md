@@ -129,19 +129,19 @@ The training data is a copy of the famous iris data set. You can download it fro
 [iris data](https://drive.google.com/uc?export=download&id=1VSAut8Q_jNVC7arSkQp7twzYwHkTJmRk)
 
 ```bash
-curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
+laptop$ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 ```
 
 or
 
 ```bash
-wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
+laptop$ wget -O iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 ```
 
 (Verification if data is ok)
 
 ```bash
-pi$ head -3 iris.data
+laptop$ head -3 iris.data
 
 5.1,3.5,1.4,0.2,Iris-setosa
 4.9,3.0,1.4,0.2,Iris-setosa
@@ -170,8 +170,8 @@ We will reference the python file [https://github.com/cloudmesh/cloudmesh-openap
 Let us take a look at the code on the server. SSH into your assigned pi and take a look at the code with your favorite editor. We have provided emacs as an option.
 
 ```
-(ENV3) ~/ $ cd ./cm/cloudmesh-openapi
-(ENV3) ~/cm/cloudmesh-openapi $ emacs ./tests/Scikitlearn-experimental/sklearn_svm.py
+pi$ cd ./cm/cloudmesh-openapi
+pi$ emacs ./tests/Scikitlearn-experimental/sklearn_svm.py
 ```
 
 Next we will generate the service yaml file, provided here for easy viewing. [https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml](https://github.com/cloudmesh/cloudmesh-openapi/blob/main/tests/Scikitlearn-experimental/sklearn_svm.yaml)
@@ -179,7 +179,7 @@ Next we will generate the service yaml file, provided here for easy viewing. [ht
 This is generated on the Pi with the command below.
 
 ```
-(ENV3) ~/cm/cloudmesh-openapi $  cms openapi generate PipelineAnovaSVM \
+pi$  cms openapi generate PipelineAnovaSVM \
     --filename=./tests/Scikitlearn-experimental/sklearn_svm.py \
     --import_class \
     --enable_upload
@@ -188,7 +188,7 @@ This is generated on the Pi with the command below.
 When starting our server we will need to add a `--host=0.0.0.0` option to expose the service to the internet. We will use this command.
 
 ```
-cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
+pi$ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
 ```
 
 ## 5. We can now follow the standard tutorial starting with section 6
