@@ -13,7 +13,7 @@ description: >-
 * Meeting location is  https://meet.google.com/qpb-ugoc-oyr
 * Friday 9am EST
 
-WHat the scientist does
+What the scientist does
 
 (Richie)
 
