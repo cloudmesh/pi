@@ -13,6 +13,10 @@ description: >-
 * Meeting location is  https://meet.google.com/qpb-ugoc-oyr
 * Friday 9am EST
 
+Idea
+
+     function -> cms openapi -> openapi specification + server code
+              
 What the scientist does
 
 (Richie)
