@@ -232,7 +232,7 @@ $ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_na
 "Classification: ['Iris-setosa']"
 ```
 
-7. Server ps command
+## 7. Server ps command
 
 (Anthony)
 
@@ -241,7 +241,7 @@ pi$ .....   CTRL-C
 pi$ cms openapi server ps
 ```
 
-8. Killing the server
+## 8. Killing the server
 
 ```bash
 pi$ .....   CTRL-C
