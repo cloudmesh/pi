@@ -126,7 +126,7 @@ http://XX.XX.XX.XX:8019/cloudmesh/ui
 
 The training data is a copy of the famous iris data set. You can download it from this link (save as `iris.data`) so we can demonstrate how to upload data, otherwise the data is pre-uploaded.
 
-[iris data](https://drive.google.com/drive/u/0/folders/17LlCE2AtWLJxbDh62AYN0efoNR5wrSDl)
+[iris data](https://drive.google.com/uc?export=download&id=1VSAut8Q_jNVC7arSkQp7twzYwHkTJmRk)
 
 ```bash
 curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
