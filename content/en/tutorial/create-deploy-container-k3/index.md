@@ -62,7 +62,9 @@ Access your cluster manager (red) and get the cloudmesh Docker installer.
 
 ```
 laptop $ ssh red
+red $ cd cm
 red $ cloudmesh-installer get docker-command
+red $ cd ..
 ```
 
 Now we install Docker.
