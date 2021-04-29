@@ -86,7 +86,7 @@ like emacs.
 ```
 red $ mkdir cloudmesh-openapi-container
 red $ cd cloudmesh-openapi-container
-red $ cloudmesh-openapi-container$ emacs Dockerfile
+red $ emacs Dockerfile
 ```
 
 In `Dockerfile` add the following lines. This provides Docker the commands 
