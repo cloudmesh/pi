@@ -363,8 +363,7 @@ red $ sudo kubectl get pods
 ## 17. Interact with the `cloudmesh-openapi` Pod
 
 Because the loadbalancer is running on all nodes and forwarding traffic to 
-the existing pod, we can now reach our service from our laptop at `red.
-local:30000`. For some 
+the existing pod, we can now reach our service from our laptop at `red.local:30000`. For some 
 reason `red.local:8080` works as well, I can't explain that yet.
 
 On your laptop web browser browse to `http://red.local:30000/cloudmesh/ui`
