@@ -73,10 +73,16 @@ Now we install Docker.
 red$ cms docker deploy --host=localhost
 ```
 
+Let us add our user to the Docker group so we can execute Docker comands without `sudo`.
+
+```
+red$ sudo usermod -aG docker ubuntu
+```
+
 Let us verify the install by checking the version.
 
 ```
-red$ sudo Docker version
+red$ Docker version
 ```
 
 ## 4. Create a Dockerfile
@@ -121,7 +127,7 @@ name the image `cloudmesh-openapi`. The `.` instructs Docker to use the
 Dockerfile in the present working directory.
 
 ```
-red$ sudo docker build -t cloudmesh-openapi .
+red$ docker build -t cloudmesh-openapi .
 ```
 
 ## 6. Start a Docker Container
@@ -131,7 +137,7 @@ Now we start a Docker containe using our `cloudmesh-openapi` image. The
 to the host port 8080, and `/bin/bash` is the command to run in the container.
 
 ```
-red$ sudo docker run -it -p 8080:8080 cloudmesh-openapi /bin/bash
+red$ docker run -it -p 8080:8080 cloudmesh-openapi /bin/bash
 ```
 
 ## 7. Generate and Start the Cloudmesh-Openapi PipelineAnovaSVM Service
@@ -185,7 +191,7 @@ alternatively you can upload it to a Docker registry like DockerHub.
 We save our image in a tarfile named `cloudmesh-openapi.tar`.
 
 ```
-red$ sudo docker save --output cloudmesh-openapi.tar cloudmesh-openapi:latest
+red$ docker save --output cloudmesh-openapi.tar cloudmesh-openapi:latest
 ```
 
 We will reference this file later to import it to our K3s cluster.
