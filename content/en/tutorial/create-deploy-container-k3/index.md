@@ -82,7 +82,7 @@ red$ sudo usermod -aG docker ubuntu
 Let us verify the install by checking the version.
 
 ```
-red$ Docker version
+red$ docker version
 ```
 
 ## 4. Create a Dockerfile
