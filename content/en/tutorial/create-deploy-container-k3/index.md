@@ -212,21 +212,40 @@ laptop $ cms pi k3 cluster info
 ## 11. Import the `cloudmesh-openapi` Image into All K3s Nodes
 
 As we are not using an image repository, we need to copy our 
-`cloudmesh-openapi.tar` file to all k3s nodes.
+`cloudmesh-openapi.tar` file to all k3s nodes and import them image into 
+K3s.
 
 ```
-red $ sudo scp -i ~/.ssh/id_rsa cloudmesh-openapi.tar  ubuntu@red01:/home/ubuntu/cloudmesh-openapi-container/
-red $ sudo scp -i ~/.ssh/id_rsa cloudmesh-openapi.tar  ubuntu@red02:/home/ubuntu/cloudmesh-openapi-container/
-red $ sudo scp -i ~/.ssh/id_rsa cloudmesh-openapi.tar  ubuntu@red03:/home/ubuntu/cloudmesh-openapi-container/
-```
+red$ cms pi k3 import image red,red0[1-3] cloudmesh-openapi.tar /home/ubuntu
 
-Now we import the image into K3s.
-
-```
-red $ sudo k3s ctr images import ~/cloudmesh-openapi-container/cloudmesh-openapi.tar
-red01 $ sudo k3s ctr images import ~/cloudmesh-openapi-container/cloudmesh-openapi.tar
-red02 $ sudo k3s ctr images import ~/cloudmesh-openapi-container/cloudmesh-openapi.tar
-red03 $ sudo k3s ctr images import ~/cloudmesh-openapi-container/cloudmesh-openapi.tar
+pi k3 import image red,red0[1-3] cloudmesh-openapi.tar /home/ubuntu
+INFO: Copying image to ['red', 'red01', 'red02', 'red03'] using source: cloudmesh-openapi.tar and destination: /home/ubuntu
+INFO: This may take a few minutes depending on the file size and number of destinations
++---------+---------+--------+
+| host    | success | stdout |
++---------+---------+--------+
+| red     | True    |        |
+| red01   | True    |        |
+| red02   | True    |        |
+| red03   | True    |        |
++---------+---------+--------+
+INFO: Import image on ['red', 'red01', 'red02', 'red03'] using filepath:/home/ubuntu/cloudmesh-openapi.tar
++---------+---------+--------------------------------------------------+
+| host    | success | stdout                                           |
++---------+---------+--------------------------------------------------+
+| red     | True    | unpacking docker.io/library/cloudmesh-           |
+|         |         | openapi:latest (sha256:829d62dafbb8c3335804517d6 |
+|         |         | 00313e64be1983b93286328f6c0f66f7c4781ad)...done  |
+| red01   | True    | unpacking docker.io/library/cloudmesh-           |
+|         |         | openapi:latest (sha256:829d62dafbb8c3335804517d6 |
+|         |         | 00313e64be1983b93286328f6c0f66f7c4781ad)...done  |
+| red02   | True    | unpacking docker.io/library/cloudmesh-           |
+|         |         | openapi:latest (sha256:829d62dafbb8c3335804517d6 |
+|         |         | 00313e64be1983b93286328f6c0f66f7c4781ad)...done  |
+| red03   | True    | unpacking docker.io/library/cloudmesh-           |
+|         |         | openapi:latest (sha256:829d62dafbb8c3335804517d6 |
+|         |         | 00313e64be1983b93286328f6c0f66f7c4781ad)...done  |
++---------+---------+--------------------------------------------------+
 ```
 
 Validate the container is present.
