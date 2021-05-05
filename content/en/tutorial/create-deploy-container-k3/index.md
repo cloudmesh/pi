@@ -412,10 +412,11 @@ generate these files as needed.
 `cms pi k3 api deploy SERVER PORTS YAML PYTHON`
 
 ```
-laptop$ cms pi k3 api deploy white 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+laptop$ cms pi k3 api deploy red 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
 
-pi k3 api deploy white 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
-INFO: Deploying cloudmesh openapi service based on yaml:sklearn_svm.yaml python file: sklearn_svm_upload-enabled.py to ports: ['8080', '8081', '8082', '8083', '8084', '8085'] on server white
+pi k3 api deploy red 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+INFO: Deploying cloudmesh openapi service based on yaml:sklearn_svm.yaml 
+python file: sklearn_svm_upload-enabled.py to ports: ['8080', '8081', '8082','8083', '8084', '8085'] on server red
 INFO: Deploying service for port: 8080
 INFO: Deploying service for port: 8081
 INFO: Deploying service for port: 8082
@@ -434,7 +435,7 @@ cloudmesh-openapi-sklearn-svm-port-8085-lb-service   LoadBalancer   10.43.238.19
 ```
 
 You can now access and interact with the service in the same manner as we 
-conducted in 17.
+conducted in section 17.
 
 ## 19. Commands Useful for Debugging
 
