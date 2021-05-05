@@ -62,20 +62,28 @@ This tutorial assumes a cluster burned using one of the following methods:
 Access your cluster manager (red) and get the cloudmesh Docker installer.
 
 ```
-laptop $ ssh red
-red $ cloudmesh-installer get docker-command
+laptop$ ssh red
+red$ cd cm
+red$ cloudmesh-installer get docker-command
+red$ cd ..
 ```
 
 Now we install Docker.
 
 ```
-red $ cms docker deploy --host=localhost
+red$ cms docker deploy --host=localhost
+```
+
+Let us add our user to the Docker group so we can execute Docker comands without `sudo`.
+
+```
+red$ sudo usermod -aG docker ubuntu
 ```
 
 Let us verify the install by checking the version.
 
 ```
-red $ sudo Docker version
+red$ docker version
 ```
 
 ## 4. Create a Dockerfile
@@ -85,9 +93,9 @@ We will create a file named `Dockerfile` in a directory
 like emacs.
 
 ```
-red $ mkdir cloudmesh-openapi-container
-red $ cd cloudmesh-openapi-container
-red $ cloudmesh-openapi-container$ emacs Dockerfile
+red$ mkdir cloudmesh-openapi-container
+red$ cd cloudmesh-openapi-container
+red$ emacs Dockerfile
 ```
 
 In `Dockerfile` add the following lines. This provides Docker the commands 
@@ -120,7 +128,7 @@ name the image `cloudmesh-openapi`. The `.` instructs Docker to use the
 Dockerfile in the present working directory.
 
 ```
-red $ sudo docker build -t cloudmesh-openapi .
+red$ docker build -t cloudmesh-openapi .
 ```
 
 ## 6. Start a Docker Container
@@ -130,7 +138,7 @@ Now we start a Docker containe using our `cloudmesh-openapi` image. The
 to the host port 8080, and `/bin/bash` is the command to run in the container.
 
 ```
-red $ sudo docker run -it -p 8080:8080 cloudmesh-openapi /bin/bash
+red$ docker run -it -p 8080:8080 cloudmesh-openapi /bin/bash
 ```
 
 ## 7. Generate and Start the Cloudmesh-Openapi PipelineAnovaSVM Service
@@ -138,7 +146,7 @@ red $ sudo docker run -it -p 8080:8080 cloudmesh-openapi /bin/bash
 Generate the service yaml.
 
 ```
-container $ cms openapi generate PipelineAnovaSVM \
+container$ cms openapi generate PipelineAnovaSVM \
     --filename=./tests/Scikitlearn-experimental/sklearn_svm.py \
     --import_class \
     --enable_upload
@@ -148,7 +156,7 @@ Start the service (defaults to port 8080). Leave this running and go to a
 new terminal.
 
 ```
-container $ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
+container$ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
 ```
 
 ## 8. Interact with the Running Service
@@ -163,7 +171,7 @@ Alternatively, you can access the service directly from the command line of
 your laptop.
 
 ```
-laptop $ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
+laptop$ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 
 laptop$ export CMSIP=red.local:8080
 
@@ -184,7 +192,7 @@ alternatively you can upload it to a Docker registry like DockerHub.
 We save our image in a tarfile named `cloudmesh-openapi.tar`.
 
 ```
-red $ sudo docker save --output cloudmesh-openapi.tar cloudmesh-openapi:latest
+red$ docker save --output cloudmesh-openapi.tar cloudmesh-openapi:latest
 ```
 
 We will reference this file later to import it to our K3s cluster.
@@ -195,19 +203,19 @@ We will reference this file later to import it to our K3s cluster.
 Enable containers in the kernel, and wait for the cluster to reboot.
 
 ```
-laptop $ cms pi k3 enable containers red,red[01-03]
+laptop$ cms pi k3 enable containers red,red[01-03]
 ```
 
 Now install K3s
 
 ```
-laptop $ cms pi k3 install cluster red,red0[1-3]
+laptop$ cms pi k3 install cluster red,red0[1-3]
 ```
 
 Verify all nodes show up.
 
 ```
-laptop $ cms pi k3 cluster info
+laptop$ cms pi k3 cluster info
 ```
 
 ## 11. Import the `cloudmesh-openapi` Image into All K3s Nodes
@@ -252,7 +260,7 @@ INFO: Import image on ['red', 'red01', 'red02', 'red03'] using filepath:/home/ub
 Validate the container is present.
 
 ```
-red $ sudo k3s ctr images list 
+red$ sudo k3s ctr images list 
 ```
 
 ## 12. Create a Kubernetes Pod Manifest YAML
@@ -296,13 +304,13 @@ any repository and instead use the local copy.
 Deploy your pod by applying the `cloudmesh-openapi-pod.yaml` configuration.
 
 ```
-red $ sudo kubectl apply -f ./cloudmesh-openapi-pod.yaml
+red$ sudo kubectl apply -f ./cloudmesh-openapi-pod.yaml
 ```
 
 Check that the pod is running.
 
 ```
-red $ sudo kubectl get pods
+red$ sudo kubectl get pods
 ```
 
 ## 14. Start a Shell in the Pod
@@ -311,20 +319,20 @@ We need to start a shell in our Pod so we can generate and run the
 cloudmesh-openapi service.
 
 ```
-red $ sudo kubectl exec --stdin --tty cloudmesh-openapi-pod -- /bin/bash
+red$ sudo kubectl exec --stdin --tty cloudmesh-openapi-pod -- /bin/bash
 ```
 
 We can now run our serice generate and start command.
 
 ```
-container $ cms openapi generate PipelineAnovaSVM \
+container$ cms openapi generate PipelineAnovaSVM \
     --filename=./tests/Scikitlearn-experimental/sklearn_svm.py \
     --import_class \
     --enable_upload
 ```
 
 ```
-container $ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
+container$ cms openapi server start ./tests/Scikitlearn-experimental/sklearn_svm.yaml --host=0.0.0.0
 ```
 You can now `exit` and the container and the service will continue running.
 
@@ -365,19 +373,19 @@ service. This must match a predefined range.
 Deploy the loadbalancer.
 
 ```
-red $ sudo kubectl apply -f ./cloudmesh-openapi-lb.service.yaml
+red$ sudo kubectl apply -f ./cloudmesh-openapi-lb.service.yaml
 ```
 
 Check to ensure it deployed.
 
 ```
-red $ sudo kubectl get services -o wide
+red$ sudo kubectl get services -o wide
 ```
 
 Check to see the load balancer pods are deployed on all agent nodes.
 
 ```
-red $ sudo kubectl get pods
+red$ sudo kubectl get pods
 ```
 
 ## 17. Interact with the `cloudmesh-openapi` Pod
@@ -391,7 +399,7 @@ On your laptop web browser browse to `http://red.local:30000/cloudmesh/ui`
 Alternatively, interact with the service from the command line.
 
 ```
-laptop $ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
+laptop$ curl -L -o iris.data "https://raw.githubusercontent.com/cloudmesh/cloudmesh-openapi/main/tests/Scikitlearn-experimental/iris.data"
 
 laptop$ export CMSIP=red.local:30000
 
@@ -462,24 +470,24 @@ error: unable to upgrade connection: Authorization error (user=kube-apiserver, v
 Stop and restart the K3s services.
 
 ```
-red $ cms pi k3 stop agent red,red0[1-3]
-red $ cms pi k3 stop server red
-red $ cms pi k3 start server red
-ree $ cms pi k3 start agent red,red0[1-3]
+red$ cms pi k3 stop agent red,red0[1-3]
+red$ cms pi k3 stop server red
+red$ cms pi k3 start server red
+ree$ cms pi k3 start agent red,red0[1-3]
 ```
 
 
 ## 20. Uninstall K3s
 
 ```
-laptop $ cms pi k3 uninstall cluster red,red0[1-3]
+laptop$ cms pi k3 uninstall cluster red,red0[1-3]
 ```
 
 ## 21. Uninstall Docker
 
 ```
-red $ sudo apt-get purge docker-ce docker-ce-cli containerd.io
-red $ sudo rm -rf /var/lib/docker
-red $ sudo rm -rf /var/lib/containerd
+red$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
+red$ sudo rm -rf /var/lib/docker
+red$ sudo rm -rf /var/lib/containerd
 ```
 
