@@ -23,7 +23,8 @@ TODO: Caption for the image
 In this tutorial we will use a cms-burn created cluster to install Docker, 
 create a Docker container for the cloudmesh-openapi service, deploy the 
 container on Docker, install K3s, deploy the container on K3s, and enable 
-access to the container from an external host. 
+access to the container from an external host. Finally, automatically deploy 
+an OpenApi service onto a K3s cluster given only its python and yaml files.
 
 This is currently (4/29/21) tested on a Raspberry pi using Ubuntu OS.
 
@@ -401,7 +402,41 @@ laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/train?filename=iri
 laptop$ curl -X GET "http://$CMSIP/cloudmesh/PipelineAnovaSVM/make_prediction?model_name=iris&params=5.1%2C%203.5%2C%201.4%2C%200.2" -H  "accept: */*"
 ```
 
-## 18. Commands Useful for Debugging
+## 18. Automatically deploy an OpenApi Service
+
+We have provided a command that can automatically deploy an OpenAPI service 
+given the YAML file, python file, the server, and the ports you want it 
+deployed on. We expect the user to have previously used cloudmesh-openapi to 
+generate these files as needed.
+
+`cms pi k3 api deploy SERVER PORTS YAML PYTHON`
+
+```
+laptop$ cms pi k3 api deploy white 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+
+pi k3 api deploy white 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+INFO: Deploying cloudmesh openapi service based on yaml:sklearn_svm.yaml python file: sklearn_svm_upload-enabled.py to ports: ['8080', '8081', '8082', '8083', '8084', '8085'] on server white
+INFO: Deploying service for port: 8080
+INFO: Deploying service for port: 8081
+INFO: Deploying service for port: 8082
+INFO: Deploying service for port: 8083
+INFO: Deploying service for port: 8084
+INFO: Deploying service for port: 8085
+INFO: Services are available at:
+NAME                                                 TYPE           CLUSTER-IP      EXTERNAL-IP    PORT(S)          AGE
+kubernetes                                           ClusterIP      10.43.0.1       <none>         443/TCP          39h
+cloudmesh-openapi-sklearn-svm-port-8080-lb-service   LoadBalancer   10.43.157.137   192.168.1.16   8080:30988/TCP   89s
+cloudmesh-openapi-sklearn-svm-port-8081-lb-service   LoadBalancer   10.43.105.151   192.168.1.16   8081:31733/TCP   69s
+cloudmesh-openapi-sklearn-svm-port-8082-lb-service   LoadBalancer   10.43.66.0      192.168.1.16   8082:30442/TCP   55s
+cloudmesh-openapi-sklearn-svm-port-8083-lb-service   LoadBalancer   10.43.212.54    192.168.1.16   8083:31632/TCP   33s
+cloudmesh-openapi-sklearn-svm-port-8084-lb-service   LoadBalancer   10.43.52.81     192.168.1.16   8084:30334/TCP   22s
+cloudmesh-openapi-sklearn-svm-port-8085-lb-service   LoadBalancer   10.43.238.192   192.168.1.16   8085:31442/TCP   8s
+```
+
+You can now access and interact with the service in the same manner as we 
+conducted in 17.
+
+## 19. Commands Useful for Debugging
 
 Useful `kubectl` commands to debug a broken pod/service
 
@@ -433,13 +468,13 @@ ree $ cms pi k3 start agent red,red0[1-3]
 ```
 
 
-## 19. Uninstall K3s
+## 20. Uninstall K3s
 
 ```
 laptop $ cms pi k3 uninstall cluster red,red0[1-3]
 ```
 
-## 20. Unistall Docker
+## 21. Uninstall Docker
 
 ```
 red $ sudo apt-get purge docker-ce docker-ce-cli containerd.io
