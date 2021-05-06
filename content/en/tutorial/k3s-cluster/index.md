@@ -281,11 +281,30 @@ host ssh red " sudo kubectl get nodes "
 +------+---------+--------------------------------------------------+
 ```
 
-## 7. Accessing the Dashboard.
+## 7. Creating the Dashboard.
+
+It is straightforward to create a dashboard for our newly created cluster.
+
+If using Raspberry OS on the pis, run:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard create red
+```
+
+If using Ubuntu Server on the pis, run:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard create red
+```
+
+Both commands will automatically start the dashboard. However, on Ubuntu Server, `cms pi k3 dashboard start red` needs to be run when the pi is rebooted.
+
+
+## 8. Accessing the Dashboard
 
 We can easily access the Web UI Dashboard for easy management of our cluster.
 
-First, let us connect to the new dashboard created during install.
+First, let us connect to the new dashboard created above.
 
 ```
 you@your-laptop:~$ cms pi k3 dashboard connect red
@@ -324,7 +343,7 @@ When ready, you can then disconnect from your dashboard with the following:
 you@your-laptop:~$ cms pi k3 dashboard disconnect
 ```
 
-## 8. Adding a new machine to the cluster
+## 9. Adding a new machine to the cluster
 
 We will add a new machine red04 to be an agent of the red hosted cluster.
 
