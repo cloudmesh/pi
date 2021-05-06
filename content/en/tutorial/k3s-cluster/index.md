@@ -294,7 +294,7 @@ you@your-laptop:~$ cms pi k3 dashboard create red
 If using Ubuntu Server on the pis, run:
 
 ```
-you@your-laptop:~$ cms pi k3 dashboard create red
+you@your-laptop:~$ cms pi k3 dashboard create red --ubuntu
 ```
 
 Both commands will automatically start the dashboard. However, on Ubuntu Server, `cms pi k3 dashboard start red` needs to be run when the pi is rebooted.
