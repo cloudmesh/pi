@@ -419,6 +419,8 @@ generate these files as needed.
 
 `cms pi k3 api deploy SERVER PORTS YAML PYTHON`
 
+Below is an example command invocation where whe deploy the Scikilearn Pipeline Anova SVM example as a service using the yaml file `sklearn_svm.yaml` and the python file `sklearn_svm_upload-enabled.py`  
+
 ```
 laptop$ cms pi k3 api deploy red 80[80-85] sklearn_svm.yaml sklearn_svm_upload-enabled.py
 
