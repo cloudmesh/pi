@@ -4,7 +4,7 @@ title: "Create and Deploy a Container and OpenAPI Service with Docker and K3s"
 linkTitle: "Create and Deploy a Container and OpenAPI Service with Docker and K3s"
 description: "This post is walks you through using your pi cluster to create 
 and deploy a container and OpenAPI Service on Docker and K3s"
-author: Anthony Orlowski([antorlowski@gmail.com](mailto:antorlowski@gmail. com)), Richard Otten
+author: Anthony Orlowski([antorlowski@gmail.com](mailto:antorlowski@gmail.com)), Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
