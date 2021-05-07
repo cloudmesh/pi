@@ -1,10 +1,9 @@
 ---
-date: 2021-04-12
+date: 2021-05-07
 title: "Employ K3S on a Pi Cluster"
 linkTitle: "Employ K3S on a Pi Cluster"
 description: "Easily install your own K3S cluster on Raspberry Pis"
-author: Anthony Orlowski, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Richard Otten Jr
-draft: True
+author: Anthony Orlowski, Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Richard Otten
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
