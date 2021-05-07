@@ -5,7 +5,7 @@ container on Docker, install K3s, deploy the container on K3s, and enable
 access to the container from an external host. Finally, automatically deploy
 an OpenApi service onto a K3s cluster given only its python and yaml files.</p><p>This is currently (4/29/21) tested on a Raspberry pi using Ubuntu OS.</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to install Docker, create a docker container, deploy a docker
 container, install k3s, deploy a container on K3s, make K3s
-containers externally accessible.</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-prerequisites>2. Prerequisites</a></li><li><a href=#3-install-docker>3. Install Docker</a></li><li><a href=#4-create-a-dockerfile>4. Create a Dockerfile</a></li><li><a href=#5-build-a-docker-image>5. Build a Docker Image</a></li><li><a href=#6-start-a-docker-container>6. Start a Docker Container</a></li><li><a href=#7-generate-and-start-the-cloudmesh-openapi-pipelineanovasvm-service>7. Generate and Start the Cloudmesh-Openapi PipelineAnovaSVM Service</a></li><li><a href=#8-interact-with-the-running-service>8. Interact with the Running Service</a></li><li><a href=#9-save-a-docker-image>9. Save a Docker Image</a></li><li><a href=#10-install-k3s-on-our-pi-cluster>10. Install K3s on our Pi Cluster</a></li><li><a href=#11-import-the-cloudmesh-openapi-image-into-all-k3s-nodes>11. Import the <code>cloudmesh-openapi</code> Image into All K3s Nodes</a></li><li><a href=#12-create-a-kubernetes-pod-manifest-yaml>12. Create a Kubernetes Pod Manifest YAML</a></li><li><a href=#13-deploy-a-pod>13. Deploy a Pod</a></li><li><a href=#14-start-a-shell-in-the-pod>14. Start a Shell in the Pod</a></li><li><a href=#15-create-a-kubernetes-service-manifest-to-start-a-k3s-load-balancer>15. Create a Kubernetes Service Manifest to Start a K3s Load-Balancer</a></li><li><a href=#16-deploy-the-loadbalancer-service>16. Deploy the LoadBalancer Service</a></li><li><a href=#17-interact-with-the-cloudmesh-openapi-pod>17. Interact with the <code>cloudmesh-openapi</code> Pod</a></li><li><a href=#18-automatically-deploy-an-openapi-service>18. Automatically deploy an OpenApi Service</a></li><li><a href=#19-creating-a-kubernetes-dashboard-to-monitor-the-services>19. Creating a Kubernetes Dashboard to Monitor the Services.</a></li><li><a href=#20-accessing-the-dashboard>20. Accessing the Dashboard</a></li></ul></nav></div></div><h2 id=1-introduction>1. Introduction</h2><p>Many tutorials walk you through individual components of our learning
+containers externally accessible.</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-prerequisites>2. Prerequisites</a></li><li><a href=#3-install-docker>3. Install Docker</a></li><li><a href=#4-create-a-dockerfile>4. Create a Dockerfile</a></li><li><a href=#5-build-a-docker-image>5. Build a Docker Image</a></li><li><a href=#6-start-a-docker-container>6. Start a Docker Container</a></li><li><a href=#7-generate-and-start-the-cloudmesh-openapi-pipelineanovasvm-service>7. Generate and Start the Cloudmesh-Openapi PipelineAnovaSVM Service</a></li><li><a href=#8-interact-with-the-running-service>8. Interact with the Running Service</a></li><li><a href=#9-save-a-docker-image>9. Save a Docker Image</a></li><li><a href=#10-install-k3s-on-our-pi-cluster>10. Install K3s on our Pi Cluster</a></li><li><a href=#11-import-the-cloudmesh-openapi-image-into-all-k3s-nodes>11. Import the <code>cloudmesh-openapi</code> Image into All K3s Nodes</a></li><li><a href=#12-create-a-kubernetes-pod-manifest-yaml>12. Create a Kubernetes Pod Manifest YAML</a></li><li><a href=#13-deploy-a-pod>13. Deploy a Pod</a></li><li><a href=#14-start-a-shell-in-the-pod>14. Start a Shell in the Pod</a></li><li><a href=#15-create-a-kubernetes-service-manifest-to-start-a-k3s-load-balancer>15. Create a Kubernetes Service Manifest to Start a K3s Load-Balancer</a></li><li><a href=#16-deploy-the-loadbalancer-service>16. Deploy the LoadBalancer Service</a></li><li><a href=#17-interact-with-the-cloudmesh-openapi-pod>17. Interact with the <code>cloudmesh-openapi</code> Pod</a></li><li><a href=#18-automatically-deploy-an-openapi-service>18. Automatically deploy an OpenApi Service</a></li><li><a href=#19-creating-a-kubernetes-dashboard-to-monitor-the-services>19. Creating a Kubernetes Dashboard to Monitor the Services.</a></li><li><a href=#20-accessing-the-dashboard>20. Accessing the Dashboard</a></li><li><a href=#21-restarting-an-openapi-service-after-reboot>21. Restarting an OpenAPI service after Reboot.</a></li><li><a href=#22-commands-useful-for-debugging>22. Commands Useful for Debugging</a></li><li><a href=#23-uninstall-k3s>23. Uninstall K3s</a></li><li><a href=#24-uninstall-docker>24. Uninstall Docker</a></li></ul></nav></div></div><h2 id=1-introduction>1. Introduction</h2><p>Many tutorials walk you through individual components of our learning
 objectives. This tutorial will walk you through step-by-step to create a
 service and deploy it on a cms-brun created cluster.</p><h2 id=2-prerequisites>2. Prerequisites</h2><p>This tutorial assumes a cluster burned using one of the following methods:</p><p><a href=https://cloudmesh.github.io/pi/tutorial/raspberry-burn/>Burn a Raspberry OS Cluster</a> (not currently tested)</p><p><a href=https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/>Burn an Ubuntu Cluster</a> (currently tested)</p><p><a href=https://cloudmesh.github.io/pi/tutorial/gui-burn/>Use our GUI to Burn a Cluster</a></p><h2 id=3-install-docker>3. Install Docker</h2><p>Access your cluster manager (red) and get the cloudmesh Docker installer.</p><pre><code>laptop$ ssh red
 red$ cd cm
@@ -211,19 +211,9 @@ INFO: Fetching authentication token...
 </code></pre><blockquote><p>Note. If <code>Dasboard Status</code> says &ldquo;Up but not ready&rdquo;, the k3s dashboard is still likely in the process of coming online. Wait a few moments and try the info command again.</p></blockquote><p>Take note of the authentication token given. To open the dashboard, you may click on the link provided by the info command or use the following command to automaticallly open in browser.</p><pre><code>you@your-laptop:~$ cms pi k3 dashboard
 pi k3 dashboard
 Opening dashboard...
-</code></pre><p>You can monitor your pods resources consumption on the Pods tab.</p><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/create-deploy-container-k3/featured-dashboard_hu3bdb24a6878631c4ef3df1aa73d2ab37_260775_600x300_fill_catmullrom_smart1_2.png width=600 height=300><div class="card-body px-0 pt-2 pb-0"><p class=card-text>When ready, you can then disconnect from your dashboard with the following:
-```
-you@your-laptop:~$ cms pi k3 dashboard disconnect
-```
-## 21. Restarting an OpenAPI service after Reboot.
-While hte containers will persist after a reboot, the services do not
-currently automatically restart.
-To restart the service suse the command
-`cms pi k3 api start SERVER PORTS YAML PYTHON`
-The YAML and PYTHON require the base filename only, they are not re-copied.
-Here is an example invocation.
-```
-laptopl$ cms pi k3 api start red 80[80-89] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+</code></pre><p>You can monitor your pods resources consumption on the Pods tab.</p><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/create-deploy-container-k3/featured-dashboard_hu3bdb24a6878631c4ef3df1aa73d2ab37_260775_600x300_fill_catmullrom_smart1_2.png width=600 height=300><div class="card-body px-0 pt-2 pb-0"><p class=card-text></p></div></div><p>When ready, you can then disconnect from your dashboard with the following:</p><pre><code>you@your-laptop:~$ cms pi k3 dashboard disconnect
+</code></pre><h2 id=21-restarting-an-openapi-service-after-reboot>21. Restarting an OpenAPI service after Reboot.</h2><p>While hte containers will persist after a reboot, the services do not
+currently automatically restart.</p><p>To restart the service suse the command</p><p><code>cms pi k3 api start SERVER PORTS YAML PYTHON</code></p><p>The YAML and PYTHON require the base filename only, they are not re-copied.</p><p>Here is an example invocation.</p><pre><code>laptopl$ cms pi k3 api start red 80[80-89] sklearn_svm.yaml sklearn_svm_upload-enabled.py
 pi k3 api start red 80[80-89] sklearn_svm.yaml sklearn_svm_upload-enabled.py
 INFO: Starting services in on ports ['8080', '8081', '8082', '8083', '8084', '8085']
 INFO: Service on 8080 successfully started
@@ -232,41 +222,25 @@ INFO: Service on 8082 successfully started
 INFO: Service on 8083 successfully started
 INFO: Service on 8084 successfully started
 INFO: Service on 8085 successfully started
-```
-## 22. Commands Useful for Debugging
-Useful `kubectl` commands to debug a broken pod/service
-```
-sudo kubectl describe pod cloudmesh-openapi-pod
+</code></pre><h2 id=22-commands-useful-for-debugging>22. Commands Useful for Debugging</h2><p>Useful <code>kubectl</code> commands to debug a broken pod/service</p><pre><code>sudo kubectl describe pod cloudmesh-openapi-pod
 sudo kubectl logs --previous cloudmesh-openapi-pod cloudmesh-openapi
 sudo kubectl logs cloudmesh-openapi-pod cloudmesh-openapi
 sudo kubectl delete pod cloudmesh-openapi-pod
 sudo kubectl delete service clodmesh-openapi-lb-service
 sudo kubectl get pods --show-labels
 sudo kubectl edit pod cloudmesh-openapi-pod
-```
-If you have trouble accessing the pod shell, like below. Try stopping and
-restarting the K3s services.
-```
-(ENV3) ubuntu@red:~/cloudmesh-openapi-container$ sudo kubectl exec --stdin --tty cloudmesh-openapi-pod -- /bin/bash
+</code></pre><p>If you have trouble accessing the pod shell, like below. Try stopping and
+restarting the K3s services.</p><pre><code>(ENV3) ubuntu@red:~/cloudmesh-openapi-container$ sudo kubectl exec --stdin --tty cloudmesh-openapi-pod -- /bin/bash
 error: unable to upgrade connection: Authorization error (user=kube-apiserver, verb=create, resource=nodes, subresource=proxy)
-```
-Stop and restart the K3s services.
-```
-red$ cms pi k3 stop agent red,red0[1-3]
+</code></pre><p>Stop and restart the K3s services.</p><pre><code>red$ cms pi k3 stop agent red,red0[1-3]
 red$ cms pi k3 stop server red
 red$ cms pi k3 start server red
 ree$ cms pi k3 start agent red,red0[1-3]
-```
-## 23. Uninstall K3s
-```
-laptop$ cms pi k3 uninstall cluster red,red0[1-3]
-```
-## 24. Uninstall Docker
-```
-red$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
+</code></pre><h2 id=23-uninstall-k3s>23. Uninstall K3s</h2><pre><code>laptop$ cms pi k3 uninstall cluster red,red0[1-3]
+</code></pre><h2 id=24-uninstall-docker>24. Uninstall Docker</h2><pre><code>red$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
 red$ sudo rm -rf /var/lib/docker
 red$ sudo rm -rf /var/lib/containerd
-```</p></div></div></div><div class=td-content style=page-break-before:always><h1 id=pg-3ffe143e2c4df353af7ad2c2b548ec93>2 - Employ K3S on a Pi Cluster</h1><div class=lead>Easily install your own K3S cluster on Raspberry Pis</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/k3s-cluster/featured-image_hu31ad1de8477c329f5412ff59acdd044d_22590_600x300_fill_catmullrom_smart1_2.png width=600 height=300><div class="card-body px-0 pt-2 pb-0"><p class=card-text></p></div></div><div class="pageinfo pageinfo-primary"><p>Install, manage, operate, and uninstall K3s on a cluster of Raspberry Pis
+</code></pre></div><div class=td-content style=page-break-before:always><h1 id=pg-3ffe143e2c4df353af7ad2c2b548ec93>2 - Employ K3S on a Pi Cluster</h1><div class=lead>Easily install your own K3S cluster on Raspberry Pis</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/k3s-cluster/featured-image_hu31ad1de8477c329f5412ff59acdd044d_22590_600x300_fill_catmullrom_smart1_2.png width=600 height=300><div class="card-body px-0 pt-2 pb-0"><p class=card-text></p></div></div><div class="pageinfo pageinfo-primary"><p>Install, manage, operate, and uninstall K3s on a cluster of Raspberry Pis
 running Raspberry OS or Ubuntu.</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to easily install, manage, operate, and unisntall a K3S cluster
 using <code>cms</code>.</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-prequisites>2. Prequisites</a></li><li><a href=#3-cms-k3-commands>3. CMS k3 Commands</a></li><li><a href=#4-enable-containers>4. Enable Containers</a></li><li><a href=#5-install-k3s-on-the-entire-cluster>5. Install K3s on the Entire Cluster</a></li><li><a href=#6-verify-the-k3s-cluster-install>6. Verify the K3S Cluster Install</a></li><li><a href=#7-creating-the-dashboard>7. Creating the Dashboard.</a></li><li><a href=#8-accessing-the-dashboard>8. Accessing the Dashboard</a></li><li><a href=#9-adding-a-new-machine-to-the-cluster>9. Adding a new machine to the cluster</a></li><li><a href=#10-uninstall-the-k3s-cluster>10. Uninstall the K3S Cluster</a></li><li><a href=#11-add-a-new-standalone-k3s-server>11. Add a New Standalone K3S Server</a></li><li><a href=#12-uninstall-a-specific-k3s-server>12. Uninstall a specific K3S server</a></li><li><a href=#13-uninstall-a-specific-k3s-agent>13. Uninstall a Specific K3S Agent</a></li><li><a href=#14-kill-all-k3s-services-and-containers-on-hosts>14. Kill all K3S Services and Containers on Hosts</a></li><li><a href=#15-start-the-k3s-cluster-services>15. Start the K3S Cluster Services</a></li><li><a href=#16-stop-the-k3s-cluster-services>16. Stop the K3S Cluster Services</a></li><li><a href=#17-remove-a-node-from-the-cluster>17. Remove a Node from the Cluster</a></li></ul></nav></div></div><h2 id=1-introduction>1. Introduction</h2><p>K3S provides a lightweight, single binary distribution of Kubernetes with
 very close feature parity to K8s that is perfect for single board computers
