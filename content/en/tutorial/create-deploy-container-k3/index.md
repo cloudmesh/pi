@@ -1,11 +1,10 @@
 ---
-date: 2021-04-29
+date: 2021-05-07
 title: "Create and Deploy a Container with Docker and K3s"
 linkTitle: "Create and Deploy a Container with Docker and K3s"
 description: "This post is walks you through using your pi cluster to create 
 and deploy a container on Docker and K3s"
-author: Anthony Orlowski([antorlowski@gmail.com](mailto:antorlowski@gmail.com))
-draft: True
+author: Anthony Orlowski([antorlowski@gmail.com](mailto:antorlowski@gmail. com)), Richard Otten
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
@@ -447,7 +446,99 @@ cloudmesh-openapi-sklearn-svm-port-8085-lb-service   LoadBalancer   10.43.238.19
 You can now access and interact with the service in the same manner as we 
 conducted in section 17.
 
-## 19. Commands Useful for Debugging
+## 19. Creating a Kubernetes Dashboard to Monitor the Services.
+
+Next we will install a Kubernetes Dashboard so we can monitor the resource 
+consumption of our services.
+
+If using Raspberry OS on the pis, run:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard create red
+```
+
+If using Ubuntu Server on the pis, run:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard create red --ubuntu
+```
+
+Both commands will automatically start the dashboard. However, on Ubuntu Server, `cms pi k3 dashboard start red` needs to be run when the pi is rebooted.
+
+
+## 20. Accessing the Dashboard
+
+We can easily access the Web UI Dashboard for easy management of our cluster.
+
+First, let us connect to the new dashboard created above.
+
+```
+you@your-laptop:~$ cms pi k3 dashboard connect red
+```
+
+We should get a green "Connection created" message. We can now check on the status of our dashboard and obtain our token to log in. 
+
+```
+you@your-laptop:~$ cms pi k3 dashboard info
+pi k3 dashboard info
+INFO: Finding running dashboards...
++---------------------+-------------+------------+------------------+-------+
+| Server Access Point | Remote Port | Local Port | Dashboard Status | PID   |
++---------------------+-------------+------------+------------------+-------+
+| red                 | 8001        | 8001       | Active           | 99240 |
++---------------------+-------------+------------+------------------+-------+
+INFO: Dashboard Link:
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/
+INFO: Fetching authentication token...
+# A long token will go here
+```
+
+> Note. If `Dasboard Status` says "Up but not ready", the k3s dashboard is still likely in the process of coming online. Wait a few moments and try the info command again.
+
+Take note of the authentication token given. To open the dashboard, you may click on the link provided by the info command or use the following command to automaticallly open in browser.
+
+```
+you@your-laptop:~$ cms pi k3 dashboard
+pi k3 dashboard
+Opening dashboard...
+```
+
+You can monitor your pods resources consumption on the Pods tab.
+
+{{< imgproc image Fill dashboard "600x300" >}}
+
+When ready, you can then disconnect from your dashboard with the following:
+
+```
+you@your-laptop:~$ cms pi k3 dashboard disconnect
+```
+
+## 21. Restarting an OpenAPI service after Reboot.
+
+While hte containers will persist after a reboot, the services do not 
+currently automatically restart.
+
+To restart the service suse the command 
+
+`cms pi k3 api start SERVER PORTS YAML PYTHON`
+
+The YAML and PYTHON require the base filename only, they are not re-copied.
+
+Here is an example invocation. 
+
+```
+laptopl$ cms pi k3 api start red 80[80-89] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+pi k3 api start red 80[80-89] sklearn_svm.yaml sklearn_svm_upload-enabled.py
+INFO: Starting services in on ports ['8080', '8081', '8082', '8083', '8084', '8085']
+INFO: Service on 8080 successfully started
+INFO: Service on 8081 successfully started
+INFO: Service on 8082 successfully started
+INFO: Service on 8083 successfully started
+INFO: Service on 8084 successfully started
+INFO: Service on 8085 successfully started
+```
+
+## 22. Commands Useful for Debugging
 
 Useful `kubectl` commands to debug a broken pod/service
 
@@ -479,13 +570,13 @@ ree$ cms pi k3 start agent red,red0[1-3]
 ```
 
 
-## 20. Uninstall K3s
+## 23. Uninstall K3s
 
 ```
 laptop$ cms pi k3 uninstall cluster red,red0[1-3]
 ```
 
-## 21. Uninstall Docker
+## 24. Uninstall Docker
 
 ```
 red$ sudo apt-get purge docker-ce docker-ce-cli containerd.io
