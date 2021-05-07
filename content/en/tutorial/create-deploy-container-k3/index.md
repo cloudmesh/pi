@@ -11,6 +11,7 @@ resources:
 ---
 
 {{< imgproc dashboard Fill "600x300" >}}
+{{< /imgproc >}}
 
 {{% pageinfo %}}
 
