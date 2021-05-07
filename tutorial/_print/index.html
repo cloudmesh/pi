@@ -273,27 +273,31 @@ very close feature parity to K8s that is perfect for single board computers
 like the Raspberry Pi. In this tutorial we will install, verify, and
 unistall K3s on a cluster of Pis that was created using the Cloudmesh burn
 software.</p><h2 id=2-prequisites>2. Prequisites</h2><p>This tutorial assumes a cluster burned using one of the following methods:</p><p><a href=https://cloudmesh.github.io/pi/tutorial/raspberry-burn/>Burn a Raspberry OS Cluster</a></p><p><a href=https://cloudmesh.github.io/pi/tutorial/ubuntu-burn/>Burn an Ubuntu Cluster</a></p><p><a href=https://cloudmesh.github.io/pi/tutorial/gui-burn/>Use our GUI to Burn a Cluster</a></p><p>The tutorial supports both Raspberry OS and Ubuntu with no required user
-input change.</p><h2 id=3-cms-k3-commands>3. CMS k3 Commands</h2><pre><code>        pi k3 enable containers NAMES
-        pi k3 install server NAMES
-        pi k3 install agent NAMES SERVER
-        pi k3 install cluster NAMES
-        pi k3 uninstall server NAMES
-        pi k3 uninstall agent NAMES
-        pi k3 uninstall cluster NAMES
-        pi k3 kill NAMES
-        pi k3 start server NAMES
-        pi k3 start agent NAMES
-        pi k3 start cluster NAMES
-        pi k3 stop server NAMES
-        pi k3 stop agent NAMES
-        pi k3 stop cluster NAMES
-        pi k3 remove node NAMES SERVER
-        pi k3 cluster info SERVER
-        pi k3 dashboard create SERVER
-        pi k3 dashboard connect SERVER
-        pi k3 dashboard disconnect [SERVER]
-        pi k3 dashboard info
-        pi k3 dashboard
+input change.</p><h2 id=3-cms-k3-commands>3. CMS k3 Commands</h2><pre><code>    pi k3 enable containers NAMES
+    pi k3 install server NAMES
+    pi k3 install agent NAMES SERVER
+    pi k3 install cluster NAMES
+    pi k3 uninstall server NAMES
+    pi k3 uninstall agent NAMES
+    pi k3 uninstall cluster NAMES
+    pi k3 kill NAMES
+    pi k3 start server NAMES
+    pi k3 start agent NAMES
+    pi k3 start cluster NAMES
+    pi k3 stop server NAMES
+    pi k3 stop agent NAMES
+    pi k3 stop cluster NAMES
+    pi k3 remove node NAMES SERVER
+    pi k3 cluster info SERVER
+    pi k3 dashboard create SERVER [--ubuntu]
+    pi k3 dashboard start SERVER
+    pi k3 dashboard connect SERVER
+    pi k3 dashboard disconnect [SERVER]
+    pi k3 dashboard info
+    pi k3 dashboard
+    pi k3 import image NAMES SOURCE DESTINATION
+    pi k3 api deploy SERVER PORTS YAML PYTHON
+    pi k3 api start SERVER PORTS YAML PYTHON
 </code></pre><h2 id=4-enable-containers>4. Enable Containers</h2><p>This command adds <code>'cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'</code> to the end of the arguments in <code>cmdline.txt</code> if
 they are not already present, and reboots the machines. This is required to
 enable containers in the kernel.</p><pre><code>you@your-laptop:~$ cms pi k3 enable containers red,red0[1-3]
