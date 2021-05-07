@@ -53,27 +53,31 @@ input change.
 
 ## 3. CMS k3 Commands
 ```
-        pi k3 enable containers NAMES
-        pi k3 install server NAMES
-        pi k3 install agent NAMES SERVER
-        pi k3 install cluster NAMES
-        pi k3 uninstall server NAMES
-        pi k3 uninstall agent NAMES
-        pi k3 uninstall cluster NAMES
-        pi k3 kill NAMES
-        pi k3 start server NAMES
-        pi k3 start agent NAMES
-        pi k3 start cluster NAMES
-        pi k3 stop server NAMES
-        pi k3 stop agent NAMES
-        pi k3 stop cluster NAMES
-        pi k3 remove node NAMES SERVER
-        pi k3 cluster info SERVER
-        pi k3 dashboard create SERVER
-        pi k3 dashboard connect SERVER
-        pi k3 dashboard disconnect [SERVER]
-        pi k3 dashboard info
-        pi k3 dashboard
+    pi k3 enable containers NAMES
+    pi k3 install server NAMES
+    pi k3 install agent NAMES SERVER
+    pi k3 install cluster NAMES
+    pi k3 uninstall server NAMES
+    pi k3 uninstall agent NAMES
+    pi k3 uninstall cluster NAMES
+    pi k3 kill NAMES
+    pi k3 start server NAMES
+    pi k3 start agent NAMES
+    pi k3 start cluster NAMES
+    pi k3 stop server NAMES
+    pi k3 stop agent NAMES
+    pi k3 stop cluster NAMES
+    pi k3 remove node NAMES SERVER
+    pi k3 cluster info SERVER
+    pi k3 dashboard create SERVER [--ubuntu]
+    pi k3 dashboard start SERVER
+    pi k3 dashboard connect SERVER
+    pi k3 dashboard disconnect [SERVER]
+    pi k3 dashboard info
+    pi k3 dashboard
+    pi k3 import image NAMES SOURCE DESTINATION
+    pi k3 api deploy SERVER PORTS YAML PYTHON
+    pi k3 api start SERVER PORTS YAML PYTHON
 ```
 
 ## 4. Enable Containers
