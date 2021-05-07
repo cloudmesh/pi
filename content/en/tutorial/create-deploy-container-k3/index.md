@@ -8,8 +8,6 @@ author: Anthony Orlowski([antorlowski@gmail.com](mailto:antorlowski@gmail. com))
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
-  params:
-    byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
 {{< imgproc image Fill "600x300" >}}

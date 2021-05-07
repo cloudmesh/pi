@@ -7,8 +7,6 @@ author: Anthony Orlowski, Richard Otten, Gregor von Laszewski ([laszewski@gmail.
 resources:
 - src: "**.{png,jpg}"
   title: "Image #:counter"
-  params:
-    byline: "Photo: Gregor von Laszewski / CC-BY-CA"
 ---
 
 {{< imgproc image Fill "600x300" >}}
