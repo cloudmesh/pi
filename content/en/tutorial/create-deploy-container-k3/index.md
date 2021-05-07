@@ -10,10 +10,7 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc image Fill "600x300" >}}
-TODO: Caption for the image
-{{< /imgproc >}}
-
+{{< imgproc dashboard Fill "600x300" >}}
 
 {{% pageinfo %}}
 
