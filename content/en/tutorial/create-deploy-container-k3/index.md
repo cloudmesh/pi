@@ -502,6 +502,7 @@ Opening dashboard...
 You can monitor your pods resources consumption on the Pods tab.
 
 {{< imgproc dashboard Fill "600x300" >}}
+{{< /imgproc >}}
 
 When ready, you can then disconnect from your dashboard with the following:
 
