@@ -10,7 +10,7 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc dashboard Fill "926x509" >}}
+{{< imgproc dashboard Fill "1111x610" >}}
 {{< /imgproc >}}
 
 {{% pageinfo %}}
@@ -501,7 +501,7 @@ Opening dashboard...
 
 You can monitor your pods resources consumption on the Pods tab.
 
-{{< imgproc dashboard Fill "600x300" >}}
+{{< imgproc dashboard Fill "1111x610" >}}
 {{< /imgproc >}}
 
 When ready, you can then disconnect from your dashboard with the following:
