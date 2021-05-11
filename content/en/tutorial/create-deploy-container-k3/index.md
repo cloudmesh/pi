@@ -10,7 +10,7 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc dashboard Fill "600x300" >}}
+{{< imgproc dashboard Fill "926x509" >}}
 {{< /imgproc >}}
 
 {{% pageinfo %}}
