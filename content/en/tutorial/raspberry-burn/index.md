@@ -1,5 +1,5 @@
 ---
-date: 2021-03-23
+date: 2021-03-31
 title: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 linkTitle: "Burning a set of pre-configured Raspberry OS cards for Raspberry Pis with Wifi Access"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
@@ -49,8 +49,9 @@ To facilitate this we developed a special command called  `cms burn`, which allo
 * Configuring a WiFi *bridge* for a manager Pi to act as a router between the worker PIs and the internet, and
 * Automating the configuration on first boot.
 
-We demonstrate the usage of the `cms burn` command by creating a cluster of 4 pis (1 manager, 3 workers) where we
-connect the manager to the internet via Wifi and configure the workers to access the internet through the manager via
+We demonstrate the usage of the `cms burn` command by creating a cluster of 
+5 pis (1 manager, 4 workers) where we connect the manager to the internet 
+via Wifi and configure the workers to access the internet through the manager via
 ethernet connection. This is useful for those with restricted internet access where devices must be registered
 by MAC Address or through browser login.
 
@@ -59,8 +60,9 @@ by MAC Address or through browser login.
 * Computer/Laptop with macOS or Linux. (Windows is not supported, but could be easily added with your help. Please contact us if you like to help)
 * `python3 --version` > 3.8
 * WiFi SSID and password
-* 4 Raspberry Pis and 4 SD Cards with power cables.  (However, you only need a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
-* 4 Ethernet Cables 
+* 5 Raspberry Pis and 5 SD Cards with power cables.  (However, you only need 
+  a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
+* 5 Ethernet Cables 
 * An unmanaged ethernet switch
 
 For parts for different pi cluster configurations, please see  lists please see our links on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
@@ -166,7 +168,11 @@ Record the path for the SDCard. In this case, it is `/dev/sdb`
 > Note we omit some output of `cms burn info` for clarity.
 > On MacOS, you may get an `ERROR: We could not find your USB reader in the list of known readers`. This can be ignored. Additionally, `cms burn info` will list the partitions as well. For example, if you see the path `/dev/disk2s1` and `/dev/disk2s2`, then your device is `/dev/disk2`.
 
-This command will autodetect the SSID, locale, and country of your laptop. We recommend not to use the password flags for the `wifipassword` and sudo password will be stored in the command history and logs. While not using them as parameters they will be asked for interactively. However,  the wifi setup will only be enabled on the manager (red).
+This command will autodetect the SSID, locale, and country of your laptop. 
+We recommend not to use the password flags for the `wifipassword` and sudo 
+password as they will be stored in the command history and logs. When not 
+supplied as command line arguments, they will be asked for interactively. 
+The wifi setup will only be enabled on the manager (red).
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb -f
@@ -269,13 +275,13 @@ host key create red,red0[1-4]
 We can subsequently gather these keys into a file.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-34" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-3]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 | host  | success | stdout |
@@ -290,7 +296,7 @@ host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 
 All nodes should now have `ssh` access to each other.
 
-## Installing `cms` on a Pi
+### 6.4 Installing `cms` on a Pi
 
 Some cloudmesh commands offered can be very useful on the Pis. You can install `cms` on all Pis in this fashion, but
 we will only demonstrate this for the manager pi.
@@ -299,7 +305,7 @@ For the production version pleas use
 
 ```bash
 (ENV3) you@yourlaptop $ ssh red
-pi@red $ curl -Ls curl -Ls http://cloudmesh.github.io/get/pi | sh -
+pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
 
 However, to get the newest development version please use
@@ -327,9 +333,9 @@ bridge  config    echo     inventory  py        sleep  sys
 burn    debug     gui      man        q         ssh    term
 ```
 
-## Appendix
+## 7. Appendix
 
-## 5. Writing our cluster configuration
+## 7.1 Writing our cluster configuration
 
 Cloudmesh has a simple system for managing cluster configurations as an inventory. 
 We do this management for you, but you can control it also from the command line. 
@@ -337,47 +343,71 @@ We can first add a manager with cluster subnet IP `10.1.1.1`. We also add the `b
 recognized by `cms` as the Wifi bridge service connecting devices on eth0 to the internet.
 We also set the timezone and locale here. You may want to change them as you wish.
 
-### 5.1 Default Cluster Creation
+### 7.2 Default Cluster Creation
 
-As we want to make the cluster very easy to create we are providing a default creation with the following command
+As we want to make the cluster very easy to create we demonstrated in 
+Section 5 how to create a default cluster directly from the burn command. 
+As a future feature, this behavior will also be implemented into the inventory 
+command. To make a default inventory named inventory-red.yaml:
 
 ```bash
-you@yourlaptop $ cms inventory add cluster red,red[01-02]
+you@yourlaptop $ cms inventory add cluster "red,red[01-04]"
 ```
 
 This command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or fewer nodes, the command will make appropriate updates.
 
 
-### 4.2 Custom Cluster Creation
+### 7.3 Custom Cluster Creation
 
 For a custom cluster, you can inspect the parameters of the inventory command.  Here are the commands to use for the previous setup while writing them out. You can modify the parameters to your liking:
 
 ```bash
-you@yourlaptop $ cms inventory add red --service=manager --ip=10.1.1.1 --tag=latest-lite --timezone="America/Indiana/Indianapolis" --locale="us"
-you@yourlaptop $ cms inventory set red services to "bridge" --listvalue
+you@yourlaptop $ cms inventory add red --service=manager --ip=10.1.1.1 --tag="latest-lite" --timezone="America/Indiana/Indianapolis" --locale="us" --inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory set red services to "bridge,wifi" --listvalue --inventory="inventory-red.yaml"
 ```
 
 We can then add the workers
 
 ```bash
-you@yourlaptop $ cms inventory add "red0[1-3]" --service=worker --ip="10.1.1.[2-4]" --router=10.1.1.1 --tag=latest-lite  --timezone="America/Indiana/Indianapolis" --locale="us"
-you@yourlaptop $ cms inventory set "red0[1-3]" dns to "8.8.8.8,8.8.4.4" --listvalue
+you@yourlaptop $ cms inventory add "red0[1-4]" --service=worker --ip="10.1.1.[2-5]" --router=10.1.1.1 --tag="latest-lite"  --timezone="America/Indiana/Indianapolis" --locale="us" --inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory set "red0[1-4]" dns to "8.8.8.8,8.8.4.4" --listvalue --inventory="inventory-red.yaml"
 ```
 > Note we are using Google's DNS here [8.8.8.8, 8.8.4.4]
 
 
-## 4.3 Inspect the Cluster Configuration
+### 7.4 Inspect the Cluster Configuration
 
 Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
 
 ```bash
-you@yourlaptop $ cms inventory list
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-| host      | tag         | cluster | service | services   | ip       | dns                    | router   | locale | timezone                     | owners | comment | description | keyfile           |
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-| manager   | latest-lite |         | manager | ['bridge'] | 10.1.1.1 |                        |          | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| worker001 | latest-lite |         | worker  |            | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| worker002 | latest-lite |         | worker  |            | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| worker003 | latest-lite |         | worker  |            | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-+-----------+-------------+---------+---------+------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
++-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+| host  | tag         | cluster | service | services           | ip       | dns                    | router   | locale | timezone                     | owners | comment | description | keyfile           |
++-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+| red   | latest-lite |         | manager | ['bridge', 'wifi'] | 10.1.1.1 |                        |          | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red01 | latest-lite |         | worker  |                    | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red02 | latest-lite |         | worker  |                    | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red03 | latest-lite |         | worker  |                    | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red04 | latest-lite |         | worker  |                    | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us     | America/Indiana/Indianapolis |        |         |             | ~/.ssh/id_rsa.pub |
++-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
+```
+
+### 7.5 Burning a Custom Cluster
+
+You can now specify your inventory as you burn your cluster or specific 
+machines from the cluster with the burn command. All hosts data found in the 
+inventory will be written to the machines, regardless if they are in the 
+burn command or not.
+
+Burn the whole cluster.
+
+```bash
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb 
+--inventory="inventory-red.yaml"
+```
+
+Burn a specific machine.
+
+```bash
+(ENV3) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
 ```

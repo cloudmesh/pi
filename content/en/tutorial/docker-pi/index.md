@@ -42,6 +42,8 @@ applications from your infrastructure so you can deliver software quickly. With 
 
 ![Figure 1](https://raw.githubusercontent.com/cloudmesh/pi/main/content/en/tutorial/docker-pi/Figure1.png)
 
+Figure 1: put the caption here [^training].
+
 ![Figure 2](https://raw.githubusercontent.com/cloudmesh/pi/main/content/en/tutorial/docker-pi/Figure2.png)
 ## Docker architecture
 
@@ -135,7 +137,8 @@ Tools to manage, scale, and maintain containerized applications are called orche
 
 ## Reference
 
-[docker]: Docker website, <https://docs.docker.com/get-started/overview/>
-[training]: Online Level-up training, <https://www.level-up.one/courses/>
+[^docker]: Docker website, <https://docs.docker.com/get-started/overview/>
+
+[^training]: Online Level-up training, <https://www.level-up.one/courses/>
 
 
