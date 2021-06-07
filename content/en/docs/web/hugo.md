@@ -62,6 +62,13 @@ For this reason the following hugo themes may be useful:
 
   * pro colapsible menu menu, next button on pages
 
+## Hugo Clarity 
+
+A nice Blog theme
+
+* hugo-clarity: <https://themes.gohugo.io/hugo-clarity/>
+
+  <img src="https://d33wubrfki0l68.cloudfront.net/a631041fe27cfae085eb26c1ccf61d4f2e9e18af/fca93/hugo-clarity/screenshot-hugo-clarity_hu2cd54450b592ee9d02acbc9f938e02d8_124394_750x500_fill_catmullrom_top_2.png" width="50%">
 
 ## Dynamic Web Site (non documentation focused)
 
