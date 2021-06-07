@@ -1,7 +1,7 @@
 ---
 title: "Gregor von Laszewski"
 description: >
-  Bio of Gregor von Laszewski.
+  Gregor von Laszewski is an Assistant Director in the Digital Science Center (DSC) in the School of Informatics and Computing at Indiana University. He holds a position as Adjunct Professor in the Intelligent Systems Engineering Department.
 ---
 
 Gregor von Laszewski is an Assistant Director in the Digital Science Center (DSC) in the School of Informatics and Computing at Indiana University. He holds a position as Adjunct Professor in the Intelligent Systems Engineering Department.
