@@ -150,6 +150,7 @@ Please use a unique and strong passphrase. We will use this default key to acces
 
 We are now ready to burn our cluster. Start by making sure you have the latest desired images to burn:  
 ```bash
+(ENV3) you@yourlaptop $ cms burn image versions --refresh  
 (ENV3) you@yourlaptop $ cms burn image get latest-lite
 (ENV3) you@yourlaptop $ cms burn image get latest-full
 ```
