@@ -198,7 +198,7 @@ Record the disk for the SDCard. In this case, it is `4`.
 On windows it will not autodetect the SSID, wifi password,  locale, and country of your laptop. Hence you have to specify it as a parameter
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --disk=4 --new --locale=en_US.UTF-8 --timezone="America/Indiana/Indianapolis" --ssid=NETWORK --wifipasswor=mypassword
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --disk=4 --new --locale=en_US.UTF-8 --timezone="America/Indiana/Indianapolis" --ssid=NETWORK --wifipassword=mypassword
 ```
 
 ```
