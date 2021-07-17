@@ -160,9 +160,11 @@ Please use a unique and strong passphrase. We will use this default key to acces
 
 ## 5. Burning the Cluster
 
-We are now ready to burn our cluster. Start by making sure you have the latest desired images to burn: 
-```cms burn image get latest-lite```
-```cms burn image get latest-full```
+We are now ready to burn our cluster. Start by making sure you have the latest desired images to burn:  
+```bash
+(ENV3) you@yourlaptop $ cms burn image get latest-lite
+(ENV3) you@yourlaptop $ cms burn image get latest-lite
+```
 
 Next, plug in your first SD Card into your card writer. Check your writer's path with the following:
 
