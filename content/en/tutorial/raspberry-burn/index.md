@@ -88,7 +88,7 @@ On your Linux/Mac, open a new terminal.
 you@yourlaptop $ python3 -m venv ~/ENV3
 ```
 
-The above will create a new python virtual environment. Activate it with the following.
+This will create a new python virtual environment. Activate it with the following.
 
 ```bash
 you@yourlaptop $ source ~/ENV3/bin/activate
