@@ -111,7 +111,7 @@ First, we update pip and verify your `python` and `pip` are correct
 
 ### 4.1 Install from Pip for Regular Users
 
-**The pip install for Windows is not yet suported!!. So please use the Install from source insatlation documentation. Once we oficially release this code the install from pip can be used.**
+**The pip install for Windows is not yet suported!!. So please use the Install from source installation documentation. Once we officially release this code the install from pip can be used.**
 
 ```bash
 (ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster
@@ -119,7 +119,7 @@ First, we update pip and verify your `python` and `pip` are correct
 
 ### 4.2 Install from Source (for Developers)
 
-If you are a developer that likes to add new features we recommend our source set up. We start after you have created the virtual env with the install of our convenient `cloudmesh-installer` and creating a directory called `cm` in which we download the sources
+If you are a developer that likes to add new features we recommend our source set up. We start after you have created the virtualenv with the install of our convenient `cloudmesh-installer` and creation of the `cm` directory in which we download the sources
 
 ```bash
 (ENV3) you@yourlaptop $ mkdir ~/cm
@@ -128,7 +128,7 @@ If you are a developer that likes to add new features we recommend our source se
 (ENV3) you@yourlaptop $ cloudmesh-installer get pi
 ```
 
-This directory will now contain all source code. It will also have the needed installed `cms` command.
+This directory will now contain all source code. It will also have installed the needed `cms` command.
 
 As we are still developping the windows verison, we need to switch to a specific branch
 
@@ -151,7 +151,7 @@ You will see a list of subcommands that are part of the cms if your installation
 ```
 burn
 ```
-
+in the list.
 
 ### 4.3 Create an SSH key
 
@@ -175,7 +175,7 @@ These two commands will start the ssh-agent and add your key to it so it is cach
 
 ## 5. Burning the Cluster
 
-We are now ready to burn our cluster. Start by making sure you have the latest desired images to burn:  
+We are now ready to burn our cluster. Start by making sure you have the latest images to burn:  
 ```bash
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
 (ENV3) you@yourlaptop $ cms burn image get latest-lite
@@ -204,13 +204,13 @@ Next, plug in your first SD Card into your card writer. Check your writer's path
 WARNING: We could not find your USB reader in the list of known readers
 ```
 
-This command will take a minute to complete. The warning occurs as your reader may be too new and we do not have it in our database of recognized redear. As long as you see `Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
+This command will take a minute to complete. The warning occurs as your reader may be too new and we do not have it in our database of recognized readers. As long as you see `Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
 
 Record the disk for the SDCard. In this case, it is `4`.
 
 > Note we omit some output of `cms burn info` for clarity.
 
-On windows it will not autodetect the SSID, wifi password,  locale, and country of your laptop. Hence you have to specify it as a parameter. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis")
+On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis")
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
