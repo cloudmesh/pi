@@ -20,3 +20,4 @@ v12.16.3
 hugo version  
 Hugo Static Site Generator v0.79.0/extended darwin/amd64
 ```
+ 

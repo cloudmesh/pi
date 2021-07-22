@@ -533,3 +533,44 @@ $ cms burn image versions --refresh
 $ cms burn image get latest-lite
 $ cms burn image get latest-fll
 ```
+
+### 7.7 Related tutorials
+
+- [ ] TODO find the links, point to the medium.com once first.
+
+We provide also a list of related tutorials for other operating systems
+
+This includes
+
+Cluster with RaspberryOS on it:
+
+* [Easy Raspberry PI Cluster Setup with Cloudmesh from MacOS](https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-from-macos-e160ac848bf)
+* [Burning A Cluster with RaspberryOS on it from a Raspberry Pi]
+* [TODO: Burning A Cluster with RaspberryOS on it from macOS](https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-sdcard-burner-a2035dfea22)
+* [TODO: Burning A Cluster with RaspberryOS on it from Ubuntu]()
+* [TODO: Burning A Cluster with RaspberryOS on it from Windows 10]()
+
+Cluster with Ubuntu on it:
+
+* [TODO: Burning A cluster with Ubuntu on it from macOS]()
+* [TODO: Burning A cluster with Ubuntu on it from Ubuntu]()
+* Please note that burning the clustere from Windows 10 with
+  Ubuntu on the nodes has not yet been completed.
+  If you like to help, contact us.
+
+We have the following totorials also on other web pages. Here is a list
+
+
+Hackaday:
+
+* [Preconfigured SDCards for Raspberry Pi Clusters](https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters)
+* [https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs](https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs)
+
+Piplanet:
+
+Many tutorials are available at
+
+* [piplanet.org/tutorial](https://cloudmesh.github.io/pi/tutorial/)
+
+
+
