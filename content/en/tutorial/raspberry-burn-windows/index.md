@@ -174,7 +174,14 @@ These two commands will start the ssh-agent and add your key to it so it is cach
 
 ## 5. Burning the Cluster
 
-We are now ready to burn our cluster. Start by plugging in your first SD Card into your card writer. Check your writer's path with the following:
+We are now ready to burn our cluster. Start by making sure you have the latest desired images to burn:  
+```bash
+(ENV3) you@yourlaptop $ cms burn image versions --refresh
+(ENV3) you@yourlaptop $ cms burn image get latest-lite
+(ENV3) you@yourlaptop $ cms burn image get latest-full
+```
+
+Next, plug in your first SD Card into your card writer. Check your writer's path with the following:
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn info
@@ -202,10 +209,10 @@ Record the disk for the SDCard. In this case, it is `4`.
 
 > Note we omit some output of `cms burn info` for clarity.
 
-On windows it will not autodetect the SSID, wifi password,  locale, and country of your laptop. Hence you have to specify it as a parameter
+On windows it will not autodetect the SSID, wifi password,  locale, and country of your laptop. Hence you have to specify it as a parameter. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis")
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --disk=4 --new --locale=en_US.UTF-8 --timezone="America/Indiana/Indianapolis" --ssid=NETWORK --wifipasswor=mypassword
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mypassword
 ```
 
 ```
@@ -477,7 +484,22 @@ Burn a specific machine.
 (ENV3) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
 ```
 
-### 7.6 Get the OS Image
+### 7.6 Managing known_hosts
+
+In case you reburn a SDCard and use it in your cluster you will get a warning once you try to ssh into the machine. To remove the error simply execute the command
+
+```bash
+$ ssh-keygen -R HOSTNAME
+```
+
+where hostname is either the hostname or the ip address of your machine. that is registered in known hosts.
+To see the list, please use 
+
+```bash
+$cat ~/.ssh/known_hosts
+```
+
+### 7.7 Get the OS Image
 
 ```bash
 $ cms burn image versions --refresh
