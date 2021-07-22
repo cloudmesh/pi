@@ -1,6 +1,6 @@
 ---
 date: 2021-07-31
-title: "NOT WORKING DRAFT: Burning a pre-configured Raspberry Pi Cluster on Windows 10"
+title: "NOT WORKING DRAFT: Burning a pre-configured RaspberryOS Cluster on Windows 10"
 linkTitle: "Pi Cluster from WIndows"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
@@ -14,7 +14,7 @@ resources:
 
 {{% pageinfo %}}
 
-In this tutorial, we explain how to easily set up a preconfigured cluster of Pis using RaspberryOS while only burning 
+In this tutorial, we explain how to easily set up a preconfigured cluster of Pis using RaspberryOS while burning 
 SD Cards from Windows 10. The cluster is ready to boot after all cards have been burned. No other configuration is needed.
 
 **Learning Objectives**
@@ -57,11 +57,12 @@ by MAC Address or through browser login.
 
 ## 2. Pre-requisites
 
-* Computer/Laptop with macOS or Linux. (Windows is not supported, but could be easily added with your help. Please contact us if you like to help)
-* `python3 --version` > 3.8
+* Computer/Laptop with  Windows10 
+* `python3 --version` > 3.9
 * WiFi SSID and password
 * 5 Raspberry Pis and 5 SD Cards with power cables.  (However, you only need 
-  a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis)
+  a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis.
+  You can adapt our tutorial accordingly)
 * 5 Ethernet Cables 
 * An unmanaged ethernet switch
 
@@ -78,11 +79,11 @@ The following image shows our cluster configuration:
 
 ## 4. Installing cloudmesh and Setup
 
-It is best practice to create virtual environments when you do not envision needing a python package consistently. 
+It is best practice to create virtual environments for python.
 We also want to place all source code in a common directory called `cm`. 
 Let us set up this create one for this tutorial.
 
-In a browser, go to python.org and install python from the download button you see on the front page. At the time of writing this installs the version 3.9.6. Also make sure you have gitbash installed which you can download from <https://git-scm.com/downloads>
+In a browser, go to python.org and install python from the download button you see on the front page. At the time of writing this installs the version 3.9.6 (or whatever  bersion is the newest). Also make sure you have gitbash installed which you can download from <https://git-scm.com/downloads>
 Start a gitbash and create a virtual environment with
 
 
@@ -109,7 +110,7 @@ First, we update pip and verify your `python` and `pip` are correct
 
 ### 4.1 Install from Pip for Regular Users
 
-**The pip install for Windows is not yet suported!!**
+**The pip install for Windows is not yet suported!!. So please use the Install from source insatlation documentation. Once we oficially release this code the install from pip can be used.**
 
 ```bash
 (ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster
@@ -120,18 +121,17 @@ First, we update pip and verify your `python` and `pip` are correct
 If you are a developer that likes to add new features we recommend our source set up. We start after you have created the virtual env with the install of our convenient `cloudmesh-installer` and creating a directory called `cm` in which we download the sources
 
 ```bash
-(ENV3) you@yourlaptop $ pip install cloudmesh-installer
 (ENV3) you@yourlaptop $ mkdir ~/cm
 (ENV3) you@yourlaptop $ cd ~/cm
+(ENV3) you@yourlaptop $ pip install cloudmesh-installer
 (ENV3) you@yourlaptop $ cloudmesh-installer get pi
 ```
 
 This directory will now contain all source code. It will also have the needed installed `cms` command.
 
-As we are still developping tthe windows verison, we need to switch to a specific branch
+As we are still developping the windows verison, we need to switch to a specific branch
 
 ```
-(ENV3) you@yourlaptop $ cloudmesh-installer get pi
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
@@ -145,18 +145,32 @@ It is very important to initialize the cms command and test if it is properly in
 (ENV3) you@yourlaptop $ cms help
 ```
 
-You will see a list of subcommands that are part of the cms if your installation succeeded.
+You will see a list of subcommands that are part of the cms if your installation succeeded. Check if you can see the command
+
+```
+burn
+```
 
 
 ### 4.3 Create an SSH key
 
-It is important that we can easily access the manager and worker nodes from the laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
+We use ssh to easily login to the  manager and worker nodes from the laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
 
 ```bash
 (ENV3) you@yourlaptop $ ssh-keygen
 ```
 
 Please use a unique and strong passphrase. We will use this default key to access our cluster after burning.
+
+In case you do not always want to type in your passphrase, you can use ssh-agent in your gitbash window as follows:
+
+```bash
+(ENV3) you@yourlaptop $ eval `ssh-agent`
+(ENV3) you@yourlaptop $ eval `ssh-add`
+
+```
+
+These two commands will start the ssh-agent and add your key to it so it is cached for future use within the same gitbash terminal
 
 ## 5. Burning the Cluster
 
@@ -182,7 +196,7 @@ We are now ready to burn our cluster. Start by plugging in your first SD Card in
 WARNING: We could not find your USB reader in the list of known readers
 ```
 
-THis command will take a minute to complete.
+This command will take a minute to complete. The warning occurs as your reader may be too new and we do not have it in our database of recognized redear. As long as you see `Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
 
 Record the disk for the SDCard. In this case, it is `4`.
 
@@ -226,7 +240,7 @@ INFO: No inventory found or forced rebuild. Buidling inventory with defaults.
 +-------+-------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
 ```
 
-> Note the `--new` flag instructs `cms burn` to build a new 
+> Note the `--new` flag instructs `cms burn` to build a new (the -f flag does the same but we have not yet tested it).
 > inventory and overwrites it if it already exists. To see the contents of this file you
 > can use the command
 >
@@ -461,4 +475,39 @@ Burn a specific machine.
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
+```
+
+### 7.6 Get the OS Image
+
+```bash
+$ cms burn image versions --refresh
+
++-----------------------+------------+-------------+--------+-----------------------------------------+
+| Tag                   | Date       | OS          | Type   | Version                                 |
+|-----------------------+------------+-------------+--------+-----------------------------------------|
+| lite-2020-05-28       | 2020-05-28 | raspberryos | lite   | raspios_lite_armhf-2020-05-28           |
+| lite-2020-08-24       | 2020-08-24 | raspberryos | lite   | raspios_lite_armhf-2020-08-24           |
+| lite-2020-12-04       | 2020-12-04 | raspberryos | lite   | raspios_lite_armhf-2020-12-04           |
+| lite-2021-01-12       | 2021-01-12 | raspberryos | lite   | raspios_lite_armhf-2021-01-12           |
+| lite-2021-03-25       | 2021-03-25 | raspberryos | lite   | raspios_lite_armhf-2021-03-25           |
+| lite-2021-05-28       | 2021-05-28 | raspberryos | lite   | raspios_lite_armhf-2021-05-28           |
+| latest-lite           | 2021-05-28 | raspberryos | lite   | raspios_lite_armhf-2021-05-28           |
+| full-2020-05-28       | 2020-05-28 | raspberryos | full   | raspios_full_armhf-2020-05-28           |
+| full-2020-08-24       | 2020-08-24 | raspberryos | full   | raspios_full_armhf-2020-08-24           |
+| full-2020-12-04       | 2020-12-04 | raspberryos | full   | raspios_full_armhf-2020-12-04           |
+| full-2021-01-12       | 2021-01-12 | raspberryos | full   | raspios_full_armhf-2021-01-12           |
+| full-2021-03-25       | 2021-03-25 | raspberryos | full   | raspios_full_armhf-2021-03-25           |
+| full-2021-05-28       | 2021-05-28 | raspberryos | full   | raspios_full_armhf-2021-05-28           |
+| latest-full           | 2021-05-28 | raspberryos | full   | raspios_full_armhf-2021-05-28           |
+| ubuntu-20.04.2-64-bit | 2021-02-01 | ubuntu      | ubuntu | 20.04.2&architecture=server-arm64+raspi |
+| ubuntu-20.04.2-32-bit | 2021-02-01 | ubuntu      | ubuntu | 20.04.2&architecture=server-armhf+raspi |
+| ubuntu-20.10-64-bit   | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=server-arm64+raspi   |
+| ubuntu-20.10-32-bit   | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=server-armhf+raspi   |
+| ubuntu-desktop        | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=desktop-arm64+raspi  |
++-----------------------+------------+-------------+--------+-----------------------------------------+
+```
+
+```bash
+$ cms burn image get latest-lite
+$ cms burn image get latest-fll
 ```
