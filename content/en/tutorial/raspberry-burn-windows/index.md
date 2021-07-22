@@ -182,10 +182,16 @@ We are now ready to burn our cluster. Start by making sure you have the latest i
 (ENV3) you@yourlaptop $ cms burn image get latest-full
 ```
 
-Next, plug in your first SD Card into your card writer. Check your writer's path with the following:
+Next, plug in your first SD Card into your card writer.
+Check your writer's path with the following while using gitbash as  administrative user.
+
+
+> *Note: To run gitbash as administrative user, type in the Windows search form and click on Run as administrator). Qw will ougment all commands with the keyword (admin) that need to be run in administrative mode*
+
+
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn info
+(ENV3) (admin) you@yourlaptop $ cms burn info
 
 # ----------------------------------------------------------------------
 # This is a Windows Computer
@@ -213,7 +219,7 @@ Record the disk for the SDCard. In this case, it is `4`.
 On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis")
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
 ```
 
 ```
@@ -475,14 +481,14 @@ burn command or not.
 Burn the whole cluster.
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb 
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb 
 --inventory="inventory-red.yaml"
 ```
 
 Burn a specific machine.
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
 ```
 
 ### 7.6 Managing known_hosts
@@ -490,20 +496,20 @@ Burn a specific machine.
 In case you reburn a SDCard and use it in your cluster you will get a warning once you try to ssh into the machine. To remove the error simply execute the command
 
 ```bash
-$ ssh-keygen -R HOSTNAME
+you@yourlaptop $ ssh-keygen -R HOSTNAME
 ```
 
 where hostname is either the hostname or the ip address of your machine. that is registered in known hosts.
 To see the list, please use 
 
 ```bash
-$cat ~/.ssh/known_hosts
+you@yourlaptop $ cat ~/.ssh/known_hosts
 ```
 
 ### 7.7 Get the OS Image
 
 ```bash
-$ cms burn image versions --refresh
+you@yourlaptop  $ cms burn image versions --refresh
 
 +-----------------------+------------+-------------+--------+-----------------------------------------+
 | Tag                   | Date       | OS          | Type   | Version                                 |
@@ -531,8 +537,8 @@ $ cms burn image versions --refresh
 ```
 
 ```bash
-$ cms burn image get latest-lite
-$ cms burn image get latest-fll
+you@yourlaptop $ cms burn image get latest-lite
+you@yourlaptop $ cms burn image get latest-fll
 ```
 
 ### 7.7 Related tutorials
