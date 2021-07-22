@@ -83,7 +83,7 @@ At the time of writing this tutorial uses Python 3.9.6. To install, go to python
 
 It is best practice to create virtual environments for python.
 We also want to place all source code in a common directory called `cm`. 
-Let us set up this create one for this tutorial.
+Let us set up this and create one for this tutorial.
 
 In your gitbash window create a virtual environment with
 
