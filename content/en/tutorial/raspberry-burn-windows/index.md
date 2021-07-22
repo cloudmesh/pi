@@ -469,3 +469,21 @@ Burn a specific machine.
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
 ```
+
+## Appendix
+
+### Managing known_hosts
+
+In case you reburn a SDCard and use it in your cluster you will get a warning once you try to ssh into the machine. To remove the error simply execute the command
+
+```bash
+$ ssh-keygen -R HOSTNAME
+```
+
+where hostname is either the hostname or the ip address of your machine. that is registered in known hosts.
+To see the list, please use 
+
+```bash
+$cat ~/.ssh/known_hosts
+```
+
