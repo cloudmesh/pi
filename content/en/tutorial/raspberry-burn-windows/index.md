@@ -84,17 +84,17 @@ We also want to place all source code in a common directory called `cm`.
 Let us set up this create one for this tutorial.
 
 In a browser, go to python.org and install python from the download button you see on the front page. At the time of writing this installs the version 3.9.6 (or whatever  bersion is the newest). Also make sure you have gitbash installed which you can download from <https://git-scm.com/downloads>
-Start a gitbash and create a virtual environment with
+Start a gitbash administrator window (right click) and create a virtual environment with
 
 
 ```bash
-you@yourlaptop $ py -m venv ~/ENV3
+you@yourlaptop $ python -m venv ~/ENV3
 ```
 
 This will create a new python virtual environment. Activate it with the following command.
 
 ```bash
-you@yourlaptop $ source ~/ENV3/bin/activate
+you@yourlaptop $ source ~/ENV3/Scripts/activate
 ```
 
 First, we update pip and verify your `python` and `pip` are correct
@@ -102,10 +102,10 @@ First, we update pip and verify your `python` and `pip` are correct
 ```bash
 (ENV3) you@yourlaptop $ pip install --upgrade pip
 (ENV3) you@yourlaptop $ which python
-~/ENV3/bin/python
+~/ENV3/Scripts/python
 
 (ENV3) you@yourlaptop $ which pip
-~/ENV3/bin/pip
+~/ENV3/Scripts/pip
 ```
 
 ### 4.1 Install from Pip for Regular Users
@@ -212,7 +212,7 @@ Record the disk for the SDCard. In this case, it is `4`.
 On windows it will not autodetect the SSID, wifi password,  locale, and country of your laptop. Hence you have to specify it as a parameter. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis")
 
 ```bash
-(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mypassword
+(ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
 ```
 
 ```
