@@ -79,12 +79,13 @@ The following image shows our cluster configuration:
 
 ## 4. Installing cloudmesh and Setup
 
+At the time of writing this tutorial uses Python 3.9.6. To install, go to python.org and click the download button you see on the front page and install this or a newer version. We additionally use gitbash for our commands so make sure you have gitbash installed. You can download from <https://git-scm.com/downloads>. Our ```burn``` commands will require administrator privileges, so launch an administrator gitbash window by right-clicking on the program. 
+
 It is best practice to create virtual environments for python.
 We also want to place all source code in a common directory called `cm`. 
 Let us set up this create one for this tutorial.
 
-In a browser, go to python.org and install python from the download button you see on the front page. At the time of writing this installs the version 3.9.6 (or whatever  bersion is the newest). Also make sure you have gitbash installed which you can download from <https://git-scm.com/downloads>
-Start a gitbash administrator window (right click) and create a virtual environment with
+In your gitbash window create a virtual environment with
 
 
 ```bash
