@@ -3,7 +3,7 @@ date: 2021-07-20
 title: "NOT WORKING: DRAFT: Burning a pre-configured RaspberryOS Cluster on Windows 10"
 linkTitle: "DRAFT: Pi Cluster from Windows (Not approved yet)"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
-author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
+author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Venkata (DK) Kolli
 draft: False
 resources:
 - src: "**.{png,jpg}"
