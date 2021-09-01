@@ -143,7 +143,7 @@ pi@red03 slots=4
 Now we can run the same helloworld example while using all available processors.
 
 ```
-(ENV3) pi@red01:~ $ mpirun -np 12 -machinefile ./machinefile python3 -m mpi4py.bench helloworld
+(ENV3) pi@red:~ $ mpirun -np 12 -machinefile ./machinefile python3 -m mpi4py.bench helloworld
 Hello, World! I am process  0 of 16 on red.
 Hello, World! I am process  1 of 16 on red.
 Hello, World! I am process  2 of 16 on red.
