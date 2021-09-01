@@ -55,7 +55,7 @@ Hello, World! I am process 2 of 3 on red03.
 pi@red01 slots=4
 pi@red02 slots=4
 pi@red03 slots=4
-</code></pre><p>Now we can run the same helloworld example while using all available processors.</p><pre><code>(ENV3) pi@red01:~ $ mpirun -np 12 -machinefile ./machinefile python3 -m mpi4py.bench helloworld
+</code></pre><p>Now we can run the same helloworld example while using all available processors.</p><pre><code>(ENV3) pi@red:~ $ mpirun -np 12 -machinefile ./machinefile python3 -m mpi4py.bench helloworld
 Hello, World! I am process  0 of 16 on red.
 Hello, World! I am process  1 of 16 on red.
 Hello, World! I am process  2 of 16 on red.
