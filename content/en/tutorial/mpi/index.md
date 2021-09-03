@@ -65,7 +65,7 @@ Required python packages are installed, followed by MPI and mpi4py, and then the
 A return code of 0 indicates command success, any other indicates a failure.
 
 ```
-(ENV3) you@yourlaptop:~ $ cms mpi deploy raspberry "red,red0[1-3]"
+(ENV3) you@your-laptop:~ $ cms mpi deploy raspberry "red,red0[1-3]"
 mpi deploy raspberry red,red0[1-3]
 
 # ----------------------------------------------------------------------
@@ -74,6 +74,7 @@ mpi deploy raspberry red,red0[1-3]
 
 INFO: Installing essential python packages
 INFO: sudo apt-get install python3-venv python3-wheel python3-dev build-essential python3-pip -y; pip3 install pip -U; python3 -m venv ~/ENV3
+INFO: This may take several minutes
 +-------+------------+--------+
 | host  | returncode | stderr |
 +-------+------------+--------+
@@ -84,6 +85,7 @@ INFO: sudo apt-get install python3-venv python3-wheel python3-dev build-essentia
 +-------+------------+--------+
 INFO: Installing mpi on hosts
 INFO: sudo apt-get install openmpi-bin -y; source ~/ENV3/bin/activate; pip3 install mpi4py
+INFO: This may take several minutes
 +-------+------------+--------+
 | host  | returncode | stderr |
 +-------+------------+--------+
@@ -102,7 +104,6 @@ INFO: mpicc --showme:version
 | red02 | 0          |        | mpicc: Open MPI 3.1.3 (Language: C) |
 | red03 | 0          |        | mpicc: Open MPI 3.1.3 (Language: C) |
 +-------+------------+--------+-------------------------------------+
-
 ```
 
 ## 5. Tryout MPI on a Single Host
@@ -119,10 +120,14 @@ Hello, World! I am process 3 of 4 on red.
 
 ## 6. Tryout MPI on a Cluster
 
+>NOTE: This example does not currently work with mpich installed on ubuntu, but it does with openmpi.
+
 To test MPI functionality on a cluster you can run the following command.
 
+> NOTE: This command may silently fail if one of the hosts is not in the ~/.ssh/known_hosts file of the executing machine. To ensure it is present, connect to it via ssh first, `ssh red01`, and approve adding the host key to the known_host file.
+
 ```
-(ENV3) pi@red:~ $ mpiexec -n 4 -host red,red01,red02,red03 python3 -m mpi4py.bench helloworld
+(ENV3) pi@red:~ $ mpiexec -n 4 -host red,red01,red02,red03 ~/ENV3/bin/python -m mpi4py.bench helloworld
 Hello, World! I am process 0 of 3 on red.
 Hello, World! I am process 1 of 3 on red01.
 Hello, World! I am process 2 of 3 on red02.
@@ -143,7 +148,7 @@ pi@red03 slots=4
 Now we can run the same helloworld example while using all available processors.
 
 ```
-(ENV3) pi@red:~ $ mpirun -np 12 -machinefile ./machinefile python3 -m mpi4py.bench helloworld
+(ENV3) pi@red:~ $ mpirun -np 16 -machinefile ./machinefile ~/ENV3/bin/python -m mpi4py.bench helloworld
 Hello, World! I am process  0 of 16 on red.
 Hello, World! I am process  1 of 16 on red.
 Hello, World! I am process  2 of 16 on red.
@@ -167,15 +172,15 @@ Hello, World! I am process 15 of 16 on red03.
 You can unistall MPI in the following manner.
 
 ```
-(ENV3) you@yourlaptop:~ $ cms mpi uninstall ubuntu "red,red0[1-3]"
-mpi uninstall ubuntu red,red0[1-3]
+(ENV3) you@yourlaptop:~ $ cms mpi uninstall raspberry "red,red0[1-3]"
+mpi uninstall raspberry red,red0[1-3]
 
 # ----------------------------------------------------------------------
 # Uninstall MPI on hosts
 # ----------------------------------------------------------------------
 
 INFO: Uninstalling mpi on hosts
-INFO: sudo apt-get --purge remove mpich-doc mpich -y; source ~/ENV3/bin/activate; pip3 uninstall mpi4py -y
+INFO: sudo apt-get --purge remove openmpi-bin -y; source ~/ENV3/bin/activate; pip3 uninstall mpi4py -y"
 +-------+------------+--------+
 | host  | returncode | stderr |
 +-------+------------+--------+
