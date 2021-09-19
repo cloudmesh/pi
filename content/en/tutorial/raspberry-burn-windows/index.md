@@ -221,7 +221,7 @@ On windows it will not autodetect the SSID, wifi password,  locale, or country o
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
 ```
-If the network name has a space in it, please quote: ```"--ssid=Net Work"``` or ```--ssid=Net\ Work"``` . We recommend not to use any spaces in network names. 
+If the network name has a space in it, please use two sets of quotes: ```"--ssid='Net Work'"``` or escape ```--ssid=Net\ Work"``` . We recommend not to use any spaces in network names. 
 
 ```
 # ----------------------------------------------------------------------
