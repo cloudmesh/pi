@@ -355,7 +355,7 @@ host key create red,red0[1-4]
 We can subsequently gather these keys into a file.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
