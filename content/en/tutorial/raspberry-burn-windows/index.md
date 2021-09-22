@@ -130,10 +130,16 @@ If you are a developer that likes to add new features we recommend our source se
 
 This directory will now contain all source code. It will also have installed the needed `cms` command.
 
-As we are still developping the windows verison, we need to switch to a specific branch
+As we are still developing the windows verison, we need to switch to a specific branch
 
 ```
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
+(ENV3) you@yourlaptop $ git checkout windows
+(ENV3) you@yourlaptop $ pip install -e .
+```
+
+```
+(ENV3) you@yourlaptop $ cd cloudmesh-inventory
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
 ```
