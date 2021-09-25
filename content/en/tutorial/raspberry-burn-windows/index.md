@@ -130,7 +130,7 @@ If you are a developer that likes to add new features we recommend our source se
 
 This directory will now contain all source code. It will also have installed the needed `cms` command.
 
-As we are still developing the windows verison, we need to switch to a specific branch
+As we are still developing the windows verison, we need to switch to a specific branch. In both of the blocks below, a ```git fetch``` immediately before the ```git checkout windows``` command may be necessary if the windows branch can't be found.
 
 ```
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
@@ -367,7 +367,7 @@ We can subsequently gather these keys into a file.
 And then Scatter them to the `authorized_keys` of our nodes.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
 host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 | host  | success | stdout |
