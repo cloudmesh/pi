@@ -50,10 +50,10 @@ The tutorial supports both Raspberry OS and Ubuntu.
 Below are the MPI commands available from CMS
 
 ```
- mpi deploy raspberry HOSTS
- mpi deploy ubuntu HOSTS
- mpi uninstall raspberry HOSTS
- mpi uninstall ubuntu HOSTS
+$ cms mpi deploy raspberry HOSTS
+$ cms mpi deploy ubuntu HOSTS
+$ cms mpi uninstall raspberry HOSTS
+$ cms mpi uninstall ubuntu HOSTS
 ```
 
 ## 4. Install MPI
@@ -191,6 +191,12 @@ INFO: sudo apt-get --purge remove openmpi-bin -y; source ~/ENV3/bin/activate; pi
 +-------+------------+--------+
 ```
 
-## 8. Learn More
+## 8. Manaulpage
+
+```
+Paste output from cms mpi help
+```
+
+## 9. References
 
 To learn more about MPI4PY, including examples of communication mechanisms, please see this [report](https://cloudmesh.github.io/cloudmesh-mpi/report-mpi.pdf).
