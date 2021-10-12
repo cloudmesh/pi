@@ -197,7 +197,9 @@ INFO: sudo apt-get --purge remove openmpi-bin -y; source ~/ENV3/bin/activate; pi
 +-------+------------+--------+
 ```
 
-## 8. Manaulpage
+## 8. Manual Page
+
+UNDER CONSTRUCTION 
 
 ```
 Paste output from cms mpi help
