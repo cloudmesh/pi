@@ -3,7 +3,7 @@ date: 2021-09-01
 title: "Deploy MPI for Python (mpi4py) on your Pi Cluster"
 linkTitle: "Deploy MPI for Python (mpi4py) on your Pi Cluster"
 description: "Take advantage of parallel communication on your cluster"
-author: Anthony Orlowski ([antorlowski@gmail.com](mailto:antorlowski@gmail.com))
+author: Anthony Orlowski ([antorlowski@gmail.com](mailto:antorlowski@gmail.com)), Gregor von Laszewski (laszewski@gmail.com)
 draft: False
 resources:
 - src: "**.{png,jpg}"
@@ -16,12 +16,13 @@ resources:
 
 {{% pageinfo %}}
 
-In this tutorial we will deploy and demonstrate MPI for use across a cluster of Raspberry Pis. The Pis can run Ubuntu or Raspberry OS.
+In this tutorial we will deploy and demonstrate MPI for use across a cluster of Raspberry Pis. The Pis can run Ubuntu or Raspberry OS. This tutorial is part ofa larger effort to use Python for MPI programming.
 
 **Learning Objectives**
 
-* Learn how to install and try MPI on a cluster of raspberry pis
-  
+* Learn how to install and try MPI on a cluster of Raspberry PIs
+* Fimd more resources on how to use MPI with Python
+
 **Topics covered**
 
 {{% table_of_contents %}}
@@ -35,7 +36,7 @@ Modern AI and Deep Learning algorithms require immense processing power to churn
 
 ## 2. Prerequisites 
 
-This tutorial assumes a cluster burned using one of the following methods:
+This tutorial assumes a cluster burned using the convenient cloudmesh burn program. It has the advantage that the cluster is preconfigured for you at burn time of the SD Cards. We assume that you use one of the following methods:
 
 [Burn a Raspberry OS Cluster](https://cloudmesh.github.io/pi/tutorial/raspberry-burn/)
 
@@ -47,7 +48,8 @@ The tutorial supports both Raspberry OS and Ubuntu.
 
 ## 3. CMS MPI Commands 
 
-Below are the MPI commands available from CMS
+We use cloudmesh shell (`cms`) to provide you with some easy to use commands that address deployment of MPI on the cluster. 
+The MPI commands available from `cms` are:
 
 ```
 $ cms mpi deploy raspberry HOSTS
@@ -55,6 +57,10 @@ $ cms mpi deploy ubuntu HOSTS
 $ cms mpi uninstall raspberry HOSTS
 $ cms mpi uninstall ubuntu HOSTS
 ```
+
+The commands can be installed as followes:
+
+* UNDER CONSTRUCTION 
 
 ## 4. Install MPI
 
