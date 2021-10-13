@@ -58,7 +58,12 @@ $ cms mpi uninstall raspberry HOSTS
 $ cms mpi uninstall ubuntu HOSTS
 ```
 
-The commands can be installed as followes:
+The commands can be installed as follows:
+
+```
+$ cd cm
+$ cloudmesh-installer get mpi
+```
 
 * UNDER CONSTRUCTION 
 
@@ -199,10 +204,36 @@ INFO: sudo apt-get --purge remove openmpi-bin -y; source ~/ENV3/bin/activate; pi
 
 ## 8. Manual Page
 
-UNDER CONSTRUCTION 
-
 ```
-Paste output from cms mpi help
+  Usage:
+        mpi deploy raspberry HOSTS
+        mpi deploy ubuntu HOSTS
+        mpi uninstall raspberry HOSTS
+        mpi uninstall ubuntu HOSTS
+        
+  This command is used to install MPI on a cluster running Raspberry Pi OS or Ubuntu OS.
+
+  Arguments:
+      HOSTS   parameterized list of hosts
+
+  Description:
+      mpi deploy raspberry HOSTS
+
+          Will deploy mpi for raspberry OS HOSTS in a parallel manner and return installation results.
+
+      mpi deploy ubuntu HOSTS
+
+          Will deploy mpi for ubuntu OS HOSTS (possibly running on raspberry pi platform) in a parallel manner
+          and return installation results.
+
+      mpi uninstall raspberry HOSTS
+
+          Will uninstall mpi packagess from raspberry OS HOSTS.
+
+      mpi uninstall ubuntu HOSTS
+
+          Will uninstall mpi packages from ubuntu OS HOSTS.
+
 ```
 
 ## 9. References
