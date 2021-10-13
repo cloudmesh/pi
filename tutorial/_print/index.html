@@ -4,7 +4,9 @@ The MPI commands available from <code>cms</code> are:</p><pre><code>$ cms mpi de
 $ cms mpi deploy ubuntu HOSTS
 $ cms mpi uninstall raspberry HOSTS
 $ cms mpi uninstall ubuntu HOSTS
-</code></pre><p>The commands can be installed as followes:</p><ul><li>UNDER CONSTRUCTION</li></ul><h2 id=4-install-mpi>4. Install MPI</h2><p>We can install MPI on a cluster of Pis using the following command. The installation is done in parallel to scale with the number of hosts. Make sure to choose the argument that corresponds to the OS installed on the Raspberry Pis. In this example we will demonstrate the installation on a cluster of Pis running Raspberry OS.</p><p>Required python packages are installed, followed by MPI and mpi4py, and then the version of MPI installed is checked.</p><p>A return code of 0 indicates command success, any other indicates a failure.</p><pre><code>(ENV3) you@your-laptop:~ $ cms mpi deploy raspberry &quot;red,red0[1-3]&quot;
+</code></pre><p>The commands can be installed as follows:</p><pre><code>$ cd cm
+$ cloudmesh-installer get mpi
+</code></pre><ul><li>UNDER CONSTRUCTION</li></ul><h2 id=4-install-mpi>4. Install MPI</h2><p>We can install MPI on a cluster of Pis using the following command. The installation is done in parallel to scale with the number of hosts. Make sure to choose the argument that corresponds to the OS installed on the Raspberry Pis. In this example we will demonstrate the installation on a cluster of Pis running Raspberry OS.</p><p>Required python packages are installed, followed by MPI and mpi4py, and then the version of MPI installed is checked.</p><p>A return code of 0 indicates command success, any other indicates a failure.</p><pre><code>(ENV3) you@your-laptop:~ $ cms mpi deploy raspberry &quot;red,red0[1-3]&quot;
 mpi deploy raspberry red,red0[1-3]
 
 # ----------------------------------------------------------------------
@@ -91,7 +93,35 @@ INFO: sudo apt-get --purge remove openmpi-bin -y; source ~/ENV3/bin/activate; pi
 | red02 | 0          |        |
 | red03 | 0          |        |
 +-------+------------+--------+
-</code></pre><h2 id=8-manual-page>8. Manual Page</h2><p>UNDER CONSTRUCTION</p><pre><code>Paste output from cms mpi help
+</code></pre><h2 id=8-manual-page>8. Manual Page</h2><pre><code>  Usage:
+        mpi deploy raspberry HOSTS
+        mpi deploy ubuntu HOSTS
+        mpi uninstall raspberry HOSTS
+        mpi uninstall ubuntu HOSTS
+        
+  This command is used to install MPI on a cluster running Raspberry Pi OS or Ubuntu OS.
+
+  Arguments:
+      HOSTS   parameterized list of hosts
+
+  Description:
+      mpi deploy raspberry HOSTS
+
+          Will deploy mpi for raspberry OS HOSTS in a parallel manner and return installation results.
+
+      mpi deploy ubuntu HOSTS
+
+          Will deploy mpi for ubuntu OS HOSTS (possibly running on raspberry pi platform) in a parallel manner
+          and return installation results.
+
+      mpi uninstall raspberry HOSTS
+
+          Will uninstall mpi packagess from raspberry OS HOSTS.
+
+      mpi uninstall ubuntu HOSTS
+
+          Will uninstall mpi packages from ubuntu OS HOSTS.
+
 </code></pre><h2 id=9-references>9. References</h2><p>To learn more about MPI4PY, including examples of communication mechanisms, please see this <a href=https://cloudmesh.github.io/cloudmesh-mpi/report-mpi.pdf>report</a>.</p></div><div class=td-content style=page-break-before:always><h1 id=pg-ded656facea45c679b8e189334544b36>2 - DRAFT: Burning a pre-configured RaspberryOS Cluster on Windows 10</h1><div class=lead>A comprehensive tutorial of burning a Raspberry OS cluster with internet access</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/raspberry-burn-windows/featured-image_huf8b50ada3a31d2a67084da179c329740_149718_600x300_fill_catmullrom_smart1_2.png width=600 height=300></div><div class="pageinfo pageinfo-primary"><p>In this tutorial, we explain how to easily set up a preconfigured cluster of Pis using RaspberryOS while burning
 SD Cards from Windows 10. The cluster is ready to boot after all cards have been burned. No other configuration is needed.</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to use cloudmesh-burn to create a RaspberryOS cluster</li><li>Test the cluster after burning</li><li>Use Windows 10 to conduct the burning</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-pre-requisites>2. Pre-requisites</a></li><li><a href=#3-notation>3. Notation</a></li><li><a href=#4-installing-cloudmesh-and-setup>4. Installing cloudmesh and Setup</a><ul><li><a href=#41-install-from-pip-for-regular-users>4.1 Install from Pip for Regular Users</a></li><li><a href=#42-install-from-source-for-developers>4.2 Install from Source (for Developers)</a></li><li><a href=#43-initializing-the-cms-command>4.3 Initializing the cms Command</a></li><li><a href=#43-create-an-ssh-key>4.3 Create an SSH key</a></li></ul></li><li><a href=#5-burning-the-cluster>5. Burning the Cluster</a></li><li><a href=#6-burn-verification-and-post-process-steps>6. Burn Verification and Post-Process Steps</a><ul><li><a href=#61-setting-up-a-proxy-jump-with-cms-host>6.1 Setting up a Proxy Jump with <code>cms host</code></a></li><li><a href=#62-verifying-manager-and-worker-access>6.2 Verifying Manager and Worker Access</a></li><li><a href=#63-gather-and-scatter-authorized-keys>6.3 Gather and Scatter Authorized Keys</a></li><li><a href=#64-installing-cms-on-a-pi>6.4 Installing <code>cms</code> on a Pi</a></li></ul></li><li><a href=#7-appendix>7. Appendix</a></li><li><a href=#71-writing-our-cluster-configuration>7.1 Writing our cluster configuration</a><ul><li><a href=#72-default-cluster-creation>7.2 Default Cluster Creation</a></li><li><a href=#73-custom-cluster-creation>7.3 Custom Cluster Creation</a></li><li><a href=#74-inspect-the-cluster-configuration>7.4 Inspect the Cluster Configuration</a></li><li><a href=#75-burning-a-custom-cluster>7.5 Burning a Custom Cluster</a></li><li><a href=#76-managing-known_hosts>7.6 Managing known_hosts</a></li><li><a href=#77-get-the-os-image>7.7 Get the OS Image</a></li><li><a href=#77-related-tutorials>7.7 Related tutorials</a></li></ul></li></ul></nav></div></div><h2 id=1-introduction>1. Introduction</h2><p>With the release of <a href=https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/>Pi Imager 1.6</a>, it is possible to configure a Raspberry Pi from any operating system while using RaspberryOS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster including a simple network configuration. The system works while executing configurations automatically after the first boot. We will focus here on using Windows 10 for the burning. On piplanet.org we are providing additional tutorials that work also for Ubuntu and macOS.</p><p>Our tutorials are useful as typically many steps are involved to set up a cluster. This requires either the replication of time-consuming tasks that can be automated or the knowledge of DevOps frameworks.</p><p>We avoid this by simply burning a card for each of the PIs. No more hours wasted on setting up your initial cluster.</p><p>To facilitate this we developed a special command called <code>cms burn</code>, which allows us to create preconfigured cards with the necessary information. The features this command supports include:</p><ul><li>Setting the hostname,</li><li>Enabling SSH,</li><li>Configuring WiFi,</li><li>Setting the locale,</li><li>Changing the password,</li><li>Adding authorized keys,</li><li>Configuring static IPs for wired ethernet along with routing preferences,</li><li>Configuring a WiFi <em>bridge</em> for a manager Pi to act as a router between the worker PIs and the internet, and</li><li>Automating the configuration on first boot.</li></ul><p>We demonstrate the usage of the <code>cms burn</code> command by creating a cluster of
 5 pis (1 manager, 4 workers) where we connect the manager to the internet
