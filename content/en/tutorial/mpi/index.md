@@ -65,8 +65,6 @@ $ cd cm
 $ cloudmesh-installer get mpi
 ```
 
-* UNDER CONSTRUCTION 
-
 ## 4. Install MPI
 
 We can install MPI on a cluster of Pis using the following command. The installation is done in parallel to scale with the number of hosts. Make sure to choose the argument that corresponds to the OS installed on the Raspberry Pis. In this example we will demonstrate the installation on a cluster of Pis running Raspberry OS.
