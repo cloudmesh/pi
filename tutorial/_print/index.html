@@ -6,7 +6,7 @@ $ cms mpi uninstall raspberry HOSTS
 $ cms mpi uninstall ubuntu HOSTS
 </code></pre><p>The commands can be installed as follows:</p><pre><code>$ cd cm
 $ cloudmesh-installer get mpi
-</code></pre><ul><li>UNDER CONSTRUCTION</li></ul><h2 id=4-install-mpi>4. Install MPI</h2><p>We can install MPI on a cluster of Pis using the following command. The installation is done in parallel to scale with the number of hosts. Make sure to choose the argument that corresponds to the OS installed on the Raspberry Pis. In this example we will demonstrate the installation on a cluster of Pis running Raspberry OS.</p><p>Required python packages are installed, followed by MPI and mpi4py, and then the version of MPI installed is checked.</p><p>A return code of 0 indicates command success, any other indicates a failure.</p><pre><code>(ENV3) you@your-laptop:~ $ cms mpi deploy raspberry &quot;red,red0[1-3]&quot;
+</code></pre><h2 id=4-install-mpi>4. Install MPI</h2><p>We can install MPI on a cluster of Pis using the following command. The installation is done in parallel to scale with the number of hosts. Make sure to choose the argument that corresponds to the OS installed on the Raspberry Pis. In this example we will demonstrate the installation on a cluster of Pis running Raspberry OS.</p><p>Required python packages are installed, followed by MPI and mpi4py, and then the version of MPI installed is checked.</p><p>A return code of 0 indicates command success, any other indicates a failure.</p><pre><code>(ENV3) you@your-laptop:~ $ cms mpi deploy raspberry &quot;red,red0[1-3]&quot;
 mpi deploy raspberry red,red0[1-3]
 
 # ----------------------------------------------------------------------
