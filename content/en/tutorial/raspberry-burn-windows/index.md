@@ -109,13 +109,13 @@ First, we update pip and verify your `python` and `pip` are correct
 ~/ENV3/Scripts/pip
 ```
 
-### 4.1 Install from Pip for Regular Users
+### ~~4.1 Install from Pip for Regular Users~~
 
-**The pip install for Windows is not yet suported!!. So please use the Install from source installation documentation. Once we officially release this code the install from pip can be used.**
+~~**The pip install for Windows is not yet suported!!. So please use the Install from source installation documentation. Once we officially release this code the install from pip can be used.**~~
 
-```bash
-(ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster
-```
+~~```bash~~
+~~(ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster~~
+~~```~~
 
 ### 4.2 Install from Source (for Developers)
 
