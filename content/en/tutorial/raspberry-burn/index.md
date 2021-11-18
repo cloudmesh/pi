@@ -179,17 +179,30 @@ This command will autodetect the SSID, locale, and country of your laptop.
 We recommend not to use the password flags for the `wifipassword` and sudo 
 password as they will be stored in the command history and logs. When not 
 supplied as command line arguments, they will be asked for interactively. 
-The wifi setup will only be enabled on the manager (red).
+The wifi setup will only be enabled on the manager (red). To burn the latest
+32 bit OS use the following command. Otherwise, look at our subsequent note
+for instructions to burn the latest 64 bit OS.
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb -f
 ```
-> Note the `-f` flag instructs `cms burn` to build a default cloudmesh
+
+> Note: the `-f` flag instructs `cms burn` to build a default cloudmesh
 > inventory for the names provided. To see the contents of this file you
 > can use the command
 >
 > ```bash
  > cms inventory list --inventory=inventory-red.yaml
+> ```
+
+> Note: if you want to burn the **64 bit OS** use the following series of commands
+> instead.This creates a default cluster configuration, and then changes the OS tag
+> latest-lite-64.
+>
+> ```bash
+ > cms inventory add cluster "red,red0[1-4]"
+ > cms inventory set "red,red0[1-4]" tag to latest-lite-64 --inventory="inventory-red.yaml"
+ > cms burn raspberry "red,red0[1-4]" --device=/dev/sdb --inventory="inventory-red.yaml" 
 > ```
 
 After each card is burned, `cms burn raspberry` will prompt you to swap the SD card to burn the next host.
