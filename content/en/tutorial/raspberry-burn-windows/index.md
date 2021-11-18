@@ -223,6 +223,8 @@ Record the disk for the SDCard. In this case, it is `4`.
 > Note we omit some output of `cms burn info` for clarity.
 
 On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis"). Timezones can be found at (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
+for instructions to burn the latest 64 bit OS.
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
@@ -267,6 +269,18 @@ INFO: No inventory found or forced rebuild. Buidling inventory with defaults.
 >
 > ```bash
  > cms inventory list --inventory=inventory-red.yaml
+> ```
+
+> Note: if you want to burn the **64 bit OS** use the following series of commands
+> instead.This creates a default cluster configuration, and then changes the OS tag
+> latest-lite-64.
+>
+> ```bash
+ > (ENV3) (admin) you@yourlaptop $ cms burn image versions --refresh
+ > (ENV3) (admin) you@yourlaptop $ cms burn image get latest-lite-64 
+ > (ENV3) (admin) you@yourlaptop $ cms inventory add cluster "red,red0[1-4]"
+ > (ENV3) (admin) you@yourlaptop $ cms inventory set "red,red0[1-4]" tag to latest-lite-64 --inventory="inventory-red.yaml"
+ > (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
 > ```
 
 NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
