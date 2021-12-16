@@ -1107,9 +1107,13 @@ for instructions to burn the latest 64 bit OS.</p><div class=highlight><pre styl
 </code></pre></div><blockquote><p>Note: the <code>-f</code> flag instructs <code>cms burn</code> to build a default cloudmesh
 inventory for the names provided. To see the contents of this file you
 can use the command</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cms inventory list --inventory<span style=color:#ce5c00;font-weight:700>=</span>inventory-red.yaml
-</code></pre></div></blockquote><blockquote><p>Note: if you want to burn the <strong>64 bit OS</strong> use the following series of commands
+</code></pre></div></blockquote><blockquote><p>Note: if you want to burn the <strong>64 bit OS</strong> or a <strong>Legacy</strong> version of Raspberry OS use the following series of commands
 instead.This creates a default cluster configuration, and then changes the OS tag
-latest-lite-64.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cms inventory add cluster <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
+to <code>latest-lite-64</code>. For the legacy version use the <code>latest-lite-legacy</code> tag or <code>latest-full legacy</code> tag.
+Currently (12/16/21) the legacy version is based on Debian Buster while the latest version is based on Debian Bullseye.
+The Raspberry Pi team released the legacy OS to solve compatibility issues that arose during ther upgrade to the Bullseye
+image. You must research to see which OS your application supports.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash> cms burn image versions --refresh  
+cms inventory add cluster <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
 cms inventory <span style=color:#204a87>set</span> <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> tag to latest-lite-64 --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
 cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> --device<span style=color:#ce5c00;font-weight:700>=</span>/dev/sdb --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span> 
 </code></pre></div></blockquote><p>After each card is burned, <code>cms burn raspberry</code> will prompt you to swap the SD card to burn the next host.</p><p>After all the cards have been burned, we can now plug them in our raspberry pis and boot. Ensure
