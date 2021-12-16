@@ -195,11 +195,15 @@ for instructions to burn the latest 64 bit OS.
  > cms inventory list --inventory=inventory-red.yaml
 > ```
 
-> Note: if you want to burn the **64 bit OS** use the following series of commands
+> Note: if you want to burn the **64 bit OS** or a **Legacy** version of Raspberry OS use the following series of commands
 > instead.This creates a default cluster configuration, and then changes the OS tag
-> latest-lite-64.
+> to `latest-lite-64`. For the legacy version use the `latest-lite-legacy` tag or `latest-full legacy` tag. 
+> Currently (12/16/21) the legacy version is based on Debian Buster while the latest version is based on Debian Bullseye.
+> The Raspberry Pi team released the legacy OS to solve compatibility issues that arose during ther upgrade to the Bullseye 
+> image. You must research to see which OS your application supports.
 >
 > ```bash
+>  cms burn image versions --refresh  
  > cms inventory add cluster "red,red0[1-4]"
  > cms inventory set "red,red0[1-4]" tag to latest-lite-64 --inventory="inventory-red.yaml"
  > cms burn raspberry "red,red0[1-4]" --device=/dev/sdb --inventory="inventory-red.yaml" 
