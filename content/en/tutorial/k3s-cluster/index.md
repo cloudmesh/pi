@@ -1,7 +1,7 @@
 ---
 date: 2021-05-07
-title: "Employ K3S on a Pi Cluster"
-linkTitle: "Employ K3S on a Pi Cluster"
+title: "Deploy K3S on a Pi Cluster"
+linkTitle: "Deploy K3S on a Pi Cluster"
 description: "Easily install your own K3S cluster on Raspberry Pis"
 author: Anthony Orlowski, Richard Otten, Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Richard Otten
 resources:
