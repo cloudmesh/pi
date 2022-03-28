@@ -222,7 +222,12 @@ Record the disk for the SDCard. In this case, it is `4`.
 
 > Note we omit some output of `cms burn info` for clarity.
 
-On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. The timezone parameter should include hyphens in place of forward slashes (Ex. use "America-Indiana-Indianapolis" for "America/Indiana/Indianapolis"). Timezones can be found at (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
+On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. Timezones can be found at (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).  
+When entering timezones for the ```--timezone``` parameter, please replace forward slashes with hyphens, as shown in the change below: 
+```--timezone="America/Indiana/Indianapolis"```  
+Should be replaced with:  
+```--timezone="America-Indiana-Indianapolis```
+
 To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
 for instructions to burn the latest 64 bit OS.
 
