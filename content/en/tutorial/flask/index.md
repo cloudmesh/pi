@@ -10,8 +10,6 @@ resources:
   title: "Image #:counter"
 ---
 
-{{< imgproc webpage Fill "600x300" >}}
-{{< /imgproc >}}
 
 
 {{% pageinfo %}}
