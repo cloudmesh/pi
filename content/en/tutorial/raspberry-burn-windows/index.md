@@ -241,7 +241,7 @@ Should be replaced with:
 
 ```--timezone="America-Indiana-Indianapolis```  
 
-If the network name has a space in it, please use two sets of quotes: ```"--ssid='Net Work'"``` or escape ```--ssid=Net\ Work"``` . We recommend not to use any spaces in network names. 
+If the network name has a space in it, please use two sets of quotes: ```"--ssid='Net Work'"```. We recommend not to use any spaces in network names. 
 
 ```
 # ----------------------------------------------------------------------
