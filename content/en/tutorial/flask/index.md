@@ -10,8 +10,6 @@ resources:
   title: "Image #:counter"
 ---
 
-
-
 {{% pageinfo %}}
 
 TBD
