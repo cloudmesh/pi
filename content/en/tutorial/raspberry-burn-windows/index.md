@@ -194,7 +194,7 @@ Check your writer's path with the following while using gitbash as  administrati
 
 > *Note: To run gitbash as administrative user, type in the Windows search form and click on Run as administrator). Qw will ougment all commands with the keyword (admin) that need to be run in administrative mode*
 
-
+### 5.1 Get Burn Info
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
@@ -221,6 +221,8 @@ This command will take a minute to complete. The warning occurs as your reader m
 Record the disk for the SDCard. In this case, it is `4`.
 
 > Note we omit some output of `cms burn info` for clarity.
+
+### 5.2 Executing Burn Command
 
 To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
 for instructions to burn the latest 64 bit OS.
