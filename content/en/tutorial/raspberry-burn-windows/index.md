@@ -315,6 +315,29 @@ While we are waiting for the Pis to boot, we can set up proxy jump on our laptop
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
 
+TO: Gregor believes the previous line is a documentation error and the following line may work:
+
+```
+(ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
+```
+
+The previous line is actually better, but ther is an implementation bug that does not copy the host key from the maseter on the worker nodes. I think that was once upon a time implemented, and may have ben removed and is now a bug. The workaround is
+
+
+```
+(ENV3) you@yourlaptop $ cms host pi@red.local "red0[1-4]"
+(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+
+# VERIFY AND USE YN CHOOISE IF THINGS ARE OK, IF SO EXECUTE THE NEXT LINES
+
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
+(ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
+```
+
+We could wrap this into an option in some form. However the temp test should be performed first. We could document the two cases There are advantages and disadvantages about the two cases. a) proxy: you make it look like a cluster where each node is behind the proxy host b) with no proxy you can directly loginto the nodes from the laptop making ssh a bit faster and when many many nodes are involved possibly better. However this does probably not realy matter. I suggest we support both cases
+
+
 It will do the appropriate modifications.
 
 ### 6.2 Verifying Manager and Worker Access
