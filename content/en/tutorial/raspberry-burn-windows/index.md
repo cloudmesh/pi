@@ -262,7 +262,7 @@ user.
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
 
-{{< tabs tabTotal="3" tabLeftAlign="2">}}
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
 {{< tab tabName="Sample_output_Windows" >}}
 
 ```
@@ -283,11 +283,19 @@ user.
 WARNING: We could not find your USB reader in the list of known readers
 ```
 
+IMPORTANT: Record the disk for the SDCard. In this case, it is `4`.
+
+
 {{< /tab >}}
 {{< tab tabName="Sample_output_PI4" >}}
 
+In case of a Raspbery PI you will see a column device in the table output. When 
+specifying the burn command you will be using the `--device` flag. Let us assume 
+you get the device `/dev/sda`. Then the flag in the burn command is `--device/dev/sda`
+
 ```
 TBD
+
 ```
 
 {{< /tab >}}
@@ -300,14 +308,17 @@ your reader may be too new and we do not have it in our database of
 recognized readers. As long as you see `Removable Media` and `GENERIC
 STORAGE DEVICE` it will be fine.
 
-Record the disk for the SDCard. In this case, it is `4`.
-
 > Note we omit some output of `cms burn info` for clarity.
 
 ### 5.2 Executing Burn Command
 
 To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
 for instructions to burn the latest 64 bit OS.
+
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
+{{< tab tabName="Burn_On_Windows" >}}
+
+> **IMPORTANT: verify the disk number with `cms burn info`**
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
@@ -320,22 +331,53 @@ for instructions to burn the latest 64 bit OS.
                                          --wifipassword=mywifipassword
 ```
 
+{{< /tab >}}
+{{< tab tabName="Raspbian_OS" >}}
+
+> **IMPORTANT: verify the device name  with `cms burn info`**
+
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
+                                         --password=myloginpassword \
+                                         --device=/dev/sda \ 
+                                         --new \
+                                         --locale=en_US.UTF-8 \
+                                         --timezone="America-Indiana-Indianapolis" \
+                                         --ssid=NETWORK \
+                                         --wifipassword=mywifipassword
+```
+
+
+{{< /tab >}}
+
+{{< /tabs >}}`
+
+
+
 On windows it will not autodetect the SSID, wifi password, locale, or
 country of your laptop. Hence you have to specify these as
 parameters. Timezones can be found at
 (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
+On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
+automatically detected. Thus you do not have to specify 
+them. However if you detect issues, please add them. 
 
-When entering timezones for the ```--timezone``` parameter, please
-replace forward slashes with hyphens, as shown in the change below:
+Timezones are typically defined with forward slashes in the string 
+identifying them. However, as we use python forward 
+slashes have a specific meaning in python and would interfere with 
+our implementation. Therefor we use `-` instead of '/'.
 
-```--timezone="America/Indiana/Indianapolis"```  
+Hence, when entering timezones for the ```--timezone``` parameter, please
+replace forward slashes with hyphens, as shown in the example shown next:
 
-Should be replaced with:  
+> ```--timezone="America/Indiana/Indianapolis"```  
 
-```--timezone="America-Indiana-Indianapolis```  
+must be replaced with:  
+
+> ```--timezone="America-Indiana-Indianapolis```  
 
 If the network name has a space in it, please use two sets of quotes:
-```"--ssid='Net Work'"```. We recommend not to use any spaces in
+```"--ssid='Net Work'"```. In general, we recommend not to use any spaces in
 network names.
 
 ```
@@ -563,12 +605,10 @@ For the production version pleas use
 pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
 
-However, to get the newest development version please use
+~~However, to get the newest development version please use~~
 
-```bash
-(ENV3) you@yourlaptop $ ssh red
-pi@red $ curl -Ls https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html | sh -
-```
+~~(ENV3) you@yourlaptop $ ssh red
+pi@red $ curl -Ls https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html | sh -~~
 
 This will not only install `cms`, but will also upgrade your system,
 install the dependencies for `cms`, and create a virtual
