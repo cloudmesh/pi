@@ -5,7 +5,8 @@ title = "Cloudmesh Cluster Pi Planet"
 enableRobotsTXT = true
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
-theme = ["docsy"]
+theme = ["docsy", "hugo-dynamic-tabs"]
+# theme = ["docsy"]
 #theme = ["docsy-menu"]
 
 # Will give values to .Lastmod etc.

@@ -31,13 +31,26 @@ SD Cards from Windows 10. The cluster is ready to boot after all cards have been
 
 ## 1. Introduction
 
-With the release of [Pi Imager 1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/), it is possible to configure a Raspberry Pi from any operating system while using RaspberryOS. While pi-imager only uses a limited number of parameters, our system adds network configurations to create a cluster including a simple network configuration. The system works while executing configurations automatically after the first boot. We will focus here on using Windows 10 for the burning. On piplanet.org we are providing additional tutorials that work also for Ubuntu and macOS.
+With the release of [Pi Imager
+1.6](https://www.raspberrypi.org/blog/raspberry-pi-imager-update-to-v1-6/),
+it is possible to configure a Raspberry Pi from any operating system
+while using RaspberryOS. While pi-imager only uses a limited number of
+parameters, our system adds network configurations to create a cluster
+including a simple network configuration. The system works while
+executing configurations automatically after the first boot. We will
+focus here on using Windows 10 for the burning. On piplanet.org we are
+providing additional tutorials that work also for Ubuntu and macOS.
 
-Our tutorials are useful as typically many steps are involved to set up a cluster. This requires either the replication of time-consuming tasks that can be automated or the knowledge of DevOps frameworks.
+Our tutorials are useful as typically many steps are involved to set
+up a cluster. This requires either the replication of time-consuming
+tasks that can be automated or the knowledge of DevOps frameworks.
 
-We avoid this by simply burning a card for each of the PIs. No more hours wasted on setting up your initial cluster.
+We avoid this by simply burning a card for each of the PIs. No more
+hours wasted on setting up your initial cluster.
 
-To facilitate this we developed a special command called  `cms burn`, which allows us to create preconfigured cards with the necessary information. The features this command supports include:
+To facilitate this we developed a special command called `cms burn`,
+which allows us to create preconfigured cards with the necessary
+information. The features this command supports include:
 
 * Setting the hostname,
 * Enabling SSH,
@@ -45,15 +58,18 @@ To facilitate this we developed a special command called  `cms burn`, which allo
 * Setting the locale,
 * Changing the password,
 * Adding authorized keys,
-* Configuring static IPs for wired ethernet along with routing preferences,
-* Configuring a WiFi *bridge* for a manager Pi to act as a router between the worker PIs and the internet, and
+* Configuring static IPs for wired ethernet along with routing
+  preferences,
+* Configuring a WiFi *bridge* for a manager Pi to act as a router
+  between the worker PIs and the internet, and
 * Automating the configuration on first boot.
 
-We demonstrate the usage of the `cms burn` command by creating a cluster of 
-5 pis (1 manager, 4 workers) where we connect the manager to the internet 
-via Wifi and configure the workers to access the internet through the manager via
-ethernet connection. This is useful for those with restricted internet access where devices must be registered
-by MAC Address or through browser login.
+We demonstrate the usage of the `cms burn` command by creating a
+cluster of 5 pis (1 manager, 4 workers) where we connect the manager
+to the internet via Wifi and configure the workers to access the
+internet through the manager via ethernet connection. This is useful
+for those with restricted internet access where devices must be
+registered by MAC Address or through browser login.
 
 ## 2. Pre-requisites
 
@@ -66,7 +82,9 @@ by MAC Address or through browser login.
 * 5 Ethernet Cables 
 * An unmanaged ethernet switch
 
-For parts for different pi cluster configurations, please see  lists please see our links on [piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
+For parts for different pi cluster configurations, please see lists
+please see our links on
+[piplanet.org](https://cloudmesh.github.io/pi/docs/hardware/parts/)
 
 ## 3. Notation
 
@@ -79,10 +97,16 @@ The following image shows our cluster configuration:
 
 ## 4. Installing cloudmesh and Setup
 
-At the time of writing this tutorial uses Python 3.9.6. To install, go to python.org and click the download button you see on the front page and install this or a newer version. We additionally use gitbash for our commands so make sure you have gitbash installed. You can download from <https://git-scm.com/downloads>. Our ```burn``` commands will require administrator privileges, so launch an administrator gitbash window by right-clicking on the program. 
+At the time of writing this tutorial uses Python 3.9.6. To install, go
+to python.org and click the download button you see on the front page
+and install this or a newer version. We additionally use gitbash for
+our commands so make sure you have gitbash installed. You can download
+from <https://git-scm.com/downloads>. Our ```burn``` commands will
+require administrator privileges, so launch an administrator gitbash
+window by right-clicking on the program.
 
-It is best practice to create virtual environments for python.
-We also want to place all source code in a common directory called `cm`. 
+It is best practice to create virtual environments for python.  We
+also want to place all source code in a common directory called `cm`.
 Let us set up this and create one for this tutorial.
 
 In your gitbash window create a virtual environment with
@@ -92,7 +116,8 @@ In your gitbash window create a virtual environment with
 you@yourlaptop $ python -m venv ~/ENV3
 ```
 
-This will create a new python virtual environment. Activate it with the following command.
+This will create a new python virtual environment. Activate it with
+the following command.
 
 ```bash
 you@yourlaptop $ source ~/ENV3/Scripts/activate
@@ -109,9 +134,13 @@ First, we update pip and verify your `python` and `pip` are correct
 ~/ENV3/Scripts/pip
 ```
 
+**Tab 1 Content**
+
 ### ~~4.1 Install from Pip for Regular Users~~
 
-~~**The pip install for Windows is not yet suported!!. So please use the Install from source installation documentation. Once we officially release this code the install from pip can be used.**~~
+~~**The pip install for Windows is not yet suported!!. So please use
+the Install from source installation documentation. Once we officially
+release this code the install from pip can be used.**~~
 
 ~~```bash~~
 ~~(ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster~~
@@ -119,7 +148,10 @@ First, we update pip and verify your `python` and `pip` are correct
 
 ### 4.2 Install from Source (for Developers)
 
-If you are a developer that likes to add new features we recommend our source set up. We start after you have created the virtualenv with the install of our convenient `cloudmesh-installer` and creation of the `cm` directory in which we download the sources
+If you are a developer that likes to add new features we recommend our
+source set up. We start after you have created the virtualenv with the
+install of our convenient `cloudmesh-installer` and creation of the
+`cm` directory in which we download the sources
 
 ```bash
 (ENV3) you@yourlaptop $ mkdir ~/cm
@@ -128,9 +160,13 @@ If you are a developer that likes to add new features we recommend our source se
 (ENV3) you@yourlaptop $ cloudmesh-installer get pi
 ```
 
-This directory will now contain all source code. It will also have installed the needed `cms` command.
+This directory will now contain all source code. It will also have
+installed the needed `cms` command.
 
-As we are still developing the windows verison, we need to switch to a specific branch. In both of the blocks below, a ```git fetch``` immediately before the ```git checkout windows``` command may be necessary if the windows branch can't be found.
+As we are still developing the windows verison, we need to switch to a
+specific branch. In both of the blocks below, a ```git fetch```
+immediately before the ```git checkout windows``` command may be
+necessary if the windows branch can't be found.
 
 ```
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
@@ -144,13 +180,15 @@ As we are still developing the windows verison, we need to switch to a specific 
 
 ### 4.3 Initializing the cms Command
 
-It is very important to initialize the cms command and test if it is properly installed. You do this simply with the command 
+It is very important to initialize the cms command and test if it is
+properly installed. You do this simply with the command
 
 ```bash
 (ENV3) you@yourlaptop $ cms help
 ```
 
-You will see a list of subcommands that are part of the cms if your installation succeeded. Check if you can see the command
+You will see a list of subcommands that are part of the cms if your
+installation succeeded. Check if you can see the command
 
 ```
 burn
@@ -159,15 +197,19 @@ in the list.
 
 ### 4.3 Create an SSH key
 
-We use ssh to easily login to the  manager and worker nodes from the laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create one as follows by accepting the default location in `~/.ssh/id_rsa`
+We use ssh to easily login to the manager and worker nodes from the
+laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create
+one as follows by accepting the default location in `~/.ssh/id_rsa`
 
 ```bash
 (ENV3) you@yourlaptop $ ssh-keygen
 ```
 
-Please use a unique and strong passphrase. We will use this default key to access our cluster after burning.
+Please use a unique and strong passphrase. We will use this default
+key to access our cluster after burning.
 
-In case you do not always want to type in your passphrase, you can use ssh-agent in your gitbash window as follows:
+In case you do not always want to type in your passphrase, you can use
+ssh-agent in your gitbash window as follows:
 
 ```bash
 (ENV3) you@yourlaptop $ eval `ssh-agent`
@@ -175,19 +217,41 @@ In case you do not always want to type in your passphrase, you can use ssh-agent
 
 ```
 
-These two commands will start the ssh-agent and add your key to it so it is cached for future use within the same gitbash terminal
+These two commands will start the ssh-agent and add your key to it so
+it is cached for future use within the same gitbash terminal
 
 ## 5. Burning the Cluster
 
-We are now ready to burn our cluster. Start by making sure you have the latest images to burn:  
+We are now ready to burn our cluster. Start by making sure you have
+the latest images to burn. Please chose the 64-bit or the 32-bit image
+tab to see details:
+
+
+{{< tabs tabTotal="3" tabLeftAlign="2">}}
+{{< tab tabName="Rasperry_PI_OS_64-bit_image" >}}
+
+
 ```bash
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
 (ENV3) you@yourlaptop $ cms burn image get latest-lite
 (ENV3) you@yourlaptop $ cms burn image get latest-full
 ```
 
-Next, plug in your first SD Card into your card writer.
-Check your writer's path with the following while using gitbash as  administrative user.
+{{< /tab >}}
+{{< tab tabName="Rasperry_PI_OS_32-bit_image" >}}
+
+```bash
+(ENV3) you@yourlaptop $ cms burn image versions --refresh
+(ENV3) you@yourlaptop $ cms burn image get latest-lite
+(ENV3) you@yourlaptop $ cms burn image get latest-full
+```
+
+{{< /tab >}}
+{{< /tabs >}}
+
+Next, plug in your first SD Card into your card writer.  Check your
+writer's path with the following while using gitbash as administrative
+user.
 
 
 > *Note: To run gitbash as administrative user, type in the Windows search form and click on Run as administrator). Qw will ougment all commands with the keyword (admin) that need to be run in administrative mode*
@@ -196,7 +260,12 @@ Check your writer's path with the following while using gitbash as  administrati
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
+```
 
+{{< tabs tabTotal="3" tabLeftAlign="2">}}
+{{< tab tabName="Sample_output_Windows" >}}
+
+```
 # ----------------------------------------------------------------------
 # This is a Windows Computer
 # ----------------------------------------------------------------------
@@ -214,7 +283,22 @@ Check your writer's path with the following while using gitbash as  administrati
 WARNING: We could not find your USB reader in the list of known readers
 ```
 
-This command will take a minute to complete. The warning occurs as your reader may be too new and we do not have it in our database of recognized readers. As long as you see `Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
+{{< /tab >}}
+{{< tab tabName="Sample_output_PI4" >}}
+
+```
+TBD
+```
+
+{{< /tab >}}
+{{< /tabs >}}`
+
+
+
+This command will take a minute to complete. The warning occurs as
+your reader may be too new and we do not have it in our database of
+recognized readers. As long as you see `Removable Media` and `GENERIC
+STORAGE DEVICE` it will be fine.
 
 Record the disk for the SDCard. In this case, it is `4`.
 
@@ -226,12 +310,23 @@ To burn the latest 32 bit OS use the following command. Otherwise, look at our s
 for instructions to burn the latest 64 bit OS.
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
+                                         --password=myloginpassword \
+                                         --disk=4 \ 
+                                         --new \
+                                         --locale=en_US.UTF-8 \
+                                         --timezone="America-Indiana-Indianapolis" \
+                                         --ssid=NETWORK \
+                                         --wifipassword=mywifipassword
 ```
 
-On windows it will not autodetect the SSID, wifi password,  locale, or country of your laptop. Hence you have to specify these as parameters. Timezones can be found at (<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).  
+On windows it will not autodetect the SSID, wifi password, locale, or
+country of your laptop. Hence you have to specify these as
+parameters. Timezones can be found at
+(<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
 
-When entering timezones for the ```--timezone``` parameter, please replace forward slashes with hyphens, as shown in the change below:  
+When entering timezones for the ```--timezone``` parameter, please
+replace forward slashes with hyphens, as shown in the change below:
 
 ```--timezone="America/Indiana/Indianapolis"```  
 
@@ -239,7 +334,9 @@ Should be replaced with:
 
 ```--timezone="America-Indiana-Indianapolis```  
 
-If the network name has a space in it, please use two sets of quotes: ```"--ssid='Net Work'"```. We recommend not to use any spaces in network names. 
+If the network name has a space in it, please use two sets of quotes:
+```"--ssid='Net Work'"```. We recommend not to use any spaces in
+network names.
 
 ```
 # ----------------------------------------------------------------------
@@ -295,11 +392,17 @@ INFO: No inventory found or forced rebuild. Buidling inventory with defaults.
 
 NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
 
-After each card is burned, `cms burn raspberry` will prompt you to swap the SD card to burn the next host.
+After each card is burned, `cms burn raspberry` will prompt you to
+swap the SD card to burn the next host.
 
-After all the cards have been burned, we can now plug them in our raspberry pis and boot. Ensure
-that your workers and manager are connected to the same network switch via the ethernet cables. Ensure this network
-switch does not have internet access in itself, e.g. do not connect the switch to the internet router. We will use the manager as the sole point of internet access here. This we do deliberately to be able to disconnect all nodes from the network via the Master in case this is needed.
+After all the cards have been burned, we can now plug them in our
+raspberry pis and boot. Ensure that your workers and manager are
+connected to the same network switch via the ethernet cables. Ensure
+this network switch does not have internet access in itself, e.g. do
+not connect the switch to the internet router. We will use the manager
+as the sole point of internet access here. This we do deliberately to
+be able to disconnect all nodes from the network via the Master in
+case this is needed.
 
 ## 6. Burn Verification and Post-Process Steps
 
@@ -307,7 +410,10 @@ After you boot, we recommend waiting 2-3 minutes for the boot process to complet
 
 ### 6.1 Setting up a Proxy Jump with `cms host`
 
-While we are waiting for the Pis to boot, we can set up proxy jump on our laptop/desktop while adding it to the ssh config file. This will make it easier to access our workers.  Use the following command to set this up:
+While we are waiting for the Pis to boot, we can set up proxy jump on
+our laptop/desktop while adding it to the ssh config file. This will
+make it easier to access our workers.  Use the following command to
+set this up:
 
 ```
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
@@ -319,7 +425,10 @@ TO: Gregor believes the previous line is a documentation error and the following
 (ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
 ```
 
-The previous line is actually better, but ther is an implementation bug that does not copy the host key from the maseter on the worker nodes. I think that was once upon a time implemented, and may have ben removed and is now a bug. The workaround is
+The previous line is actually better, but ther is an implementation
+bug that does not copy the host key from the maseter on the worker
+nodes. I think that was once upon a time implemented, and may have ben
+removed and is now a bug. The workaround is
 
 
 ```
@@ -333,7 +442,14 @@ The previous line is actually better, but ther is an implementation bug that doe
 (ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
 ```
 
-We could wrap this into an option in some form. However the temp test should be performed first. We could document the two cases There are advantages and disadvantages about the two cases. a) proxy: you make it look like a cluster where each node is behind the proxy host b) with no proxy you can directly loginto the nodes from the laptop making ssh a bit faster and when many many nodes are involved possibly better. However this does probably not realy matter. I suggest we support both cases
+We could wrap this into an option in some form. However the temp test
+should be performed first. We could document the two cases There are
+advantages and disadvantages about the two cases. a) proxy: you make
+it look like a cluster where each node is behind the proxy host b)
+with no proxy you can directly loginto the nodes from the laptop
+making ssh a bit faster and when many many nodes are involved possibly
+better. However this does probably not realy matter. I suggest we
+support both cases
 
 
 It will do the appropriate modifications.
@@ -353,7 +469,9 @@ pi@red:~ $ exit
 > to an unknown locale of the burning machine. 2.4GHz wifi is more likely to 
 > work without explicit country configuration than 5 GHz bands.
 
-We can use a simple `cms` command to verify connection to our Pis. For this purpose, we use our  build in temperature command that reads the temperature values from each of the Pis.
+We can use a simple `cms` command to verify connection to our Pis. For
+this purpose, we use our build in temperature command that reads the
+temperature values from each of the Pis.
 
 ```bash
 (ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
@@ -373,7 +491,10 @@ By receiving this information from our devices we have confirmed our access.
 
 ### 6.3 Gather and Scatter Authorized Keys
 
-Each of the nodes only has our laptop's ssh-key in its respective `authorized_keys` file. We can use the `cms` command to gather all keys in our cluster and then distribute them so that each node can ssh into each other.
+Each of the nodes only has our laptop's ssh-key in its respective
+`authorized_keys` file. We can use the `cms` command to gather all
+keys in our cluster and then distribute them so that each node can ssh
+into each other.
 
 We first create ssh-keys for all the nodes in our cluster. 
 
@@ -431,8 +552,9 @@ All nodes should now have `ssh` access to each other.
 
 ### 6.4 Installing `cms` on a Pi
 
-Some cloudmesh commands offered can be very useful on the Pis. You can install `cms` on all Pis in this fashion, but
-we will only demonstrate this for the manager pi.
+Some cloudmesh commands offered can be very useful on the Pis. You can
+install `cms` on all Pis in this fashion, but we will only demonstrate
+this for the manager pi.
 
 For the production version pleas use 
 
@@ -448,8 +570,10 @@ However, to get the newest development version please use
 pi@red $ curl -Ls https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html | sh -
 ```
 
-This will not only install `cms`, but will also upgrade your system, install the dependencies for `cms`, and create a 
-virtual environment. Because a system upgrade takes place, this command may take several minutes to run.
+This will not only install `cms`, but will also upgrade your system,
+install the dependencies for `cms`, and create a virtual
+environment. Because a system upgrade takes place, this command may
+take several minutes to run.
 
 After a reboot, we can verify the success of the script with the following:
 
@@ -487,7 +611,10 @@ command. To make a default inventory named inventory-red.yaml:
 you@yourlaptop $ cms inventory add cluster "red,red[01-04]"
 ```
 
-This command will find your current WiFi SSID, your current locale and set up a simple network as depicted in Figure 1 on your cluster. In case you have more or fewer nodes, the command will make appropriate updates.
+This command will find your current WiFi SSID, your current locale and
+set up a simple network as depicted in Figure 1 on your cluster. In
+case you have more or fewer nodes, the command will make appropriate
+updates.
 
 
 ### 7.3 Custom Cluster Creation
@@ -527,10 +654,10 @@ you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
 
 ### 7.5 Burning a Custom Cluster
 
-You can now specify your inventory as you burn your cluster or specific 
-machines from the cluster with the burn command. All hosts data found in the 
-inventory will be written to the machines, regardless if they are in the 
-burn command or not.
+You can now specify your inventory as you burn your cluster or
+specific machines from the cluster with the burn command. All hosts
+data found in the inventory will be written to the machines,
+regardless if they are in the burn command or not.
 
 Burn the whole cluster.
 
@@ -547,14 +674,17 @@ Burn a specific machine.
 
 ### 7.6 Managing known_hosts
 
-In case you reburn a SDCard and use it in your cluster you will get a warning once you try to ssh into the machine. To remove the error simply execute the command
+In case you reburn a SDCard and use it in your cluster you will get a
+warning once you try to ssh into the machine. To remove the error
+simply execute the command
 
 ```bash
 you@yourlaptop $ ssh-keygen -R HOSTNAME
 ```
 
-where hostname is either the hostname or the ip address of your machine. that is registered in known hosts.
-To see the list, please use 
+where hostname is either the hostname or the ip address of your
+machine. that is registered in known hosts.  To see the list, please
+use
 
 ```bash
 you@yourlaptop $ cat ~/.ssh/known_hosts
