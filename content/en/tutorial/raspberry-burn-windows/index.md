@@ -1,7 +1,7 @@
 ---
 date: 2022-04-03
 title: "DRAFT: Burning a pre-configured Raspberry PI OS Cluster"
-linkTitle: "DRAFT: Pi Cluster from your OS (not approved yet)"
+linkTitle: "DRAFT: Burning a Preconfigured Pi Cluster from your OS (not approved yet)"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli)
 draft: False
