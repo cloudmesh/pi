@@ -136,6 +136,8 @@ As we are still developing the windows verison, we need to switch to a specific 
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
+(ENV3) you@yourlaptop $ cd ..
+
 ```
 
 ```
@@ -173,7 +175,7 @@ In case you do not always want to type in your passphrase, you can use ssh-agent
 
 ```bash
 (ENV3) you@yourlaptop $ eval `ssh-agent`
-(ENV3) you@yourlaptop $ eval `ssh-add`
+(ENV3) you@yourlaptop $ ssh-add
 
 ```
 
