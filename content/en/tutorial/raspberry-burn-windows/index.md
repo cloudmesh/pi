@@ -775,32 +775,78 @@ you@yourlaptop $ cat ~/.ssh/known_hosts
 
 ### 7.7 Get the OS Image
 
+Note that the `lite` tag is the same as `lite-32` and `full` the same as `full-32`. We added them for increased consistancy and visibility.
+We may drop iin future the lite and fill tag.
+
 ```bash
 you@yourlaptop  $ cms burn image versions --refresh
 
-+-----------------------+------------+-------------+--------+-----------------------------------------+
-| Tag                   | Date       | OS          | Type   | Version                                 |
-|-----------------------+------------+-------------+--------+-----------------------------------------|
-| lite-2020-05-28       | 2020-05-28 | raspberryos | lite   | raspios_lite_armhf-2020-05-28           |
-| lite-2020-08-24       | 2020-08-24 | raspberryos | lite   | raspios_lite_armhf-2020-08-24           |
-| lite-2020-12-04       | 2020-12-04 | raspberryos | lite   | raspios_lite_armhf-2020-12-04           |
-| lite-2021-01-12       | 2021-01-12 | raspberryos | lite   | raspios_lite_armhf-2021-01-12           |
-| lite-2021-03-25       | 2021-03-25 | raspberryos | lite   | raspios_lite_armhf-2021-03-25           |
-| lite-2021-05-28       | 2021-05-28 | raspberryos | lite   | raspios_lite_armhf-2021-05-28           |
-| latest-lite           | 2021-05-28 | raspberryos | lite   | raspios_lite_armhf-2021-05-28           |
-| full-2020-05-28       | 2020-05-28 | raspberryos | full   | raspios_full_armhf-2020-05-28           |
-| full-2020-08-24       | 2020-08-24 | raspberryos | full   | raspios_full_armhf-2020-08-24           |
-| full-2020-12-04       | 2020-12-04 | raspberryos | full   | raspios_full_armhf-2020-12-04           |
-| full-2021-01-12       | 2021-01-12 | raspberryos | full   | raspios_full_armhf-2021-01-12           |
-| full-2021-03-25       | 2021-03-25 | raspberryos | full   | raspios_full_armhf-2021-03-25           |
-| full-2021-05-28       | 2021-05-28 | raspberryos | full   | raspios_full_armhf-2021-05-28           |
-| latest-full           | 2021-05-28 | raspberryos | full   | raspios_full_armhf-2021-05-28           |
-| ubuntu-20.04.2-64-bit | 2021-02-01 | ubuntu      | ubuntu | 20.04.2&architecture=server-arm64+raspi |
-| ubuntu-20.04.2-32-bit | 2021-02-01 | ubuntu      | ubuntu | 20.04.2&architecture=server-armhf+raspi |
-| ubuntu-20.10-64-bit   | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=server-arm64+raspi   |
-| ubuntu-20.10-32-bit   | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=server-armhf+raspi   |
-| ubuntu-desktop        | 2021-02-01 | ubuntu      | ubuntu | 20.10&architecture=desktop-arm64+raspi  |
-+-----------------------+------------+-------------+--------+-----------------------------------------+
++---------------------------+------------+-------------+-------------+-----------------------------------------+
+| Tag                       | Date       | OS          | Type        | Version                                 |
+|---------------------------+------------+-------------+-------------+-----------------------------------------|
+| lite-2020-05-28           | 2020-05-28 | raspberryos | lite        | raspios_lite_armhf-2020-05-28           |
+| lite-2020-08-24           | 2020-08-24 | raspberryos | lite        | raspios_lite_armhf-2020-08-24           |
+| lite-2020-12-04           | 2020-12-04 | raspberryos | lite        | raspios_lite_armhf-2020-12-04           |
+| lite-2021-01-12           | 2021-01-12 | raspberryos | lite        | raspios_lite_armhf-2021-01-12           |
+| lite-2021-03-25           | 2021-03-25 | raspberryos | lite        | raspios_lite_armhf-2021-03-25           |
+| lite-2021-05-28           | 2021-05-28 | raspberryos | lite        | raspios_lite_armhf-2021-05-28           |
+| lite-2021-11-08           | 2021-11-08 | raspberryos | lite        | raspios_lite_armhf-2021-11-08           |
+| lite-2022-01-28           | 2022-01-28 | raspberryos | lite        | raspios_lite_armhf-2022-01-28           |
+| latest-lite               | 2022-01-28 | raspberryos | lite        | raspios_lite_armhf-2022-01-28           |
+| full-2020-05-28           | 2020-05-28 | raspberryos | full        | raspios_full_armhf-2020-05-28           |
+| full-2020-08-24           | 2020-08-24 | raspberryos | full        | raspios_full_armhf-2020-08-24           |
+| full-2020-12-04           | 2020-12-04 | raspberryos | full        | raspios_full_armhf-2020-12-04           |
+| full-2021-01-12           | 2021-01-12 | raspberryos | full        | raspios_full_armhf-2021-01-12           |
+| full-2021-03-25           | 2021-03-25 | raspberryos | full        | raspios_full_armhf-2021-03-25           |
+| full-2021-05-28           | 2021-05-28 | raspberryos | full        | raspios_full_armhf-2021-05-28           |
+| full-2021-11-08           | 2021-11-08 | raspberryos | full        | raspios_full_armhf-2021-11-08           |
+| full-2022-01-28           | 2022-01-28 | raspberryos | full        | raspios_full_armhf-2022-01-28           |
+| latest-full               | 2022-01-28 | raspberryos | full        | raspios_full_armhf-2022-01-28           |
+| lite-2020-05-28           | 2020-05-28 | raspberryos | lite-32     | raspios_lite_armhf-2020-05-28           |
+| lite-2020-08-24           | 2020-08-24 | raspberryos | lite-32     | raspios_lite_armhf-2020-08-24           |
+| lite-2020-12-04           | 2020-12-04 | raspberryos | lite-32     | raspios_lite_armhf-2020-12-04           |
+| lite-2021-01-12           | 2021-01-12 | raspberryos | lite-32     | raspios_lite_armhf-2021-01-12           |
+| lite-2021-03-25           | 2021-03-25 | raspberryos | lite-32     | raspios_lite_armhf-2021-03-25           |
+| lite-2021-05-28           | 2021-05-28 | raspberryos | lite-32     | raspios_lite_armhf-2021-05-28           |
+| lite-2021-11-08           | 2021-11-08 | raspberryos | lite-32     | raspios_lite_armhf-2021-11-08           |
+| lite-2022-01-28           | 2022-01-28 | raspberryos | lite-32     | raspios_lite_armhf-2022-01-28           |
+| latest-lite-32            | 2022-01-28 | raspberryos | lite-32     | raspios_lite_armhf-2022-01-28           |
+| full-2020-05-28           | 2020-05-28 | raspberryos | full-32     | raspios_full_armhf-2020-05-28           |
+| full-2020-08-24           | 2020-08-24 | raspberryos | full-32     | raspios_full_armhf-2020-08-24           |
+| full-2020-12-04           | 2020-12-04 | raspberryos | full-32     | raspios_full_armhf-2020-12-04           |
+| full-2021-01-12           | 2021-01-12 | raspberryos | full-32     | raspios_full_armhf-2021-01-12           |
+| full-2021-03-25           | 2021-03-25 | raspberryos | full-32     | raspios_full_armhf-2021-03-25           |
+| full-2021-05-28           | 2021-05-28 | raspberryos | full-32     | raspios_full_armhf-2021-05-28           |
+| full-2021-11-08           | 2021-11-08 | raspberryos | full-32     | raspios_full_armhf-2021-11-08           |
+| full-2022-01-28           | 2022-01-28 | raspberryos | full-32     | raspios_full_armhf-2022-01-28           |
+| latest-full-32            | 2022-01-28 | raspberryos | full-32     | raspios_full_armhf-2022-01-28           |
+| lite_arm64-2020-08-24     | 2020-08-24 | raspberryos | lite-64     | raspios_lite_arm64-2020-08-24           |
+| lite_arm64-2021-04-09     | 2021-04-09 | raspberryos | lite-64     | raspios_lite_arm64-2021-04-09           |
+| lite_arm64-2021-05-28     | 2021-05-28 | raspberryos | lite-64     | raspios_lite_arm64-2021-05-28           |
+| lite_arm64-2021-11-08     | 2021-11-08 | raspberryos | lite-64     | raspios_lite_arm64-2021-11-08           |
+| lite_arm64-2022-01-28     | 2022-01-28 | raspberryos | lite-64     | raspios_lite_arm64-2022-01-28           |
+| latest-lite-64            | 2022-01-28 | raspberryos | lite-64     | raspios_lite_arm64-2022-01-28           |
+| arm64-2020-05-28          | 2020-05-28 | raspberryos | full-64     | raspios_arm64-2020-05-28                |
+| arm64-2020-08-24          | 2020-08-24 | raspberryos | full-64     | raspios_arm64-2020-08-24                |
+| arm64-2021-04-09          | 2021-04-09 | raspberryos | full-64     | raspios_arm64-2021-04-09                |
+| arm64-2021-05-28          | 2021-05-28 | raspberryos | full-64     | raspios_arm64-2021-05-28                |
+| arm64-2021-11-08          | 2021-11-08 | raspberryos | full-64     | raspios_arm64-2021-11-08                |
+| arm64-2022-01-28          | 2022-01-28 | raspberryos | full-64     | raspios_arm64-2022-01-28                |
+| latest-full-64            | 2022-01-28 | raspberryos | full-64     | raspios_arm64-2022-01-28                |
+| oldstable_lite-2021-12-02 | 2021-12-02 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2021-12-02 |
+| oldstable_lite-2022-01-28 | 2022-01-28 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-01-28 |
+| latest-lite-legacy        | 2022-01-28 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-01-28 |
+| oldstable-2021-12-02      | 2021-12-02 | raspberryos | full-legacy | raspios_oldstable_armhf-2021-12-02      |
+| oldstable-2022-01-28      | 2022-01-28 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-01-28      |
+| latest-full-legacy        | 2022-01-28 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-01-28      |
+| ubuntu-20.04.2-64-bit     | 2021-02-01 | ubuntu      | ubuntu      | 20.04.2&architecture=server-arm64+raspi |
+| ubuntu-20.04.2-32-bit     | 2021-02-01 | ubuntu      | ubuntu      | 20.04.2&architecture=server-armhf+raspi |
+| ubuntu-20.10-64-bit       | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=server-arm64+raspi   |
+| ubuntu-20.10-32-bit       | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=server-armhf+raspi   |
+| ubuntu-desktop            | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=desktop-arm64+raspi  |
++---------------------------+------------+-------------+-------------+-----------------------------------------+
+
+
 ```
 
 ```bash
