@@ -137,10 +137,6 @@ As we are still developing the windows verison, we need to switch to a specific 
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
 (ENV3) you@yourlaptop $ cd ..
-
-```
-
-```
 (ENV3) you@yourlaptop $ cd cloudmesh-inventory
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
