@@ -147,6 +147,8 @@ Let us set up this and create one for this tutorial.</p><p>In your gitbash windo
 </code></pre></div><p>This directory will now contain all source code. It will also have installed the needed <code>cms</code> command.</p><p>As we are still developing the windows verison, we need to switch to a specific branch. In both of the blocks below, a <code>git fetch</code> immediately before the <code>git checkout windows</code> command may be necessary if the windows branch can&rsquo;t be found.</p><pre><code>(ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
+(ENV3) you@yourlaptop $ cd ..
+
 </code></pre><pre><code>(ENV3) you@yourlaptop $ cd cloudmesh-inventory
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
@@ -154,7 +156,7 @@ Let us set up this and create one for this tutorial.</p><p>In your gitbash windo
 </code></pre></div><p>You will see a list of subcommands that are part of the cms if your installation succeeded. Check if you can see the command</p><pre><code>burn
 </code></pre><p>in the list.</p><h3 id=43-create-an-ssh-key>4.3 Create an SSH key</h3><p>We use ssh to easily login to the manager and worker nodes from the laptop/desktop. Hence we create a keypair in <code>~/.ssh</code>. You can create one as follows by accepting the default location in <code>~/.ssh/id_rsa</code></p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-keygen
 </code></pre></div><p>Please use a unique and strong passphrase. We will use this default key to access our cluster after burning.</p><p>In case you do not always want to type in your passphrase, you can use ssh-agent in your gitbash window as follows:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ <span style=color:#204a87>eval</span> <span style=color:#4e9a06>`</span>ssh-agent<span style=color:#4e9a06>`</span>
-<span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ <span style=color:#204a87>eval</span> <span style=color:#4e9a06>`</span>ssh-add<span style=color:#4e9a06>`</span>
+<span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-add
 
 </code></pre></div><p>These two commands will start the ssh-agent and add your key to it so it is cached for future use within the same gitbash terminal</p><h2 id=5-burning-the-cluster>5. Burning the Cluster</h2><p>We are now ready to burn our cluster. Start by making sure you have the latest images to burn:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-lite
