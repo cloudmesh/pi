@@ -201,19 +201,18 @@ ssh-agent in your gitbash window as follows:</p><div class=highlight><pre style=
 it is cached for future use within the same gitbash terminal</p><h2 id=5-burning-the-cluster>5. Burning the Cluster</h2><p>We are now ready to burn our cluster. Start by making sure you have
 the latest images to burn. Please chose the 64-bit or the 32-bit image
 tab to see details:</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-ebdcfa data-toggle=tab href=#ebdcfa role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_64-bit_image</a>
-<a class="nav-item nav-link" id=nav-ecafbd data-toggle=tab href=#ecafbd role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_32-bit_image</a>
+<a class="nav-item nav-link" id=nav-aefbdc data-toggle=tab href=#aefbdc role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_32-bit_image</a>
 <a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=ebdcfa role=tabpanel aria-labelledby=nav-1><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-lite
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-full
-</code></pre></div></div><div class="tab-pane fade show" id=ecafbd role=tabpanel aria-labelledby=nav-1><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
+</code></pre></div></div><div class="tab-pane fade show" id=aefbdc role=tabpanel aria-labelledby=nav-1><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-lite
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-full
 </code></pre></div></div></div><p>Next, plug in your first SD Card into your card writer. Check your
 writer&rsquo;s path with the following while using gitbash as administrative
 user.</p><blockquote><p><em>Note: To run gitbash as administrative user, type in the Windows search form and click on Run as administrator). Qw will ougment all commands with the keyword (admin) that need to be run in administrative mode</em></p></blockquote><h3 id=51-get-burn-info>5.1 Get Burn Info</h3><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn info
-</code></pre></div><p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-deafcb data-toggle=tab href=#deafcb role=tab aria-controls=nav-home aria-selected=true>Sample_output_Windows</a>
-<a class="nav-item nav-link" id=nav-bdfeca data-toggle=tab href=#bdfeca role=tab aria-controls=nav-home aria-selected=true>Sample_output_PI4</a>
-<a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=deafcb role=tabpanel aria-labelledby=nav-1><pre><code># ----------------------------------------------------------------------
+</code></pre></div><p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-fdeacb data-toggle=tab href=#fdeacb role=tab aria-controls=nav-home aria-selected=true>Sample_output_Windows</a>
+<a class="nav-item nav-link" id=nav-ecbdfa data-toggle=tab href=#ecbdfa role=tab aria-controls=nav-home aria-selected=true>Sample_output_PI4</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=fdeacb role=tabpanel aria-labelledby=nav-1><pre><code># ----------------------------------------------------------------------
 # This is a Windows Computer
 # ----------------------------------------------------------------------
 
@@ -228,11 +227,15 @@ user.</p><blockquote><p><em>Note: To run gitbash as administrative user, type in
 |      4 | USB             | Removable Media | Generic STORAGE DEVICE USB Device |            2 | 59 GB  | Online   |
 +--------+-----------------+-----------------+-----------------------------------+--------------+--------+----------+
 WARNING: We could not find your USB reader in the list of known readers
-</code></pre></div><div class="tab-pane fade show" id=bdfeca role=tabpanel aria-labelledby=nav-1><pre><code>TBD
+</code></pre><p>IMPORTANT: Record the disk for the SDCard. In this case, it is <code>4</code>.</p></div><div class="tab-pane fade show" id=ecbdfa role=tabpanel aria-labelledby=nav-1><p>In case of a Raspbery PI you will see a column device in the table output. When
+specifying the burn command you will be using the <code>--device</code> flag. Let us assume
+you get the device <code>/dev/sda</code>. Then the flag in the burn command is <code>--device/dev/sda</code></p><pre><code>TBD
+
 </code></pre></div></div>`</p><p>This command will take a minute to complete. The warning occurs as
 your reader may be too new and we do not have it in our database of
-recognized readers. As long as you see <code>Removable Media</code> and <code>GENERIC STORAGE DEVICE</code> it will be fine.</p><p>Record the disk for the SDCard. In this case, it is <code>4</code>.</p><blockquote><p>Note we omit some output of <code>cms burn info</code> for clarity.</p></blockquote><h3 id=52-executing-burn-command>5.2 Executing Burn Command</h3><p>To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
-for instructions to burn the latest 64 bit OS.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
+recognized readers. As long as you see <code>Removable Media</code> and <code>GENERIC STORAGE DEVICE</code> it will be fine.</p><blockquote><p>Note we omit some output of <code>cms burn info</code> for clarity.</p></blockquote><h3 id=52-executing-burn-command>5.2 Executing Burn Command</h3><p>To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
+for instructions to burn the latest 64 bit OS.</p><p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-fedacb data-toggle=tab href=#fedacb role=tab aria-controls=nav-home aria-selected=true>Burn_On_Windows</a>
+<a class="nav-item nav-link" id=nav-deacbf data-toggle=tab href=#deacbf role=tab aria-controls=nav-home aria-selected=true>Raspbian_OS</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=fedacb role=tabpanel aria-labelledby=nav-1><blockquote><p><strong>IMPORTANT: verify the disk number with <code>cms burn info</code></strong></p></blockquote><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --password<span style=color:#ce5c00;font-weight:700>=</span>myloginpassword <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --disk<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#0000cf;font-weight:700>4</span> <span style=color:#4e9a06>\ </span>
                                          --new <span style=color:#4e9a06>\
@@ -240,12 +243,26 @@ for instructions to burn the latest 64 bit OS.</p><div class=highlight><pre styl
 </span><span style=color:#4e9a06></span>                                         --timezone<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;America-Indiana-Indianapolis&#34;</span> <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --ssid<span style=color:#ce5c00;font-weight:700>=</span>NETWORK <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --wifipassword<span style=color:#ce5c00;font-weight:700>=</span>mywifipassword
-</code></pre></div><p>On windows it will not autodetect the SSID, wifi password, locale, or
+</code></pre></div></div><div class="tab-pane fade show" id=deacbf role=tabpanel aria-labelledby=nav-1><blockquote><p><strong>IMPORTANT: verify the device name with <code>cms burn info</code></strong></p></blockquote><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --password<span style=color:#ce5c00;font-weight:700>=</span>myloginpassword <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --device<span style=color:#ce5c00;font-weight:700>=</span>/dev/sda <span style=color:#4e9a06>\ </span>
+                                         --new <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --locale<span style=color:#ce5c00;font-weight:700>=</span>en_US.UTF-8 <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --timezone<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;America-Indiana-Indianapolis&#34;</span> <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --ssid<span style=color:#ce5c00;font-weight:700>=</span>NETWORK <span style=color:#4e9a06>\
+</span><span style=color:#4e9a06></span>                                         --wifipassword<span style=color:#ce5c00;font-weight:700>=</span>mywifipassword
+</code></pre></div></div></div>`</p><p>On windows it will not autodetect the SSID, wifi password, locale, or
 country of your laptop. Hence you have to specify these as
 parameters. Timezones can be found at
-(<a href=https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>).</p><p>When entering timezones for the <code>--timezone</code> parameter, please
-replace forward slashes with hyphens, as shown in the change below:</p><p><code>--timezone="America/Indiana/Indianapolis"</code></p><p>Should be replaced with:</p><p><code>--timezone="America-Indiana-Indianapolis</code></p><p>If the network name has a space in it, please use two sets of quotes:
-<code>"--ssid='Net Work'"</code>. We recommend not to use any spaces in
+(<a href=https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>).
+On Raspberry PI OS, Linux, and macOS the timezone and locale will be
+automatically detected. Thus you do not have to specify
+them. However if you detect issues, please add them.</p><p>Timezones are typically defined with forward slashes in the string
+identifying them. However, as we use python forward
+slashes have a specific meaning in python and would interfere with
+our implementation. Therefor we use <code>-</code> instead of &lsquo;/&rsquo;.</p><p>Hence, when entering timezones for the <code>--timezone</code> parameter, please
+replace forward slashes with hyphens, as shown in the example shown next:</p><blockquote><p><code>--timezone="America/Indiana/Indianapolis"</code></p></blockquote><p>must be replaced with:</p><blockquote><p><code>--timezone="America-Indiana-Indianapolis</code></p></blockquote><p>If the network name has a space in it, please use two sets of quotes:
+<code>"--ssid='Net Work'"</code>. In general, we recommend not to use any spaces in
 network names.</p><pre><code># ----------------------------------------------------------------------
 #  _____                 _                           ____   _____
 # |  __ \               | |                         / __ \ / ____|
@@ -379,9 +396,8 @@ host key scatter red,red0<span style=color:#ce5c00;font-weight:700>[</span>1-4<s
 install <code>cms</code> on all Pis in this fashion, but we will only demonstrate
 this for the manager pi.</p><p>For the production version pleas use</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh red
 pi@red $ curl -Ls http://cloudmesh.github.io/get/pi <span style=color:#000;font-weight:700>|</span> sh -
-</code></pre></div><p>However, to get the newest development version please use</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh red
-pi@red $ curl -Ls https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html <span style=color:#000;font-weight:700>|</span> sh -
-</code></pre></div><p>This will not only install <code>cms</code>, but will also upgrade your system,
+</code></pre></div><p><del>However, to get the newest development version please use</del></p><p><del>(ENV3) you@yourlaptop $ ssh red
+pi@red $ curl -Ls <a href=https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html>https://raw.githubusercontent.com/cloudmesh/get/main/pi/index.html</a> | sh -</del></p><p>This will not only install <code>cms</code>, but will also upgrade your system,
 install the dependencies for <code>cms</code>, and create a virtual
 environment. Because a system upgrade takes place, this command may
 take several minutes to run.</p><p>After a reboot, we can verify the success of the script with the following:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> pi@red $ cms <span style=color:#204a87>help</span>
