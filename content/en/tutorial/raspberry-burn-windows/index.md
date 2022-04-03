@@ -1,6 +1,7 @@
 ---
-title: "DRAFT: Burning a pre-configured RaspberryOS Cluster on Windows 10"
-linkTitle: "DRAFT: Pi Cluster from Windows (Not approved yet)"
+date: 2022-04-03
+title: "DRAFT: Burning a pre-configured Raspberry PI OS Cluster"
+linkTitle: "DRAFT: Pi Cluster from your OS (not approved yet)"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli)
 draft: False
@@ -13,14 +14,17 @@ resources:
 
 {{% pageinfo %}}
 
-In this tutorial, we explain how to easily set up a preconfigured cluster of Pis using RaspberryOS while burning 
-SD Cards from Windows 10. The cluster is ready to boot after all cards have been burned. No other configuration is needed.
+In this tutorial, we explain how to easily set up a preconfigured cluster of Pis 
+using Raspberry PI OS while burning SD Cards from either a Windows 10 desktop/Laptop 
+or a PI 4 using Raspberry PI OS 64 bit. The cluster is ready to boot after all 
+cards have been burned. No other configuration is needed. You can chose to use 
+64-bit or 32-bit on the nodes for the cluster.
 
 **Learning Objectives**
 
 * Learn how to use cloudmesh-burn to create a RaspberryOS cluster
 * Test the cluster after burning
-* Use Windows 10 to conduct the burning
+* Use either Windows 10 or use a PI4 to conduct the burning
 
 **Topics covered**
 
@@ -37,12 +41,14 @@ while using RaspberryOS. While pi-imager only uses a limited number of
 parameters, our system adds network configurations to create a cluster
 including a simple network configuration. The system works while
 executing configurations automatically after the first boot. We will
-focus here on using Windows 10 for the burning. On piplanet.org we are
+focus here on using a computer for burning the SD Cards that can uses either Windows 10 
+or Rasberry PI OS for the burning. On <http://piplanet.org> we are
 providing additional tutorials that work also for Ubuntu and macOS.
 
-Our tutorials are useful as typically many steps are involved to set
+Our tutorials are very useful as typically many steps are involved to set
 up a cluster. This requires either the replication of time-consuming
-tasks that can be automated or the knowledge of DevOps frameworks.
+tasks that can be automated or the knowledge of DevOps frameworks that you 
+may not be familiar with.
 
 We avoid this by simply burning a card for each of the PIs. No more
 hours wasted on setting up your initial cluster.
@@ -68,12 +74,13 @@ cluster of 5 pis (1 manager, 4 workers) where we connect the manager
 to the internet via Wifi and configure the workers to access the
 internet through the manager via ethernet connection. This is useful
 for those with restricted internet access where devices must be
-registered by MAC Address or through browser login.
+registered by MAC Address or through browser login as the internet 
+connection is tunneled through the manager PI
 
 ## 2. Pre-requisites
 
-* Computer/Laptop with  Windows10 
-* `python3 --version` > 3.9
+* Computer/Laptop with  Windows10 or PI 4 with Raspberry PI OS 64-bit
+* `python3 --version` > 3.9.2
 * WiFi SSID and password
 * 5 Raspberry Pis and 5 SD Cards with power cables.  (However, you only need 
   a minimum of 2 is needed, one manager and 1 worker if you do not have 4 Pis.
@@ -88,7 +95,11 @@ please see our links on
 ## 3. Notation
 
 In our tutorial we define the manager hostname to be `red`, while each 
-worker has a number in it `red01`, `red02`, `red03`, `red04`
+worker has a number in it `red01`, `red02`, `red03`, `red04`. Our 
+tool specifically identifies the manager node to be the one without the number.
+Naturally, you can use a different name then using `red`. This can also be come 
+in handy in case you want to create multiple clusters to create a distributed 
+cluster environment for use or development purposes.
 
 The following image shows our cluster configuration:
 
@@ -96,7 +107,11 @@ The following image shows our cluster configuration:
 
 ## 4. Installing cloudmesh and Setup
 
-At the time of writing this tutorial uses Python 3.9.6. To install, go
+
+{{< tabs tabTotal="3" tabLeftAlign="3">}}
+{{< tab tabName="Windows" >}}
+
+At the time of writing this tutorial uses Python 3.10.4. To install, go
 to python.org and click the download button you see on the front page
 and install this or a newer version. We additionally use gitbash for
 our commands so make sure you have gitbash installed. You can download
@@ -104,12 +119,28 @@ from <https://git-scm.com/downloads>. Our ```burn``` commands will
 require administrator privileges, so launch an administrator gitbash
 window by right-clicking on the program.
 
-It is best practice to create virtual environments for python.  We
-also want to place all source code in a common directory called `cm`.
-Let us set up this and create one for this tutorial.
-
+It is best practice to create virtual environments for python. Hence,  
+do not use our programwithout using a virtualenv.
 In your gitbash window create a virtual environment with
 
+
+```bash
+you@yourlaptop $ py -m venv ~/ENV3
+```
+
+This will create a new python virtual environment. Activate it with
+the following command.
+
+```bash
+you@yourlaptop $ source ~/ENV3/Scripts/activate
+```
+
+{{< /tab >}}
+{{< tab tabName="Rasperry_PI_OS_64-bit" >}}
+
+At the time of writing this tutorial uses Python 3.9.2 is the 
+default version. It is best practice to create virtual environments 
+for python.  Hence, do not use our programwithout using a virtualenv.
 
 ```bash
 you@yourlaptop $ python -m venv ~/ENV3
@@ -119,8 +150,12 @@ This will create a new python virtual environment. Activate it with
 the following command.
 
 ```bash
-you@yourlaptop $ source ~/ENV3/Scripts/activate
+you@yourlaptop $ source ~/ENV3/bin/activate
 ```
+
+{{< /tab >}}
+{{< /tabs >}}
+
 
 First, we update pip and verify your `python` and `pip` are correct
 
@@ -133,7 +168,6 @@ First, we update pip and verify your `python` and `pip` are correct
 ~/ENV3/Scripts/pip
 ```
 
-**Tab 1 Content**
 
 ### ~~4.1 Install from Pip for Regular Users~~
 
@@ -330,8 +364,13 @@ for instructions to burn the latest 64 bit OS.
                                          --wifipassword=mywifipassword
 ```
 
+
+On windows it will not autodetect the SSID, wifi password, locale, or
+country of your laptop. Hence you have to specify these as
+parameters. 
+
 {{< /tab >}}
-{{< tab tabName="Raspbian_OS" >}}
+{{< tab tabName="Burn_On_Raspbian_OS 64-bit" >}}
 
 > **IMPORTANT: verify the device name  with `cms burn info`**
 
@@ -346,20 +385,15 @@ for instructions to burn the latest 64 bit OS.
                                          --wifipassword=mywifipassword
 ```
 
-
-{{< /tab >}}
-
-{{< /tabs >}}`
-
-
-
-On windows it will not autodetect the SSID, wifi password, locale, or
-country of your laptop. Hence you have to specify these as
-parameters. Timezones can be found at
-(<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
 On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
 automatically detected. Thus you do not have to specify 
 them. However if you detect issues, please add them. 
+
+{{< /tab >}}
+{{< /tabs >}}`
+
+Timezones can be found at
+(<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
 
 Timezones are typically defined with forward slashes in the string 
 identifying them. However, as we use python forward 
@@ -431,7 +465,6 @@ INFO: No inventory found or forced rebuild. Buidling inventory with defaults.
  > (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
 > ```
 
-NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
 
 After each card is burned, `cms burn raspberry` will prompt you to
 swap the SD card to burn the next host.
@@ -445,9 +478,16 @@ as the sole point of internet access here. This we do deliberately to
 be able to disconnect all nodes from the network via the Master in
 case this is needed.
 
+
 ## 6. Burn Verification and Post-Process Steps
 
 After you boot, we recommend waiting 2-3 minutes for the boot process to complete.
+You will notice that the read LED will be on and that the green LED is off.
+If this is not the case, please wait. If it does not work after a long while, 
+please reboot the PI that has issues and see if it works after the reboot.
+Also make sure you check your hardware and network.
+
+
 
 ### 6.1 Setting up a Proxy Jump with `cms host`
 
@@ -456,11 +496,15 @@ our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers.  Use the following command to
 set this up:
 
+NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
+
+
 ```
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
 
-TO: Gregor believes the previous line is a documentation error and the following line may work:
+TO: Gregor believes the previous line is a documentation error 
+and the following line may work:
 
 ```
 (ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
