@@ -1,5 +1,4 @@
 ---
-date: 2021-07-20
 title: "DRAFT: Burning a pre-configured RaspberryOS Cluster on Windows 10"
 linkTitle: "DRAFT: Pi Cluster from Windows (Not approved yet)"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
