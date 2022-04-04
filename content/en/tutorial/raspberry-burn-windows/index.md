@@ -266,8 +266,8 @@ tab to see details:
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
-(ENV3) you@yourlaptop $ cms burn image get latest-lite
-(ENV3) you@yourlaptop $ cms burn image get latest-full
+(ENV3) you@yourlaptop $ cms burn image get latest-lite-64
+(ENV3) you@yourlaptop $ cms burn image get latest-full-64
 ```
 
 {{< /tab >}}
@@ -332,6 +332,24 @@ TBD
 ```
 
 {{< /tab >}}
+{{< tab tabName="Sample_output_Linux" >}}
+
+In case of Linux you will see a column device in the table output. When 
+specifying the burn command you will be using the `--device` flag. Let us assume 
+you get the device `/dev/sda`. Then the flag in the burn command is `--device/dev/sda`
+
+```
+# ----------------------------------------------------------------------
+# SD Cards Found
+# ----------------------------------------------------------------------
+
++----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
+| Path     | Info                   | Formatted   | Size             | Plugged-in   | Readable   | Empty   | Access   | Removable   | Writeable   |
+|----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------|
+| /dev/sdd | Generic STORAGE DEVICE | True        | 64.1 GB/59.7 GiB | True         | True       | False   | True     | True        | True        |
++----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
+```
+
 {{< /tabs >}}`
 
 
