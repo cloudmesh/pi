@@ -361,13 +361,15 @@ for instructions to burn the latest 64 bit OS.
                                          --locale=en_US.UTF-8 \
                                          --timezone="America-Indiana-Indianapolis" \
                                          --ssid=NETWORK \
-                                         --wifipassword=mywifipassword
+                                         --wifipassword=mywifipassword \
+                                         --tag=latest-lite-64
 ```
 
 or as one liner
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+(ENV3) (admin) you@yourlaptop $ 
+cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --device=/dev/sdd --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
 ```
 
 
@@ -388,13 +390,14 @@ parameters.
                                          --locale=en_US.UTF-8 \
                                          --timezone="America-Indiana-Indianapolis" \
                                          --ssid=NETWORK \
-                                         --wifipassword=mywifipassword
+                                         --wifipassword=mywifipassword \
+                                         --tag=latest-lite-64
 ```
 
 or as one liner
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sda --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sda --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword --tag=latest-lite-64
 ```
 
 
