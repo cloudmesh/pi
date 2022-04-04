@@ -364,6 +364,12 @@ for instructions to burn the latest 64 bit OS.
                                          --wifipassword=mywifipassword
 ```
 
+or as one liner
+
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+```
+
 
 On windows it will not autodetect the SSID, wifi password, locale, or
 country of your laptop. Hence you have to specify these as
@@ -384,6 +390,13 @@ parameters.
                                          --ssid=NETWORK \
                                          --wifipassword=mywifipassword
 ```
+
+or as one liner
+
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sda --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
+```
+
 
 On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
 automatically detected. Thus you do not have to specify 
@@ -496,16 +509,24 @@ our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers.  Use the following command to
 set this up:
 
-NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
-
 
 ```
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
 
-TO: Gregor believes the previous line is a documentation error 
-and the following line may work:
+Once the {is are booted you can run the temperature program to verify if things work
 
+```bash
+(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+````
+
+
+
+NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
+
+
+TO: For DK for some reason the proxy did not work, but the command without proxy. 
+Gregor has tested that by hand and he believes the following may solve dks issue. However the proxy is the right thing to do.
 ```
 (ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
 ```
@@ -853,6 +874,8 @@ you@yourlaptop  $ cms burn image versions --refresh
 you@yourlaptop $ cms burn image get latest-lite
 you@yourlaptop $ cms burn image get latest-fll
 ```
+
+TODO: cleaning the cache form images when we run out of space
 
 ### 7.7 Related tutorials
 
