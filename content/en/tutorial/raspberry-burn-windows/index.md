@@ -425,7 +425,7 @@ country of your laptop. Hence you have to specify these as
 parameters. 
 
 {{< /tab >}}
-{{< tab tabName="Burn_On_Raspbian_OS 64-bit" >}}
+{{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
 
 > **IMPORTANT: verify the device name  with `cms burn info`**
 
@@ -434,8 +434,6 @@ parameters.
                                          --password=myloginpassword \
                                          --device=/dev/sda \ 
                                          --new \
-                                         --locale=en_US.UTF-8 \
-                                         --timezone="America-Indiana-Indianapolis" \
                                          --ssid=NETWORK \
                                          --wifipassword=mywifipassword \
                                          --tag=latest-lite-64
@@ -446,11 +444,9 @@ or as one liner
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sda --new --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword --tag=latest-lite-64
 ```
-
-
 On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
 automatically detected. Thus you do not have to specify 
-them. However if you detect issues, please add them. 
+them.  
 
 {{< /tab >}}
 {{< /tabs >}}
