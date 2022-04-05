@@ -257,12 +257,14 @@ it is cached for future use within the same gitbash terminal
 
 We are now ready to burn our cluster. Start by making sure you have
 the latest images to burn. Please chose the 64-bit or the 32-bit image
-tab to see details:
-
+tab to see details. For our example we will be chosing the 64 bit image. 
+First we need to download them. It is sufficient to download that lite 
+image, but if you like to install on the manager the full image you can 
+also do that, but you need to download it also if you decide to do that. 
+In our example we will not use the full image, so you can just download the lite image.
 
 {{< tabs tabTotal="3" tabLeftAlign="2">}}
 {{< tab tabName="Rasperry_PI_OS_64-bit_image" >}}
-
 
 ```bash
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
@@ -283,20 +285,31 @@ tab to see details:
 {{< /tabs >}}
 
 Next, plug in your first SD Card into your card writer.  Check your
-writer's path with the following while using gitbash as administrative
-user.
+writer's path with the following command.
 
 
-> *Note: To run gitbash as administrative user, type in the Windows search form and click on Run as administrator). Qw will ougment all commands with the keyword (admin) that need to be run in administrative mode*
 
 ### 5.1 Get Burn Info
+
+
+
+
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
+{{< tab tabName="Sample_output_Windows" >}}
+
+The command needs to be run while using `gitbash` as administrative  user.
+
+
+> *Note: To run gitbash as administrative user, type in the Windows 
+> search form and click on Run as administrator). Qw will ougment all 
+> commands with the keyword (admin) that need to be run in administrative mode*
+
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
 
-{{< tabs tabTotal="2" tabLeftAlign="2">}}
-{{< tab tabName="Sample_output_Windows" >}}
+
 
 ```
 # ----------------------------------------------------------------------
@@ -316,11 +329,19 @@ user.
 WARNING: We could not find your USB reader in the list of known readers
 ```
 
+> Note we omit some output of `cms burn info` for clarity.
+
+
 IMPORTANT: Record the disk for the SDCard. In this case, it is `4`.
 
 
 {{< /tab >}}
 {{< tab tabName="Sample_output_PI4" >}}
+
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn info
+```
+
 
 In case of a Raspbery PI you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
@@ -331,8 +352,14 @@ TBD
 
 ```
 
+> Note we omit some output of `cms burn info` for clarity.
+
 {{< /tab >}}
 {{< tab tabName="Sample_output_Linux" >}}
+
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn info
+```
 
 In case of Linux you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
@@ -350,21 +377,29 @@ you get the device `/dev/sda`. Then the flag in the burn command is `--device/de
 +----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
 ```
 
+IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdd.
+
+> Note we omit some output of `cms burn info` for clarity.
+
 {{< /tabs >}}`
 
 
 
-This command will take a minute to complete. The warning occurs as
-your reader may be too new and we do not have it in our database of
-recognized readers. As long as you see `Removable Media` and `GENERIC
+Dependent on your system this command will take a minute to complete. 
+In case you recieve a warning inspect it carefully. One reason could be that 
+the warning occurs as  your reader may be too new and we do not have it in 
+our database of recognized readers. As long as you see `Removable Media` and `GENERIC
 STORAGE DEVICE` it will be fine.
 
-> Note we omit some output of `cms burn info` for clarity.
 
 ### 5.2 Executing Burn Command
 
-To burn the latest 32 bit OS use the following command. Otherwise, look at our subsequent note
-for instructions to burn the latest 64 bit OS.
+To burn the latest 64 bit OS use the following command. If you like to burn other tags you can recieve them from 
+the command `cms burn versions --refresh`. the `--tag` can tacke multiple comma separated arguments. The tag can be 
+specified for each SD Card you want to specify individually. A special form is to use 
+--tag=latest-full-64,latest-lite-64 in which the full image is burned on teh manager and the lite burned on the workers.
+As mentioned before, we will however just burn the lite 64 bit image on all.
+
 
 {{< tabs tabTotal="2" tabLeftAlign="2">}}
 {{< tab tabName="Burn_On_Windows" >}}
@@ -389,7 +424,6 @@ or as one liner
 (ENV3) (admin) you@yourlaptop $ 
 cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --device=/dev/sdd --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
 ```
-
 
 On windows it will not autodetect the SSID, wifi password, locale, or
 country of your laptop. Hence you have to specify these as
@@ -468,37 +502,24 @@ network names.
 # ----------------------------------------------------------------------
 
 INFO: No inventory found or forced rebuild. Buidling inventory with defaults.
-+-------+-------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
-| host  | tag         | cluster | service | services           | ip       | dns                    | router   | locale      | timezone                   | owners | comment | description | keyfile           |
-+-------+-------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
-| red   | latest-lite |         | manager | ['bridge', 'wifi'] | 10.1.1.1 |                        |          | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red01 | latest-lite |         | worker  |                    | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red02 | latest-lite |         | worker  |                    | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red03 | latest-lite |         | worker  |                    | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red04 | latest-lite |         | worker  |                    | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-+-------+-------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
++-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
+| host  | tag            | cluster | service | services           | ip       | dns                    | router   | locale      | timezone                   | owners | comment | description | keyfile           |
++-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
+| red   | latest-lite-64 |         | manager | ['bridge', 'wifi'] | 10.1.1.1 |                        |          | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red01 | latest-lite-64 |         | worker  |                    | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red02 | latest-lite-64 |         | worker  |                    | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red03 | latest-lite-64 |         | worker  |                    | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red04 | latest-lite-64 |         | worker  |                    | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
++-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
 ```
 
-> Note the `--new` flag instructs `cms burn` to build a new (the -f flag does the same but we have not yet tested it).
-> inventory and overwrites it if it already exists. To see the contents of this file you
-> can use the command
+> Note the `--new` flag instructs `cms burn` to build a new
+> inventory and overwrites it if it already exists (the -f flag does the same but we have not yet tested it). 
+> To see the contents of this file you can use the command
 >
 > ```bash
  > cms inventory list --inventory=inventory-red.yaml
 > ```
-
-> Note: if you want to burn the **64 bit OS** use the following series of commands
-> instead.This creates a default cluster configuration, and then changes the OS tag
-> latest-lite-64.
->
-> ```bash
- > (ENV3) (admin) you@yourlaptop $ cms burn image versions --refresh
- > (ENV3) (admin) you@yourlaptop $ cms burn image get latest-lite-64 
- > (ENV3) (admin) you@yourlaptop $ cms inventory add cluster "red,red0[1-4]"
- > (ENV3) (admin) you@yourlaptop $ cms inventory set "red,red0[1-4]" tag to latest-lite-64 --inventory="inventory-red.yaml"
- > (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --disk=4 --locale=en_US.UTF-8 --timezone="America-Indiana-Indianapolis" --ssid=NETWORK --wifipassword=mywifipassword
-> ```
-
 
 After each card is burned, `cms burn raspberry` will prompt you to
 swap the SD card to burn the next host.
@@ -530,56 +551,21 @@ our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers.  Use the following command to
 set this up:
 
-
 ```
+(ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
 
-Once the {is are booted you can run the temperature program to verify if things work
-
-```bash
-(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
-````
-
-
-
-NOT TESTED FROM HERE ON. IMPROVEMENTS WILL BE LIKELY
-
-
-TO: For DK for some reason the proxy did not work, but the command without proxy. 
-Gregor has tested that by hand and he believes the following may solve dks issue. However the proxy is the right thing to do.
-```
-(ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
-```
-
-The previous line is actually better, but ther is an implementation
-bug that does not copy the host key from the maseter on the worker
-nodes. I think that was once upon a time implemented, and may have ben
-removed and is now a bug. The workaround is
-
+We also recommend that you add the following to the top of your `~/.ssh/config` file. As you may have done this before, 
+we do not automatically do it and we ask you to add it with your favourite editor.
 
 ```
-(ENV3) you@yourlaptop $ cms host pi@red.local "red0[1-4]"
-(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
-
-# VERIFY AND USE YN CHOOISE IF THINGS ARE OK, IF SO EXECUTE THE NEXT LINES
-
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
-(ENV3) you@yourlaptop $ cms host config pi@red.local "red0[1-4]"
+Host *
+     ServerAliveInterval 30
+     ServerAliveCountMax 5
 ```
 
-We could wrap this into an option in some form. However the temp test
-should be performed first. We could document the two cases There are
-advantages and disadvantages about the two cases. a) proxy: you make
-it look like a cluster where each node is behind the proxy host b)
-with no proxy you can directly loginto the nodes from the laptop
-making ssh a bit faster and when many many nodes are involved possibly
-better. However this does probably not realy matter. I suggest we
-support both cases
-
-
-It will do the appropriate modifications.
+This will keep the connections alive and avoids that you get disconnected.
 
 ### 6.2 Verifying Manager and Worker Access
 
@@ -591,10 +577,42 @@ First verify that you can reach the manager (red).
 pi@red:~ $ exit
 ```
 
->Note: If this does not work, it  is likely that the wifi configuration was 
+> Note: If this does not work, it  is likely that the wifi configuration was 
 > incorrect, or there is an RF block on the Pi that could not be removed due 
 > to an unknown locale of the burning machine. 2.4GHz wifi is more likely to 
 > work without explicit country configuration than 5 GHz bands.
+
+We dicovered that on Linux the first time you ssh into a machine it may hang. 
+Please CNTRL-C and execute again.  It should work now. If you find a solution 
+to this issue, please let us know. Also we observed that som users used the 
+same addresses with previously used hardware and forgot to delet ethe know_hosts file.
+If you encounter this please do the following.
+
+```bash
+(ENV3) you@yourlaptop $ rm ~/.ssh/known_hosts
+(ENV3) you@yourlaptop $ ssh-add -D 
+(ENV3) you@yourlaptop $ ssh red
+```
+
+For simplicity and so you do not get diconnected, just keep this window open and you can use new terminals to issue other 
+commands from your laptop or desktop
+`
+
+To try it use the following:
+
+```bash
+(ENV3) you@yourlaptop $ ssh red hostname
+(ENV3) you@yourlaptop $ ssh red01 hostname
+(ENV3) you@yourlaptop $ ssh red02 hostname
+(ENV3) you@yourlaptop $ ssh red03 hostname
+(ENV3) you@yourlaptop $ ssh red04 hostname
+```
+
+Next we want to execute a more advanced program that retrieves the temperature of the PIs
+
+```bash
+(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+```
 
 We can use a simple `cms` command to verify connection to our Pis. For
 this purpose, we use our build in temperature command that reads the
@@ -616,7 +634,22 @@ pi temp red,red0[1-4]
 
 By receiving this information from our devices we have confirmed our access.
 
-### 6.3 Gather and Scatter Authorized Keys
+
+### 6.3 Setting up keys on each PI worker
+
+To set up keys on each PI so we can login from one PI to another, we can use our create/gather/sactter 
+commands. Firts we need to create a key on the workers, THen we gather all keys including the manager, 
+and scatter them on all PIs. The sequence of commands is as follows:
+
+
+```bash
+(ENV3) you@yourlaptop $ cms host key create "red0[1-4]"
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
+```
+
+We describe each step in more detail next.
+
 
 Each of the nodes only has our laptop's ssh-key in its respective
 `authorized_keys` file. We can use the `cms` command to gather all
@@ -656,13 +689,13 @@ host key create red,red0[1-4]
 We can subsequently gather these keys into a file.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 | host  | success | stdout |
@@ -718,6 +751,8 @@ burn    debug     gui      man        q         ssh    term
 ## 7. Appendix
 
 ## 7.1 Writing our cluster configuration
+
+THis feature is implicitly included in the burn command and you will have an inventory created automatically.
 
 Cloudmesh has a simple system for managing cluster configurations as an inventory. 
 We do this management for you, but you can control it also from the command line. 
