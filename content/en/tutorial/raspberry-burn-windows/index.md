@@ -458,7 +458,7 @@ automatically detected. Thus you do not have to specify
 them. However if you detect issues, please add them. 
 
 {{< /tab >}}
-{{< /tabs >}}`
+{{< /tabs >}}
 
 Timezones can be found at
 <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>.
