@@ -461,7 +461,7 @@ them. However if you detect issues, please add them.
 {{< /tabs >}}`
 
 Timezones can be found at
-(<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>).
+<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>.
 
 Timezones are typically defined with forward slashes in the string 
 identifying them. However, as we use python forward 
