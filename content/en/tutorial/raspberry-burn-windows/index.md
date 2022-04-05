@@ -291,11 +291,8 @@ writer's path with the following command.
 
 ### 5.1 Get Burn Info
 
-
-
-
-{{< tabs tabTotal="2" tabLeftAlign="2">}}
-{{< tab tabName="Sample_output_Windows" >}}
+{{< tabs tabTotal="3" tabLeftAlign="3">}}
+{{< tab tabName="Burn_Info_Windows" >}}
 
 The command needs to be run while using `gitbash` as administrative  user.
 
@@ -308,8 +305,6 @@ The command needs to be run while using `gitbash` as administrative  user.
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
-
-
 
 ```
 # ----------------------------------------------------------------------
@@ -336,7 +331,7 @@ IMPORTANT: Record the disk for the SDCard. In this case, it is `4`.
 
 
 {{< /tab >}}
-{{< tab tabName="Sample_output_PI4" >}}
+{{< tab tabName="Burn_Info_PI4" >}}
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
@@ -349,13 +344,12 @@ you get the device `/dev/sda`. Then the flag in the burn command is `--device/de
 
 ```
 TBD
-
 ```
 
 > Note we omit some output of `cms burn info` for clarity.
 
 {{< /tab >}}
-{{< tab tabName="Sample_output_Linux" >}}
+{{< tab tabName="Burn_Info_Linux" >}}
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn info
@@ -380,6 +374,7 @@ you get the device `/dev/sda`. Then the flag in the burn command is `--device/de
 IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdd.
 
 > Note we omit some output of `cms burn info` for clarity.
+{{< /tab >}}
 
 {{< /tabs >}}`
 
@@ -460,20 +455,23 @@ them. However if you detect issues, please add them.
 {{< /tab >}}
 {{< /tabs >}}
 
-Timezones can be found at
-<https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>.
 
+Timezones can be found at <https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>.
 Timezones are typically defined with forward slashes in the string 
 identifying them. However, as we use python forward 
 slashes have a specific meaning in python and would interfere with 
-our implementation. Therefor we use `-` instead of '//'.
+our implementation. 
 
-Hence, when entering timezones for the `--timezone` parameter, please
+
+
+Therefor we use `-` instead of `/`.
+
+Hence, when entering timezones for the --timezone parameter, please
 replace forward slashes with hyphens, as shown in the example shown next:
 
 > America/Indiana/Indianapolis
 
-must be replaced with '-':  
+must be replaced with '-' in the `--timezone` parameter:  
 
 > `--timezone="America-Indiana-Indianapolis`  
 
