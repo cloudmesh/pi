@@ -466,19 +466,19 @@ Timezones can be found at
 Timezones are typically defined with forward slashes in the string 
 identifying them. However, as we use python forward 
 slashes have a specific meaning in python and would interfere with 
-our implementation. Therefor we use `-` instead of '/'.
+our implementation. Therefor we use `-` instead of '//'.
 
-Hence, when entering timezones for the ```--timezone``` parameter, please
+Hence, when entering timezones for the `--timezone` parameter, please
 replace forward slashes with hyphens, as shown in the example shown next:
 
-> ```--timezone="America/Indiana/Indianapolis"```  
+> America/Indiana/Indianapolis
 
-must be replaced with:  
+must be replaced with '-':  
 
-> ```--timezone="America-Indiana-Indianapolis```  
+> `--timezone="America-Indiana-Indianapolis`  
 
 If the network name has a space in it, please use two sets of quotes:
-```"--ssid='Net Work'"```. In general, we recommend not to use any spaces in
+`"--ssid='Net Work'"`. In general, we recommend not to use any spaces in
 network names.
 
 ```
