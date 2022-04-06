@@ -637,7 +637,7 @@ and scatter them on all PIs. The sequence of commands is as follows:
 
 
 ```bash
-(ENV3) you@yourlaptop $ cms host key create "red0[1-4]"
+(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
