@@ -314,12 +314,12 @@ The command needs to be run while using `gitbash` as administrative  user.
 +----------+-------+-------+---------+-------+-----------+--------+----------+--------+----------+
 | Volume   |   ### | Ltr   | Label   | Fs    | Type      | Size   | Status   | Info   | dev      |
 |----------+-------+-------+---------+-------+-----------+--------+----------+--------+----------|
-| Volume   |     7 | F     | boot    | FAT32 | Removable | 256 MB | Healthy  |        | /dev/sde |
+| Volume   |     7 | F     | boot    | FAT32 | Removable | 256 MB | Healthy  |        | /dev/sdX |
 +----------+-------+-------+---------+-------+-----------+--------+----------+--------+----------+
 +--------+-----------------+-----------------+-----------------------------------+--------------+--------+----------+
 |   Disk | InterfaceType   | MediaType       | Model                             |   Partitions | Size   | Status   |
 |--------+-----------------+-----------------+-----------------------------------+--------------+--------+----------|
-|      4 | USB             | Removable Media | Generic STORAGE DEVICE USB Device |            2 | 59 GB  | Online   |
+|   101X | USB             | Removable Media | Generic STORAGE DEVICE USB Device |            2 | 59 GB  | Online   |
 +--------+-----------------+-----------------+-----------------------------------+--------------+--------+----------+
 WARNING: We could not find your USB reader in the list of known readers
 ```
@@ -327,7 +327,8 @@ WARNING: We could not find your USB reader in the list of known readers
 > Note we omit some output of `cms burn info` for clarity.
 
 
-IMPORTANT: Record the disk for the SDCard. In this case, it is `4`.
+IMPORTANT: Record the disk for the SDCard. In this case, it is `101X`. However this number will just be an integer, so 
+please replace it accordingly.
 
 
 {{< /tab >}}
@@ -340,7 +341,10 @@ IMPORTANT: Record the disk for the SDCard. In this case, it is `4`.
 
 In case of a Raspbery PI you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
-you get the device `/dev/sda`. Then the flag in the burn command is `--device/dev/sda`
+you get the device `/dev/sdX`. Then the flag in the burn command is `--device/dev/sdX`
+Typical names are `/dev/sda`, /dev/sdb`, /dev/sdc`, /dev/sdd`, and so on. But be careful 
+they may belong tp other hard drives. Therefore we use sdX in this documentation so 
+you avoid accidental data loss.
 
 ```
 TBD
@@ -358,6 +362,9 @@ TBD
 In case of Linux you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
 you get the device `/dev/sda`. Then the flag in the burn command is `--device/dev/sda`
+Typical names are `/dev/sda`, /dev/sdb`, /dev/sdc`, /dev/sdd`, and so on. But be careful 
+they may belong tp other hard drives. Therefore we use sdX in this documentation so 
+you avoid accidental data loss.
 
 ```
 # ----------------------------------------------------------------------
@@ -367,11 +374,11 @@ you get the device `/dev/sda`. Then the flag in the burn command is `--device/de
 +----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
 | Path     | Info                   | Formatted   | Size             | Plugged-in   | Readable   | Empty   | Access   | Removable   | Writeable   |
 |----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------|
-| /dev/sdd | Generic STORAGE DEVICE | True        | 64.1 GB/59.7 GiB | True         | True       | False   | True     | True        | True        |
+| /dev/sdX | Generic STORAGE DEVICE | True        | 64.1 GB/59.7 GiB | True         | True       | False   | True     | True        | True        |
 +----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
 ```
 
-IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdd.
+IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdX.
 
 > Note we omit some output of `cms burn info` for clarity.
 {{< /tab >}}
@@ -404,7 +411,7 @@ As mentioned before, we will however just burn the lite 64 bit image on all.
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
                                          --password=myloginpassword \
-                                         --disk=4 \ 
+                                         --disk=101X \ 
                                          --new \
                                          --locale=en_US.UTF-8 \
                                          --timezone="America-Indiana-Indianapolis" \
@@ -417,7 +424,7 @@ or as one liner
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ 
-cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --device=/dev/sdd --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
+cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --device=/dev/sdX --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
 ```
 
 On windows it will not autodetect the SSID, wifi password, locale, or
@@ -432,7 +439,7 @@ parameters.
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
                                          --password=myloginpassword \
-                                         --device=/dev/sda \ 
+                                         --device=/dev/sdX \ 
                                          --new \
                                          --ssid=NETWORK \
                                          --wifipassword=mywifipassword \
@@ -442,7 +449,7 @@ parameters.
 or as one liner
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sda --new --ssid=NETWORK --wifipassword=mywifipassword --tag=latest-lite-64
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sdX --new --ssid=NETWORK --wifipassword=mywifipassword --tag=latest-lite-64
 ```
 On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
 automatically detected. Thus you do not have to specify 
@@ -816,14 +823,14 @@ regardless if they are in the burn command or not.
 Burn the whole cluster.
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdb 
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdX 
 --inventory="inventory-red.yaml"
 ```
 
 Burn a specific machine.
 
 ```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdb --inventory="inventory-red.yaml"
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdX --inventory="inventory-red.yaml"
 ```
 
 ### 7.6 Managing known_hosts
