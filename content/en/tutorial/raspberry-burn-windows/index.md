@@ -32,6 +32,15 @@ cards have been burned. No other configuration is needed. You can chose to use
 
 {{% /pageinfo %}}
 
+## Disclaimer
+
+As this tool formats disks we hodl no responsibility on this tool properly 
+functioning or if you lose any data. Best practice is to create a backup of 
+your system before you try this. For this reason we also provide this program 
+on a Raspberry PI, so you can use that to burn. If something goes wrong, you 
+just have to reburn  the PI. We recommend a PI4 as this has a faster USB port 
+and allows faster burn time then previous generations of PI's
+
 ## 1. Introduction
 
 With the release of [Pi Imager
@@ -77,6 +86,7 @@ for those with restricted internet access where devices must be
 registered by MAC Address or through browser login as the internet 
 connection is tunneled through the manager PI
 
+
 ## 2. Pre-requisites
 
 * Computer/Laptop with  Windows10 or PI 4 with Raspberry PI OS 64-bit
@@ -94,6 +104,8 @@ please see our links on
 
 ## 3. Notation
 
+### 3.1 Naming of the Compute Nodes
+
 In our tutorial we define the manager hostname to be `red`, while each 
 worker has a number in it `red01`, `red02`, `red03`, `red04`. Our 
 tool specifically identifies the manager node to be the one without the number.
@@ -104,6 +116,13 @@ cluster environment for use or development purposes.
 The following image shows our cluster configuration:
 
 {{< imgproc network Fill "600x300" />}}
+
+### 3.2 Naming of the Device for the SD Card
+
+The naming of the location for the device representing the SD Card is different between Windows and Linux, 
+Rasberry OS, and macOS. While on Windows the device is called a `disk` that has a number, on the other 
+operating systems it is specified with a `device` location such as `/dev/sdX` where X is typically a lower case 
+letter. 
 
 ## 4. Installing cloudmesh and Setup
 
@@ -242,16 +261,37 @@ Please use a unique and strong passphrase. We will use this default
 key to access our cluster after burning.
 
 In case you do not always want to type in your passphrase, you can use
-ssh-agent in your gitbash window as follows:
+ssh-agent in your terminal. 
+
+
+
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
+{{< tab tabName="macOS_Linux_Raspberry_OS" >}}
+
+This program is typically already running on macOS and ubuntu, so 
+you do not have to invoke it separately. Hence a simple add will do.
+
+```bash
+(ENV3) you@yourlaptop $ ssh-add
+```
+
+{{< /tab >}}
+{{< tab tabName="Windows" >}}
+
+On windows you have to start the agent first so that ssh-add can be used while typing in 
+the gitbash terminal:
 
 ```bash
 (ENV3) you@yourlaptop $ eval `ssh-agent`
 (ENV3) you@yourlaptop $ ssh-add
-
 ```
 
 These two commands will start the ssh-agent and add your key to it so
-it is cached for future use within the same gitbash terminal
+it is cached for future use within the same gitbash terminal.
+
+{{< /tab >}}
+{{< /tabs >}}
+
 
 ## 5. Burning the Cluster
 
@@ -284,12 +324,44 @@ In our example we will not use the full image, so you can just download the lite
 {{< /tab >}}
 {{< /tabs >}}
 
-Next, plug in your first SD Card into your card writer.  Check your
-writer's path with the following command.
+This command will create a cached version of the information related to the 
+download URLs and a specifically created version tag that we will use for downloading the image.
 
+To chose a different image, you can inspect the versions and tags as well as the originating URLs with
+
+```bash
+(ENV3) you@yourlaptop $ cms burn image versions
+```
+
+To just see the latest versions type in 
+
+```bash
+(ENV3) you@yourlaptop $ cms burn image versions --tag=latest
+```
+
+which returns an output similar to 
+
+```
++--------------------+------------+-------------+-------------+-----------------------------------------+
+| Tag                | Date       | OS          | Type        | Version                                 |
+|--------------------+------------+-------------+-------------+-----------------------------------------|
+| latest-lite        | 2022-04-07 | raspberryos | lite        | raspios_lite_armhf-2022-04-07           |
+| latest-full        | 2022-04-07 | raspberryos | full        | raspios_full_armhf-2022-04-07           |
+| latest-lite-32     | 2022-04-07 | raspberryos | lite-32     | raspios_lite_armhf-2022-04-07           |
+| latest-full-32     | 2022-04-07 | raspberryos | full-32     | raspios_full_armhf-2022-04-07           |
+| latest-lite-64     | 2022-04-07 | raspberryos | lite-64     | raspios_lite_arm64-2022-04-07           |
+| latest-full-64     | 2022-04-07 | raspberryos | full-64     | raspios_arm64-2022-04-07                |
+| latest-lite-legacy | 2022-04-07 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-04-07 |
+| latest-full-legacy | 2022-04-07 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-04-07      |
++--------------------+------------+-------------+-------------+-----------------------------------------+
+```
 
 
 ### 5.1 Get Burn Info
+
+Next, plug in your first SD Card into your card writer.  Check your
+writer's path with the following command.
+
 
 {{< tabs tabTotal="3" tabLeftAlign="3">}}
 {{< tab tabName="Burn_Info_Windows" >}}
@@ -342,15 +414,14 @@ please replace it accordingly.
 In case of a Raspbery PI you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
 you get the device `/dev/sdX`. Then the flag in the burn command is `--device/dev/sdX`
-Typical names are `/dev/sda`, /dev/sdb`, /dev/sdc`, /dev/sdd`, and so on. But be careful 
-they may belong tp other hard drives. Therefore we use sdX in this documentation so 
-you avoid accidental data loss.
+Typical names are `/dev/sda`, /dev/sdb`, /dev/sdc`, /dev/sdd`, and so on. 
+
+> But be careful they may belong to other hard drives. Therefore we use sdX in 
+> this documentation so you avoid accidental data loss.
 
 ```
 TBD
 ```
-
-> Note we omit some output of `cms burn info` for clarity.
 
 {{< /tab >}}
 {{< tab tabName="Burn_Info_Linux" >}}
@@ -361,7 +432,7 @@ TBD
 
 In case of Linux you will see a column device in the table output. When 
 specifying the burn command you will be using the `--device` flag. Let us assume 
-you get the device `/dev/sda`. Then the flag in the burn command is `--device/dev/sda`
+you get the device `/dev/sdX`. Then the flag in the burn command is `--device/dev/sdX`
 Typical names are `/dev/sda`, /dev/sdb`, /dev/sdc`, /dev/sdd`, and so on. But be careful 
 they may belong tp other hard drives. Therefore we use sdX in this documentation so 
 you avoid accidental data loss.
@@ -380,11 +451,11 @@ you avoid accidental data loss.
 
 IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdX.
 
-> Note we omit some output of `cms burn info` for clarity.
 {{< /tab >}}
 
 {{< /tabs >}}`
 
+> Note we omited some output of `cms burn info` for clarity.
 
 
 Dependent on your system this command will take a minute to complete. 
@@ -408,6 +479,8 @@ As mentioned before, we will however just burn the lite 64 bit image on all.
 
 > **IMPORTANT: verify the disk number with `cms burn info`**
 
+Please replace the 101X number with the proper number you obtained from the `info` command
+
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
                                          --password=myloginpassword \
@@ -424,12 +497,13 @@ or as one liner
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ 
-cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --device=/dev/sdX --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
+cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --disk=101X --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
 ```
 
 On windows it will not autodetect the SSID, wifi password, locale, or
 country of your laptop. Hence you have to specify these as
-parameters. 
+parameters. If you do not like the passwords in on the commandline, 
+you will be asked for them.
 
 {{< /tab >}}
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
@@ -453,7 +527,9 @@ or as one liner
 ```
 On Raspberry PI OS, Linux, and macOS the timezone and locale will be 
 automatically detected. Thus you do not have to specify 
-them.  
+them.  If you do not like the passwords in on the commandline, 
+you will be asked for them.
+
 
 {{< /tab >}}
 {{< /tabs >}}
@@ -464,7 +540,6 @@ Timezones are typically defined with forward slashes in the string
 identifying them. However, as we use python forward 
 slashes have a specific meaning in python and would interfere with 
 our implementation. 
-
 
 
 Therefor we use `-` instead of `/`.
@@ -526,7 +601,7 @@ After each card is burned, `cms burn raspberry` will prompt you to
 swap the SD card to burn the next host.
 
 After all the cards have been burned, we can now plug them in our
-raspberry pis and boot. Ensure that your workers and manager are
+Raspberry PI's and boot. Ensure that your workers and manager are
 connected to the same network switch via the ethernet cables. Ensure
 this network switch does not have internet access in itself, e.g. do
 not connect the switch to the internet router. We will use the manager
