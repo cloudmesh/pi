@@ -595,7 +595,7 @@ will be asked for them.
 
 {{< notice warning >}}
 
-Verify the device name  with `cms burn info`**
+Verify the device name  with `cms burn info`
 
 {{< /notice >}}
 
@@ -1014,9 +1014,14 @@ you@yourlaptop $ cat ~/.ssh/known_hosts
 Note that the `lite` tag is the same as `lite-32` and `full` the same
 as `full-32`. We added them for increased consistency and visibility.
 We may drop in the future the `lite` and `full` tag so users are
-forced to be aware of the 32 and 64 bit versions
+forced to be aware of the 32 and 64 bit versions with 
 
-```bash
+```basgh
+you@yourlaptop  $ cms burn image versions --refresh
+```
+
+
+{{< terminal "gregor@computer" "~/ (zsh)" >}}
 you@yourlaptop  $ cms burn image versions --refresh
 
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
@@ -1091,7 +1096,8 @@ you@yourlaptop  $ cms burn image versions --refresh
 | ubuntu-20.10-32-bit       | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=server-armhf+raspi   |
 | ubuntu-desktop            | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=desktop-arm64+raspi  |
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
-```
+{{< /terminal >}}
+
 
 ```bash
 you@yourlaptop $ cms burn image get latest-lite
