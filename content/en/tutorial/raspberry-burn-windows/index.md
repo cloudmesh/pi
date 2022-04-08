@@ -33,7 +33,10 @@ on the nodes for the cluster.
 
 {{% /pageinfo %}}
 
-## Disclaimer
+
+
+{{< notice info >}}
+**Disclaimer**
 
 As this tool formats disks, we hold no responsibility for this tool to
 properly function or if you lose any data by using it. A best practice
@@ -42,6 +45,45 @@ not want to run it on your computer, you can always run it on a
 Raspberry PI. If something goes wrong, you just have to reburn the
 PI. We recommend a PI4 as this has a faster USB port and allows faster
 burn time than previous generations of PI's.
+
+{{< /notice >}}
+
+
+## NEW DOCUMENTATION GUI FEATURES
+
+{{< notice warning >}}
+This is a warning notice. Be warned!
+{{< /notice >}}
+
+
+{{< notice tip >}}
+This is a very good tip.
+{{< /notice >}}
+
+{{< notice note >}}
+This is a very good tip.
+{{< /notice >}}
+
+{{< notice info >}}
+This is a very good tip.
+{{< /notice >}}
+
+
+
+{{< terminal "gregor@computer" "~/ (zsh)" >}}
+$ cms
++-------------------------------------------------------+
+|   ____ _                 _                     _      |
+|  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   |
+| | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  |
+| | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | |
+|  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| |
++-------------------------------------------------------+
+|                  Cloudmesh CMD5 Shell                 |
++-------------------------------------------------------+
+$ _
+{{< /terminal >}}
+
 
 ## 1. Introduction
 
@@ -389,10 +431,15 @@ The command needs to be run while using `gitbash` as an administrative
 user.
 
 
-> *Note: To run gitbash as an administrative user, type in the Windows
-> search form and click on Run as administrator). We will augment all
-> commands with the keyword (admin) that need to be run in
-> administrative mode*
+{{< notice tip >}}
+
+To run gitbash as an administrative user, type in the Windows
+search form and click on Run as administrator). We will augment all
+commands with the keyword (admin) that need to be run in
+administrative mode
+
+{{< /notice >}}
+
 
 
 ```bash
@@ -420,9 +467,13 @@ WARNING: We could not find your USB reader in the list of known readers
 > Note we omit some output of `cms burn info` for clarity.
 
 
-IMPORTANT: Record the disk for the SDCard. In this case, it is `101X`. However, this number will just be an integer, so 
+
+{{< notice tip >}}
+
+Record the disk for the SDCard. In this case, it is `101X`. However, this number will just be an integer, so 
 please replace it accordingly.
 
+{{< /notice >}}
 
 {{< /tab >}}
 {{< tab tabName="Burn_Info_PI4" >}}
@@ -470,7 +521,11 @@ you avoid accidental data loss.
 +----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
 ```
 
-IMPORTANT: Record the device for the SDCard. In this case, it is /dev/sdX.
+{{< notice tip >}}
+
+Record the device for the SDCard. In this case, it is /dev/sdX.
+
+{{< /notice >}}
 
 {{< /tab >}}
 
@@ -501,7 +556,13 @@ before, we will, however, just burn the lite 64-bit image on all.
 {{< tabs tabTotal="2" tabLeftAlign="2">}}
 {{< tab tabName="Burn_On_Windows" >}}
 
-> **IMPORTANT: verify the disk number with `cms burn info`**
+
+{{< notice warning >}}
+
+Verify the device/disk name  with `cms burn info`
+
+{{< /notice >}}
+
 
 Please replace the 101X number with the proper number you obtained from the `info` command
 
@@ -532,7 +593,13 @@ will be asked for them.
 {{< /tab >}}
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
 
-> **IMPORTANT: verify the device name  with `cms burn info`**
+{{< notice warning >}}
+
+Verify the device name  with `cms burn info`**
+
+{{< /notice >}}
+
+
 
 ```bash
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
@@ -724,7 +791,6 @@ scatter them on all PIs. The sequence of commands is as follows:
 
 {{< tab tabName="Burn_On_Windows" >}}
 
-TODO: are the quotes realy needed?
 
 ```bash
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
