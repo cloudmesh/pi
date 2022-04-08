@@ -714,15 +714,28 @@ By receiving this information from our devices we have confirmed our access.
 ### 6.3 Setting up keys on each PI worker
 
 To set up keys on each PI so we can login from one PI to another, we can use our create/gather/sactter 
-commands. Firts we need to create a key on the workers, THen we gather all keys including the manager, 
+commands. First we need to create a key on the workers, Then we gather all keys including the manager, 
 and scatter them on all PIs. The sequence of commands is as follows:
 
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
 
+{{< tab tabName="Burn_On_Windows" >}}
+```bash
+(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
+(ENV3) you@yourlaptop $ cd ~/.ssh
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" cluster_red_keys
+```
+{{< /tab >}}
+
+{{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
 ```bash
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
+{{< /tab >}}
+{{< /tabs >}}
 
 We describe each step in more detail next.
 
@@ -785,6 +798,7 @@ host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 ```
 
 All nodes should now have `ssh` access to each other.
+
 
 ### 6.4 Installing `cms` on a Pi
 
