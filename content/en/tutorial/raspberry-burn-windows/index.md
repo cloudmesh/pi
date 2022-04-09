@@ -206,14 +206,14 @@ do not use our program without using a virtualenv.
 In your gitbash window, create a virtual environment with
 
 
-```bash
+```bash {linenos=table}
 you@yourlaptop $ py -m venv ~/ENV3
 ```
 
 This will create a new python virtual environment. Activate it with
 the following command.
 
-```bash
+```bash {linenos=table, linenostart=2}
 you@yourlaptop $ source ~/ENV3/Scripts/activate
 ```
 
@@ -225,14 +225,14 @@ python on Raspbian OS, which is Python 3.9.2. It is best practice to
 create virtual environments for Python. Hence, do not use our program
 without using a virtualenv.
 
-```bash
+```bash {linenos=table}
 you@yourlaptop $ python -m venv ~/ENV3
 ```
 
 This will create a new python virtual environment. Activate it with
 the following command.
 
-```bash
+```bash {linenos=table, linenostart=2}
 you@yourlaptop $ source ~/ENV3/bin/activate
 ```
 
@@ -242,7 +242,7 @@ you@yourlaptop $ source ~/ENV3/bin/activate
 
 First, we update pip and verify your `python` and `pip` are correct.
 
-```bash
+```bash {linenos=table, linenostart=3}
 (ENV3) you@yourlaptop $ pip install --upgrade pip
 (ENV3) you@yourlaptop $ which python
 ~/ENV3/Scripts/python
@@ -269,7 +269,7 @@ source setup. We start after you have created the virtualenv with the
 install of our convenient `cloudmesh-installer` and the creation of a
 `cm` directory in which we download the sources
 
-```bash
+```bash {linenos=table, linenostart=9}
 (ENV3) you@yourlaptop $ mkdir ~/cm
 (ENV3) you@yourlaptop $ cd ~/cm
 (ENV3) you@yourlaptop $ pip install cloudmesh-installer
@@ -282,7 +282,7 @@ installed the needed `cms` command.
 As we are still developing the windows version, we need to switch to a
 specific branch:
 
-```
+```bash {linenos=table, linenostart=13}
 (ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
 (ENV3) you@yourlaptop $ git checkout windows
 (ENV3) you@yourlaptop $ pip install -e .
@@ -297,7 +297,7 @@ specific branch:
 It is very important to initialize the cms command and test if it is
 properly installed. You do this simply with the command
 
-```bash
+```bash {linenos=table, linenostart=20}
 (ENV3) you@yourlaptop $ cms help
 ```
 
@@ -315,7 +315,7 @@ We use ssh to easily log in to the manager and worker nodes from the
 laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create
 one as follows by accepting the default location in `~/.ssh/id_rsa`
 
-```bash
+```bash {linenos=table, linenostart=21}
 (ENV3) you@yourlaptop $ ssh-keygen
 ```
 
@@ -333,7 +333,7 @@ ssh-agent in your terminal.
 This program is typically already running on macOS and Ubuntu, so 
 you do not have to invoke it separately. Hence a simple add will do.
 
-```bash
+```bash {linenos=table, linenostart=22}
 (ENV3) you@yourlaptop $ ssh-add
 ```
 
@@ -343,7 +343,7 @@ you do not have to invoke it separately. Hence a simple add will do.
 On windows, you have to start the agent first so that ssh-add can be
 used while typing in the gitbash terminal:
 
-```bash
+```bash {linenos=table, linenostart=22}
 (ENV3) you@yourlaptop $ eval `ssh-agent`
 (ENV3) you@yourlaptop $ ssh-add
 ```
