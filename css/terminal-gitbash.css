@@ -1,9 +1,7 @@
 /* window BEGIN */
-.window {
+.window-gitbash {
     background: #fff;
-    width: 65vw;
-    max-width: 600px;
-    min-width: 360px;
+    width: 100%;
     margin: auto;
     margin-top: 3.5vh;
     margin-bottom: 3.5vh;
@@ -11,27 +9,27 @@
     border-radius: 6px;
     box-shadow: 0px 0px 20px #acacac;
   }
-  
-  .window a {
+
+  .window-gitbash a {
     text-decoration: none;
   }
-  
-  .window span {
+
+  .window-gitbash span {
     line-height: 9px;
     vertical-align: 50%;
   }
-  
-  .titlebar {
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #ebebeb, color-stop(1.0, #d5d5d5)));
-    background: -webkit-linear-gradient(top, #ebebeb, #d5d5d5);
-    background: -moz-linear-gradient(top, #ebebeb, #d5d5d5);
-    background: -ms-linear-gradient(top, #ebebeb, #d5d5d5);
-    background: -o-linear-gradient(top, #ebebeb, #d5d5d5);
-    background: linear-gradient(top, #ebebeb, #d5d5d5);
-    color: #4d494d;
+
+  .titlebar-gitbash {
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0.0, #f7f7f7, color-stop(1.0, #d5d5d5)));
+    background: -webkit-linear-gradient(top, #000000, #949292);
+    background: -moz-linear-gradient(top, #000000, #949292);
+    background: -ms-linear-gradient(top, #000000, #949292);
+    background: -o-linear-gradient(top, #000000, #949292);
+    background: linear-gradient(top, #000000, #949292);
+    color: #ffffff;
     font-size: 11pt;
     line-height: 22px;
-    text-align: center;
+    text-align: left;
     width: 100%;
     height: 22px;
     border-top: 1px solid #f3f1f3;
@@ -45,111 +43,112 @@
     -o-user-select: none;
     cursor: default;
   }
-  
-  .buttons {
-    padding-left: 8px;
+
+  .buttons-gitbash {
+    padding-right: 8px;
     padding-top: 5px;
-    float: left;
+    float: right;
     line-height: 0px;
   }
-  
-  .buttons:hover a {
+
+  .buttons-gitbash:hover a {
     visibility: visible;
   }
-  
-  .bclose {
-    background: #ff5c5c;
+
+  .bclose-gitbash {
+    background: #ffffff;
+    color: #000000;
     font-size: 9pt;
     line-height: 11px;
-    margin-left: 4px;
+    margin-right: 4px;
     width: 11px;
     height: 11px;
-    border: 1px solid #e33e41;
-    border-radius: 50%;
-    float: left;
+    border: 1px solid #522414;
+    border-radius: 5%;
+    float: right;
     display: inline-block;
   }
-  
-  .bclose:active {
+
+  .bclose-gitbash:active {
     background: #c14645;
     border: 1px solid #b03537;
   }
-  
-  .bclose:active .closebutton {
+
+  .bclose-gitbash:active .closebutton-gitbash {
     color: #4e0002;
   }
-  
-  .closebutton {
+
+  .closebutton-gitbash {
     color: #820005;
     visibility: hidden;
     cursor: default;
   }
-  
-  .minimize {
-    background: #ffbd4c;
+
+  .minimize-gitbash {
+    background: #ffffff;
     font-size: 9pt;
     line-height: 11px;
-    margin-left: 8px;
+    margin-right: 4px;
     width: 11px;
     height: 11px;
-    border: 1px solid #e09e3e;
-    border-radius: 50%;
+    border: 1px solid #b1aeb1;
+    border-radius: 5%;
     display: inline-block;
   }
-  
-  .minimize:active {
+
+  .minimize-gitbash:active {
     background: #c08e38;
     border: 1px solid #af7c33;
   }
-  
-  .minimize:active .minimizebutton {
+
+  .minimize-gitbash:active .minimize-gitbashbutton {
     color: #5a2607;
   }
-  
-  .minimizebutton {
+
+  .minimize-gitbashbutton {
     color: #9a5518;
     visibility: hidden;
     cursor: default;
   }
-  
-  .zoom {
-    background: #00ca56;
+
+  .zoom-gitbash {
+    background: #ffffff;
     font-size: 9pt;
     line-height: 11px;
-    margin-left: 4px;
+    margin-right: 4px;
     width: 11px;
     height: 11px;
-    border: 1px solid #14ae46;
-    border-radius: 50%;
+    border: 1px solid #b1aeb1;
+    border-radius: 5%;
     display: inline-block;
   }
-  
-  .zoom:active {
+
+  .zoom-gitbash:active {
     background: #029740;
     border: 1px solid #128435;
   }
-  
-  .zoom:active .zoombutton {
+
+  .zoom-gitbash:active .zoom-gitbashbutton {
     color: #003107;
   }
-  
-  .zoombutton {
+
+  .zoom-gitbashbutton {
     color: #006519;
     visibility: hidden;
     cursor: default;
   }
   /* window END */
-  
+
   /* terminal BEGIN */
-  .terminal {
+  .terminal-gitbash {
     margin: 0;
     padding: 5px;
     list-style: none;
-    background: #141414;
-    color: #45D40C;
+    background: #ffffff;
+    color: #000000;
     font-family: "Courier New", "Courier", monospace;
-    font-size: 0.6rem;
-    line-height: 1.6em;
+    font-size: small;
+    line-height: 1.0em;
    
     -webkit-border-bottom-right-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
@@ -159,13 +158,13 @@
     border-bottom-left-radius: 3px;
   }
   
-  .terminal ul {
+  .terminal-gitbash ul {
     padding-left: 0;
     margin-left: 0;
     margin-bottom: 0;
   }
    
-  .terminal li {
+  .terminal-gitbash li {
     width: 100%;
     word-wrap: break-word;
     white-space: pre-wrap;
