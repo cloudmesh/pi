@@ -1015,12 +1015,7 @@ as `full-32`. We added them for increased consistency and visibility.
 We may drop in the future the `lite` and `full` tag so users are
 forced to be aware of the 32 and 64 bit versions with 
 
-```basgh
-you@yourlaptop  $ cms burn image versions --refresh
-```
-
-
-{{< terminal "gregor@computer" "~/ (zsh)" >}}
+```bash
 you@yourlaptop  $ cms burn image versions --refresh
 
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
@@ -1095,7 +1090,7 @@ you@yourlaptop  $ cms burn image versions --refresh
 | ubuntu-20.10-32-bit       | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=server-armhf+raspi   |
 | ubuntu-desktop            | 2021-02-01 | ubuntu      | ubuntu      | 20.10&architecture=desktop-arm64+raspi  |
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
-{{< /terminal >}}
+```
 
 
 ```bash
