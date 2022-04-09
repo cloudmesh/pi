@@ -302,11 +302,7 @@ properly installed. You do this simply with the command
 ```
 
 You will see a list of subcommands that are part of the cms if your
-installation succeeded. Check if you can see the command
-
-```
-burn
-```
+installation succeeded. Check if you can see the command `burn`
 in the list.
 
 ### 4.3 Create an SSH key
@@ -365,7 +361,7 @@ First, we need to download it.
 {{< tabs tabTotal="3" tabLeftAlign="2">}}
 {{< tab tabName="Rasperry_PI_OS_64-bit_image" >}}
 
-```bash
+```bash {linenos=table, linenostart=24}
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
 (ENV3) you@yourlaptop $ cms burn image get latest-lite-64
 ```
@@ -373,7 +369,7 @@ First, we need to download it.
 {{< /tab >}}
 {{< tab tabName="Rasperry_PI_OS_32-bit_image" >}}
 
-```bash
+```bash {linenos=table, linenostart=24}
 (ENV3) you@yourlaptop $ cms burn image versions --refresh
 (ENV3) you@yourlaptop $ cms burn image get latest-lite
 ```
@@ -390,13 +386,13 @@ images list in a comma-separated parameter using the tags.
 To choose a different image, you can inspect the versions and tags as
 well as the originating URLs with
 
-```bash
+```bash {linenos=table, linenostart=26}
 (ENV3) you@yourlaptop $ cms burn image versions
 ```
 
 To just see the latest versions type in 
 
-```bash
+```bash {linenos=table, linenostart=27}
 (ENV3) you@yourlaptop $ cms burn image versions --tag=latest
 ```
 
@@ -442,7 +438,7 @@ administrative mode
 
 
 
-```bash
+```bash {linenos=table, linenostart=28}
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
 
@@ -478,7 +474,7 @@ please replace it accordingly.
 {{< /tab >}}
 {{< tab tabName="Burn_Info_PI4" >}}
 
-```bash
+```bash {linenos=table, linenostart=28}
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
 
@@ -498,7 +494,7 @@ TBD
 {{< /tab >}}
 {{< tab tabName="Burn_Info_Linux" >}}
 
-```bash
+```bash {linenos=table, linenostart=28}
 (ENV3) (admin) you@yourlaptop $ cms burn info
 ```
 
@@ -566,8 +562,8 @@ Verify the device/disk name  with `cms burn info`
 
 Please replace the 101X number with the proper number you obtained from the `info` command
 
-```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
+```bash 
+29 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
                                          --password=myloginpassword \
                                          --disk=101X \ 
                                          --new \
@@ -580,9 +576,8 @@ Please replace the 101X number with the proper number you obtained from the `inf
 
 or as one-liner
 
-```bash
-(ENV3) (admin) you@yourlaptop $ 
-cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --disk=101X --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
+```bash {linenos=table, linenostart=29}
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-2]" --password=cludmesh4me --disk=101X --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=finchfinch1965 --tag=latest-lite-64
 ```
 
 On Windows, it will not autodetect the SSID, WIFI password, locale, or
@@ -601,8 +596,8 @@ Verify the device name  with `cms burn info`
 
 
 
-```bash
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
+```bash 
+29 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
                                          --password=myloginpassword \
                                          --device=/dev/sdX \ 
                                          --new \
@@ -613,7 +608,7 @@ Verify the device name  with `cms burn info`
 
 or as one-liner
 
-```bash
+```bash {linenos=table, linenostart=29}
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=myloginpassword --device=/dev/sdX --new --ssid=NETWORK --wifipassword=mywifipassword --tag=latest-lite-64
 ```
 
@@ -723,7 +718,7 @@ our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers. Use the following command to set
 this up:
 
-```
+```bash {linenos=table, linenostart=30}
 (ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
 (ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
 ```
@@ -746,26 +741,24 @@ disconnected.
 
 First, verify that you can reach the manager (red). 
 
-```
+```bash {linenos=table, linenostart=32}
 (ENV3) you@yourlaptop $ ssh red
 ...
 pi@red:~ $ exit
 ```
 
 Next we want to execute a more advanced program that retrieves the
-temperature of the PIs
-
-```bash
-(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
-```
-
-We can use a simple `cms` command to verify the connection to our Pis.
+temperature of the PIs. We can use a simple `cms` command to verify the connection to our Pis.
 For this purpose, we use our build-in temperature command that reads the
 temperature values from each of the Pis.
 
-```bash
+
+```bash {linenos=table, linenostart=35}
 (ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
-pi temp red,red0[1-4]
+```
+Which returns output in a table recording the temperatures
+
+```
 +--------+--------+-------+----------------------------+
 | host   |    cpu |   gpu | date                       |
 |--------+--------+-------+----------------------------|
@@ -792,7 +785,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< tab tabName="Burn_On_Windows" >}}
 
 
-```bash
+```bash {linenos=table, linenostart=36}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" \"~/.ssh/cluster_red_keys\"
@@ -800,7 +793,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< /tab >}}
 
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
-```bash
+```bash {linenos=table, linenostart=36}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -817,9 +810,11 @@ into each other.
 
 We first create ssh-keys for all the nodes in our cluster. 
 
-```bash
+```bash {linenos=table, linenostart=36}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
-host key create red,red0[1-4]
+```
+
+```
 +-------+---------+--------------------------------------------------+
 | host  | success | stdout                                           |
 +-------+---------+--------------------------------------------------+
@@ -847,14 +842,17 @@ host key create red,red0[1-4]
 
 We can subsequently gather these keys into a file.
 
-```bash
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
-```bash
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
+```
+
+```
 host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
 | host  | success | stdout |
@@ -876,7 +874,7 @@ Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
 line curl command
 
-```bash
+```bash {linenos=table, linenostart=39}
 (ENV3) you@yourlaptop $ ssh red
 pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
@@ -888,10 +886,11 @@ take several minutes to run.
 
 After a reboot, we can verify the success of the script with the following:
 
-```bash
+```bash {linenos=table, linenostart=41}
 (ENV3) pi@red $ cms help
-help
+```
 
+```
 Documented commands (type help <topic>):
 ========================================
 EOF     check     default  help       pause     quit   start      test
