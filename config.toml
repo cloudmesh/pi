@@ -6,7 +6,7 @@ title = "Cloudmesh Cluster Pi Planet"
 enableRobotsTXT = true
 
 # Hugo allows theme composition (and inheritance). The precedence is from left to right.
-theme = ["docsy", "hugo-dynamic-tabs", "hugo-macos-terminal", "hugo-notice"]
+theme = ["docsy", "hugo-dynamic-tabs", "hugo-os-terminal", "hugo-notice"]
 # theme = ["docsy"]
 #theme = ["docsy-menu"]
 
@@ -82,8 +82,7 @@ time_format_blog = "2006.01.02"
 section = ["HTML", "print"]
 
 [params]
-
-custom_css = ["css/terminal.css"]
+custom_css = ["css/terminal-macos.css", "css/terminal-ubuntu.css", "css/terminal-gitbash.css"]
 copyright = "The Cloudmesh Projects, Gregor von Laszewski"
 # privacy_policy = "https://policies.google.com/privacy"
 

@@ -1,0 +1,24 @@
+<div class="window-macos">
+    <div class="titlebar-macos">
+      <div class="buttons-macos">
+        <div class="bclose-macos">
+          <a class="closebutton-macos" href="#"><span><strong>x</strong></span></a>
+        </div>
+        <div class="minimize-macos">
+          <a class="minimizebutton-macos" href="#"><span><strong>&ndash;</strong></span></a>
+        </div>
+        <div class="zoom-macos">
+          <a class="zoombutton-macos" href="#"><span><strong>+</strong></span></a>
+        </div>
+      </div>
+      {{ .Get 0 }}: {{ .Get 1 }}
+    </div>
+    <div class="terminal-macos">
+      <ul>
+        {{ range split .Inner "\n" }}
+        {{ $line := replace . " " "&nbsp;" }}
+        <li>{{ printf "%s" $line | safeHTML }}</li>
+        {{ end }}  
+      </ul>
+    </div>
+  </div>

@@ -1,0 +1,26 @@
+<div class="window-gitbash">
+    <div class="titlebar-gitbash">
+      <div class="buttons-gitbash">
+        <div class="bclose-gitbash">
+          <a class="closebutton-gitbash" href="#"><span><strong>x</strong></span></a>
+        </div>
+        <div class="minimize-gitbash">
+          <a class="minimizebutton-gitbash" href="#"><span><strong>&ndash;</strong></span></a>
+        </div>
+        <div class="zoom-gitbash">
+          <a class="zoombutton-gitbash" href="#"><span><strong>+</strong></span></a>
+        </div>
+      </div>
+      &nbsp&nbsp  <i class="fa-regular fa-square"></i> {{ .Get 0 }}: {{ .Get 1 }}
+    </div>
+    <div class="terminal-gitbash">
+      <ul>
+        {{ range split .Inner "\n" }}
+        {{ $line := replace . " " "&nbsp;" }}
+        <li>{{ printf "%s" $line | safeHTML }}</li>
+        {{ end }}  
+      </ul>
+    </div>
+  </div>
+
+
