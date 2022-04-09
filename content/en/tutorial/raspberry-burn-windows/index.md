@@ -33,8 +33,6 @@ on the nodes for the cluster.
 
 {{% /pageinfo %}}
 
-
-
 {{< notice info >}}
 **Disclaimer**
 
@@ -48,6 +46,11 @@ burn time than previous generations of PI's.
 
 {{< /notice >}}
 
+expand
+
+hhhhh
+
+/expand
 
 ## NEW DOCUMENTATION GUI FEATURES
 
@@ -111,6 +114,7 @@ $ cms
 +-------------------------------------------------------+
 $ _
 {{< /terminal-ubuntu >}}
+
 
 
 ## 1. Introduction
