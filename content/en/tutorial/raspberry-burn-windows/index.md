@@ -462,7 +462,7 @@ user.
 {{< notice tip >}}
 
 To run gitbash as an administrative user, type in the Windows
-search form and click on Run as administrator). We will augment all
+search form and click on Run as administrator, or rightclick on the program until option appears for taskbar or desktop shortcut). We will augment all
 commands with the keyword (admin) that need to be run in
 administrative mode
 
