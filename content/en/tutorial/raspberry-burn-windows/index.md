@@ -664,8 +664,8 @@ implementation.
 
 Therefore we use `-` instead of `/`.
 
-Hence, when entering timezones for the --timezone parameter, please
-replace forward slashes with hyphens, as shown in the example shown
+Hence, when entering timezones for the `--timezone` parameter, please
+replace forward slashes with hyphens, as shown in the example
 next:
 
 > America/Indiana/Indianapolis
