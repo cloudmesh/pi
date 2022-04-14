@@ -142,28 +142,28 @@ Within this tutorial we provide two different ways dependent
 on what network router you have. This includes a classical 
 network router or a mesh network router. 
 
-We provide the following illustrations 
+We provide for both the following illustrations. YOu will have to determine which network type fits for you as there will be 
+a slight difference during the burn task that we point out later.
 
-
-
-The following image shows our cluster configuration for a static network setup:
 
 {{< tabs tabTotal="2" tabLeftAlign="2">}}
 {{< tab tabName="Classic" >}}
 
+The following image shows our cluster configuration for a static network setup:
 
-{{< imgproc network Fill "600x400" />}}
+{{< imgproc network Fit "1000x1000" />}}
 
 The alternative is to use a mesh network in which we have the following setup
 
 {{< /tab >}}
 {{< tab tabName="Mesh" >}}
 
-Mesh
+{{< imgproc mesh-pi Fit "1000x1000" />}}
 
+{{< /tab >}}
 {{< /tabs >}}
 
-## 4. Installing Python
+## 5. Installing Python
 
 Cloudmesh burn runs an many different versions of Python. This
 includes Python either installed with conda or python.org as it can be
@@ -235,7 +235,7 @@ First, we update pip and verify your `python` and `pip` are correct.
 ```
 
 
-### ~~4.1 Install from Pip for Regular Users~~
+### ~~5.1 Install from Pip for Regular Users~~
 
 ~~**The pip install is not yet suported!!. So please use
 the Install from source installation documentation. Once we officially
@@ -245,7 +245,7 @@ release this code the install from pip can be used.**~~
 ~~(ENV3) you@yourlaptop $ pip install cloudmesh-pi-cluster~~
 ~~```~~
 
-### 4.2 Install from Source (for Developers)
+### 5.2 Install from Source (for Developers)
 
 If you are a developer that likes to add new features, we recommend our
 source setup. We start after you have created the virtualenv with the
@@ -263,32 +263,15 @@ This directory will now contain all source code. It will also have
 installed the needed `cms` command.
 
 As we are still developing the windows version, we need to switch to a
-specific branch:
+specific branch with the command:
 
 ```bash {linenos=table, linenostart=13}
-(ENV3) you@yourlaptop $ cd cloudmesh-pi-burn
-(ENV3) you@yourlaptop $ git checkout windows
-(ENV3) you@yourlaptop $ pip install -e .
-(ENV3) you@yourlaptop $ cd ..
-(ENV3) you@yourlaptop $ cd cloudmesh-inventory
-(ENV3) you@yourlaptop $ git checkout windows
-(ENV3) you@yourlaptop $ pip install -e .
+(ENV3) you@yourlaptop $ cms burn branch windows
 ```
+It is important that you switch to that branch as otherwise this instruction 
+will not work.
 
-### 4.3 Initializing the cms Command
-
-It is very important to initialize the cms command and test if it is
-properly installed. You do this simply with the command
-
-```bash {linenos=table, linenostart=20}
-(ENV3) you@yourlaptop $ cms help
-```
-
-You will see a list of subcommands that are part of the cms if your
-installation succeeded. Check if you can see the command `burn`
-in the list.
-
-### 4.3 Create an SSH key
+### 5.4 Create an SSH key
 
 We use ssh to easily log in to the manager and worker nodes from the
 laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create
@@ -336,7 +319,7 @@ it is cached for future use within the same gitbash terminal.
 
 
 
-## 5. Burning the Cluster
+## 6. Burning the Cluster
 
 We are now ready to burn our cluster. Start by making sure you have
 the latest images to burn. Please choose the 64-bit or the 32-bit image
@@ -399,7 +382,7 @@ which returns an output similar to
 ```
 
 
-### 5.1 Get Burn Info
+### 6.1 Get Burn Info
 
 Next, plug in your first SD Card into your card writer. Check your
 writer's path with the following command.
@@ -522,7 +505,7 @@ not have it in our database of recognized readers. As long as you see
 `Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
 
 
-### 5.2 Executing Burn Command
+### 6.2 Executing Burn Command
 
 To burn the latest 64 bit OS, use the following command. If you like
 to burn other images identified by tags, you can receive them from the
@@ -540,12 +523,25 @@ before, we will, however, just burn the lite 64-bit image on all.
 
 {{< notice warning >}}
 
-Verify the device/disk name  with `cms burn info`
+Verify the device/disk name  with `cms burn info`. As this command executes a format it is important that you know what you 
+are doing and that you naot just copy-paste. Be reminded that a backup of your computer is a good idea.
+If in doubt set up a seperate PI for the burning task.
 
 {{< /notice >}}
 
 
 Please replace the 101X number with the proper number you obtained from the `info` command
+
+{{< notice note >}}
+
+If you use a mesh network you will have to add the option
+
+`--network=mesh`
+
+to the burn command.
+
+{{< /notice >}}
+
 
 ```bash 
 29 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
@@ -685,7 +681,7 @@ be able to disconnect all nodes from the network via the Master in
 case this is needed.
 
 
-## 6. Burn Verification and Post-Process Steps
+## 7. Burn Verification and Post-Process Steps
 
 After you boot, we recommend waiting 2-3 minutes for the boot process
 to complete.  You will notice that the red LED will be on and that the
@@ -696,7 +692,7 @@ hardware and network.
 
 
 
-### 6.1 Setting up a Proxy Jump with `cms host`
+### 7.1 Setting up a Proxy Jump with `cms host`
 
 While we are waiting for the Pis to boot, we can set up proxy jump on
 our laptop/desktop while adding it to the ssh config file. This will
@@ -722,7 +718,7 @@ Host *
 This will keep the connections alive and avoids that you get
 disconnected.
 
-### 6.2 Verifying Manager and Worker Access
+### 7.2 Verifying Manager and Worker Access
 
 First, verify that you can reach the manager (red). 
 
@@ -758,7 +754,7 @@ Which returns output in a table recording the temperatures
 By receiving this information from our devices, we have confirmed our access.
 
 
-### 6.3 Setting up keys on each PI worker
+### 7.3 Setting up keys on each PI worker
 
 To set up keys on each PI so we can login from one PI to another, we
 can use our `create`/`gather`/`sactter` commands. First, we need to
@@ -853,7 +849,7 @@ host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 All nodes should now have `ssh` access to each other.
 
 
-### 6.4 Installing `cms` on a Pi
+### 7.4 Installing `cms` on a Pi
 
 Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
@@ -885,9 +881,9 @@ bridge  config    echo     inventory  py        sleep  sys
 burn    debug     gui      man        q         ssh    term
 ```
 
-## 7. Appendix
+## 8. Appendix
 
-## 7.1 Writing our cluster configuration
+## 8.1 Writing our cluster configuration
 
 This feature is implicitly included in the burn command, and you will
 have an inventory created automatically.
@@ -900,7 +896,7 @@ recognized by `cms` as the WIFI bridge service connecting devices on
 eth0 to the internet.  We also set the timezone and locale here. You
 may want to change them as you wish.
 
-### 7.2 Default Cluster Creation
+### 8.2 Default Cluster Creation
 
 As we want to make the cluster very easy to create, we demonstrated in
 Section 5 how to create a default cluster directly from the burn
@@ -918,7 +914,7 @@ cluster. In case you have more or fewer nodes, the command will make
 appropriate updates.
 
 
-### 7.3 Custom Cluster Creation
+### 8.3 Custom Cluster Creation
 
 For a custom cluster, you can inspect the parameters of the inventory
 command. Here are the commands to use for the previous setup while
@@ -938,7 +934,7 @@ you@yourlaptop $ cms inventory set "red0[1-4]" dns to "8.8.8.8,8.8.4.4" --listva
 > Note we are using Google's DNS here [8.8.8.8, 8.8.4.4]
 
 
-### 7.4 Inspect the Cluster Configuration
+### 8.4 Inspect the Cluster Configuration
 
 Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
 
@@ -955,7 +951,7 @@ you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
 +-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
 ```
 
-### 7.5 Burning a Custom Cluster
+### 8.5 Burning a Custom Cluster
 
 You can now specify your inventory as you burn your cluster or
 specific machines from the cluster with the burn command. All hosts
@@ -975,7 +971,7 @@ Burn a specific machine.
 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdX --inventory="inventory-red.yaml"
 ```
 
-### 7.6 Managing known_hosts
+### 8.6 Managing known_hosts
 
 In case you reburn a SDCard and use it in your cluster, you will get a
 warning once you try to ssh into the machine. To remove the error
@@ -993,7 +989,7 @@ use
 you@yourlaptop $ cat ~/.ssh/known_hosts
 ```
 
-### 7.7 Get the OS Image
+### 8.7 Get the OS Image
 
 Note that the `lite` tag is the same as `lite-32` and `full` the same
 as `full-32`. We added them for increased consistency and visibility.
@@ -1090,7 +1086,7 @@ and can be removed with the command
 you@yourlaptop $ rm -i ~/.cloudmesh/cmburn/images/* 
 ```
 
-### 7.7 Related tutorials
+### 8.7 Related tutorials
 
 - [ ] TODO find the links, point to the medium.com once first.
 
