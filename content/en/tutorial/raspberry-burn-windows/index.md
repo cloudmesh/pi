@@ -415,7 +415,7 @@ user.
 {{< notice tip >}}
 
 To run gitbash as an administrative user, type in the Windows
-search form and click on Run as administrator). We will augment all
+search form and click on Run as administrator, or rightclick on the program until option appears for taskbar or desktop shortcut). We will augment all
 commands with the keyword (admin) that need to be run in
 administrative mode
 
@@ -617,8 +617,8 @@ implementation.
 
 Therefore we use `-` instead of `/`.
 
-Hence, when entering timezones for the --timezone parameter, please
-replace forward slashes with hyphens, as shown in the example shown
+Hence, when entering timezones for the `--timezone` parameter, please
+replace forward slashes with hyphens, as shown in the example
 next:
 
 > America/Indiana/Indianapolis
