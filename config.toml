@@ -133,6 +133,9 @@ offlineSearch = false
 # Enable syntax highlighting and copy buttons on code blocks with Prism
 prism_syntax_highlighting = false
 
+[params.plantuml]
+enable = true
+
 # User interface configuration
 [params.ui]
 sidebar_menu_compact = true

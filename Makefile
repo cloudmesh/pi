@@ -2,6 +2,12 @@
 
 all: parts burner
 
+view:
+	#gopen  http://localhost:1313/pi/ &
+	gopen http://localhost:1313/pi/tutorial/raspberry-burn-windows/ &
+doc:
+	hugo serve -D
+
 parts:
 	python bin/parts.py parts/README-parts-list.yml> tmp.md 2>&1
 	cms man readme -p --tag="PARTS" --file=content/en/docs/hardware/parts/parts.md --include=tmp.md

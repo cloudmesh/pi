@@ -6,7 +6,7 @@ description: "A collection of advanced features supported by this hugo instance"
 author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli)
 draft: False
 resources:
-- src: "**.{png,jpg}"
+- src: "**.{png,jpg,yaml}"
   title: "Image #:counter"
 ---
 
@@ -96,7 +96,7 @@ $ _
 
 Sections should be umbered
 
-## 2. Tabs
+## 3. Tabs
 
 
 {{< tabs tabTotal="2" tabLeftAlign="2">}}
@@ -158,7 +158,7 @@ This is the second week
 ### Pie Chart
 
 {{< mermaid align="left">}}
-pie
+pie showData
     title Performance Fractions
     "Data" : 5
     "FFT" : 30
@@ -207,3 +207,33 @@ graph LR;
     C -->|Two| E[Result two]
 {{< /mermaid >}}
 
+## Fontawsome
+
+<i class="fa-regular fa-square"></i> 
+
+<strike>
+
+## Swagger
+
+{{< swaggerui src="/tutorial/hugo/swagger.yaml" >}}
+
+## PlantUML
+
+```plantuml
+participant participant as Foo
+actor       actor       as Foo1
+boundary    boundary    as Foo2
+control     control     as Foo3
+entity      entity      as Foo4
+database    database    as Foo5
+collections collections as Foo6
+queue       queue       as Foo7
+Foo -> Foo1 : To actor
+Foo -> Foo2 : To boundary
+Foo -> Foo3 : To control
+Foo -> Foo4 : To entity
+Foo -> Foo5 : To database
+Foo -> Foo6 : To collections
+Foo -> Foo7: To queue
+```
+</strike>

@@ -46,76 +46,6 @@ burn time than previous generations of PI's.
 
 {{< /notice >}}
 
-expand
-
-hhhhh
-
-/expand
-
-## NEW DOCUMENTATION GUI FEATURES
-
-{{< notice warning >}}
-This is a warning notice. Be warned!
-{{< /notice >}}
-
-
-{{< notice tip >}}
-This is a very good tip.
-{{< /notice >}}
-
-{{< notice note >}}
-This is a very good tip.
-{{< /notice >}}
-
-{{< notice info >}}
-This is a very good tip.
-{{< /notice >}}
-
-
-{{< terminal-gitbash "gregor@gitbash" "~/ (gitbash)" >}}
-$ cms
-+-------------------------------------------------------+
-|   ____ _                 _                     _      |
-|  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   |
-| | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  |
-| | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | |
-|  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| |
-+-------------------------------------------------------+
-|                  Cloudmesh CMD5 Shell                 |
-+-------------------------------------------------------+
-$ _
-{{< /terminal-gitbash >}}
-
-
-{{< terminal-macos "gregor@macOS" "~/ (zsh)" >}}
-$ cms
-+-------------------------------------------------------+
-|   ____ _                 _                     _      |
-|  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   |
-| | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  |
-| | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | |
-|  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| |
-+-------------------------------------------------------+
-|                  Cloudmesh CMD5 Shell                 |
-+-------------------------------------------------------+
-$ _
-{{< /terminal-macos >}}
-
-{{< terminal-ubuntu "gregor@ubuntu" "~/ (bash)" >}}
-$ cms
-+-------------------------------------------------------+
-|   ____ _                 _                     _      |
-|  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   |
-| | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  |
-| | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | |
-|  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| |
-+-------------------------------------------------------+
-|                  Cloudmesh CMD5 Shell                 |
-+-------------------------------------------------------+
-$ _
-{{< /terminal-ubuntu >}}
-
-
 
 ## 1. Introduction
 
@@ -196,14 +126,6 @@ number. Naturally, you can use a different name than using
 multiple clusters to create a distributed cluster environment for use
 or development purposes.
 
-The following image shows our cluster configuration for a static network setup:
-
-{{< imgproc network Fill "600x300" />}}
-
-The alternative is to use a mesh network in which we have the following setup
-
-TODO: image to be added
-
 ### 3.2 Naming of the Device for the SD Card
 
 The naming of the location for the device representing the SD Card is
@@ -211,6 +133,35 @@ different between Windows and Linux, Rasberry OS, and macOS. While on
 Windows, the device is called a `disk` that has a number; on the other
 operating systems, it is specified with a `device` location such as
 `/dev/sdX` where X is typically a lower case letter.
+
+
+## 4. Network Configuration Choices
+
+Therea are multiple ways on how we can configure a cluster. 
+Within this tutorial we provide two different ways dependent 
+on what network router you have. This includes a classical 
+network router or a mesh network router. 
+
+We provide the following illustrations 
+
+
+
+The following image shows our cluster configuration for a static network setup:
+
+{{< tabs tabTotal="2" tabLeftAlign="2">}}
+{{< tab tabName="Classic" >}}
+
+
+{{< imgproc network Fill "600x400" />}}
+
+The alternative is to use a mesh network in which we have the following setup
+
+{{< /tab >}}
+{{< tab tabName="Mesh" >}}
+
+Mesh
+
+{{< /tabs >}}
 
 ## 4. Installing Python
 
@@ -381,6 +332,8 @@ it is cached for future use within the same gitbash terminal.
 
 {{< /tab >}}
 {{< /tabs >}}
+
+
 
 
 ## 5. Burning the Cluster
