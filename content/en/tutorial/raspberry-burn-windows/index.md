@@ -848,8 +848,52 @@ host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 
 All nodes should now have `ssh` access to each other.
 
+### 7.4 Activate No StrictHostKeyChecking
 
-### 7.4 Installing `cms` on a Pi
+We like to be able to login to each of the nodes in a convenient fashion, without needing
+to add the host to knownhosts. To do this we have developed a command that switches off
+StrictHostKeyChecking for all hosts. You invoke the command with
+
+```bash
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4]
+```
+
+You will see an output similar to
+
+```
++-------+---------+--------+--------------------------------------------------+
+| host  | success | stdout | stderr                                           |
++-------+---------+--------+--------------------------------------------------+
+| red   | True    |        | b"Warning: Permanently added 'red.local'         |
+|       |         |        | (...) to the list of known hosts.\r\n"           |
+| red01 | True    |        | b"Warning: Permanently added 'red01' (...)       |    
+|       |         |        | to the list of known hosts.\r\n"                 |
+| red02 | True    |        | b"Warning: Permanently added 'red02' (...)       |
+|       |         |        | to the list of known hosts.\r\n"                 |
+| red03 | True    |        | b"Warning: Permanently added 'red03' (...)       |
+|       |         |        | to the list of known hosts.\r\n"                 |
+| red04 | True    |        | b"Warning: Permanently added 'red04' (...)       |
+|       |         |        | to the list of known hosts.\r\n"                 |
++-------+---------+--------+--------------------------------------------------+
+```
+
+In order for you to be able to successfully disable StrictHostKeyChecking,
+you can pass along filename that includes a customization. Here is an example
+on how to disable StrictHostKeyChecking on the subnet 10.1.1.1
+We assume you have the following in the file subnet.conf:
+
+```
+Host 10.1.1.*
+    StrictHostKeyChecking no
+```
+
+Now you can invoke the command with:
+
+```bash
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4] subnet.conf
+```
+
+### 7.5 Installing `cms` on a Pi
 
 Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
