@@ -4,7 +4,7 @@ cluster of Pis using Raspberry PI OS while burning SD Cards from
 either a Windows 10 desktop/Laptop or a PI 4 using Raspberry PI OS 64
 bit. The cluster is ready to boot after all cards have been burned. No
 other configuration is needed. You can choose to use 64-bit or 32-bit
-on the nodes for the cluster.</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to use cloudmesh-burn to create a RaspberryOS cluster</li><li>Test the cluster after burning</li><li>Use either Windows 10 or use a PI4 to conduct the burning</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-pre-requisites>2. Pre-requisites</a></li><li><a href=#3-notation>3. Notation</a><ul><li><a href=#31-naming-of-the-compute-nodes>3.1 Naming of the Compute Nodes</a></li><li><a href=#32-naming-of-the-device-for-the-sd-card>3.2 Naming of the Device for the SD Card</a></li></ul></li><li><a href=#4-network-configuration-choices>4. Network Configuration Choices</a></li><li><a href=#5-installing-python>5. Installing Python</a><ul><li><a href=#51-install-from-pip-for-regular-users>5.1 Install from Pip for Regular Users</a></li><li><a href=#52-install-from-source-for-developers>5.2 Install from Source (for Developers)</a></li><li><a href=#54-create-an-ssh-key>5.4 Create an SSH key</a></li></ul></li><li><a href=#6-burning-the-cluster>6. Burning the Cluster</a><ul><li><a href=#61-get-burn-info>6.1 Get Burn Info</a></li><li><a href=#62-executing-burn-command>6.2 Executing Burn Command</a></li></ul></li><li><a href=#7-burn-verification-and-post-process-steps>7. Burn Verification and Post-Process Steps</a><ul><li><a href=#71-setting-up-a-proxy-jump-with-cms-host>7.1 Setting up a Proxy Jump with <code>cms host</code></a></li><li><a href=#72-verifying-manager-and-worker-access>7.2 Verifying Manager and Worker Access</a></li><li><a href=#73-setting-up-keys-on-each-pi-worker>7.3 Setting up keys on each PI worker</a></li><li><a href=#74-activate-no-stricthostkeychecking>7.4 Activate No StrictHostKeyChecking</a></li><li><a href=#75-installing-cms-on-a-pi>7.5 Installing <code>cms</code> on a Pi</a></li></ul></li><li><a href=#8-appendix>8. Appendix</a></li><li><a href=#81-writing-our-cluster-configuration>8.1 Writing our cluster configuration</a><ul><li><a href=#82-default-cluster-creation>8.2 Default Cluster Creation</a></li><li><a href=#83-custom-cluster-creation>8.3 Custom Cluster Creation</a></li><li><a href=#84-inspect-the-cluster-configuration>8.4 Inspect the Cluster Configuration</a></li><li><a href=#85-burning-a-custom-cluster>8.5 Burning a Custom Cluster</a></li><li><a href=#86-managing-known_hosts>8.6 Managing known_hosts</a></li><li><a href=#87-get-the-os-image>8.7 Get the OS Image</a></li><li><a href=#87-related-tutorials>8.7 Related tutorials</a></li></ul></li></ul></nav></div></div><style type=text/css>.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fa}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style><div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"/></svg></span>Info</p><p><strong>Disclaimer</strong></p><p>As this tool formats disks, we hold no responsibility for this tool to
+on the nodes for the cluster.</p><p><strong>Learning Objectives</strong></p><ul><li>Learn how to use cloudmesh-burn to create a RaspberryOS cluster</li><li>Test the cluster after burning</li><li>Use either Windows 10 or use a PI4 to conduct the burning</li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#2-pre-requisites>2. Pre-requisites</a></li><li><a href=#3-notation>3. Notation</a><ul><li><a href=#31-naming-of-the-compute-nodes>3.1 Naming of the Compute Nodes</a></li><li><a href=#32-naming-of-the-device-for-the-sd-card>3.2 Naming of the Device for the SD Card</a></li></ul></li><li><a href=#4-network-configuration-choices>4. Network Configuration Choices</a></li><li><a href=#5-installing-python>5. Installing Python</a><ul><li><a href=#51-install-from-pip-for-regular-users>5.1 Install from Pip for Regular Users</a></li><li><a href=#52-install-from-source-for-developers>5.2 Install from Source (for Developers)</a></li></ul></li></ul></nav></div></div><style type=text/css>.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fa}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style><div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice info"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"/></svg></span>Info</p><p><strong>Disclaimer</strong></p><p>As this tool formats disks, we hold no responsibility for this tool to
 properly function or if you lose any data by using it. A best practice
 is to create a backup of your system before trying this. In cas you do
 not want to run it on your computer, you can always run it on a
@@ -53,14 +53,14 @@ operating systems, it is specified with a <code>device</code> location such as
 Within this tutorial we provide two different ways dependent
 on what network router you have. This includes a classical
 network router or a mesh network router.</p><p>We provide for both the following illustrations. YOu will have to determine which network type fits for you as there will be
-a slight difference during the burn task that we point out later.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-bcfeda data-toggle=tab href=#bcfeda role=tab aria-controls=nav-home aria-selected=true>Classic</a>
-<a class="nav-item nav-link" id=nav-dcebaf data-toggle=tab href=#dcebaf role=tab aria-controls=nav-home aria-selected=true>Mesh</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=bcfeda role=tabpanel aria-labelledby=nav-1><p>The following image shows our cluster configuration for a static network setup:</p><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:1010px><img class=card-img-top src=/pi/tutorial/raspberry-burn-windows/featured-network_huc4b03e8453bdf7261a9062cdffac07b3_133769_1000x1000_fit_catmullrom_2.png width=1000 height=489></div><p>The alternative is to use a mesh network in which we have the following setup</p></div><div class="tab-pane fade show" id=dcebaf role=tabpanel aria-labelledby=nav-1><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:1010px><img class=card-img-top src=/pi/tutorial/raspberry-burn-windows/mesh-pi_hu3d0d7f0e55d9b490919f5790158858c1_374077_1000x1000_fit_catmullrom_2.png width=1000 height=501></div></div></div><h2 id=5-installing-python>5. Installing Python</h2><p>Cloudmesh burn runs an many different versions of Python. This
+a slight difference during the burn task that we point out later.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-dfbace data-toggle=tab href=#dfbace role=tab aria-controls=nav-home aria-selected=true>Classic</a>
+<a class="nav-item nav-link" id=nav-ebfcda data-toggle=tab href=#ebfcda role=tab aria-controls=nav-home aria-selected=true>Mesh</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=dfbace role=tabpanel aria-labelledby=nav-1><p>The following image shows our cluster configuration for a static network setup:</p><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:1010px><img class=card-img-top src=/pi/tutorial/raspberry-burn-windows/featured-network_huc4b03e8453bdf7261a9062cdffac07b3_133769_1000x1000_fit_catmullrom_2.png width=1000 height=489></div><p>The alternative is to use a mesh network in which we have the following setup</p></div><div class="tab-pane fade show" id=ebfcda role=tabpanel aria-labelledby=nav-1><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:1010px><img class=card-img-top src=/pi/tutorial/raspberry-burn-windows/mesh-pi_hu3d0d7f0e55d9b490919f5790158858c1_374077_1000x1000_fit_catmullrom_2.png width=1000 height=501></div></div></div><h2 id=5-installing-python>5. Installing Python</h2><p>Cloudmesh burn runs an many different versions of Python. This
 includes Python either installed with conda or python.org as it can be
 easily installed with pip which is supported on both. We recommend
 typically to use the python version installed from python.org if you
-are unsure which to chose and you are not using conda.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-ceabfd data-toggle=tab href=#ceabfd role=tab aria-controls=nav-home aria-selected=true>Windows</a>
-<a class="nav-item nav-link" id=nav-eacbfd data-toggle=tab href=#eacbfd role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_64-bit</a>
-<a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=ceabfd role=tabpanel aria-labelledby=nav-1><p>At the time of writing, this tutorial uses Python 3.10.4, however,
+are unsure which to chose and you are not using conda.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-bdcafe data-toggle=tab href=#bdcafe role=tab aria-controls=nav-home aria-selected=true>Windows</a>
+<a class="nav-item nav-link" id=nav-eadfcb data-toggle=tab href=#eadfcb role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_64-bit</a>
+<a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=bdcafe role=tabpanel aria-labelledby=nav-1><p>At the time of writing, this tutorial uses Python 3.10.4, however,
 older versions are also supported. To install python, go to python.org
 and click the download button you see on the front page and install
 this or a newer version. Additionally, we use <code>gitbash</code> as a
@@ -74,7 +74,7 @@ In your gitbash window, create a virtual environment with</p><div class=highligh
 </code></pre></td></tr></table></div></div><p>This will create a new python virtual environment. Activate it with
 the following command.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ <span style=color:#204a87>source</span> ~/ENV3/Scripts/activate
-</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=eacbfd role=tabpanel aria-labelledby=nav-1><p>At the time of writing this tutorial uses the default version of
+</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=eadfcb role=tabpanel aria-labelledby=nav-1><p>At the time of writing this tutorial uses the default version of
 python on Raspbian OS, which is Python 3.9.2. It is best practice to
 create virtual environments for Python. Hence, do not use our program
 without using a virtualenv.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1
@@ -110,62 +110,123 @@ install of our convenient <code>cloudmesh-installer</code> and the creation of a
 </code></pre></td></tr></table></div></div><p>This directory will now contain all source code. It will also have
 installed the needed <code>cms</code> command.</p><p>As we are still developing the windows version, we need to switch to a
 specific branch with the command:</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn branch windows
-</code></pre></td></tr></table></div></div><p>It is important that you switch to that branch as otherwise this instruction
-will not work.</p><h3 id=54-create-an-ssh-key>5.4 Create an SSH key</h3><p>We use ssh to easily log in to the manager and worker nodes from the
-laptop/desktop. Hence we create a keypair in <code>~/.ssh</code>. You can create
-one as follows by accepting the default location in <code>~/.ssh/id_rsa</code></p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">21
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-keygen
-</code></pre></td></tr></table></div></div><p>Please use a unique and strong passphrase. We will use this default
-key to access our cluster after burning.</p><p>In case you do not always want to type in your passphrase, you can use
-ssh-agent in your terminal.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-fadbce data-toggle=tab href=#fadbce role=tab aria-controls=nav-home aria-selected=true>macOS_Linux_Raspberry_OS</a>
-<a class="nav-item nav-link" id=nav-fcabde data-toggle=tab href=#fcabde role=tab aria-controls=nav-home aria-selected=true>Windows</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=fadbce role=tabpanel aria-labelledby=nav-1><p>This program is typically already running on macOS and Ubuntu, so
-you do not have to invoke it separately. Hence a simple add will do.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
+</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cloudmesh-installer burn branch windows
+</code></pre></td></tr></table></div></div><pre><code class="language-```bash" data-lang="```bash">(ENV3) you@yourlaptop $ cms burn branch windows
+```~~~
+
+
+It is important that you switch to that branch as otherwise this instruction 
+will not work.
+
+### 5.4 Create an SSH key
+
+We use ssh to easily log in to the manager and worker nodes from the
+laptop/desktop. Hence we create a keypair in `~/.ssh`. You can create
+one as follows by accepting the default location in `~/.ssh/id_rsa`
+
+```bash {linenos=table, linenostart=21}
+(ENV3) you@yourlaptop $ ssh-keygen
+```
+
+Please use a unique and strong passphrase. We will use this default
+key to access our cluster after burning.
+
+In case you do not always want to type in your passphrase, you can use
+ssh-agent in your terminal. 
+
+
+
+<nav>
+	<div class="nav nav-tabs" id=nav-tab role=tablist>
+
+		
+		
+		
+		
+
+		
+
+		<a class="nav-item nav-link active" id=nav-ceafbd data-toggle=tab href=#ceafbd role=tab aria-controls=nav-home aria-selected=true>macOS_Linux_Raspberry_OS</a>
+
+		
+
+		<a class="nav-item nav-link" id=nav-becadf data-toggle=tab href=#becadf role=tab aria-controls=nav-home aria-selected=true>Windows</a>
+
+		
+
+	</div>
+</nav>
+
+<div class=tab-content id=nav-tab-content>
+
+	
+
+
+
+
+
+<div class="tab-pane fade show active" id=ceafbd role=tabpanel aria-labelledby=nav-1>
+
+	<p>This program is typically already running on macOS and Ubuntu, so
+you do not have to invoke it separately. Hence a simple add will do.</p>
+<div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4>
+<table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0>
+<pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-add
-</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=fcabde role=tabpanel aria-labelledby=nav-1><p>On windows, you have to start the agent first so that ssh-add can be
+</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=becadf role=tabpanel aria-labelledby=nav-1><p>On windows, you have to start the agent first so that ssh-add can be
 used while typing in the gitbash terminal:</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ <span style=color:#204a87>eval</span> <span style=color:#4e9a06>`</span>ssh-agent<span style=color:#4e9a06>`</span>
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-add
 </code></pre></td></tr></table></div></div><p>These two commands will start the ssh-agent and add your key to it so
-it is cached for future use within the same gitbash terminal.</p></div></div><h2 id=6-burning-the-cluster>6. Burning the Cluster</h2><p>We are now ready to burn our cluster. Start by making sure you have
+it is cached for future use within the same gitbash terminal.</p></div></div>## 6. Burning the Cluster
+We are now ready to burn our cluster. Start by making sure you have
 the latest images to burn. Please choose the 64-bit or the 32-bit image
 tab to see details. For our example, we will be choosing the 64-bit image.
-First, we need to download it.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-bcedaf data-toggle=tab href=#bcedaf role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_64-bit_image</a>
-<a class="nav-item nav-link" id=nav-fcdabe data-toggle=tab href=#fcdabe role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_32-bit_image</a>
-<a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=bcedaf role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+First, we need to download it.<nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-cdfaeb data-toggle=tab href=#cdfaeb role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_64-bit_image</a>
+<a class="nav-item nav-link" id=nav-cbdefa data-toggle=tab href=#cbdefa role=tab aria-controls=nav-home aria-selected=true>Rasperry_PI_OS_32-bit_image</a>
+<a class="nav-item nav-link" id=nav- data-toggle=tab href=# role=tab aria-controls=nav-home aria-selected=true></a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=cdfaeb role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-lite-64
-</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=fcdabe role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
+</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=cbdefa role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">24
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">25
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --refresh
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image get latest-lite
-</code></pre></td></tr></table></div></div></div></div><p>This command will create a cached version of the information related
+</code></pre></td></tr></table></div></div></div></div>This command will create a cached version of the information related
 to the download URLs and a specifically created version tag that we
 will use for downloading the image. It is also possible to define
 different images for manager and workers, while adding them to the
-images list in a comma-separated parameter using the tags.</p><p>To choose a different image, you can inspect the versions and tags as
-well as the originating URLs with</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">26
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions
-</code></pre></td></tr></table></div></div><p>To just see the latest versions type in</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">27
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn image versions --tag<span style=color:#ce5c00;font-weight:700>=</span>latest
-</code></pre></td></tr></table></div></div><p>which returns an output similar to</p><pre><code>+--------------------+------------+-------------+-------------+-----------------------------------------+
-| Tag                | Date       | OS          | Type        | Version                                 |
-|--------------------+------------+-------------+-------------+-----------------------------------------|
-| latest-lite        | 2022-04-07 | raspberryos | lite        | raspios_lite_armhf-2022-04-07           |
-| latest-full        | 2022-04-07 | raspberryos | full        | raspios_full_armhf-2022-04-07           |
-| latest-lite-32     | 2022-04-07 | raspberryos | lite-32     | raspios_lite_armhf-2022-04-07           |
-| latest-full-32     | 2022-04-07 | raspberryos | full-32     | raspios_full_armhf-2022-04-07           |
-| latest-lite-64     | 2022-04-07 | raspberryos | lite-64     | raspios_lite_arm64-2022-04-07           |
-| latest-full-64     | 2022-04-07 | raspberryos | full-64     | raspios_arm64-2022-04-07                |
-| latest-lite-legacy | 2022-04-07 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-04-07 |
-| latest-full-legacy | 2022-04-07 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-04-07      |
+images list in a comma-separated parameter using the tags.
+To choose a different image, you can inspect the versions and tags as
+well as the originating URLs with
+```bash {linenos=table, linenostart=26}
+(ENV3) you@yourlaptop $ cms burn image versions
+```
+To just see the latest versions type in
+```bash {linenos=table, linenostart=27}
+(ENV3) you@yourlaptop $ cms burn image versions --tag=latest
+```
+which returns an output similar to
+```
 +--------------------+------------+-------------+-------------+-----------------------------------------+
-</code></pre><h3 id=61-get-burn-info>6.1 Get Burn Info</h3><p>Next, plug in your first SD Card into your card writer. Check your
-writer&rsquo;s path with the following command.</p><p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-cfbead data-toggle=tab href=#cfbead role=tab aria-controls=nav-home aria-selected=true>Burn_Info_Windows</a>
-<a class="nav-item nav-link" id=nav-cebfda data-toggle=tab href=#cebfda role=tab aria-controls=nav-home aria-selected=true>Burn_Info_PI4</a>
-<a class="nav-item nav-link" id=nav-defacb data-toggle=tab href=#defacb role=tab aria-controls=nav-home aria-selected=true>Burn_Info_Linux</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=cfbead role=tabpanel aria-labelledby=nav-1><p>The command needs to be run while using <code>gitbash</code> as an administrative
+| Tag | Date | OS | Type | Version |
+|--------------------+------------+-------------+-------------+-----------------------------------------|
+| latest-lite | 2022-04-07 | raspberryos | lite | raspios_lite_armhf-2022-04-07 |
+| latest-full | 2022-04-07 | raspberryos | full | raspios_full_armhf-2022-04-07 |
+| latest-lite-32 | 2022-04-07 | raspberryos | lite-32 | raspios_lite_armhf-2022-04-07 |
+| latest-full-32 | 2022-04-07 | raspberryos | full-32 | raspios_full_armhf-2022-04-07 |
+| latest-lite-64 | 2022-04-07 | raspberryos | lite-64 | raspios_lite_arm64-2022-04-07 |
+| latest-full-64 | 2022-04-07 | raspberryos | full-64 | raspios_arm64-2022-04-07 |
+| latest-lite-legacy | 2022-04-07 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-04-07 |
+| latest-full-legacy | 2022-04-07 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-04-07 |
++--------------------+------------+-------------+-------------+-----------------------------------------+
+```
+### 6.1 Get Burn Info
+Next, plug in your first SD Card into your card writer. Check your
+writer's path with the following command.<nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-fdbcae data-toggle=tab href=#fdbcae role=tab aria-controls=nav-home aria-selected=true>Burn_Info_Windows</a>
+<a class="nav-item nav-link" id=nav-cafdbe data-toggle=tab href=#cafdbe role=tab aria-controls=nav-home aria-selected=true>Burn_Info_PI4</a>
+<a class="nav-item nav-link" id=nav-defabc data-toggle=tab href=#defabc role=tab aria-controls=nav-home aria-selected=true>Burn_Info_Linux</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=fdbcae role=tabpanel aria-labelledby=nav-1><p>The command needs to be run while using <code>gitbash</code> as an administrative
 user.</p><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>To run gitbash as an administrative user, type in the Windows
 search form and click on Run as administrator, or rightclick on the program until option appears for taskbar or desktop shortcut). We will augment all
 commands with the keyword (admin) that need to be run in
@@ -187,14 +248,14 @@ administrative mode</p></div><div class=highlight><div style=background-color:#f
 +--------+-----------------+-----------------+-----------------------------------+--------------+--------+----------+
 WARNING: We could not find your USB reader in the list of known readers
 </code></pre><blockquote><p>Note we omit some output of <code>cms burn info</code> for clarity.</p></blockquote><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>Record the disk for the SDCard. In this case, it is <code>101X</code>. However, this number will just be an integer, so
-please replace it accordingly.</p></div></div><div class="tab-pane fade show" id=cebfda role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+please replace it accordingly.</p></div></div><div class="tab-pane fade show" id=cafdbe role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn info
 </code></pre></td></tr></table></div></div><p>In the case of a Raspberry PI, you will see a column device in the table output. When
 specifying the burn command, you will be using the <code>--device</code> flag. Let us assume
 you get the device <code>/dev/sdX</code>. Then the flag in the burn command is <code>--device/dev/sdX</code>
 Typical names are <code>/dev/sda</code>, /dev/sdb<code>, /dev/sdc</code>, /dev/sdd`, and so on.</p><blockquote><p>But be careful as they may belong to other hard drives. Therefore we use sdX in
 this documentation, so you avoid accidental data loss.</p></blockquote><pre><code>TBD
-</code></pre></div><div class="tab-pane fade show" id=defacb role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
+</code></pre></div><div class="tab-pane fade show" id=defabc role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">28
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn info
 </code></pre></td></tr></table></div></div><p>In the case of Linux, you will see a column device in the table output. When
 specifying the burn command, you will be using the <code>--device</code> flag. Let us assume
@@ -210,19 +271,23 @@ you avoid accidental data loss.</p><pre><code># --------------------------------
 |----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------|
 | /dev/sdX | Generic STORAGE DEVICE | True        | 64.1 GB/59.7 GiB | True         | True       | False   | True     | True        | True        |
 +----------+------------------------+-------------+------------------+--------------+------------+---------+----------+-------------+-------------+
-</code></pre><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>Record the device for the SDCard. In this case, it is /dev/sdX.</p></div></div></div>`</p><blockquote><p>Note we omitted some output of <code>cms burn info</code> for clarity.</p></blockquote><p>Dependent on your system, this command will take a minute to complete.
+</code></pre><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>Record the device for the SDCard. In this case, it is /dev/sdX.</p></div></div></div>`
+> Note we omitted some output of `cms burn info` for clarity.
+Dependent on your system, this command will take a minute to complete.
 In case you receive a warning, inspect it carefully. One reason could
 be that the warning occurs as your reader may be too new, and we do
 not have it in our database of recognized readers. As long as you see
-<code>Removable Media</code> and <code>GENERIC STORAGE DEVICE</code> it will be fine.</p><h3 id=62-executing-burn-command>6.2 Executing Burn Command</h3><p>To burn the latest 64 bit OS, use the following command. If you like
+`Removable Media` and `GENERIC STORAGE DEVICE` it will be fine.
+### 6.2 Executing Burn Command
+To burn the latest 64 bit OS, use the following command. If you like
 to burn other images identified by tags, you can receive them from the
-command <code>cms burn versions --refresh</code>. The <code>--tag</code> can take multiple
+command `cms burn versions --refresh`. The `--tag` can take multiple
 comma-separated arguments. The tag can be specified for each SD Card
 you want to specify individually. A special form is to use
-&ndash;tag=latest-full-64,latest-lite-64 in which the full image is burned
+--tag=latest-full-64,latest-lite-64 in which the full image is burned
 on the manager and the lite burned on the workers. As mentioned
-before, we will, however, just burn the lite 64-bit image on all.</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-ebfdac data-toggle=tab href=#ebfdac role=tab aria-controls=nav-home aria-selected=true>Burn_On_Windows</a>
-<a class="nav-item nav-link" id=nav-dbacef data-toggle=tab href=#dbacef role=tab aria-controls=nav-home aria-selected=true>Burn_On_Mac_Linux_Raspbian_OS64-bit</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=ebfdac role=tabpanel aria-labelledby=nav-1><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>Verify the device/disk name with <code>cms burn info</code>. As this command executes a format it is important that you know what you
+before, we will, however, just burn the lite 64-bit image on all.<nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-bdcaef data-toggle=tab href=#bdcaef role=tab aria-controls=nav-home aria-selected=true>Burn_On_Windows</a>
+<a class="nav-item nav-link" id=nav-bdecfa data-toggle=tab href=#bdecfa role=tab aria-controls=nav-home aria-selected=true>Burn_On_Mac_Linux_Raspbian_OS64-bit</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=bdcaef role=tabpanel aria-labelledby=nav-1><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>Verify the device/disk name with <code>cms burn info</code>. As this command executes a format it is important that you know what you
 are doing and that you naot just copy-paste. Be reminded that a backup of your computer is a good idea.
 If in doubt set up a seperate PI for the burning task.</p></div><p>Please replace the 101X number with the proper number you obtained from the <code>info</code> command</p><div class="notice note"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>Note</p><p>If you use a mesh network you will have to add the option</p><p><code>--network=mesh</code></p><p>to the burn command.</p></div><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#0000cf;font-weight:700>29</span> <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --password<span style=color:#ce5c00;font-weight:700>=</span>myloginpassword <span style=color:#4e9a06>\
@@ -238,7 +303,7 @@ If in doubt set up a seperate PI for the burning task.</p></div><p>Please replac
 </code></pre></td></tr></table></div></div><p>On Windows, it will not autodetect the SSID, WIFI password, locale, or
 country of your laptop. Hence you have to specify these as
 parameters. If you do not like the passwords on the command line, you
-will be asked for them.</p></div><div class="tab-pane fade show" id=dbacef role=tabpanel aria-labelledby=nav-1><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>Verify the device name with <code>cms burn info</code></p></div><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#0000cf;font-weight:700>29</span> <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
+will be asked for them.</p></div><div class="tab-pane fade show" id=bdecfa role=tabpanel aria-labelledby=nav-1><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>Verify the device name with <code>cms burn info</code></p></div><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#0000cf;font-weight:700>29</span> <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --password<span style=color:#ce5c00;font-weight:700>=</span>myloginpassword <span style=color:#4e9a06>\
 </span><span style=color:#4e9a06></span>                                         --device<span style=color:#ce5c00;font-weight:700>=</span>/dev/sdX <span style=color:#4e9a06>\ </span>
                                          --new <span style=color:#4e9a06>\
@@ -250,329 +315,455 @@ will be asked for them.</p></div><div class="tab-pane fade show" id=dbacef role=
 </code></pre></td></tr></table></div></div><p>On Raspberry PI OS, Linux, and macOS the timezone and locale will be
 automatically detected. Thus you do not have to specify them. If you
 do not like the passwords on the command line, you will be asked for
-them.</p></div></div><p>Timezones can be found at
-<a href=https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a>.
+them.</p></div></div>Timezones can be found at
+&lt;https://en.wikipedia.org/wiki/List_of_tz_database_time_zones>.
 Timezones are typically defined with forward slashes in the string
 identifying them. However, as we use Python forward slashes have a
 specific meaning in Python and would interfere with our
-implementation.</p><p>Therefore we use <code>-</code> instead of <code>/</code>.</p><p>Hence, when entering timezones for the <code>--timezone</code> parameter, please
+implementation.
+Therefore we use `-` instead of `/`.
+Hence, when entering timezones for the `--timezone` parameter, please
 replace forward slashes with hyphens, as shown in the example
-next:</p><blockquote><p>America/Indiana/Indianapolis</p></blockquote><p>must be replaced with &lsquo;-&rsquo; in the <code>--timezone</code> parameter:</p><blockquote><p><code>--timezone="America-Indiana-Indianapolis</code></p></blockquote><p>If the network name has a space in it, please use two sets of quotes
+next:
+> America/Indiana/Indianapolis
+must be replaced with '-' in the `--timezone` parameter:
+> `--timezone="America-Indiana-Indianapolis`
+If the network name has a space in it, please use two sets of quotes
 (with backslashes on Windows Git Bash):
-<code>\"'--ssid='Net Work'\"</code>. In general, we recommend not to use any spaces
-in network names.</p><pre><code># ----------------------------------------------------------------------
-#  _____                 _                           ____   _____
-# |  __ \               | |                         / __ \ / ____|
-# | |__) |__ _ ___ _ __ | |__   ___ _ __ _ __ _   _| |  | | (___
-# |  _  // _` / __| '_ \| '_ \ / _ \ '__| '__| | | | |  | |\___ \
-# | | \ \ (_| \__ \ |_) | |_) |  __/ |  | |  | |_| | |__| |____) |
-# |_|  \_\__,_|___/ .__/|_.__/ \___|_|  |_|   \__, |\____/|_____/
-#                 | |                          __/ |
-#                 |_|                         |___/
-#  ____
-# |  _ \
-# | |_) |_   _ _ __ _ __
-# |  _ &lt;| | | | '__| '_ \
-# | |_) | |_| | |  | | | |
-# |____/ \__,_|_|  |_| |_|
+`\"'--ssid='Net Work'\"`. In general, we recommend not to use any spaces
+in network names.
+```
+# ----------------------------------------------------------------------
+# _____ _ ____ _____
+# | __ \ | | / __ \ / ____|
+# | |__) |__ _ ___ _ __ | |__ ___ _ __ _ __ _ _| | | | (___
+# | _ // _` / __| '_ \| '_ \ / _ \ '__| '__| | | | | | |\___ \
+# | | \ \ (_| \__ \ |_) | |_) | __/ | | | | |_| | |__| |____) |
+# |_| \_\__,_|___/ .__/|_.__/ \___|_| |_| \__, |\____/|_____/
+# | | __/ |
+# |_| |___/
+# ____
+# | _ \
+# | |_) |_ _ _ __ _ __
+# | _ &lt;| | | | '__| '_ \
+# | |_) | |_| | | | | | |
+# |____/ \__,_|_| |_| |_|
 #
 #
 # ----------------------------------------------------------------------
-
 INFO: No inventory found or forced rebuild. Building inventory with defaults.
 +-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
-| host  | tag            | cluster | service | services           | ip       | dns                    | router   | locale      | timezone                   | owners | comment | description | keyfile           |
+| host | tag | cluster | service | services | ip | dns | router | locale | timezone | owners | comment | description | keyfile |
 +-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
-| red   | latest-lite-64 |         | manager | ['bridge', 'wifi'] | 10.1.1.1 |                        |          | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red01 | latest-lite-64 |         | worker  |                    | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red02 | latest-lite-64 |         | worker  |                    | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red03 | latest-lite-64 |         | worker  |                    | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
-| red04 | latest-lite-64 |         | worker  |                    | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis |        |         |             | ~/.ssh/id_rsa.pub |
+| red | latest-lite-64 | | manager | ['bridge', 'wifi'] | 10.1.1.1 | | | en_US.UTF-8 | AmericaIndianaIndianapolis | | | | ~/.ssh/id_rsa.pub |
+| red01 | latest-lite-64 | | worker | | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis | | | | ~/.ssh/id_rsa.pub |
+| red02 | latest-lite-64 | | worker | | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis | | | | ~/.ssh/id_rsa.pub |
+| red03 | latest-lite-64 | | worker | | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis | | | | ~/.ssh/id_rsa.pub |
+| red04 | latest-lite-64 | | worker | | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | en_US.UTF-8 | AmericaIndianaIndianapolis | | | | ~/.ssh/id_rsa.pub |
 +-------+----------------+---------+---------+--------------------+----------+------------------------+----------+-------------+----------------------------+--------+---------+-------------+-------------------+
-</code></pre><blockquote><p>Note the <code>--new</code> flag instructs <code>cms burn</code> to build a new inventory
-and overwrites it if it already exists (the -f flag does the same,
-but we have not yet tested it). To see the contents of this file,
-you can use the command</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cms inventory list --inventory<span style=color:#ce5c00;font-weight:700>=</span>inventory-red.yaml
-</code></pre></div></blockquote><p>After each card is burned, <code>cms burn raspberry</code> will prompt you to
-swap the SD card to burn the next host.</p><p>After all the cards have been burned, we can now plug them in our
-Raspberry PI&rsquo;s and boot. Ensure that your workers and manager are
+```
+> Note the `--new` flag instructs `cms burn` to build a new inventory
+> and overwrites it if it already exists (the -f flag does the same,
+> but we have not yet tested it). To see the contents of this file,
+> you can use the command
+>
+> ```bash
+> cms inventory list --inventory=inventory-red.yaml
+> ```
+After each card is burned, `cms burn raspberry` will prompt you to
+swap the SD card to burn the next host.
+After all the cards have been burned, we can now plug them in our
+Raspberry PI's and boot. Ensure that your workers and manager are
 connected to the same network switch via the ethernet cables. Ensure
 this network switch does not have internet access in itself, e.g., do
 not connect the switch to the internet router. We will use the manager
 as the sole point of internet access here. This we do deliberately to
 be able to disconnect all nodes from the network via the Master in
-case this is needed.</p><h2 id=7-burn-verification-and-post-process-steps>7. Burn Verification and Post-Process Steps</h2><p>After you boot, we recommend waiting 2-3 minutes for the boot process
+case this is needed.
+## 7. Burn Verification and Post-Process Steps
+After you boot, we recommend waiting 2-3 minutes for the boot process
 to complete. You will notice that the red LED will be on and that the
 green LED is off. If this is not the case, please wait. If it does
 not work after a long while, please reboot the PI that has issues and
 see if it works after the reboot. Also, make sure you check your
-hardware and network.</p><h3 id=71-setting-up-a-proxy-jump-with-cms-host>7.1 Setting up a Proxy Jump with <code>cms host</code></h3><p>While we are waiting for the Pis to boot, we can set up proxy jump on
+hardware and network.
+### 7.1 Setting up a Proxy Jump with `cms host`
+While we are waiting for the Pis to boot, we can set up proxy jump on
 our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers. Use the following command to set
-this up:</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">30
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">31
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-add -D   <span style=color:#8f5902;font-style:italic># just to make sure we type in the key passphrase again and do not forget it</span>
-<span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host config proxy pi@red.local <span style=color:#4e9a06>&#34;red0[1-4]&#34;</span>
-</code></pre></td></tr></table></div></div><p>Optionally you can add the following to the top of your
-<code>~/.ssh/config</code> file. As you may have done this before, we do not
+this up:
+```bash {linenos=table, linenostart=30}
+(ENV3) you@yourlaptop $ ssh-add -D # just to make sure we type in the key passphrase again and do not forget it
+(ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
+```
+Optionally you can add the following to the top of your
+`~/.ssh/config` file. As you may have done this before, we do not
 automatically do it, and we ask you to add it with your favorite
-editor.</p><pre><code>Host *
-     ServerAliveInterval 30
-     ServerAliveCountMax 5
-</code></pre><p>This will keep the connections alive and avoids that you get
-disconnected.</p><h3 id=72-verifying-manager-and-worker-access>7.2 Verifying Manager and Worker Access</h3><p>First, verify that you can reach the manager (red).</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">32
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">33
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">34
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh red
+editor.
+```
+Host *
+ServerAliveInterval 30
+ServerAliveCountMax 5
+```
+This will keep the connections alive and avoids that you get
+disconnected.
+### 7.2 Verifying Manager and Worker Access
+First, verify that you can reach the manager (red).
+```bash {linenos=table, linenostart=32}
+(ENV3) you@yourlaptop $ ssh red
 ...
-pi@red:~ $ <span style=color:#204a87>exit</span>
-</code></pre></td></tr></table></div></div><p>Next we want to execute a more advanced program that retrieves the
-temperature of the PIs. We can use a simple <code>cms</code> command to verify the connection to our Pis.
+pi@red:~ $ exit
+```
+Next we want to execute a more advanced program that retrieves the
+temperature of the PIs. We can use a simple `cms` command to verify the connection to our Pis.
 For this purpose, we use our build-in temperature command that reads the
-temperature values from each of the Pis.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">35
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms pi temp <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
-</code></pre></td></tr></table></div></div><p>Which returns output in a table recording the temperatures</p><pre><code>+--------+--------+-------+----------------------------+
-| host   |    cpu |   gpu | date                       |
-|--------+--------+-------+----------------------------|
-| red    | 47.712 |  47.2 | 2022-04-27 19:52:56.674668 |
-| red01  | 37.485 |  37.4 | 2022-04-27 19:52:57.333300 |
-| red02  | 38.946 |  38.9 | 2022-04-27 19:52:57.303389 |
-| red03  | 38.946 |  39.4 | 2022-04-27 19:52:57.440690 |
-| red04  | 38.936 |  39.4 | 2022-04-27 19:52:57.550690 |
+temperature values from each of the Pis.
+```bash {linenos=table, linenostart=35}
+(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+```
+Which returns output in a table recording the temperatures
+```
 +--------+--------+-------+----------------------------+
-</code></pre><p>By receiving this information from our devices, we have confirmed our access.</p><h3 id=73-setting-up-keys-on-each-pi-worker>7.3 Setting up keys on each PI worker</h3><p>To set up keys on each PI so we can login from one PI to another, we
-can use our <code>create</code>/<code>gather</code>/<code>sactter</code> commands. First, we need to
+| host | cpu | gpu | date |
+|--------+--------+-------+----------------------------|
+| red | 47.712 | 47.2 | 2022-04-27 19:52:56.674668 |
+| red01 | 37.485 | 37.4 | 2022-04-27 19:52:57.333300 |
+| red02 | 38.946 | 38.9 | 2022-04-27 19:52:57.303389 |
+| red03 | 38.946 | 39.4 | 2022-04-27 19:52:57.440690 |
+| red04 | 38.936 | 39.4 | 2022-04-27 19:52:57.550690 |
++--------+--------+-------+----------------------------+
+```
+By receiving this information from our devices, we have confirmed our access.
+### 7.3 Setting up keys on each PI worker
+To set up keys on each PI so we can login from one PI to another, we
+can use our `create`/`gather`/`sactter` commands. First, we need to
 create a key on the workers and manager. Then we gather all keys and
-scatter them on all PIs. The sequence of commands is as follows:</p><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-edbacf data-toggle=tab href=#edbacf role=tab aria-controls=nav-home aria-selected=true>Burn_On_Windows</a>
-<a class="nav-item nav-link" id=nav-cebdfa data-toggle=tab href=#cebdfa role=tab aria-controls=nav-home aria-selected=true>Burn_On_Mac_Linux_Raspbian_OS64-bit</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=edbacf role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+scatter them on all PIs. The sequence of commands is as follows:<nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-cabefd data-toggle=tab href=#cabefd role=tab aria-controls=nav-home aria-selected=true>Burn_On_Windows</a>
+<a class="nav-item nav-link" id=nav-acbedf data-toggle=tab href=#acbedf role=tab aria-controls=nav-home aria-selected=true>Burn_On_Mac_Linux_Raspbian_OS64-bit</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=cabefd role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key create <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key gather <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key scatter <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
-</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=cebdfa role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
+</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=acbedf role=tabpanel aria-labelledby=nav-1><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key create <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key gather <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
 <span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key scatter <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
-</code></pre></td></tr></table></div></div></div></div><p>We describe each step in more detail next, or if you are impatient, you can skip to the next section.</p><p>Each of the nodes only has our laptop&rsquo;s ssh-key in its respective
-<code>authorized_keys</code> file. We can use the <code>cms</code> command to gather all
+</code></pre></td></tr></table></div></div></div></div>We describe each step in more detail next, or if you are impatient, you can skip to the next section.
+Each of the nodes only has our laptop's ssh-key in its respective
+`authorized_keys` file. We can use the `cms` command to gather all
 keys in our cluster and then distribute them so that each node can ssh
-into each other.</p><p>We first create ssh-keys for all the nodes in our cluster.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">36
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key create <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span>
-</code></pre></td></tr></table></div></div><pre><code>+-------+---------+--------------------------------------------------+
-| host  | success | stdout                                           |
+into each other.
+We first create ssh-keys for all the nodes in our cluster.
+```bash {linenos=table, linenostart=36}
+(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
+```
+```
 +-------+---------+--------------------------------------------------+
-| red   | True    | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC99RR79UTQ |
-|       |         | JznOPRN/FI6MqNsZ5Eirqs7JXA4UYfnMx8LVaD/ZcI6Sajr0 |
-|       |         | 2nw2ucec8OMxtdzPrpWX5B+Hxz3GZWNKCbh2yHhMDIrf/Ohn |
-|       |         | QGJrBx1mtAbqy4gd7qljEsL0FummdYmPdtHFBy7t2zkVp0J1 |
-|       |         | V5YiLEbbrmX9RXQF1bJvHb4VNOOcwq47qX9h561q8qBxgQLz |
-|       |         | F3iHmrMxmL8oma1RFVgZmjhnKMoXF+t13uZrf2R5/hVO4K6T |
-|       |         | +PENSnjW7OX6aiIT8Ty1ga74FhXr9F5t14cofpN6QwuF2SqM |
-|       |         | CgpVGfRSGMrLI/2pefszU2b5eeICWYePdopkslML+f+n     |
-|       |         | pi@red                                           |
-| red01 | True    | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRN/rGGF+e |
-|       |         | dZ9S2IWX4P26F7T2H+nsbw7CfeJ6df9oX/npYuM9BPDzcEP7 |
-|       |         | +2jNIZtZVehJj5zHiodjAspCxjg+mByQZye1jioa3MBmgO3j |
-|       |         | VwxCOPA7x0Wc2Dm9/QOg1kMMMlnNT2NHs+SeQMDXoUkpaLCQ |
-|       |         | 108VQxaTclJ67USC1e/9B7OtjhsVm5kGA7Eamyd5PgtANT7G |
-|       |         | jHERXSnGzFnbqqsZEBvCLWLSbaSq3adWR1bVvDblu11nyitE |
-|       |         | x7YKZA9RK0A7rTBzrZa70SfG65dSbpqQFxmQYSrgiwVSBokk |
-|       |         | 0vvk5l7NhBDrrrxWYWd9dm/SrDrInjcuDsCsjOVuccx7     |
-|       |         | pi@red01                                         |
+| host | success | stdout |
++-------+---------+--------------------------------------------------+
+| red | True | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC99RR79UTQ |
+| | | JznOPRN/FI6MqNsZ5Eirqs7JXA4UYfnMx8LVaD/ZcI6Sajr0 |
+| | | 2nw2ucec8OMxtdzPrpWX5B+Hxz3GZWNKCbh2yHhMDIrf/Ohn |
+| | | QGJrBx1mtAbqy4gd7qljEsL0FummdYmPdtHFBy7t2zkVp0J1 |
+| | | V5YiLEbbrmX9RXQF1bJvHb4VNOOcwq47qX9h561q8qBxgQLz |
+| | | F3iHmrMxmL8oma1RFVgZmjhnKMoXF+t13uZrf2R5/hVO4K6T |
+| | | +PENSnjW7OX6aiIT8Ty1ga74FhXr9F5t14cofpN6QwuF2SqM |
+| | | CgpVGfRSGMrLI/2pefszU2b5eeICWYePdopkslML+f+n |
+| | | pi@red |
+| red01 | True | ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDRN/rGGF+e |
+| | | dZ9S2IWX4P26F7T2H+nsbw7CfeJ6df9oX/npYuM9BPDzcEP7 |
+| | | +2jNIZtZVehJj5zHiodjAspCxjg+mByQZye1jioa3MBmgO3j |
+| | | VwxCOPA7x0Wc2Dm9/QOg1kMMMlnNT2NHs+SeQMDXoUkpaLCQ |
+| | | 108VQxaTclJ67USC1e/9B7OtjhsVm5kGA7Eamyd5PgtANT7G |
+| | | jHERXSnGzFnbqqsZEBvCLWLSbaSq3adWR1bVvDblu11nyitE |
+| | | x7YKZA9RK0A7rTBzrZa70SfG65dSbpqQFxmQYSrgiwVSBokk |
+| | | 0vvk5l7NhBDrrrxWYWd9dm/SrDrInjcuDsCsjOVuccx7 |
+| | | pi@red01 |
 ... # Ommitted some output for brevity
 +-------+---------+--------------------------------------------------+
-</code></pre><p>We can subsequently gather these keys into a file.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">37
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key gather <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
-</code></pre></td></tr></table></div></div><p>And then Scatter them to the <code>authorized_keys</code> of our nodes.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">38
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key scatter <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> ~/.ssh/cluster_red_keys
-</code></pre></td></tr></table></div></div><pre><code>host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
+```
+We can subsequently gather these keys into a file.
+```bash {linenos=table, linenostart=37}
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
+```
+And then Scatter them to the `authorized_keys` of our nodes.
+```bash {linenos=table, linenostart=38}
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
+```
+```
+host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
 +-------+---------+--------+
-| host  | success | stdout |
+| host | success | stdout |
 +-------+---------+--------+
-| red   | True    |        |
-| red01 | True    |        |
-| red02 | True    |        |
-| red03 | True    |        |
-| red04 | True    |        |
+| red | True | |
+| red01 | True | |
+| red02 | True | |
+| red03 | True | |
+| red04 | True | |
 +-------+---------+--------+
-</code></pre><p>All nodes should now have <code>ssh</code> access to each other.</p><h3 id=74-activate-no-stricthostkeychecking>7.4 Activate No StrictHostKeyChecking</h3><p>We like to be able to login to each of the nodes in a convenient fashion, without needing
+```
+All nodes should now have `ssh` access to each other.
+### 7.4 Activate No StrictHostKeyChecking
+We like to be able to login to each of the nodes in a convenient fashion, without needing
 to add the host to knownhosts. To do this we have developed a command that switches off
 StrictHostKeyChecking for all hosts. Before being able to issue the command, the user may
-have to switch to the windows branch of cloudmesh-inventory by <code>cd</code> to cloudmesh-inventory
-and then using <code>git checkout windows</code> and <code>git pull</code>. You invoke the command with</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key access red,red0<span style=color:#ce5c00;font-weight:700>[</span>1-4<span style=color:#ce5c00;font-weight:700>]</span>
-</code></pre></div><p>You will see an output similar to</p><pre><code>+-------+---------+--------+--------------------------------------------------+
-| host  | success | stdout | stderr                                           |
+have to switch to the windows branch of cloudmesh-inventory by `cd` to cloudmesh-inventory
+and then using `git checkout windows` and `git pull`. You invoke the command with
+```bash
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4]
+```
+You will see an output similar to
+```
 +-------+---------+--------+--------------------------------------------------+
-| red   | True    |        | b&quot;Warning: Permanently added 'red.local'         |
-|       |         |        | (...) to the list of known hosts.\r\n&quot;           |
-| red01 | True    |        | b&quot;Warning: Permanently added 'red01' (...)       |    
-|       |         |        | to the list of known hosts.\r\n&quot;                 |
-| red02 | True    |        | b&quot;Warning: Permanently added 'red02' (...)       |
-|       |         |        | to the list of known hosts.\r\n&quot;                 |
-| red03 | True    |        | b&quot;Warning: Permanently added 'red03' (...)       |
-|       |         |        | to the list of known hosts.\r\n&quot;                 |
-| red04 | True    |        | b&quot;Warning: Permanently added 'red04' (...)       |
-|       |         |        | to the list of known hosts.\r\n&quot;                 |
+| host | success | stdout | stderr |
 +-------+---------+--------+--------------------------------------------------+
-</code></pre><p>In order for you to be able to successfully disable StrictHostKeyChecking,
+| red | True | | b"Warning: Permanently added 'red.local' |
+| | | | (...) to the list of known hosts.\r\n" |
+| red01 | True | | b"Warning: Permanently added 'red01' (...) |
+| | | | to the list of known hosts.\r\n" |
+| red02 | True | | b"Warning: Permanently added 'red02' (...) |
+| | | | to the list of known hosts.\r\n" |
+| red03 | True | | b"Warning: Permanently added 'red03' (...) |
+| | | | to the list of known hosts.\r\n" |
+| red04 | True | | b"Warning: Permanently added 'red04' (...) |
+| | | | to the list of known hosts.\r\n" |
++-------+---------+--------+--------------------------------------------------+
+```
+In order for you to be able to successfully disable StrictHostKeyChecking,
 you can pass along filename that includes a customization. Here is an example
 on how to disable StrictHostKeyChecking on the subnet 10.1.1.1
-We assume you have the following in the file subnet.conf:</p><pre><code>Host 10.1.1.*
-    StrictHostKeyChecking no
-</code></pre><p>Now you can invoke the command with:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms host key access red,red0<span style=color:#ce5c00;font-weight:700>[</span>1-4<span style=color:#ce5c00;font-weight:700>]</span> subnet.conf
-</code></pre></div><h3 id=75-installing-cms-on-a-pi>7.5 Installing <code>cms</code> on a Pi</h3><p>Cloudmesh provides some very useful commands. Hence it can be of
+We assume you have the following in the file subnet.conf:
+```
+Host 10.1.1.*
+StrictHostKeyChecking no
+```
+Now you can invoke the command with:
+```bash
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4] subnet.conf
+```
+### 7.5 Installing `cms` on a Pi
+Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
-line curl command</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">39
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">40
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh red
-pi@red $ curl -Ls http://cloudmesh.github.io/get/pi <span style=color:#000;font-weight:700>|</span> sh -
-</code></pre></td></tr></table></div></div><p>This will not only install <code>cms</code>, but will also upgrade your system,
-install the dependencies for <code>cms</code>, and create a virtual
+line curl command
+```bash {linenos=table, linenostart=39}
+(ENV3) you@yourlaptop $ ssh red
+pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
+```
+This will not only install `cms`, but will also upgrade your system,
+install the dependencies for `cms`, and create a virtual
 environment. Because a system upgrade takes place, this command may
-take several minutes to run.</p><p>After a reboot, we can verify the success of the script with the following:</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">41
-</span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> pi@red $ cms <span style=color:#204a87>help</span>
-</code></pre></td></tr></table></div></div><pre><code>Documented commands (type help &lt;topic&gt;):
+take several minutes to run.
+After a reboot, we can verify the success of the script with the following:
+```bash {linenos=table, linenostart=41}
+(ENV3) pi@red $ cms help
+```
+```
+Documented commands (type help &lt;topic>):
 ========================================
-EOF     check     default  help       pause     quit   start      test
-admin   clear     diagram  host       pi        set    stop       var
-banner  commands  dryrun   info       provider  shell  stopwatch  version
-bridge  config    echo     inventory  py        sleep  sys
-burn    debug     gui      man        q         ssh    term
-</code></pre><h2 id=8-appendix>8. Appendix</h2><h2 id=81-writing-our-cluster-configuration>8.1 Writing our cluster configuration</h2><p>This feature is implicitly included in the burn command, and you will
-have an inventory created automatically.</p><p>Cloudmesh has a simple system for managing cluster configurations as
+EOF check default help pause quit start test
+admin clear diagram host pi set stop var
+banner commands dryrun info provider shell stopwatch version
+bridge config echo inventory py sleep sys
+burn debug gui man q ssh term
+```
+## 8. Appendix
+## 8.1 Writing our cluster configuration
+This feature is implicitly included in the burn command, and you will
+have an inventory created automatically.
+Cloudmesh has a simple system for managing cluster configurations as
 an inventory. We do this management for you, but you can control it
 also from the command line. We can first add a manager with cluster
-subnet IP <code>10.1.1.1</code>. We also add the <code>bridge</code> service, which is
-recognized by <code>cms</code> as the WIFI bridge service connecting devices on
+subnet IP `10.1.1.1`. We also add the `bridge` service, which is
+recognized by `cms` as the WIFI bridge service connecting devices on
 eth0 to the internet. We also set the timezone and locale here. You
-may want to change them as you wish.</p><h3 id=82-default-cluster-creation>8.2 Default Cluster Creation</h3><p>As we want to make the cluster very easy to create, we demonstrated in
+may want to change them as you wish.
+### 8.2 Default Cluster Creation
+As we want to make the cluster very easy to create, we demonstrated in
 Section 5 how to create a default cluster directly from the burn
 command. As a future feature, this behavior will also be implemented
 into the inventory command. To make a default inventory named
-inventory-red.yaml:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cms inventory add cluster <span style=color:#4e9a06>&#34;red,red[01-04]&#34;</span>
-</code></pre></div><p>This command will find your current WiFi SSID, and your current locale
+inventory-red.yaml:
+```bash
+you@yourlaptop $ cms inventory add cluster "red,red[01-04]"
+```
+This command will find your current WiFi SSID, and your current locale
 and set up a simple network as depicted in Figure 1 on your
 cluster. In case you have more or fewer nodes, the command will make
-appropriate updates.</p><h3 id=83-custom-cluster-creation>8.3 Custom Cluster Creation</h3><p>For a custom cluster, you can inspect the parameters of the inventory
+appropriate updates.
+### 8.3 Custom Cluster Creation
+For a custom cluster, you can inspect the parameters of the inventory
 command. Here are the commands to use for the previous setup while
-writing them out. You can modify the parameters to your liking:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cms inventory add red --service<span style=color:#ce5c00;font-weight:700>=</span>manager --ip<span style=color:#ce5c00;font-weight:700>=</span>10.1.1.1 --tag<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;latest-lite&#34;</span> --timezone<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;America/Indiana/Indianapolis&#34;</span> --locale<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;us&#34;</span> --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-you@yourlaptop $ cms inventory <span style=color:#204a87>set</span> red services to <span style=color:#4e9a06>&#34;bridge,wifi&#34;</span> --listvalue --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-</code></pre></div><p>We can then add the workers</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cms inventory add <span style=color:#4e9a06>&#34;red0[1-4]&#34;</span> --service<span style=color:#ce5c00;font-weight:700>=</span>worker --ip<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;10.1.1.[2-5]&#34;</span> --router<span style=color:#ce5c00;font-weight:700>=</span>10.1.1.1 --tag<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;latest-lite&#34;</span>  --timezone<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;America/Indiana/Indianapolis&#34;</span> --locale<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;us&#34;</span> --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-you@yourlaptop $ cms inventory <span style=color:#204a87>set</span> <span style=color:#4e9a06>&#34;red0[1-4]&#34;</span> dns to <span style=color:#4e9a06>&#34;8.8.8.8,8.8.4.4&#34;</span> --listvalue --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-</code></pre></div><blockquote><p>Note we are using Google&rsquo;s DNS here [8.8.8.8, 8.8.4.4]</p></blockquote><h3 id=84-inspect-the-cluster-configuration>8.4 Inspect the Cluster Configuration</h3><p>Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cms inventory list --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
+writing them out. You can modify the parameters to your liking:
+```bash
+you@yourlaptop $ cms inventory add red --service=manager --ip=10.1.1.1 --tag="latest-lite" --timezone="America/Indiana/Indianapolis" --locale="us" --inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory set red services to "bridge,wifi" --listvalue --inventory="inventory-red.yaml"
+```
+We can then add the workers
+```bash
+you@yourlaptop $ cms inventory add "red0[1-4]" --service=worker --ip="10.1.1.[2-5]" --router=10.1.1.1 --tag="latest-lite" --timezone="America/Indiana/Indianapolis" --locale="us" --inventory="inventory-red.yaml"
+you@yourlaptop $ cms inventory set "red0[1-4]" dns to "8.8.8.8,8.8.4.4" --listvalue --inventory="inventory-red.yaml"
+```
+> Note we are using Google's DNS here [8.8.8.8, 8.8.4.4]
+### 8.4 Inspect the Cluster Configuration
+Our cluster configuration is now complete. You may run the following to list your configuration. We include ours for a sanity check:
+```bash
+you@yourlaptop $ cms inventory list --inventory="inventory-red.yaml"
 +-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-<span style=color:#000;font-weight:700>|</span> host  <span style=color:#000;font-weight:700>|</span> tag         <span style=color:#000;font-weight:700>|</span> cluster <span style=color:#000;font-weight:700>|</span> service <span style=color:#000;font-weight:700>|</span> services           <span style=color:#000;font-weight:700>|</span> ip       <span style=color:#000;font-weight:700>|</span> dns                    <span style=color:#000;font-weight:700>|</span> router   <span style=color:#000;font-weight:700>|</span> locale <span style=color:#000;font-weight:700>|</span> timezone                     <span style=color:#000;font-weight:700>|</span> owners <span style=color:#000;font-weight:700>|</span> comment <span style=color:#000;font-weight:700>|</span> description <span style=color:#000;font-weight:700>|</span> keyfile           <span style=color:#000;font-weight:700>|</span>
+| host | tag | cluster | service | services | ip | dns | router | locale | timezone | owners | comment | description | keyfile |
 +-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-<span style=color:#000;font-weight:700>|</span> red   <span style=color:#000;font-weight:700>|</span> latest-lite <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span> manager <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;bridge&#39;</span>, <span style=color:#4e9a06>&#39;wifi&#39;</span><span style=color:#ce5c00;font-weight:700>]</span> <span style=color:#000;font-weight:700>|</span> 10.1.1.1 <span style=color:#000;font-weight:700>|</span>                        <span style=color:#000;font-weight:700>|</span>          <span style=color:#000;font-weight:700>|</span> us     <span style=color:#000;font-weight:700>|</span> America/Indiana/Indianapolis <span style=color:#000;font-weight:700>|</span>        <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span>             <span style=color:#000;font-weight:700>|</span> ~/.ssh/id_rsa.pub <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> red01 <span style=color:#000;font-weight:700>|</span> latest-lite <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span> worker  <span style=color:#000;font-weight:700>|</span>                    <span style=color:#000;font-weight:700>|</span> 10.1.1.2 <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;8.8.8.8&#39;</span>, <span style=color:#4e9a06>&#39;8.8.4.4&#39;</span><span style=color:#ce5c00;font-weight:700>]</span> <span style=color:#000;font-weight:700>|</span> 10.1.1.1 <span style=color:#000;font-weight:700>|</span> us     <span style=color:#000;font-weight:700>|</span> America/Indiana/Indianapolis <span style=color:#000;font-weight:700>|</span>        <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span>             <span style=color:#000;font-weight:700>|</span> ~/.ssh/id_rsa.pub <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> red02 <span style=color:#000;font-weight:700>|</span> latest-lite <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span> worker  <span style=color:#000;font-weight:700>|</span>                    <span style=color:#000;font-weight:700>|</span> 10.1.1.3 <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;8.8.8.8&#39;</span>, <span style=color:#4e9a06>&#39;8.8.4.4&#39;</span><span style=color:#ce5c00;font-weight:700>]</span> <span style=color:#000;font-weight:700>|</span> 10.1.1.1 <span style=color:#000;font-weight:700>|</span> us     <span style=color:#000;font-weight:700>|</span> America/Indiana/Indianapolis <span style=color:#000;font-weight:700>|</span>        <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span>             <span style=color:#000;font-weight:700>|</span> ~/.ssh/id_rsa.pub <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> red03 <span style=color:#000;font-weight:700>|</span> latest-lite <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span> worker  <span style=color:#000;font-weight:700>|</span>                    <span style=color:#000;font-weight:700>|</span> 10.1.1.4 <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;8.8.8.8&#39;</span>, <span style=color:#4e9a06>&#39;8.8.4.4&#39;</span><span style=color:#ce5c00;font-weight:700>]</span> <span style=color:#000;font-weight:700>|</span> 10.1.1.1 <span style=color:#000;font-weight:700>|</span> us     <span style=color:#000;font-weight:700>|</span> America/Indiana/Indianapolis <span style=color:#000;font-weight:700>|</span>        <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span>             <span style=color:#000;font-weight:700>|</span> ~/.ssh/id_rsa.pub <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> red04 <span style=color:#000;font-weight:700>|</span> latest-lite <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span> worker  <span style=color:#000;font-weight:700>|</span>                    <span style=color:#000;font-weight:700>|</span> 10.1.1.5 <span style=color:#000;font-weight:700>|</span> <span style=color:#ce5c00;font-weight:700>[</span><span style=color:#4e9a06>&#39;8.8.8.8&#39;</span>, <span style=color:#4e9a06>&#39;8.8.4.4&#39;</span><span style=color:#ce5c00;font-weight:700>]</span> <span style=color:#000;font-weight:700>|</span> 10.1.1.1 <span style=color:#000;font-weight:700>|</span> us     <span style=color:#000;font-weight:700>|</span> America/Indiana/Indianapolis <span style=color:#000;font-weight:700>|</span>        <span style=color:#000;font-weight:700>|</span>         <span style=color:#000;font-weight:700>|</span>             <span style=color:#000;font-weight:700>|</span> ~/.ssh/id_rsa.pub <span style=color:#000;font-weight:700>|</span>
+| red | latest-lite | | manager | ['bridge', 'wifi'] | 10.1.1.1 | | | us | America/Indiana/Indianapolis | | | | ~/.ssh/id_rsa.pub |
+| red01 | latest-lite | | worker | | 10.1.1.2 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us | America/Indiana/Indianapolis | | | | ~/.ssh/id_rsa.pub |
+| red02 | latest-lite | | worker | | 10.1.1.3 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us | America/Indiana/Indianapolis | | | | ~/.ssh/id_rsa.pub |
+| red03 | latest-lite | | worker | | 10.1.1.4 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us | America/Indiana/Indianapolis | | | | ~/.ssh/id_rsa.pub |
+| red04 | latest-lite | | worker | | 10.1.1.5 | ['8.8.8.8', '8.8.4.4'] | 10.1.1.1 | us | America/Indiana/Indianapolis | | | | ~/.ssh/id_rsa.pub |
 +-------+-------------+---------+---------+--------------------+----------+------------------------+----------+--------+------------------------------+--------+---------+-------------+-------------------+
-</code></pre></div><h3 id=85-burning-a-custom-cluster>8.5 Burning a Custom Cluster</h3><p>You can now specify your inventory as you burn your cluster or
+```
+### 8.5 Burning a Custom Cluster
+You can now specify your inventory as you burn your cluster or
 specific machines from the cluster with the burn command. All hosts
 data found in the inventory will be written to the machines,
-regardless if they are in the burn command or not.</p><p>Burn the whole cluster.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red,red0[1-4]&#34;</span> --device<span style=color:#ce5c00;font-weight:700>=</span>/dev/sdX 
---inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-</code></pre></div><p>Burn a specific machine.</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> <span style=color:#ce5c00;font-weight:700>(</span>admin<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ cms burn raspberry <span style=color:#4e9a06>&#34;red03&#34;</span> --device<span style=color:#ce5c00;font-weight:700>=</span>/dev/sdX --inventory<span style=color:#ce5c00;font-weight:700>=</span><span style=color:#4e9a06>&#34;inventory-red.yaml&#34;</span>
-</code></pre></div><h3 id=86-managing-known_hosts>8.6 Managing known_hosts</h3><p>In case you reburn a SDCard and use it in your cluster, you will get a
+regardless if they are in the burn command or not.
+Burn the whole cluster.
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --device=/dev/sdX
+--inventory="inventory-red.yaml"
+```
+Burn a specific machine.
+```bash
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red03" --device=/dev/sdX --inventory="inventory-red.yaml"
+```
+### 8.6 Managing known_hosts
+In case you reburn a SDCard and use it in your cluster, you will get a
 warning once you try to ssh into the machine. To remove the error
-simply execute the command</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ ssh-keygen -R HOSTNAME
-</code></pre></div><p>where hostname is either the hostname or the ip address of your
+simply execute the command
+```bash
+you@yourlaptop $ ssh-keygen -R HOSTNAME
+```
+where hostname is either the hostname or the ip address of your
 machine. that is registered in known hosts. To see the list, please
-use</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cat ~/.ssh/known_hosts
-</code></pre></div><h3 id=87-get-the-os-image>8.7 Get the OS Image</h3><p>Note that the <code>lite</code> tag is the same as <code>lite-32</code> and <code>full</code> the same
-as <code>full-32</code>. We added them for increased consistency and visibility.
-We may drop in the future the <code>lite</code> and <code>full</code> tag so users are
-forced to be aware of the 32 and 64 bit versions with</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop  $ cms burn image versions --refresh
-
+use
+```bash
+you@yourlaptop $ cat ~/.ssh/known_hosts
+```
+### 8.7 Get the OS Image
+Note that the `lite` tag is the same as `lite-32` and `full` the same
+as `full-32`. We added them for increased consistency and visibility.
+We may drop in the future the `lite` and `full` tag so users are
+forced to be aware of the 32 and 64 bit versions with
+```bash
+you@yourlaptop $ cms burn image versions --refresh
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
-<span style=color:#000;font-weight:700>|</span> Tag                       <span style=color:#000;font-weight:700>|</span> Date       <span style=color:#000;font-weight:700>|</span> OS          <span style=color:#000;font-weight:700>|</span> Type        <span style=color:#000;font-weight:700>|</span> Version                                 <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span>---------------------------+------------+-------------+-------------+-----------------------------------------<span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-05-28           <span style=color:#000;font-weight:700>|</span> 2020-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-08-24           <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-08-24           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-12-04           <span style=color:#000;font-weight:700>|</span> 2020-12-04 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-12-04           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-01-12           <span style=color:#000;font-weight:700>|</span> 2021-01-12 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-01-12           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-03-25           <span style=color:#000;font-weight:700>|</span> 2021-03-25 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-03-25           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-05-28           <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-11-08           <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-11-08           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2022-01-28           <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-01-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2022-04-07           <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-lite               <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite        <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-05-28           <span style=color:#000;font-weight:700>|</span> 2020-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-08-24           <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-08-24           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-12-04           <span style=color:#000;font-weight:700>|</span> 2020-12-04 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-12-04           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-01-12           <span style=color:#000;font-weight:700>|</span> 2021-01-12 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-01-12           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-03-25           <span style=color:#000;font-weight:700>|</span> 2021-03-25 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-03-25           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-05-28           <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-11-08           <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-11-08           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2022-01-28           <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-01-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2022-04-07           <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-full               <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full        <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-05-28           <span style=color:#000;font-weight:700>|</span> 2020-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-08-24           <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-08-24           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2020-12-04           <span style=color:#000;font-weight:700>|</span> 2020-12-04 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2020-12-04           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-01-12           <span style=color:#000;font-weight:700>|</span> 2021-01-12 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-01-12           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-03-25           <span style=color:#000;font-weight:700>|</span> 2021-03-25 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-03-25           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-05-28           <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2021-11-08           <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2021-11-08           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2022-01-28           <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-01-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite-2022-04-07           <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-lite-32            <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-32     <span style=color:#000;font-weight:700>|</span> raspios_lite_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-05-28           <span style=color:#000;font-weight:700>|</span> 2020-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-08-24           <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-08-24           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2020-12-04           <span style=color:#000;font-weight:700>|</span> 2020-12-04 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2020-12-04           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-01-12           <span style=color:#000;font-weight:700>|</span> 2021-01-12 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-01-12           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-03-25           <span style=color:#000;font-weight:700>|</span> 2021-03-25 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-03-25           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-05-28           <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2021-11-08           <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2021-11-08           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2022-01-28           <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-01-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> full-2022-04-07           <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-full-32            <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-32     <span style=color:#000;font-weight:700>|</span> raspios_full_armhf-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2020-08-24     <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2020-08-24           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2021-04-09     <span style=color:#000;font-weight:700>|</span> 2021-04-09 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2021-04-09           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2021-05-28     <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2021-05-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2021-11-08     <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2021-11-08           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2022-01-28     <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2022-01-28           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> lite_arm64-2022-04-07     <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-lite-64            <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-64     <span style=color:#000;font-weight:700>|</span> raspios_lite_arm64-2022-04-07           <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2020-05-28          <span style=color:#000;font-weight:700>|</span> 2020-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2020-05-28                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2020-08-24          <span style=color:#000;font-weight:700>|</span> 2020-08-24 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2020-08-24                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2021-04-09          <span style=color:#000;font-weight:700>|</span> 2021-04-09 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2021-04-09                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2021-05-28          <span style=color:#000;font-weight:700>|</span> 2021-05-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2021-05-28                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2021-11-08          <span style=color:#000;font-weight:700>|</span> 2021-11-08 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2021-11-08                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2022-01-28          <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2022-01-28                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> arm64-2022-04-07          <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2022-04-07                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-full-64            <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-64     <span style=color:#000;font-weight:700>|</span> raspios_arm64-2022-04-07                <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable_lite-2021-12-02 <span style=color:#000;font-weight:700>|</span> 2021-12-02 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_lite_armhf-2021-12-02 <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable_lite-2022-01-28 <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_lite_armhf-2022-01-28 <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable_lite-2022-04-07 <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_lite_armhf-2022-04-07 <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-lite-legacy        <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> lite-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_lite_armhf-2022-04-07 <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable-2021-12-02      <span style=color:#000;font-weight:700>|</span> 2021-12-02 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_armhf-2021-12-02      <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable-2022-01-28      <span style=color:#000;font-weight:700>|</span> 2022-01-28 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_armhf-2022-01-28      <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> oldstable-2022-04-07      <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_armhf-2022-04-07      <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> latest-full-legacy        <span style=color:#000;font-weight:700>|</span> 2022-04-07 <span style=color:#000;font-weight:700>|</span> raspberryos <span style=color:#000;font-weight:700>|</span> full-legacy <span style=color:#000;font-weight:700>|</span> raspios_oldstable_armhf-2022-04-07      <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> ubuntu-20.04.2-64-bit     <span style=color:#000;font-weight:700>|</span> 2021-02-01 <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> 20.04.2<span style=color:#000;font-weight:700>&amp;</span><span style=color:#000>architecture</span><span style=color:#ce5c00;font-weight:700>=</span>server-arm64+raspi <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> ubuntu-20.04.2-32-bit     <span style=color:#000;font-weight:700>|</span> 2021-02-01 <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> 20.04.2<span style=color:#000;font-weight:700>&amp;</span><span style=color:#000>architecture</span><span style=color:#ce5c00;font-weight:700>=</span>server-armhf+raspi <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> ubuntu-20.10-64-bit       <span style=color:#000;font-weight:700>|</span> 2021-02-01 <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> 20.10<span style=color:#000;font-weight:700>&amp;</span><span style=color:#000>architecture</span><span style=color:#ce5c00;font-weight:700>=</span>server-arm64+raspi   <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> ubuntu-20.10-32-bit       <span style=color:#000;font-weight:700>|</span> 2021-02-01 <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> 20.10<span style=color:#000;font-weight:700>&amp;</span><span style=color:#000>architecture</span><span style=color:#ce5c00;font-weight:700>=</span>server-armhf+raspi   <span style=color:#000;font-weight:700>|</span>
-<span style=color:#000;font-weight:700>|</span> ubuntu-desktop            <span style=color:#000;font-weight:700>|</span> 2021-02-01 <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> ubuntu      <span style=color:#000;font-weight:700>|</span> 20.10<span style=color:#000;font-weight:700>&amp;</span><span style=color:#000>architecture</span><span style=color:#ce5c00;font-weight:700>=</span>desktop-arm64+raspi  <span style=color:#000;font-weight:700>|</span>
+| Tag | Date | OS | Type | Version |
+|---------------------------+------------+-------------+-------------+-----------------------------------------|
+| lite-2020-05-28 | 2020-05-28 | raspberryos | lite | raspios_lite_armhf-2020-05-28 |
+| lite-2020-08-24 | 2020-08-24 | raspberryos | lite | raspios_lite_armhf-2020-08-24 |
+| lite-2020-12-04 | 2020-12-04 | raspberryos | lite | raspios_lite_armhf-2020-12-04 |
+| lite-2021-01-12 | 2021-01-12 | raspberryos | lite | raspios_lite_armhf-2021-01-12 |
+| lite-2021-03-25 | 2021-03-25 | raspberryos | lite | raspios_lite_armhf-2021-03-25 |
+| lite-2021-05-28 | 2021-05-28 | raspberryos | lite | raspios_lite_armhf-2021-05-28 |
+| lite-2021-11-08 | 2021-11-08 | raspberryos | lite | raspios_lite_armhf-2021-11-08 |
+| lite-2022-01-28 | 2022-01-28 | raspberryos | lite | raspios_lite_armhf-2022-01-28 |
+| lite-2022-04-07 | 2022-04-07 | raspberryos | lite | raspios_lite_armhf-2022-04-07 |
+| latest-lite | 2022-04-07 | raspberryos | lite | raspios_lite_armhf-2022-04-07 |
+| full-2020-05-28 | 2020-05-28 | raspberryos | full | raspios_full_armhf-2020-05-28 |
+| full-2020-08-24 | 2020-08-24 | raspberryos | full | raspios_full_armhf-2020-08-24 |
+| full-2020-12-04 | 2020-12-04 | raspberryos | full | raspios_full_armhf-2020-12-04 |
+| full-2021-01-12 | 2021-01-12 | raspberryos | full | raspios_full_armhf-2021-01-12 |
+| full-2021-03-25 | 2021-03-25 | raspberryos | full | raspios_full_armhf-2021-03-25 |
+| full-2021-05-28 | 2021-05-28 | raspberryos | full | raspios_full_armhf-2021-05-28 |
+| full-2021-11-08 | 2021-11-08 | raspberryos | full | raspios_full_armhf-2021-11-08 |
+| full-2022-01-28 | 2022-01-28 | raspberryos | full | raspios_full_armhf-2022-01-28 |
+| full-2022-04-07 | 2022-04-07 | raspberryos | full | raspios_full_armhf-2022-04-07 |
+| latest-full | 2022-04-07 | raspberryos | full | raspios_full_armhf-2022-04-07 |
+| lite-2020-05-28 | 2020-05-28 | raspberryos | lite-32 | raspios_lite_armhf-2020-05-28 |
+| lite-2020-08-24 | 2020-08-24 | raspberryos | lite-32 | raspios_lite_armhf-2020-08-24 |
+| lite-2020-12-04 | 2020-12-04 | raspberryos | lite-32 | raspios_lite_armhf-2020-12-04 |
+| lite-2021-01-12 | 2021-01-12 | raspberryos | lite-32 | raspios_lite_armhf-2021-01-12 |
+| lite-2021-03-25 | 2021-03-25 | raspberryos | lite-32 | raspios_lite_armhf-2021-03-25 |
+| lite-2021-05-28 | 2021-05-28 | raspberryos | lite-32 | raspios_lite_armhf-2021-05-28 |
+| lite-2021-11-08 | 2021-11-08 | raspberryos | lite-32 | raspios_lite_armhf-2021-11-08 |
+| lite-2022-01-28 | 2022-01-28 | raspberryos | lite-32 | raspios_lite_armhf-2022-01-28 |
+| lite-2022-04-07 | 2022-04-07 | raspberryos | lite-32 | raspios_lite_armhf-2022-04-07 |
+| latest-lite-32 | 2022-04-07 | raspberryos | lite-32 | raspios_lite_armhf-2022-04-07 |
+| full-2020-05-28 | 2020-05-28 | raspberryos | full-32 | raspios_full_armhf-2020-05-28 |
+| full-2020-08-24 | 2020-08-24 | raspberryos | full-32 | raspios_full_armhf-2020-08-24 |
+| full-2020-12-04 | 2020-12-04 | raspberryos | full-32 | raspios_full_armhf-2020-12-04 |
+| full-2021-01-12 | 2021-01-12 | raspberryos | full-32 | raspios_full_armhf-2021-01-12 |
+| full-2021-03-25 | 2021-03-25 | raspberryos | full-32 | raspios_full_armhf-2021-03-25 |
+| full-2021-05-28 | 2021-05-28 | raspberryos | full-32 | raspios_full_armhf-2021-05-28 |
+| full-2021-11-08 | 2021-11-08 | raspberryos | full-32 | raspios_full_armhf-2021-11-08 |
+| full-2022-01-28 | 2022-01-28 | raspberryos | full-32 | raspios_full_armhf-2022-01-28 |
+| full-2022-04-07 | 2022-04-07 | raspberryos | full-32 | raspios_full_armhf-2022-04-07 |
+| latest-full-32 | 2022-04-07 | raspberryos | full-32 | raspios_full_armhf-2022-04-07 |
+| lite_arm64-2020-08-24 | 2020-08-24 | raspberryos | lite-64 | raspios_lite_arm64-2020-08-24 |
+| lite_arm64-2021-04-09 | 2021-04-09 | raspberryos | lite-64 | raspios_lite_arm64-2021-04-09 |
+| lite_arm64-2021-05-28 | 2021-05-28 | raspberryos | lite-64 | raspios_lite_arm64-2021-05-28 |
+| lite_arm64-2021-11-08 | 2021-11-08 | raspberryos | lite-64 | raspios_lite_arm64-2021-11-08 |
+| lite_arm64-2022-01-28 | 2022-01-28 | raspberryos | lite-64 | raspios_lite_arm64-2022-01-28 |
+| lite_arm64-2022-04-07 | 2022-04-07 | raspberryos | lite-64 | raspios_lite_arm64-2022-04-07 |
+| latest-lite-64 | 2022-04-07 | raspberryos | lite-64 | raspios_lite_arm64-2022-04-07 |
+| arm64-2020-05-28 | 2020-05-28 | raspberryos | full-64 | raspios_arm64-2020-05-28 |
+| arm64-2020-08-24 | 2020-08-24 | raspberryos | full-64 | raspios_arm64-2020-08-24 |
+| arm64-2021-04-09 | 2021-04-09 | raspberryos | full-64 | raspios_arm64-2021-04-09 |
+| arm64-2021-05-28 | 2021-05-28 | raspberryos | full-64 | raspios_arm64-2021-05-28 |
+| arm64-2021-11-08 | 2021-11-08 | raspberryos | full-64 | raspios_arm64-2021-11-08 |
+| arm64-2022-01-28 | 2022-01-28 | raspberryos | full-64 | raspios_arm64-2022-01-28 |
+| arm64-2022-04-07 | 2022-04-07 | raspberryos | full-64 | raspios_arm64-2022-04-07 |
+| latest-full-64 | 2022-04-07 | raspberryos | full-64 | raspios_arm64-2022-04-07 |
+| oldstable_lite-2021-12-02 | 2021-12-02 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2021-12-02 |
+| oldstable_lite-2022-01-28 | 2022-01-28 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-01-28 |
+| oldstable_lite-2022-04-07 | 2022-04-07 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-04-07 |
+| latest-lite-legacy | 2022-04-07 | raspberryos | lite-legacy | raspios_oldstable_lite_armhf-2022-04-07 |
+| oldstable-2021-12-02 | 2021-12-02 | raspberryos | full-legacy | raspios_oldstable_armhf-2021-12-02 |
+| oldstable-2022-01-28 | 2022-01-28 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-01-28 |
+| oldstable-2022-04-07 | 2022-04-07 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-04-07 |
+| latest-full-legacy | 2022-04-07 | raspberryos | full-legacy | raspios_oldstable_armhf-2022-04-07 |
+| ubuntu-20.04.2-64-bit | 2021-02-01 | ubuntu | ubuntu | 20.04.2&architecture=server-arm64+raspi |
+| ubuntu-20.04.2-32-bit | 2021-02-01 | ubuntu | ubuntu | 20.04.2&architecture=server-armhf+raspi |
+| ubuntu-20.10-64-bit | 2021-02-01 | ubuntu | ubuntu | 20.10&architecture=server-arm64+raspi |
+| ubuntu-20.10-32-bit | 2021-02-01 | ubuntu | ubuntu | 20.10&architecture=server-armhf+raspi |
+| ubuntu-desktop | 2021-02-01 | ubuntu | ubuntu | 20.10&architecture=desktop-arm64+raspi |
 +---------------------------+------------+-------------+-------------+-----------------------------------------+
-</code></pre></div><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ cms burn image get latest-lite
+```
+```bash
+you@yourlaptop $ cms burn image get latest-lite
 you@yourlaptop $ cms burn image get latest-fll
-</code></pre></div><p>The images are stored in the <code>.cloudmesh/cmburn/images</code> directory
-and can be removed with the command</p><div class=highlight><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>you@yourlaptop $ rm -i ~/.cloudmesh/cmburn/images/* 
-</code></pre></div><h3 id=87-related-tutorials>8.7 Related tutorials</h3><ul><li><input disabled type=checkbox> TODO find the links, point to the medium.com once first.</li></ul><p>We also provide a list of related tutorials for other operating systems.
-This includes</p><p>Cluster with RaspberryOS on it:</p><ul><li><a href=https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-from-macos-e160ac848bf>Easy Raspberry PI Cluster Setup with Cloudmesh from MacOS</a></li><li>[Burning A Cluster with RaspberryOS on it from a Raspberry Pi]</li><li><a href=https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-sdcard-burner-a2035dfea22>TODO: Burning A Cluster with RaspberryOS on it from macOS</a></li><li><a href>TODO: Burning A Cluster with RaspberryOS on it from Ubuntu</a></li><li><a href>TODO: Burning A Cluster with RaspberryOS on it from Windows 10</a></li></ul><p>Cluster with Ubuntu on it:</p><ul><li><a href>TODO: Burning A cluster with Ubuntu on it from macOS</a></li><li><a href>TODO: Burning A cluster with Ubuntu on it from Ubuntu</a></li><li>Please note that burning the cluster from Windows 10 with
+```
+The images are stored in the `.cloudmesh/cmburn/images` directory
+and can be removed with the command
+```bash
+you@yourlaptop $ rm -i ~/.cloudmesh/cmburn/images/*
+```
+### 8.7 Related tutorials
+- [ ] TODO find the links, point to the medium.com once first.
+We also provide a list of related tutorials for other operating systems.
+This includes
+Cluster with RaspberryOS on it:
+* [Easy Raspberry PI Cluster Setup with Cloudmesh from MacOS](https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-from-macos-e160ac848bf)
+* [Burning A Cluster with RaspberryOS on it from a Raspberry Pi]
+* [TODO: Burning A Cluster with RaspberryOS on it from macOS](https://laszewski.medium.com/easy-raspberry-pi-cluster-setup-with-cloudmesh-sdcard-burner-a2035dfea22)
+* [TODO: Burning A Cluster with RaspberryOS on it from Ubuntu]()
+* [TODO: Burning A Cluster with RaspberryOS on it from Windows 10]()
+Cluster with Ubuntu on it:
+* [TODO: Burning A cluster with Ubuntu on it from macOS]()
+* [TODO: Burning A cluster with Ubuntu on it from Ubuntu]()
+* Please note that burning the cluster from Windows 10 with
 Ubuntu on the nodes has not yet been completed.
-If you like to help, contact us.</li></ul><p>We have the following tutorials also on other web pages. Here is a list</p><p>Hackaday:</p><ul><li><a href=https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters>Preconfigured SDCards for Raspberry Pi Clusters</a></li><li><a href=https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs>https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs</a></li></ul><p>Piplanet:</p><p>Many tutorials are available at</p><ul><li><a href=https://cloudmesh.github.io/pi/tutorial/>piplanet.org/tutorial</a></li></ul></div><div class=td-content style=page-break-before:always><h1 id=pg-5eecb36e9d5c4dd423f82d99a6353a8a>2 - Hugo Pages</h1><div class=lead>A collection of advanced features supported by this hugo instance</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/hugo/featured-image_huf8b50ada3a31d2a67084da179c329740_149718_600x300_fill_catmullrom_smart1_2.png width=600 height=300></div><div class="pageinfo pageinfo-primary"><p>Here comes a small abstract</p><p><strong>Learning Objectives</strong></p><ul><li>here comes a list of learning objectives</li><li></li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#documentation-gui-components>Documentation GUI components</a></li><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#3-tabs>3. Tabs</a></li><li><a href=#table>Table</a></li><li><a href=#expand>Expand</a></li><li><a href=#mermaid>Mermaid</a><ul><li><a href=#pie-chart>Pie Chart</a></li><li><a href=#gantt-chart>Gantt Chart</a></li><li><a href=#sequence-diagram>Sequence Diagram</a></li><li><a href=#flow-chart>Flow Chart</a></li></ul></li><li><a href=#fontawsome>Fontawsome</a></li><li><a href=#swagger>Swagger</a></li><li><a href=#plantuml>PlantUML</a></li></ul></nav></div></div><h2 id=documentation-gui-components>Documentation GUI components</h2><style type=text/css>.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fa}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style><div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>This is a warning notice. Be warned!</p></div><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>This is a very good tip.</p></div><div class="notice note"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>Note</p><p>This is a very good tip.</p></div><div class="notice info"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"/></svg></span>Info</p><p>This is a very good tip.</p></div><div class=window-gitbash><div class=titlebar-gitbash><div class=buttons-gitbash><div class=bclose-gitbash><a class=closebutton-gitbash href=#><span><strong>x</strong></span></a></div><div class=minimize-gitbash><a class=minimizebutton-gitbash href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-gitbash><a class=zoombutton-gitbash href=#><span><strong>+</strong></span></a></div></div>&nbsp;&nbsp; <i class="fa-regular fa-square"></i>&nbsp;&nbsp; gregor@gitbash: ~/ (gitbash)</div><div class=terminal-gitbash><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><div class=window-macos><div class=titlebar-macos><div class=buttons-macos><div class=bclose-macos><a class=closebutton-macos href=#><span><strong>x</strong></span></a></div><div class=minimize-macos><a class=minimizebutton-macos href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-macos><a class=zoombutton-macos href=#><span><strong>+</strong></span></a></div></div>gregor@macOS: ~/ (zsh)</div><div class=terminal-macos><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><div class=window-ubuntu><div class=titlebar-ubuntu><div class=buttons-ubuntu><div class=bclose-ubuntu><a class=closebutton-ubuntu href=#><span><strong>x</strong></span></a></div><div class=minimize-ubuntu><a class=minimizebutton-ubuntu href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-ubuntu><a class=zoombutton-ubuntu href=#><span><strong>+</strong></span></a></div></div>gregor@ubuntu: ~/ (bash)</div><div class=terminal-ubuntu><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><h2 id=1-introduction>1. Introduction</h2><p>Sections should be umbered</p><h2 id=3-tabs>3. Tabs</h2><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-eafdbc data-toggle=tab href=#eafdbc role=tab aria-controls=nav-home aria-selected=true>macOS/Linux/Raspberry</a>
-<a class="nav-item nav-link" id=nav-bdeafc data-toggle=tab href=#bdeafc role=tab aria-controls=nav-home aria-selected=true>Windows</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=eafdbc role=tabpanel aria-labelledby=nav-1><p>This program is typically already running on macOS and Ubuntu, so
+If you like to help, contact us.
+We have the following tutorials also on other web pages. Here is a list
+Hackaday:
+* [Preconfigured SDCards for Raspberry Pi Clusters](https://hackaday.io/project/177874-preconfigured-sdcards-for-raspberry-pi-clusters)
+* [https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs](https://hackaday.io/project/177904-headless-rasbery-pi-cluster-from-macs)
+Piplanet:
+Many tutorials are available at
+* [piplanet.org/tutorial](https://cloudmesh.github.io/pi/tutorial/)</code></pre></div><div class=td-content style=page-break-before:always><h1 id=pg-5eecb36e9d5c4dd423f82d99a6353a8a>2 - Hugo Pages</h1><div class=lead>A collection of advanced features supported by this hugo instance</div><div class="card rounded p-2 td-post-card mb-4 mt-4" style=max-width:610px><img class=card-img-top src=/pi/tutorial/hugo/featured-image_huf8b50ada3a31d2a67084da179c329740_149718_600x300_fill_catmullrom_smart1_2.png width=600 height=300></div><div class="pageinfo pageinfo-primary"><p>Here comes a small abstract</p><p><strong>Learning Objectives</strong></p><ul><li>here comes a list of learning objectives</li><li></li></ul><p><strong>Topics covered</strong></p><div class=toc><nav id=TableOfContents><ul><li><a href=#documentation-gui-components>Documentation GUI components</a></li><li><a href=#1-introduction>1. Introduction</a></li><li><a href=#3-tabs>3. Tabs</a></li><li><a href=#table>Table</a></li><li><a href=#expand>Expand</a></li><li><a href=#mermaid>Mermaid</a><ul><li><a href=#pie-chart>Pie Chart</a></li><li><a href=#gantt-chart>Gantt Chart</a></li><li><a href=#sequence-diagram>Sequence Diagram</a></li><li><a href=#flow-chart>Flow Chart</a></li></ul></li><li><a href=#fontawsome>Fontawsome</a></li><li><a href=#swagger>Swagger</a></li><li><a href=#plantuml>PlantUML</a></li></ul></nav></div></div><h2 id=documentation-gui-components>Documentation GUI components</h2><style type=text/css>.notice{padding:18px;line-height:24px;margin-bottom:24px;border-radius:4px;color:#444;background:#e7f2fa}.notice p:last-child{margin-bottom:0}.notice-title{margin:-18px -18px 12px;padding:4px 18px;border-radius:4px 4px 0 0;font-weight:700;color:#fff;background:#6ab0de}.notice.warning .notice-title{background:rgba(217,83,79,.9)}.notice.warning{background:#fae2e2}.notice.info .notice-title{background:#f0b37e}.notice.info{background:#fff2db}.notice.note .notice-title{background:#6ab0de}.notice.note{background:#e7f2fa}.notice.tip .notice-title{background:rgba(92,184,92,.8)}.notice.tip{background:#e6f9e6}.icon-notice{display:inline-flex;align-self:center;margin-right:8px}.icon-notice img,.icon-notice svg{height:1em;width:1em;fill:currentColor}.icon-notice img,.icon-notice.baseline svg{top:.125em;position:relative}</style><div><svg width="0" height="0" display="none" xmlns="http://www.w3.org/2000/svg"><symbol id="tip-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379.0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628.0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628.0l-22.627 22.627c-6.248 6.248-6.248 16.379.0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/></symbol><symbol id="note-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zm-248 50c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="warning-notice" viewBox="0 0 576 512" preserveAspectRatio="xMidYMid meet"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></symbol><symbol id="info-notice" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet"><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196.0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627.0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627.0 12 5.373 12 12v1e2h12c6.627.0 12 5.373 12 12v24z"/></symbol></svg></div><div class="notice warning"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#warning-notice"/></svg></span>Warning</p><p>This is a warning notice. Be warned!</p></div><div class="notice tip"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#tip-notice"/></svg></span>Tip</p><p>This is a very good tip.</p></div><div class="notice note"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#note-notice"/></svg></span>Note</p><p>This is a very good tip.</p></div><div class="notice info"><p class="first notice-title"><span class="icon-notice baseline"><svg><use href="#info-notice"/></svg></span>Info</p><p>This is a very good tip.</p></div><div class=window-gitbash><div class=titlebar-gitbash><div class=buttons-gitbash><div class=bclose-gitbash><a class=closebutton-gitbash href=#><span><strong>x</strong></span></a></div><div class=minimize-gitbash><a class=minimizebutton-gitbash href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-gitbash><a class=zoombutton-gitbash href=#><span><strong>+</strong></span></a></div></div>&nbsp;&nbsp; <i class="fa-regular fa-square"></i>&nbsp;&nbsp; gregor@gitbash: ~/ (gitbash)</div><div class=terminal-gitbash><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><div class=window-macos><div class=titlebar-macos><div class=buttons-macos><div class=bclose-macos><a class=closebutton-macos href=#><span><strong>x</strong></span></a></div><div class=minimize-macos><a class=minimizebutton-macos href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-macos><a class=zoombutton-macos href=#><span><strong>+</strong></span></a></div></div>gregor@macOS: ~/ (zsh)</div><div class=terminal-macos><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><div class=window-ubuntu><div class=titlebar-ubuntu><div class=buttons-ubuntu><div class=bclose-ubuntu><a class=closebutton-ubuntu href=#><span><strong>x</strong></span></a></div><div class=minimize-ubuntu><a class=minimizebutton-ubuntu href=#><span><strong>&ndash;</strong></span></a></div><div class=zoom-ubuntu><a class=zoombutton-ubuntu href=#><span><strong>+</strong></span></a></div></div>gregor@ubuntu: ~/ (bash)</div><div class=terminal-ubuntu><ul><li></li><li>$&nbsp;cms</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;____&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;&nbsp;/&nbsp;___|&nbsp;|&nbsp;___&nbsp;&nbsp;_&nbsp;&nbsp;&nbsp;_&nbsp;&nbsp;__|&nbsp;|_&nbsp;__&nbsp;___&nbsp;&nbsp;&nbsp;___&nbsp;&nbsp;___|&nbsp;|__&nbsp;&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|&nbsp;&nbsp;&nbsp;|&nbsp;|/&nbsp;_&nbsp;\|&nbsp;|&nbsp;|&nbsp;|/&nbsp;_`&nbsp;|&nbsp;'_&nbsp;`&nbsp;_&nbsp;\&nbsp;/&nbsp;_&nbsp;\/&nbsp;__|&nbsp;'_&nbsp;\&nbsp;&nbsp;|</li><li>|&nbsp;|&nbsp;|___|&nbsp;|&nbsp;(_)&nbsp;|&nbsp;|_|&nbsp;|&nbsp;(_|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;|&nbsp;&nbsp;__/\__&nbsp;\&nbsp;|&nbsp;|&nbsp;|&nbsp;|</li><li>|&nbsp;&nbsp;\____|_|\___/&nbsp;\__,_|\__,_|_|&nbsp;|_|&nbsp;|_|\___||___/_|&nbsp;|_|&nbsp;|</li><li>+-------------------------------------------------------+</li><li>|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cloudmesh&nbsp;CMD5&nbsp;Shell&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</li><li>+-------------------------------------------------------+</li><li>$&nbsp;_</li><li></li></ul></div></div><h2 id=1-introduction>1. Introduction</h2><p>Sections should be umbered</p><h2 id=3-tabs>3. Tabs</h2><nav><div class="nav nav-tabs" id=nav-tab role=tablist><a class="nav-item nav-link active" id=nav-eafbcd data-toggle=tab href=#eafbcd role=tab aria-controls=nav-home aria-selected=true>macOS/Linux/Raspberry</a>
+<a class="nav-item nav-link" id=nav-cedfab data-toggle=tab href=#cedfab role=tab aria-controls=nav-home aria-selected=true>Windows</a></div></nav><div class=tab-content id=nav-tab-content><div class="tab-pane fade show active" id=eafbcd role=tabpanel aria-labelledby=nav-1><p>This program is typically already running on macOS and Ubuntu, so
 you do not have to invoke it separately. Hence a simple add will do.</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ ssh-add
-</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=bdeafc role=tabpanel aria-labelledby=nav-1><p>On windows, you have to start the agent first so that ssh-add can be
+</code></pre></td></tr></table></div></div></div><div class="tab-pane fade show" id=cedfab role=tabpanel aria-labelledby=nav-1><p>On windows, you have to start the agent first so that ssh-add can be
 used while typing in the gitbash terminal:</p><div class=highlight><div style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><table style=border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block><tr><td style=vertical-align:top;padding:0;margin:0;border:0><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">22
 </span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">23
 </span></code></pre></td><td style=vertical-align:top;padding:0;margin:0;border:0;width:100%><pre style=background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#ce5c00;font-weight:700>(</span>ENV3<span style=color:#ce5c00;font-weight:700>)</span> you@yourlaptop $ <span style=color:#204a87>eval</span> <span style=color:#4e9a06>`</span>ssh-agent<span style=color:#4e9a06>`</span>
