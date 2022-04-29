@@ -623,8 +623,9 @@ must be replaced with '-' in the `--timezone` parameter:
 
 > `--timezone="America-Indiana-Indianapolis`  
 
-If the network name has a space in it, please use two sets of quotes:
-`"--ssid='Net Work'"`. In general, we recommend not to use any spaces
+If the network name has a space in it, please use two sets of quotes
+(with backslashes on Windows Git Bash):
+`\"'--ssid='Net Work'\"`. In general, we recommend not to use any spaces
 in network names.
 
 ```
