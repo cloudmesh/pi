@@ -266,8 +266,15 @@ As we are still developing the windows version, we need to switch to a
 specific branch with the command:
 
 ```bash {linenos=table, linenostart=13}
-(ENV3) you@yourlaptop $ cms burn branch windows
+(ENV3) you@yourlaptop $ cloudmesh-installer burn branch windows
 ```
+
+
+~~~```bash {linenos=table, linenostart=13}
+(ENV3) you@yourlaptop $ cms burn branch windows
+```~~~
+
+
 It is important that you switch to that branch as otherwise this instruction 
 will not work.
 
