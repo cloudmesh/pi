@@ -853,7 +853,9 @@ All nodes should now have `ssh` access to each other.
 
 We like to be able to login to each of the nodes in a convenient fashion, without needing
 to add the host to knownhosts. To do this we have developed a command that switches off
-StrictHostKeyChecking for all hosts. You invoke the command with
+StrictHostKeyChecking for all hosts. Before being able to issue the command, the user may
+have to switch to the windows branch of cloudmesh-inventory by `cd` to cloudmesh-inventory
+and then using `git checkout windows` and `git pull`. You invoke the command with
 
 ```bash
 (ENV3) you@yourlaptop $ cms host key access red,red0[1-4]
