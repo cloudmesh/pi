@@ -737,7 +737,7 @@ temperature values from each of the Pis.
 
 
 ```bash {linenos=table, linenostart=35}
-(ENV3) you@yourlaptop $ cms pi temp "red,red0[1-4]"
+(ENV3) you@yourlaptop $ cms pi temp red,red0[1-4]
 ```
 Which returns output in a table recording the temperatures
 
