@@ -738,6 +738,11 @@ you can use
 (ENV3) you@yourlaptop $ cms host config --local=yes red,red0[1-4] 
 ```
 
+To view the modifications use the command
+
+```bash {linenos=table, linenostart=32}
+(ENV3) you@yourlaptop $ cat ~/.ssh/config 
+```
 
 
 Optionally you can add the following to the top of your
@@ -758,7 +763,7 @@ disconnected.
 
 First, verify that you can reach the manager (red). 
 
-```bash {linenos=table, linenostart=32}
+```bash {linenos=table, linenostart=33}
 (ENV3) you@yourlaptop $ ssh red
 ...
 pi@red:~ $ exit
@@ -770,7 +775,7 @@ For this purpose, we use our build-in temperature command that reads the
 temperature values from each of the Pis.
 
 
-```bash {linenos=table, linenostart=35}
+```bash {linenos=table, linenostart=36}
 (ENV3) you@yourlaptop $ cms pi temp red,red0[1-4]
 ```
 Which returns output in a table recording the temperatures
@@ -802,7 +807,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< tab tabName="Burn_On_Windows" >}}
 
 
-```bash {linenos=table, linenostart=36}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -810,7 +815,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< /tab >}}
 
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
-```bash {linenos=table, linenostart=36}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -827,7 +832,7 @@ into each other.
 
 We first create ssh-keys for all the nodes in our cluster. 
 
-```bash {linenos=table, linenostart=36}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 ```
 
@@ -859,13 +864,13 @@ We first create ssh-keys for all the nodes in our cluster.
 
 We can subsequently gather these keys into a file.
 
-```bash {linenos=table, linenostart=37}
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
-```bash {linenos=table, linenostart=38}
+```bash {linenos=table, linenostart=39}
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
@@ -937,7 +942,7 @@ Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
 line curl command
 
-```bash {linenos=table, linenostart=39}
+```bash {linenos=table, linenostart=40}
 (ENV3) you@yourlaptop $ ssh red
 pi@red $ curl -Ls http://cloudmesh.github.io/get/pi | sh -
 ```
@@ -949,7 +954,7 @@ take several minutes to run.
 
 After a reboot, we can verify the success of the script with the following:
 
-```bash {linenos=table, linenostart=41}
+```bash {linenos=table, linenostart=42}
 (ENV3) pi@red $ cms help
 ```
 
