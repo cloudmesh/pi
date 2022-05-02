@@ -696,15 +696,49 @@ hardware and network.
 
 ### 7.1 Setting up a Proxy Jump with `cms host`
 
-While we are waiting for the Pis to boot, we can set up proxy jump on
+
+The next command depends on some information about your local network. 
+
+We need to identify if you need to use the manager as a proxy machine to the 
+worker nodes and if your host names need to be appended with .local which is 
+the case for a network that uses mDNS such as on a macOS. If you do not know 
+these values you can try out different combinations of the 
+flags and use the one that succeds.
+
+Let us assume you are not using a mesh network, then you can set up proxy jump on
 our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers. Use the following command to set
 this up:
 
 ```bash {linenos=table, linenostart=30}
 (ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
-(ENV3) you@yourlaptop $ cms host config proxy pi@red.local "red0[1-4]"
+(ENV3) you@yourlaptop $ cms host config  --proxy=red red0[1-4] 
 ```
+
+This assumes that hosts in your network are appended with .local. If this is not 
+the case you can switch it off by using the following command:
+
+```bash {linenos=table, linenostart=30}
+(ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
+(ENV3) you@yourlaptop $ cms host config  --local=no --proxy=red red0[1-4] 
+```
+
+If you are on a mesh network, it is simpler to not use a proxy machine and use the followng
+
+```bash {linenos=table, linenostart=30}
+(ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
+(ENV3) you@yourlaptop $ cms host config red,red0[1-4] 
+```
+
+However some mesh networks still require the addition of `.local`. In which case 
+you can use 
+
+```bash {linenos=table, linenostart=30}
+(ENV3) you@yourlaptop $ ssh-add -D   # just to make sure we type in the key passphrase again and do not forget it
+(ENV3) you@yourlaptop $ cms host config --local=yes red,red0[1-4] 
+```
+
+
 
 Optionally you can add the following to the top of your
 `~/.ssh/config` file. As you may have done this before, we do not
