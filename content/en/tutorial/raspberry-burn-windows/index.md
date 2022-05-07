@@ -692,18 +692,28 @@ not work after a long while, please reboot the PI that has issues and
 see if it works after the reboot.  Also, make sure you check your
 hardware and network.
 
+One of the important issues is how the PIs are named in your network. Some networks require that a `.local` 
+be added to the hostname. To find that out you can use on amchines where `arp` is available the command
+
+```bash {linenos=table, linenostart=30}
+$ cms host find
+```
+
+It will print out all Raspberry PI 4s in your network and indicate if they can be found with the `.local` 
+extension to the hostname.
 
 
 ### 7.1 Setting up a Proxy Jump with `cms host`
 
-
-The next command depends on some information about your local network.
-
 Before we start we make sure that you entered your ssh key
 
-```bash {linenos=table, linenostart=30}
+```bash {linenos=table, linenostart=31}
 (ENV3) you@yourlaptop $ ssh-add -D   
 ```
+
+
+The next command depends on if you can use the .local extension or not.local network.
+
 
 Next, we need to identify if you need to use the manager as a proxy machine to the 
 worker nodes and if your host names need to be appended with `.local` which is 
@@ -716,33 +726,33 @@ our laptop/desktop while adding it to the ssh config file. This will
 make it easier to access our workers. Use the following command to set
 this up:
 
-```bash {linenos=table, linenostart=31}
+```bash {linenos=table, linenostart=32}
 (ENV3) you@yourlaptop $ cms host config  --proxy=red red0[1-4] 
 ```
 
 This assumes that hosts in your network are appended with .local. If this is not 
 the case you can switch it off by using the following command:
 
-```bash {linenos=table, linenostart=31}
+```bash {linenos=table, linenostart=32}
 (ENV3) you@yourlaptop $ cms host config  --local=no --proxy=red red0[1-4] 
 ```
 
 If you are on a mesh network, it is simpler to not use a proxy machine and use the followng
 
-```bash {linenos=table, linenostart=31}
+```bash {linenos=table, linenostart=32}
 (ENV3) you@yourlaptop $ cms host config red,red0[1-4] 
 ```
 
 However some mesh networks still require the addition of `.local`. In which case 
 you can use 
 
-```bash {linenos=table, linenostart=31}
+```bash {linenos=table, linenostart=32}
 (ENV3) you@yourlaptop $ cms host config --local=yes red,red0[1-4] 
 ```
 
 To view the modifications use the command
 
-```bash {linenos=table, linenostart=32}
+```bash {linenos=table, linenostart=33}
 (ENV3) you@yourlaptop $ cat ~/.ssh/config 
 ```
 
@@ -765,7 +775,7 @@ disconnected.
 
 First, verify that you can reach the manager (red). 
 
-```bash {linenos=table, linenostart=33}
+```bash {linenos=table, linenostart=34}
 (ENV3) you@yourlaptop $ ssh red
 ...
 pi@red:~ $ exit
@@ -777,7 +787,7 @@ For this purpose, we use our build-in temperature command that reads the
 temperature values from each of the Pis.
 
 
-```bash {linenos=table, linenostart=36}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms pi temp red,red0[1-4]
 ```
 Which returns output in a table recording the temperatures
@@ -809,7 +819,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< tab tabName="Burn_On_Windows" >}}
 
 
-```bash {linenos=table, linenostart=37}
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -817,7 +827,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< /tab >}}
 
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
-```bash {linenos=table, linenostart=37}
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -834,7 +844,7 @@ into each other.
 
 We first create ssh-keys for all the nodes in our cluster. 
 
-```bash {linenos=table, linenostart=37}
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 ```
 
@@ -866,13 +876,13 @@ We first create ssh-keys for all the nodes in our cluster.
 
 We can subsequently gather these keys into a file.
 
-```bash {linenos=table, linenostart=38}
+```bash {linenos=table, linenostart=39}
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
-```bash {linenos=table, linenostart=39}
+```bash {linenos=table, linenostart=40}
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
