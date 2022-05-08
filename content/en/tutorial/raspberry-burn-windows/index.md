@@ -692,15 +692,19 @@ not work after a long while, please reboot the PI that has issues and
 see if it works after the reboot.  Also, make sure you check your
 hardware and network.
 
-One of the important issues is how the PIs are named in your network. Some networks require that a `.local` 
-be added to the hostname. To find that out you can use on amchines where `arp` is available the command
+One of the important issues is how the PIs are named in your network. 
+Some networks require that a `.local` be added to the hostname. 
+To find that out you can use on amchines where `arp` is available the command
 
 ```bash {linenos=table, linenostart=30}
 $ cms host find
 ```
 
-It will print out all Raspberry PI 4s in your network and indicate if they can be found with the `.local` 
-extension to the hostname.
+In case you use a mesh network, it will print out all Raspberry PI 4s in your 
+network and indicate if they can be found with the `.local` 
+extension to the hostname. In case you use a static network it will return 
+the manager node and indicate if the nodename needs to be appended with `.local` 
+or not.
 
 
 ### 7.1 Setting up a Proxy Jump with `cms host`
