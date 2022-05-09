@@ -294,11 +294,12 @@ ssh-agent in your terminal.
 {{< tab tabName="macOS_Linux_Raspberry_OS" >}}
 
 This program is typically already running on macOS and Ubuntu, so 
-you do not have to invoke it separately. Hence a simple add will do.
+you do not have to invoke it separately. Hence a simple ssh-add will do.
 However if the console says `Could not open a connection to your
-authentication agent`, then first do ``eval `ssh-agent```
+authentication agent`, then first do the eval as shown in the following:
 
 ```bash {linenos=table, linenostart=22}
+(ENV3) you@yourlaptop $ eval `ssh-agent`
 (ENV3) you@yourlaptop $ ssh-add
 ```
 
