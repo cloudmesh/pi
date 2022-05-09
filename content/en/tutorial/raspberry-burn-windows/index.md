@@ -3,7 +3,7 @@ date: 2022-04-03
 title: "DRAFT: Burning a pre-configured Raspberry PI OS Cluster"
 linkTitle: "DRAFT: Burning a Preconfigured Pi Cluster from your OS (not approved yet)"
 description: "A comprehensive tutorial of burning a Raspberry OS cluster with internet access"
-author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io), Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli)
+author: Gregor von Laszewski ([laszewski@gmail.com](mailto:laszewski@gmail.com)) [laszewski.github.io](https://laszewski.github.io)
 draft: False
 resources:
 - src: "**.{png,jpg}"
@@ -1237,4 +1237,6 @@ Many tutorials are available at
 * [piplanet.org/tutorial](https://cloudmesh.github.io/pi/tutorial/)
 
 
+## Acknowledgement
 
+We would like to thank Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli) for his contributions to this project.
