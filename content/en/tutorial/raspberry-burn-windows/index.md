@@ -720,7 +720,8 @@ or not.
 
 ### 7.1 Setting up a Proxy Jump with `cms host`
 
-Before we start we make sure that you entered your ssh key
+Before we start we make sure that you entered your ssh key. Naturally you need to have your ssh-agent 
+running as discussed before.
 
 ```bash {linenos=table, linenostart=31}
 (ENV3) you@yourlaptop $ ssh-add -D ; ssh-add   
