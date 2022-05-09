@@ -579,7 +579,15 @@ Verify the device name  with `cms burn info`
 
 {{< /notice >}}
 
+{{< notice note >}}
 
+If you use a mesh network you will have to add the option
+
+`--network=mesh`
+
+to the burn command.
+
+{{< /notice >}}
 
 ```bash 
 29 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
