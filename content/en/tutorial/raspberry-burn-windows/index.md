@@ -723,7 +723,7 @@ or not.
 Before we start we make sure that you entered your ssh key
 
 ```bash {linenos=table, linenostart=31}
-(ENV3) you@yourlaptop $ ssh-add -D   
+(ENV3) you@yourlaptop $ ssh-add -D ; ssh-add   
 ```
 
 
