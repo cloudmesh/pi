@@ -1239,4 +1239,4 @@ Many tutorials are available at
 
 ## Acknowledgement
 
-We would like to thank Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli) for his contributions to this project.
+We would like to thank Venkata (DK) Kolli [github.com/dkkolli](https://github.com/dkkolli) for his contributions to this project. The timezone preference was contributed by him. However, it is not working when burning is conducted from a PI.
