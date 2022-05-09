@@ -727,9 +727,7 @@ running as discussed before.
 (ENV3) you@yourlaptop $ ssh-add -D ; ssh-add   
 ```
 
-
 The next command depends on if you can use the .local extension or not.local network.
-
 
 Next, we need to identify if you need to use the manager as a proxy machine to the 
 worker nodes and if your host names need to be appended with `.local` which is 
