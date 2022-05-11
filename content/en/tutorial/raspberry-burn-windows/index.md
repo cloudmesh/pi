@@ -820,9 +820,12 @@ Which returns output in a table recording the temperatures
 
 By receiving this information from our devices, we have confirmed our access.
 If you receive the error `ERROR: not enough values to unpack (expected 2, got 0)`
-then delete your `~/.ssh/config` file and try the different `cms host config`
-commands individually, until temp returns all the nodes' temperatures (instead
-of 0 which indicates missing/offline node or that host cannot connect).
+then delete the proxy config inside `~/.ssh/config` file (either with nano,
+Notepad++, or even delete the file with `rm ~/.ssh/config` if you do not have any
+other important preexisting configs done outside the scope of this project.  
+Then, try the different `cms host config` commands individually as shown in section
+7.1, until temp returns all the nodes' temperatures (instead of 0 which indicates 
+missing/offline node or that host cannot connect).
 
 
 ### 7.3 Setting up keys on each PI worker
