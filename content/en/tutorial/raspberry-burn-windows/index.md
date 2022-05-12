@@ -790,9 +790,8 @@ disconnected.
 First, verify that you can reach the manager (red). 
 
 ```bash {linenos=table, linenostart=34}
-(ENV3) you@yourlaptop $ ssh red
-...
-pi@red:~ $ exit
+(ENV3) you@yourlaptop $ ssh red hostname
+red
 ```
 
 Next we want to execute a more advanced program that retrieves the
@@ -801,7 +800,7 @@ For this purpose, we use our build-in temperature command that reads the
 temperature values from each of the Pis.
 
 
-```bash {linenos=table, linenostart=37}
+```bash {linenos=table, linenostart=36}
 (ENV3) you@yourlaptop $ cms pi temp red,red0[1-4]
 ```
 Which returns output in a table recording the temperatures
@@ -840,7 +839,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< tab tabName="Burn_On_Windows" >}}
 
 
-```bash {linenos=table, linenostart=38}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -848,7 +847,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 {{< /tab >}}
 
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
-```bash {linenos=table, linenostart=38}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
@@ -865,7 +864,7 @@ into each other.
 
 We first create ssh-keys for all the nodes in our cluster. 
 
-```bash {linenos=table, linenostart=38}
+```bash {linenos=table, linenostart=37}
 (ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
 ```
 
@@ -897,13 +896,13 @@ We first create ssh-keys for all the nodes in our cluster.
 
 We can subsequently gather these keys into a file.
 
-```bash {linenos=table, linenostart=39}
+```bash {linenos=table, linenostart=38}
 (ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
-```bash {linenos=table, linenostart=40}
+```bash {linenos=table, linenostart=39}
 (ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
 ```
 
