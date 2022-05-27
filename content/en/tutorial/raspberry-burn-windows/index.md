@@ -549,20 +549,20 @@ to the burn command.
 
 ```bash 
 29 (ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" \
-                                         --password=myloginpassword \
+                                         --password=cloudmesh4me \
                                          --disk=101X \ 
                                          --new \
                                          --locale=en_US.UTF-8 \
                                          --timezone="America-Indiana-Indianapolis" \
-                                         --ssid=NETWORK \
-                                         --wifipassword=mywifipassword \
+                                         --ssid=MYNETWORK \
+                                         --wifipassword=MYWIFIPASSWORD \
                                          --tag=latest-lite-64
 ```
 
 or as one-liner
 
 ```bash {linenos=table, linenostart=29}
-(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=cludmesh4me --disk=101X --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=w350 --wifipassword=MYPASSWORD --tag=latest-lite-64
+(ENV3) (admin) you@yourlaptop $ cms burn raspberry "red,red0[1-4]" --password=cloudmesh4me --disk=101X --new --locale="en_US.UTF-8" --timezone="America-Indiana-Indianapolis" --ssid=MYNETWORK --wifipassword=MYWIFIPASSWORD --tag=latest-lite-64
 ```
 
 On Windows, it will not autodetect the SSID, WIFI password, locale, or
