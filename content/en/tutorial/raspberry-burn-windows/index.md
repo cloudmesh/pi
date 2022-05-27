@@ -262,16 +262,6 @@ install of our convenient `cloudmesh-installer` and the creation of a
 This directory will now contain all source code. It will also have
 installed the needed `cms` command.
 
-As we are still developing the windows version, we need to switch to a
-specific branch with the command:
-
-```bash {linenos=table, linenostart=13}
-(ENV3) you@yourlaptop $ cloudmesh-installer burn --branch windows
-```
-
-It is important that you switch to that branch as otherwise this instruction 
-will not work.
-
 ### 5.4 Create an SSH key
 
 We use ssh to easily log in to the manager and worker nodes from the
