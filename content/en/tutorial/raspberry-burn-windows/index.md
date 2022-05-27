@@ -820,9 +820,11 @@ missing/offline node or that host cannot connect).
 ### 7.3 Setting up keys on each PI worker
 
 To set up keys on each PI so we can login from one PI to another, we
-can use our `create`/`gather`/`sactter` commands. First, we need to
+can use our `create`/`gather`/`scatter`/`access` commands. First, we need to
 create a key on the workers and manager. Then we gather all keys and
-scatter them on all PIs. The sequence of commands is as follows:
+scatter them on all PIs. We also set up a configuration file located at 
+.ssh/config on each one of the hosts. The sequence of commands is as 
+follows:
 
 {{< tabs tabTotal="2" tabLeftAlign="2">}}
 
@@ -833,6 +835,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 (ENV3) you@yourlaptop $ cms host key create red,red0[1-4]
 (ENV3) you@yourlaptop $ cms host key gather red,red0[1-4]
 (ENV3) you@yourlaptop $ cms host key scatter red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4]
 ```
 {{< /tab >}}
 
@@ -841,6 +844,7 @@ scatter them on all PIs. The sequence of commands is as follows:
 (ENV3) you@yourlaptop $ cms host key create red,red0[1-4]
 (ENV3) you@yourlaptop $ cms host key gather red,red0[1-4]
 (ENV3) you@yourlaptop $ cms host key scatter red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key access red,red0[1-4]
 ```
 {{< /tab >}}
 {{< /tabs >}}
@@ -911,8 +915,6 @@ host key scatter red,red0[1-4]
 
 All nodes should now have `ssh` access to each other.
 
-### 7.4 Activate No StrictHostKeyChecking
-
 We like to be able to login to each of the nodes in a convenient fashion, without needing
 to add the host to knownhosts. To do this we have developed a command that switches off
 StrictHostKeyChecking for all hosts. Before being able to issue the command, the user may
@@ -958,7 +960,7 @@ Now you can invoke the command with:
 (ENV3) you@yourlaptop $ cms host key access red,red0[1-4] subnet.conf
 ```
 
-### 7.5 Installing `cms` on a Pi
+### 7.4 Installing `cms` on a Pi
 
 Cloudmesh provides some very useful commands. Hence it can be of
 advantage to install it on the PIs. This is very simple with a onle
