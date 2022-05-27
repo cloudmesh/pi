@@ -840,17 +840,17 @@ scatter them on all PIs. The sequence of commands is as follows:
 
 
 ```bash {linenos=table, linenostart=37}
-(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]"
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]"
+(ENV3) you@yourlaptop $ cms host key create red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key gather red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key scatter red,red0[1-4]
 ```
 {{< /tab >}}
 
 {{< tab tabName="Burn_On_Mac_Linux_Raspbian_OS 64-bit" >}}
 ```bash {linenos=table, linenostart=37}
-(ENV3) you@yourlaptop $ cms host key create "red,red0[1-4]"
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]"
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]"
+(ENV3) you@yourlaptop $ cms host key create red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key gather red,red0[1-4]
+(ENV3) you@yourlaptop $ cms host key scatter red,red0[1-4]
 ```
 {{< /tab >}}
 {{< /tabs >}}
@@ -897,17 +897,17 @@ We first create ssh-keys for all the nodes in our cluster.
 We can subsequently gather these keys into a file.
 
 ```bash {linenos=table, linenostart=38}
-(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key gather "red,red0[1-4]"
 ```
 
 And then Scatter them to the `authorized_keys` of our nodes.
 
 ```bash {linenos=table, linenostart=39}
-(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]" ~/.ssh/cluster_red_keys
+(ENV3) you@yourlaptop $ cms host key scatter "red,red0[1-4]"
 ```
 
 ```
-host key scatter red,red0[1-4] /Users/richie/.ssh/cluster_red_keys
+host key scatter red,red0[1-4]
 +-------+---------+--------+
 | host  | success | stdout |
 +-------+---------+--------+
